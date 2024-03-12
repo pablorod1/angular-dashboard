@@ -1,0 +1,157 @@
+<p-sidebar [(visible)]="sidebarVisible">
+  <ng-template pTemplate="headless">
+    <div class="sidebar">
+      <div class="header pt-4 px-4 d-flex justify-content-between align-items-center">
+        <div class="header d-flex justify-content-between">
+          <img src="../../../assets/angular-logo.webp" alt="Angular Logo" style="width: 15%;">
+          <div class="right-container">
+            <button type="button" class="btn"><i class="bi bi-bell"></i></button>
+            <button type="button" class="btn"><i class="bi bi-person-circle"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="user-container pt-5">
+        <div class="img-container">
+          <img class="profile-picture" src="../../../assets/profile-picture.webp" alt="Profile Picture">
+        </div>
+        <div class="user-info text-center mt-3">
+          <h4 class="m-0">Javier Martínez</h4>
+          <small>javiermartinez&commat;lucentialab.es</small>
+        </div>
+      </div>
+      <div class="body mt-5 px-4">
+        <div class="list-container">
+          <div class="title">
+            <h3> Dashboards </h3>
+            <small> Dashboard Designs </small>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-clipboard"></i> Project </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-graph-up"></i> Analytics </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-currency-exchange"></i> Finance </a></li>
+          </ul>
+        </div>
+        <div class="list-container py-4">
+          <div class="title">
+            <h3> Applications </h3>
+            <small> Application Designs </small>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-journal-bookmark"></i> Courses </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-chat"></i> Chat </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-people"></i> Contacts </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-cart3"></i> ECommerce </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-cloud"></i> File Manager </a></li>
+            <li class="nav-item" (click)="toggleHelpCenter()" [attr.aria-expanded]="isHelpCenterVisible ? 'true' : 'false'"><a role="button"><i class="me-3 bi bi-info-circle"></i> Help Center <i class="bi bi-caret-right-fill arrow"></i> </a>
+              <ul class="list-unstyled submenu"  [class.open]="isHelpCenterVisible">
+                <li class="nav-item"><a role="button"> Home </a></li>
+                <li class="nav-item"><a role="button"> FAQs </a></li>
+                <li class="nav-item"><a role="button"> Support </a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-envelope"></i> Mailbox </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-pencil-square"></i> Notes </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-card-checklist"></i> Scrumboard </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-journal-check"></i> Tasks </a></li>
+          </ul>
+        </div>
+        <div class="list-container py-4">
+          <div class="title">
+            <h3> Pages </h3>
+            <small> Example Pages Designs </small>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-person-lines-fill"></i> Activities </a></li>
+            <li class="nav-item" (click)="toggleAuth()" [attr.aria-expanded]="isAuthVisible ? 'true' : 'false'"><a role="button"><i class="me-3 bi bi-lock"></i> Authentication <i class="bi bi-caret-right-fill arrow"></i> </a>
+              <ul class="list-unstyled submenu"  [class.open]="isAuthVisible">
+                <li class="nav-item" (click)="toggleSignIn($event)" [attr.aria-expanded]="isSignInVisible ? 'true': 'false'">
+                  <a role="button"> Sign In </a>
+                  <ul class="list-unstyled submenu" [class.open]="isSignInVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleSignUp($event)" [attr.aria-expanded]="isSignUpVisible ? 'true': 'false'">
+                  <a role="button"> Sign Up </a>
+                  <ul class="list-unstyled submenu" [class.open]="isSignUpVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleSignOut($event)" [attr.aria-expanded]="isSignOutVisible ? 'true': 'false'">
+                  <a role="button"> Sign Out </a>
+                  <ul class="list-unstyled submenu" [class.open]="isSignOutVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleForgot($event)" [attr.aria-expanded]="isForgotVisible ? 'true': 'false'">
+                  <a role="button"> Forgot Password </a>
+                  <ul class="list-unstyled submenu" [class.open]="isForgotVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleReset($event)" [attr.aria-expanded]="isResetVisible ? 'true': 'false'">
+                  <a role="button"> Reset Password </a>
+                  <ul class="list-unstyled submenu" [class.open]="isResetVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleUnlock($event)" [attr.aria-expanded]="isUnlockVisible ? 'true': 'false'">
+                  <a role="button"> Unlock Session </a>
+                  <ul class="list-unstyled submenu" [class.open]="isUnlockVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+                <li class="nav-item" (click)="toggleConfirmation($event)" [attr.aria-expanded]="isConfirmationVisible ? 'true': 'false'">
+                  <a role="button"> Confirmation Required </a>
+                  <ul class="list-unstyled submenu" [class.open]="isConfirmationVisible">
+                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button"> Modern </a></li>
+                    <li class="nav-item"><a role="button"> Full Screen </a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item" (click)="toggleComing($event)" [attr.aria-expanded]="isComingVisible ? 'true' : 'false'">
+              <a role="button"><i class="me-3 bi bi-clock"></i> Coming Soon <i class="bi bi-caret-right-fill arrow"></i></a>
+              <ul class="list-unstyled submenu" [class.open]="isComingVisible">
+                <li class="nav-item"><a role="button"> Classic </a></li>
+                <li class="nav-item"><a role="button"> Modern </a></li>
+                <li class="nav-item"><a role="button"> Full Screen </a></li>
+              </ul>
+            </li>
+            <li class="nav-item" (click)="toggleError($event)" [attr.aria-expanded]="isErrorVisible ? 'true' : 'false'">
+              <a role="button"><i class="me-3 bi bi-exclamation-circle"></i> Error <i class="bi bi-caret-right-fill arrow"></i> </a>
+              <ul class="list-unstyled submenu" [class.open]="isErrorVisible">
+                <li class="nav-item"><a role="button"> 404 </a></li>
+                <li class="nav-item"><a role="button"> 500 </a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-receipt-cutoff"></i> Invoice  </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-exclamation-triangle"></i> Maintenance </a></li>
+            <li class="nav-item" (click)="togglePricing($event)" [attr.aria-expanded]="isPricingVisible ? 'true' : 'false'">
+              <a role="button"><i class="me-3 bi bi-cash-stack"></i> Pricing <i class="bi bi-caret-right-fill arrow"></i></a>
+              <ul class="list-unstyled submenu" [class.open]="isPricingVisible">
+                <li class="nav-item"><a role="button"> Classic </a></li>
+                <li class="nav-item"><a role="button"> Table </a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-person-circle"></i> Profile </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-gear"></i> Settings </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-sidebar>
+<button type="button" class="btn" (click)="sidebarVisible = true"><i class="pi pi-bars"></i></button>

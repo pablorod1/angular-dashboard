@@ -1,0 +1,15 @@
+.form-control{
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Efecto de sombra */
+  outline: none; /* Eliminar borde de enfoque */
+  font-size: 25px;
+  font-weight: 300;
+}
+.form-control::placeholder{
+  font-size: 25px;
+  font-weight: 400;
+  opacity: 70%;
+}
+.form-control:focus, .form-control:not(:focus){
+  border: 0;
+}
