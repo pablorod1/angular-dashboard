@@ -1,0 +1,19 @@
+<button #btn (click)="menu.toggle($event)" type="button" class="btn"><i class="bi bi-person-circle"><span [ngClass]="{
+  'badge-online': userStatus === 'online',
+  'badge-away': userStatus === 'away',
+  'badge-busy': userStatus === 'busy',
+  'badge-invisible': userStatus === 'invisible'
+}"></span></i></button>
+<p-tieredMenu #menu [model]="items"  [style]="{ width: 'fit-content'}" [popup]="true" class="custom-menu">
+  <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+    <a class="p-menuitem-link">
+      <span [class]="item.icon" class="bi"></span>
+      <div class="container">
+        <span *ngIf="item.badge" pBadge [severity]="item.severity"></span>
+        <span>{{ item.label }}</span>
+        <small *ngIf="item.description"><strong>{{ item.description }}</strong></small>
+      </div>
+      <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+    </a>
+  </ng-template>
+</p-tieredMenu>

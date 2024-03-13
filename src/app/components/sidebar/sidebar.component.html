@@ -3,10 +3,10 @@
     <div class="sidebar">
       <div class="header pt-4 px-4 d-flex justify-content-between align-items-center">
         <div class="header d-flex justify-content-between">
-          <img src="../../../assets/angular-logo.webp" alt="Angular Logo" style="width: 15%;">
+          <img src="../../../assets/angular-logo.webp" alt="Angular Logo" style="width: 18%;">
           <div class="right-container">
-            <button type="button" class="btn"><i class="bi bi-bell"></i></button>
-            <button type="button" class="btn"><i class="bi bi-person-circle"></i></button>
+            <app-notifications-menu></app-notifications-menu>
+            <app-profile-menu></app-profile-menu>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
                 <li class="nav-item" (click)="toggleSignIn($event)" [attr.aria-expanded]="isSignInVisible ? 'true': 'false'">
                   <a role="button"> Sign In </a>
                   <ul class="list-unstyled submenu" [class.open]="isSignInVisible">
-                    <li class="nav-item"><a role="button"> Classic </a></li>
+                    <li class="nav-item"><a role="button" href="/signin-classic"> Classic </a></li>
                     <li class="nav-item"><a role="button"> Modern </a></li>
                     <li class="nav-item"><a role="button"> Full Screen </a></li>
                   </ul>

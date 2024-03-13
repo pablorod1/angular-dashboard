@@ -1,0 +1,36 @@
+<button type="button" (click)="overlayPanel.toggle($event)" class="btn"><i class="bi bi-bell" ><span *ngIf="readedCount > 0" pBadge value={{readedCount}}></span> </i></button>
+<p-overlayPanel #overlayPanel [style]="{ width: '370px'}">
+  <ng-template pTemplate="content">
+    <header class="header">
+      <h3 class="m-0">Notifications</h3>
+      <button (click)="markAllAsReaded()" type="button" [disabled]="readedCount === 0" class="btn" [pTooltip]="'Mark all as read'" tooltipPosition="top"><i
+          class="bi" [ngClass]="{'bi-envelope-open': readedCount > 0, 'bi-envelope' : readedCount === 0}"></i></button>
+    </header>
+    <div class="notifications p-2">
+      <a *ngFor="let notification of notifications; index as i" role="button" class="notification">
+        <div class="row d-flex align-items-start py-3">
+          <div class="col-2 icon-container">
+            <img class="profile-picture" *ngIf="notification.img" [src]="notification.img" alt="Profile Picture">
+            <i *ngIf="notification.icon" class="bi" [ngClass]="notification.icon"></i>
+          </div>
+          <div class="col-8 notification-content">
+            <span *ngIf="notification.sender"><strong>{{ notification.sender }}</strong> {{ notification.message }}</span>
+            <div class="notification-title" *ngIf="notification.title">
+              <strong>{{ notification.title }}</strong>
+              <span>{{ notification.message }}</span>
+            </div>
+            <small class="text-muted">{{ notification.timestamp }}</small>
+          </div>
+          <div class="col-2 btn-container">
+            <button *ngIf="!notification.readed" (click)="markAsRead(notification)" type="button" class="btn unreaded" [pTooltip]="'Mark as read'" tooltipPosition="bottom"><span pBadge
+                style="font-size: 2px;"></span></button>
+            <button (click)="markAsUnread(notification)" *ngIf="notification.readed" type="button" class="btn readed" [pTooltip]="'Mark as unread'" tooltipPosition="bottom"><span pBadge
+                style="font-size: 2px;" severity="success"></span></button>
+            <button type="button" class="btn remove-btn" (click)="removeNotification(notification)"
+              [pTooltip]="'Remove'" tooltipPosition="bottom"><i class="bi bi-x"></i></button>
+          </div>
+        </div>
+      </a>
+    </div>
+  </ng-template>
+</p-overlayPanel>

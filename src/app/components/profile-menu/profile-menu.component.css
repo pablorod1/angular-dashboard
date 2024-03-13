@@ -1,0 +1,66 @@
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep ul{
+  padding-left: 0 !important;
+}
+
+.p-menuitem-link{
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+  text-decoration: none;
+  color: #4b5563;
+  transition: background-color 0.3s;
+}
+
+::ng-deep .custom-menu {
+  /* Add your styles here */
+  border-radius: 10px !important;
+}
+
+.badge-online {
+  background-color: #28a745; /* green for online */
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  right: 5px;
+}
+
+.badge-away {
+  background-color: #ffc107; /* yellow for away */
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  right: 5px;
+}
+
+.badge-busy {
+  background-color: #dc3545; /* red for busy */
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  right: 5px;
+}
+
+.badge-invisible {
+  background-color: #6c757d; /* grey for invisible */
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  right: 5px;
+}
