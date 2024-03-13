@@ -12,6 +12,9 @@ import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 
+// Angular Material Modules
+import { MatDividerModule } from '@angular/material/divider';
+
 // Components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +47,8 @@ import { UnlockModernComponent } from './pages/authentication/unlock-session/unl
 import { ConfirmationClassicComponent } from './pages/authentication/confirmation/confirmation-classic/confirmation-classic.component';
 import { ConfirmationModernComponent } from './pages/authentication/confirmation/confirmation-modern/confirmation-modern.component';
 import { ConfirmationFullscreenComponent } from './pages/authentication/confirmation/confirmation-fullscreen/confirmation-fullscreen.component';
+import { MessageMenuComponent } from './components/message-menu/message-menu.component';
+import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-menu.component';
 
 
 
@@ -78,6 +83,8 @@ import { ConfirmationFullscreenComponent } from './pages/authentication/confirma
     ConfirmationClassicComponent,
     ConfirmationModernComponent,
     ConfirmationFullscreenComponent,
+    MessageMenuComponent,
+    ShortcutsMenuComponent,
 
   ],
   imports: [
@@ -92,6 +99,7 @@ import { ConfirmationFullscreenComponent } from './pages/authentication/confirma
     BadgeModule,
     MenuModule,
     TieredMenuModule,
+    MatDividerModule,
   ],
   providers: [
     provideClientHydration(),

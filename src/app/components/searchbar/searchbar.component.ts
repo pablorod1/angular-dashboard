@@ -8,10 +8,8 @@ import { Component } from '@angular/core';
 export class SearchbarComponent {
   visible: boolean = false;
 
-  position: string = 'center';
 
-  showDialog(position: string) {
-      this.position = position;
-      this.visible = true;
+  showDialog() {
+      this.visible = !this.visible;
   }
 }

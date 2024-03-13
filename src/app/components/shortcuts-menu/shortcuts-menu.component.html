@@ -1,0 +1,24 @@
+<button type="button" (click)="overlayPanel.toggle($event)" class="btn"><i class="bi bi-copy"> </i></button>
+<p-overlayPanel #overlayPanel [style]="{ width: '370px'}">
+  <ng-template pTemplate="content">
+    <header class="header">
+      <h3 class="m-0"> Shortcuts </h3>
+      <div class="btn-container">
+        <button  type="button"  class="btn" [pTooltip]="'Enter Edit Mode'" tooltipPosition="top"><i class="bi bi-pencil"></i></button>
+        <button  type="button"  class="btn" [pTooltip]="'Add Shortcut'" tooltipPosition="top"><i class="bi bi-plus-circle"></i></button>
+      </div>
+    </header>
+    <div class="notifications p-2">
+      <div class="row">
+        <a *ngFor="let shortcut of shortcuts; index as i" role="button" class="col-6 shortcut">
+
+        </a>
+      </div>
+      <!-- <div class="empty-container text-center" *ngIf="shortcuts.length === 0">
+        <i class="bi bi-send-fill mb-4"></i>
+        <span class="mb-1">No Messages</span>
+        <small class="p-2">When you receive a message, it will appear here</small>
+      </div> -->
+    </div>
+  </ng-template>
+</p-overlayPanel>

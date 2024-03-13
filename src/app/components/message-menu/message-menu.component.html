@@ -1,0 +1,41 @@
+<button type="button" (click)="overlayPanel.toggle($event)" class="btn"><i class="bi bi-send"><span
+      *ngIf="readedCount > 0" pBadge severity="danger" value={{readedCount}}></span> </i></button>
+<p-overlayPanel #overlayPanel [style]="{ width: '370px'}">
+  <ng-template pTemplate="content">
+    <header class="header">
+      <h3 class="m-0"> Messages </h3>
+      <button (click)="markAllAsReaded()" type="button" [disabled]="readedCount === 0" class="btn"
+        [pTooltip]="'Mark all as read'" tooltipPosition="left"><i class="bi"
+          [ngClass]="{'bi-send-check': readedCount > 0, 'bi-send' : readedCount === 0}"></i></button>
+    </header>
+    <div class="notifications p-2">
+      <a *ngFor="let notification of notifications; index as i" role="button" class="notification">
+        <div class="row d-flex align-items-start py-3">
+          <div class="col-2 icon-container">
+            <img class="profile-picture" [src]="notification.img" alt="Profile Picture">
+          </div>
+          <div class="col-8 notification-content">
+            <span class="title"><strong>{{ notification.sender }}</strong></span>
+            <span class="message">{{ notification.message }}</span>
+            <small class="timestamp text-muted">{{ notification.timestamp }}</small>
+          </div>
+          <div class="col-2 btn-container">
+            <button *ngIf="!notification.readed" (click)="markAsRead(notification)" type="button" class="btn unreaded"
+              [pTooltip]="'Mark as read'" tooltipPosition="bottom"><span pBadge style="font-size: 2px;"></span></button>
+            <button (click)="markAsUnread(notification)" *ngIf="notification.readed" type="button" class="btn readed"
+              [pTooltip]="'Mark as unread'" tooltipPosition="bottom"><span pBadge style="font-size: 2px;"
+                severity="success"></span></button>
+            <button type="button" class="btn remove-btn" (click)="removeNotification(notification)"
+              [pTooltip]="'Remove'" tooltipPosition="bottom"><i class="bi bi-x"></i></button>
+          </div>
+        </div>
+        <mat-divider *ngIf="i !== notifications.length - 1"></mat-divider>
+      </a>
+      <div class="empty-container text-center" *ngIf="notifications.length === 0">
+        <i class="bi bi-send-fill mb-4"></i>
+        <span class="mb-1">No Messages</span>
+        <small class="p-2">When you receive a message, it will appear here</small>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>
