@@ -11,7 +11,7 @@ export class ShortcutsMenuComponent {
       title: 'Mailbox',
       description: '5 new e-mails',
       icon: 'bi-envelope',
-      url: ''
+      url: '/mailbox'
     },
     {
       title: 'Tasks',
@@ -32,7 +32,6 @@ export class ShortcutsMenuComponent {
     },
     {
       title: 'Log Out',
-      description: 'Log out of the system',
       icon: 'bi-box-arrow-right',
       url: ''
     }

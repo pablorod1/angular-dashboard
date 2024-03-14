@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //Primeng Modules
 import { SidebarModule } from 'primeng/sidebar';
@@ -14,6 +15,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +51,7 @@ import { ConfirmationModernComponent } from './pages/authentication/confirmation
 import { ConfirmationFullscreenComponent } from './pages/authentication/confirmation/confirmation-fullscreen/confirmation-fullscreen.component';
 import { MessageMenuComponent } from './components/message-menu/message-menu.component';
 import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-menu.component';
+import { MailboxComponent } from './pages/mailbox/mailbox.component';
 
 
 
@@ -85,6 +88,7 @@ import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-me
     ConfirmationFullscreenComponent,
     MessageMenuComponent,
     ShortcutsMenuComponent,
+    MailboxComponent,
 
   ],
   imports: [
@@ -100,6 +104,8 @@ import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-me
     MenuModule,
     TieredMenuModule,
     MatDividerModule,
+    MatIconModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration(),

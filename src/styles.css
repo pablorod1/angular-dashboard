@@ -41,3 +41,10 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
   background: #1a322f !important;
   color: #ded7cf;
 }
+
+.section{
+  display: block;
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  background-color: #f9f9f9;
+}

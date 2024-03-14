@@ -10,7 +10,7 @@
       <a *ngFor="let notification of notifications; index as i" role="button" class="notification">
         <div class="row d-flex align-items-start py-3">
           <div class="col-2 icon-container">
-            <img class="profile-picture" *ngIf="notification.img" [src]="notification.img" alt="Profile Picture">
+            <img class="profile-picture" *ngIf="notification.img" [src]="notification.img" alt="Profile Picture" loading="lazy">
             <i *ngIf="notification.icon" class="bi" [ngClass]="notification.icon"></i>
           </div>
           <div class="col-8 notification-content">

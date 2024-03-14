@@ -25,6 +25,8 @@ import { UnlockClassicComponent } from './pages/authentication/unlock-session/un
 import { UnlockModernComponent } from './pages/authentication/unlock-session/unlock-modern/unlock-modern.component';
 import { UnlockFullscreenComponent } from './pages/authentication/unlock-session/unlock-fullscreen/unlock-fullscreen.component';
 
+//MailBox
+import { MailboxComponent } from './pages/mailbox/mailbox.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -35,13 +37,13 @@ const routes: Routes = [
   {path: 'confirmation-modern', component: ConfirmationModernComponent},
   {path: 'confirmation-fullscreen', component: ConfirmationFullscreenComponent},
   // Forgot Password Paths
-  {path: 'forgot-pass-classic', component: ForgotPassClassicComponent},
-  {path: 'forgot-pass-modern', component: ForgotPassModernComponent},
-  {path: 'forgot-pass-fullscreen', component: ForgotPassFullscreenComponent},
+  {path: 'forgot-classic', component: ForgotPassClassicComponent},
+  {path: 'forgot-modern', component: ForgotPassModernComponent},
+  {path: 'forgot-fullscreen', component: ForgotPassFullscreenComponent},
   // Reset Password Paths
-  {path: 'reset-pass-classic', component: ResetPassClassicComponent},
-  {path: 'reset-pass-modern', component: ResetPassModernComponent},
-  {path: 'reset-pass-fullscreen', component: ResetPassFullscreenComponent},
+  {path: 'reset-classic', component: ResetPassClassicComponent},
+  {path: 'reset-modern', component: ResetPassModernComponent},
+  {path: 'reset-fullscreen', component: ResetPassFullscreenComponent},
   // Signin Paths
   {path: 'signin-classic', component: SigninClassicComponent},
   {path: 'signin-modern', component: SigninModernComponent},
@@ -57,8 +59,10 @@ const routes: Routes = [
   // Unlock Session Paths
   {path: 'unlock-classic', component: UnlockClassicComponent},
   {path: 'unlock-modern', component: UnlockModernComponent},
-  {path: 'unlock-fullscreen', component: UnlockFullscreenComponent}
-
+  {path: 'unlock-fullscreen', component: UnlockFullscreenComponent},
+  // Coming Soon Paths
+  // MailBox Path
+  {path: 'mailbox', component: MailboxComponent},
 ];
 
 @NgModule({

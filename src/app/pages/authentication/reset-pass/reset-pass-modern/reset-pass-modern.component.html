@@ -1,1 +1,78 @@
-<p>reset-pass-modern works!</p>
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="col-6">
+          <div class="card-header">
+            <div class="icon-container">
+              <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo"
+                loading="lazy" />
+            </div>
+            <div class="title-header">
+              <h2 class="title">Sign Up</h2>
+              <small class="title-2">Already have an account? <a class="sign-in" href="/signin-modern">Sign in</a></small>
+            </div>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+              <!--Current Password-->
+              <div class="form-floating py-2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Current Password"
+                  formControlName="password"
+                  [ngClass]="{'is-invalid' : resetForm.get('password')?.errors?.['required'] && submitted}"
+                  [ngClass]="{'is-valid' : resetForm.get('password')?.valid}">
+                <label for="floatingPassword"> Current Password </label>
+                <small class="text-danger" *ngIf="
+                      resetForm.get('password')?.errors?.['required'] &&
+                      submitted
+                    ">
+                  Current Password required.
+                </small>
+              </div>
+              <!--New Password-->
+              <div class="form-floating py-2">
+                <input type="password" class="form-control" id="floatingNewPassword" placeholder="New Password"
+                  formControlName="newPassword"
+                  [ngClass]="{'is-invalid' : resetForm.get('newPassword')?.invalid && submitted}"
+                  [ngClass]="{'is-valid' : resetForm.get('newPassword')?.valid}">
+                <label for="floatingNewPassword"> New Password </label>
+                <small class="text-danger" *ngIf="
+                      resetForm.get('newPassword')?.invalid &&
+                      submitted
+                    ">
+                  Password must be at least 6 characters.
+                </small>
+              </div>
+              <!--Confirm Password-->
+              <div class="form-floating py-2">
+                <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
+                  formControlName="confirmPassword"
+                  [ngClass]="{'is-invalid': !resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
+                  [ngClass]="{'is-valid': resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
+                <label for="floatingConfirmPassword"> Confirm Password </label>
+                <small class="text-danger" *ngIf="
+                      resetForm.errors?.['passwordNoMatch'] &&
+                      submitted
+                    ">
+                  Passwords don't match.
+                </small>
+              </div>
+              <!--Submit Button-->
+              <div class="btn-container py-3">
+                <button type="submit" class="btn submit-btn">Reset Password</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-6 right-container">
+          <div class="right-content m-2">
+            <h2 class="title">Welcome to Angular</h2>
+            <p class="description">
+              Enter your personal details and start your journey with us.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

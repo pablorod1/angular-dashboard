@@ -1,1 +1,120 @@
-<p>signup-fullscreen works!</p>
+<div class="container-fluid w-100">
+  <div class="row w-100">
+    <div class="px-5 col-md-6 d-flex justify-content-center" style="flex-direction:column;">
+      <div class="header text-end">
+        <div class="icon-container">
+          <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
+        </div>
+        <div class="title-header">
+          <h2 class="title">Sign Up</h2>
+          <small class="title-2">Already have an account? <a class="sign-in" href="signin-fullscreen">Sign in</a></small>
+        </div>
+      </div>
+      <div class="body d-flex justify-content-end">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <!--Name-->
+          <div class="form-floating py-2 ">
+            <input type="text" class="form-control" id="floatingName" placeholder="First Name"
+              formControlName="firstName"
+              [ngClass]="{'is-invalid': signupForm.get('firstName')?.errors?.['required'] && submitted}"
+              [ngClass]="{'is-valid': signupForm.get('firstName')?.valid}">
+            <label for="floatingName"> First Name </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('firstName')?.invalid &&
+                    submitted
+                  ">
+              Name is required.
+            </small>
+          </div>
+          <!--Last Name-->
+          <div class="form-floating py-2">
+            <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name"
+              formControlName="lastName"
+              [ngClass]="{'is-invalid': signupForm.get('lastName')?.errors?.['required'] && submitted}"
+              [ngClass]="{'is-valid': signupForm.get('lastName')?.valid}">
+            <label for="floatingLastName"> Last Name </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('lastName')?.invalid &&
+                    submitted
+                  ">
+              Last Name is required.
+            </small>
+          </div>
+          <!--Email-->
+          <div class="form-floating py-2">
+            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
+              formControlName="email"
+              [ngClass]="{'is-invalid' : signupForm.get('email')?.errors?.['email'] || signupForm.get('email')?.errors?.['required'] && submitted}"
+              [ngClass]="{'is-valid': signupForm.get('email')?.valid}">
+            <label for="floatingEmail"> Email </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('email')?.errors?.['email'] &&
+                    submitted
+                  ">
+              Email not valid.
+            </small>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('email')?.errors?.['required'] &&
+                    submitted
+                  ">
+              Email required.
+            </small>
+          </div>
+          <!--Password-->
+          <div class="form-floating py-2">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+              formControlName="password" [ngClass]="{'is-invalid' : signupForm.get('password')?.invalid && submitted}"
+              [ngClass]="{'is-valid' : signupForm.get('password')?.valid}">
+            <label for="floatingPassword"> Password </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('password')?.invalid &&
+                    submitted
+                  ">
+              Password must be at least 6 characters.
+            </small>
+          </div>
+          <!--Confirm Password-->
+          <div class="form-floating py-2">
+            <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              [ngClass]="{'is-invalid': !signupForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
+              [ngClass]="{'is-valid': signupForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
+            <label for="floatingConfirmPassword"> Confirm Password </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.errors?.['passwordNoMatch'] &&
+                    submitted
+                  ">
+              Passwords don't match.
+            </small>
+          </div>
+          <!--Terms Checkbox-->
+          <div class="form-check py-2">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="agreeTerms">
+            <label class="form-check-label" for="flexCheckDefault">
+              I agree to the<a class="terms" href=""> terms</a> and <a class="terms">conditions.</a>
+            </label>
+            <small class="text-danger" *ngIf="
+                      signupForm.get('agreeTerms')?.invalid &&
+                      (signupForm.get('agreeTerms')?.touched ||
+                        signupForm.get('agreeTerms')?.dirty)
+                    "><br>
+              You must accept Terms and Conditions.
+            </small>
+          </div>
+          <!--Submit Button-->
+          <div class="btn-container py-3">
+            <button type="submit" class="btn submit-btn">Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6 right-container">
+      <div class="right-content m-2">
+        <h2 class="title">Welcome to Angular</h2>
+        <p class="description">
+          Enter your personal details and start your journey with us.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

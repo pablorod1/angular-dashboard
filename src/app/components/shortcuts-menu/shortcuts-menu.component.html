@@ -8,10 +8,12 @@
         <button  type="button"  class="btn" [pTooltip]="'Add Shortcut'" tooltipPosition="top"><i class="bi bi-plus-circle"></i></button>
       </div>
     </header>
-    <div class="notifications p-2">
+    <div class="shortcuts">
       <div class="row">
-        <a *ngFor="let shortcut of shortcuts; index as i" role="button" class="col-6 shortcut">
-
+        <a *ngFor="let shortcut of shortcuts; index as i" role="button" class="col-6 shortcut" [href]="shortcut.url">
+          <span class="icon"><i class="bi" [ngClass]="shortcut.icon"></i></span>
+          <h3 class="title m-0"><strong>{{shortcut.title}}</strong></h3>
+          <small class="description">{{shortcut.description}}</small>
         </a>
       </div>
       <!-- <div class="empty-container text-center" *ngIf="shortcuts.length === 0">

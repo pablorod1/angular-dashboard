@@ -1,1 +1,56 @@
-<p>signin-classic works!</p>
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon-container">
+          <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
+        </div>
+        <div class="title-header">
+          <h2 class="title">Sign In</h2>
+          <small class="title-2">You don't have an account yet? <a class="sign-in" href="/signup-classic">Sign Up</a></small>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+          <!--Email-->
+          <div class="form-floating py-2">
+            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
+              formControlName="email"
+              [ngClass]="{'is-invalid' : signinForm.get('email')?.errors?.['email'] || signinForm.get('email')?.errors?.['required'] && submitted}"
+              [ngClass]="{'is-valid': signinForm.get('email')?.valid}">
+            <label for="floatingEmail"> Email </label>
+            <small class="text-danger" *ngIf="
+                  signinForm.get('email')?.errors?.['email'] &&
+                  submitted
+                ">
+              Email not valid.
+            </small>
+            <small class="text-danger" *ngIf="
+                  signinForm.get('email')?.errors?.['required'] &&
+                  submitted
+                ">
+              Email required.
+            </small>
+          </div>
+          <!--Password-->
+          <div class="form-floating py-2">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+              formControlName="password" [ngClass]="{'is-invalid' : signinForm.get('password')?.invalid && submitted}"
+              [ngClass]="{'is-valid' : signinForm.get('password')?.valid}">
+            <label for="floatingPassword"> Password </label>
+            <small class="text-danger" *ngIf="
+                  signinForm.get('password')?.errors?.['required'] &&
+                  submitted
+                ">
+              Password required.
+            </small>
+          </div>
+          <!--Submit Button-->
+          <div class="btn-container py-3">
+            <button type="submit" class="btn submit-btn">Log In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
