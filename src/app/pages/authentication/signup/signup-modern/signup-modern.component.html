@@ -16,7 +16,7 @@
           <div class="card-body">
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
               <!--Name-->
-              <div class="form-floating py-2 ">
+              <div class="form-floating py-3 ">
                 <input type="text" class="form-control" id="floatingName" placeholder="First Name"
                   formControlName="firstName"
                   [ngClass]="{'is-invalid': signupForm.get('firstName')?.errors?.['required'] && submitted}"
@@ -30,7 +30,7 @@
                 </small>
               </div>
               <!--Last Name-->
-              <div class="form-floating py-2">
+              <div class="form-floating py-3">
                 <input type="text" class="form-control" id="floatingLastName" placeholder="Last Name"
                   formControlName="lastName"
                   [ngClass]="{'is-invalid': signupForm.get('lastName')?.errors?.['required'] && submitted}"
@@ -44,7 +44,7 @@
                 </small>
               </div>
               <!--Email-->
-              <div class="form-floating py-2">
+              <div class="form-floating py-3">
                 <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
                   formControlName="email"
                   [ngClass]="{'is-invalid' : signupForm.get('email')?.errors?.['email'] || signupForm.get('email')?.errors?.['required'] && submitted}"
@@ -63,36 +63,38 @@
                   Email required.
                 </small>
               </div>
-              <!--Password-->
-              <div class="form-floating py-2">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                  formControlName="password"
-                  [ngClass]="{'is-invalid' : signupForm.get('password')?.invalid && submitted}"
-                  [ngClass]="{'is-valid' : signupForm.get('password')?.valid}">
-                <label for="floatingPassword"> Password </label>
-                <small class="text-danger" *ngIf="
-                      signupForm.get('password')?.invalid &&
-                      submitted
-                    ">
-                  Password must be at least 6 characters.
-                </small>
-              </div>
-              <!--Confirm Password-->
-              <div class="form-floating py-2">
-                <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
-                  formControlName="confirmPassword"
-                  [ngClass]="{'is-invalid': !signupForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
-                  [ngClass]="{'is-valid': signupForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
-                <label for="floatingConfirmPassword"> Confirm Password </label>
-                <small class="text-danger" *ngIf="
-                      signupForm.errors?.['passwordNoMatch'] &&
-                      submitted
-                    ">
-                  Passwords don't match.
-                </small>
-              </div>
+               <!--Password-->
+          <div class="form-floating d-flex py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Password"
+              formControlName="password" [ngClass]="{'is-invalid' : signupForm.get('password')?.invalid && submitted}"
+              [ngClass]="{'is-valid' : signupForm.get('password')?.valid}">
+            <label for="floatingPassword"> Password </label>
+            <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+            </button>
+            <small class="text-danger" *ngIf="
+                    signupForm.get('password')?.invalid &&
+                    submitted
+                  "><br>
+              Password must be at least 6 characters.
+            </small>
+          </div>
+          <!--Confirm Password-->
+          <div class="form-floating py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
+              formControlName="confirmPassword"
+              [ngClass]="{'is-invalid': !signupForm.get('confirmPassword')?.errors?.['passwordsNotMatching'] && submitted}"
+              [ngClass]="{'is-valid': signupForm.get('confirmPassword')?.valid && submitted}">
+            <label for="floatingConfirmPassword"> Confirm Password </label>
+            <small class="text-danger" *ngIf="
+                    signupForm.errors?.['passwordsNotMatching'] &&
+                    submitted
+                  ">
+              Passwords don't match.
+            </small>
+          </div>
               <!--Terms Checkbox-->
-              <div class="form-check py-2">
+              <div class="form-check py-3">
                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
                   formControlName="agreeTerms">
                 <label class="form-check-label" for="flexCheckDefault">

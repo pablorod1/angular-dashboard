@@ -16,7 +16,7 @@
           <div class="card-body">
             <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
               <!--Email-->
-              <div class="form-floating py-1">
+              <div class="form-floating py-3">
                 <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
                   formControlName="email"
                   [ngClass]="{'is-invalid' : forgotForm.get('email')?.errors?.['email'] || forgotForm.get('email')?.errors?.['required'] && submitted}"

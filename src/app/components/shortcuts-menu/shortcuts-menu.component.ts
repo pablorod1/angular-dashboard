@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './shortcuts-menu.component.css'
 })
 export class ShortcutsMenuComponent {
+  editMode = false;
   shortcuts = [
     {
       title: 'Mailbox',
@@ -36,4 +37,10 @@ export class ShortcutsMenuComponent {
       url: ''
     }
   ]
+  toggleEditMode() {
+    this.editMode = !this.editMode;
+  }
+  deleteShortcut(index: number) {
+    this.shortcuts.splice(index, 1);
+  }
 }

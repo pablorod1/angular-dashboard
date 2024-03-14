@@ -18,6 +18,7 @@ const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): Valida
 })
 export class SignupModernComponent {
   hide = true;
+  hidePassword = true;
   submitted = false;
   signupForm!: FormGroup;
   user = {firstName: '', lastName: '', email: '', password: '', confirmPassword: '', agreeTerms: false};
@@ -30,7 +31,7 @@ export class SignupModernComponent {
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       agreeTerms: [false, [Validators.requiredTrue]]
     },{validator: confirmPasswordValidator});
   }

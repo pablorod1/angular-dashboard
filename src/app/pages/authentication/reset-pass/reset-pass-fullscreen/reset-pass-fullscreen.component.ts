@@ -18,6 +18,7 @@ const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): Valida
 })
 export class ResetPassFullscreenComponent {
   hide = true;
+  hidePassword = true;
   submitted = false;
   resetForm!: FormGroup;
   user = {password: '', newPassword: '', confirmPassword: ''};

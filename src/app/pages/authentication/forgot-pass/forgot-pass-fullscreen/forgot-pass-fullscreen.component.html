@@ -1,6 +1,6 @@
 <div class="container-fluid w-100">
   <div class="row w-100">
-    <div class="px-5 col-md-6 d-flex justify-content-center" style="flex-direction:column;">
+    <div class="px-5 col-md-6 left-container d-flex justify-content-center" style="flex-direction:column;">
       <div class="header text-end">
         <div class="icon-container">
           <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
@@ -13,7 +13,7 @@
       <div class="body d-flex justify-content-end">
         <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
           <!--Email-->
-          <div class="form-floating py-2">
+          <div class="form-floating py-3">
             <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
               formControlName="email"
               [ngClass]="{'is-invalid' : forgotForm.get('email')?.errors?.['email'] || forgotForm.get('email')?.errors?.['required'] && submitted}"

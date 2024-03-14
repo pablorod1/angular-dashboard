@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class SigninClassicComponent {
   hide = true;
+  hidePassword = true;
   submitted = false;
   signinForm!: FormGroup;
   user = { email: '', password: ''};

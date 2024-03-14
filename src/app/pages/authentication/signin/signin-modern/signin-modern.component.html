@@ -10,13 +10,14 @@
             </div>
             <div class="title-header">
               <h2 class="title">Sign In</h2>
-              <small class="title-2">Do not have an account yet? <a class="sign-in" href="/signin-modern">Sign in</a></small>
+              <small class="title-2">Do not have an account yet? <a class="sign-in" href="/signup-modern">Sign
+                  up</a></small>
             </div>
           </div>
           <div class="card-body pt-0">
             <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
               <!--Email-->
-              <div class="form-floating py-2">
+              <div class="form-floating py-3">
                 <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
                   formControlName="email"
                   [ngClass]="{'is-invalid' : signinForm.get('email')?.errors?.['email'] || signinForm.get('email')?.errors?.['required'] && submitted}"
@@ -36,21 +37,22 @@
                 </small>
               </div>
               <!--Password-->
-              <div class="form-floating py-2">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                  formControlName="password"
+              <div class="form-floating d-flex align-items-center py-3">
+                <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
+                  placeholder="Password" formControlName="password"
                   [ngClass]="{'is-invalid' : signinForm.get('password')?.invalid && submitted}"
                   [ngClass]="{'is-valid' : signinForm.get('password')?.valid}">
                 <label for="floatingPassword"> Password </label>
-                <small class="text-danger" *ngIf="
-                      signinForm.get('password')?.errors?.['required'] &&
-                      submitted
-                    ">
-                  Password required.
-                </small>
+                <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+                  <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+                </button>
               </div>
-
-
+              <small class="text-danger p-0 m-0" *ngIf="
+                    signinForm.get('password')?.invalid &&
+                    submitted
+                  ">
+                Password must be at least 6 characters.
+              </small>
               <!--Submit Button-->
               <div class="btn-container py-3">
                 <button type="submit" class="btn submit-btn">Log In</button>

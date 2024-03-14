@@ -18,6 +18,7 @@ const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): Valida
 })
 export class SignupFullscreenComponent {
   hide = true;
+  hidePassword = true;
   submitted = false;
   signupForm!: FormGroup;
   user = {firstName: '', lastName: '', email: '', password: '', confirmPassword: '', agreeTerms: false};

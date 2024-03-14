@@ -1,0 +1,57 @@
+.container-fluid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important;
+}
+.row{
+  min-height: 92.6vh;
+}
+.title{
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.redirect{
+  font-size: 15px;
+  font-weight: 400;
+}
+.goto{
+  font-size: 14px;
+  font-weight: 400;
+  a{
+    text-decoration: none;
+    font-weight: 400;
+  }
+}
+.body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+.icon-container{
+  margin: 25px;
+}
+.logo-picture{
+  width: 50px;
+}
+.right-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a322f;
+  color: #ded7cf;
+  .title{
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .description{
+    font-size: 18px;
+    font-weight: 400;
+  }
+}

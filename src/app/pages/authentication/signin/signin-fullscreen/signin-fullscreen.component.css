@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   padding: 0 !important;
+
 }
 .left-container{
   display: flex;
@@ -10,7 +11,7 @@
   justify-content: center!important;
 }
 .row{
-  min-height: 91vh;
+  min-height: 92.6lvh;
 }
 
 .logo-picture{
@@ -32,7 +33,6 @@
 }
 .form-control{
   flex-wrap: wrap;
-  width: 350px;
   max-width: 500px;
   box-shadow: none;
 }
@@ -52,7 +52,7 @@
 
 .submit-btn{
   font-weight: 500;
-  width: 200px;
+  width: 300px;
   padding: 10px;
   border-radius: 20px;
   background-color: #1a322f;
@@ -61,7 +61,7 @@
   transition: transform .3s ease-in-out;
 }
 .submit-btn:hover{
-  transform: translateY(-3px);
+  transform: scale(1.05);
 }
 .submit-btn:active{
   box-shadow: none;
@@ -84,6 +84,29 @@
     font-size: 18px;
     font-weight: 400;
   }
+}
+
+.form-floating label{
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  height: fit-content;
+  font-size: 16px;
+  font-weight: 300;
+  transition: transform .3s ease-in-out, top .2s ease-in-out;
+}
+
+.form-floating:focus-within label{
+  position: absolute;
+  top: 8px;
+  background-color: #fff;
+  padding: 5px;
+  color: #1a322f;
+  border-radius: 20px;
+  border: 1px solid #1a322f;
+}
+.btn i{
+  color: #1a322f;
 }
 
 @media (max-width: 768px){

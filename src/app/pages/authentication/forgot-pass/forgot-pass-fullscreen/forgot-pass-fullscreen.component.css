@@ -10,7 +10,7 @@
   justify-content: center!important;
 }
 .row{
-  min-height: 91vh;
+  min-height: 92.6vh;
 }
 
 .logo-picture{
@@ -85,8 +85,36 @@
     font-weight: 400;
   }
 }
+.form-floating label{
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  height: fit-content;
+  font-size: 16px;
+  font-weight: 300;
+  transition: transform .3s ease-in-out, top .2s ease-in-out;
+}
+
+.form-floating:focus-within label{
+  position: absolute;
+  top: 8px;
+  background-color: #fff;
+  padding: 5px;
+  color: #1a322f;
+  border-radius: 20px;
+  border: 1px solid #1a322f;
+}
+
 
 @media (max-width: 768px){
+  .left-container{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    .header{
+      text-align: center !important;
+    }
+  }
   .row{
     margin-top: 1rem !important;
   }

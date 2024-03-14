@@ -13,7 +13,7 @@
       <div class="card-body pt-0">
         <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
           <!--Email-->
-          <div class="form-floating py-2">
+          <div class="form-floating py-3">
             <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
               formControlName="email"
               [ngClass]="{'is-invalid' : signinForm.get('email')?.errors?.['email'] || signinForm.get('email')?.errors?.['required'] && submitted}"
@@ -33,18 +33,21 @@
             </small>
           </div>
           <!--Password-->
-          <div class="form-floating py-2">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+          <div class="form-floating d-flex align-items-center py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Password"
               formControlName="password" [ngClass]="{'is-invalid' : signinForm.get('password')?.invalid && submitted}"
               [ngClass]="{'is-valid' : signinForm.get('password')?.valid}">
             <label for="floatingPassword"> Password </label>
-            <small class="text-danger" *ngIf="
-                  signinForm.get('password')?.errors?.['required'] &&
-                  submitted
-                ">
-              Password required.
-            </small>
+            <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+            </button>
           </div>
+          <small class="text-danger p-0 m-0" *ngIf="
+                    signinForm.get('password')?.invalid &&
+                    submitted
+                  ">
+              Password must be at least 6 characters.
+            </small>
           <!--Submit Button-->
           <div class="btn-container py-3">
             <button type="submit" class="btn submit-btn">Log In</button>

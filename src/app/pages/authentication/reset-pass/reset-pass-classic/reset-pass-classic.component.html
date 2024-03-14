@@ -12,8 +12,8 @@
       <div class="card-body">
         <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
           <!--Current Password-->
-          <div class="form-floating py-2">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Current Password"
+          <div class="form-floating py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Current Password"
               formControlName="password"
               [ngClass]="{'is-invalid' : resetForm.get('password')?.errors?.['required'] && submitted}"
               [ngClass]="{'is-valid' : resetForm.get('password')?.valid}">
@@ -26,8 +26,8 @@
             </small>
           </div>
           <!--New Password-->
-          <div class="form-floating py-2">
-            <input type="password" class="form-control" id="floatingNewPassword" placeholder="New Password"
+          <div class="form-floating py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingNewPassword" placeholder="New Password"
               formControlName="newPassword"
               [ngClass]="{'is-invalid' : resetForm.get('newPassword')?.invalid && submitted}"
               [ngClass]="{'is-valid' : resetForm.get('newPassword')?.valid}">
@@ -40,19 +40,24 @@
             </small>
           </div>
           <!--Confirm Password-->
-          <div class="form-floating py-2">
-            <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
+          <div class="form-floating py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
               formControlName="confirmPassword"
-              [ngClass]="{'is-invalid': !resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
-              [ngClass]="{'is-valid': resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
+              [ngClass]="{'is-invalid': !resetForm.get('confirmPassword')?.errors?.['passwordsNotMatching'] && submitted}"
+              [ngClass]="{'is-valid': resetForm.get('confirmPassword')?.errors?.['passwordsNotMatching'] && submitted}">
             <label for="floatingConfirmPassword"> Confirm Password </label>
             <small class="text-danger" *ngIf="
-                  resetForm.errors?.['passwordNoMatch'] &&
+                  resetForm.errors?.['passwordsNotMatching'] &&
                   submitted
                 ">
               Passwords don't match.
             </small>
           </div>
+          <button type="button" class="btn hide-btn" (click)="hidePassword = !hidePassword">
+            <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+            <span *ngIf="hidePassword">Show Password</span>
+            <span *ngIf="!hidePassword">Hide Password</span>
+          </button>
           <!--Submit Button-->
           <div class="btn-container py-3">
             <button type="submit" class="btn submit-btn">Reset Password</button>
