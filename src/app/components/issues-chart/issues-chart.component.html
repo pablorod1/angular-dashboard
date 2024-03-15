@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="card-body w-100">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="header">
+          <h2>Issues Summary</h2>
+        </div>
+        <div id="chart">
+          <span class="title ">New vs Closed</span>
+          <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [yaxis]="chartOptions.yaxis!"
+            [xaxis]="chartOptions.xaxis!" [labels]="chartOptions.labels!" [stroke]="chartOptions.stroke"
+            [dataLabels]="chartOptions.dataLabels" [fill]="chartOptions.fill!"
+            [tooltip]="chartOptions.tooltip!"></apx-chart>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="header d-flex justify-content-end align-items-center">
+          <button type="button" class="btn date-toggle" (click)="showLastWeekData()">Last Week</button>
+          <button type="button" class="btn date-toggle" (click)="showCurrentWeekData()">This Week</button>
+        </div>
+        <div class="issues-overview">
+          <span class="title">Issues Overview</span>
+          <div class="row count mt-3 g-2">
+            <div class="col-sm-6 ">
+              <div class="card bg-primary text-primary">
+                <div class="card-body text-center">
+                  <h1 class="issues-count">{{newIssuesCount}}</h1>
+                  <span class="issues-type">New Issues</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 ">
+              <div class="card bg-success text-success">
+                <div class="card-body text-center">
+                  <h1 class="issues-count">{{closedIssuesCount}}</h1>
+                  <span class="issues-type">Closed Issues</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row secondary mt-2 g-2">
+            <div class="col-md-3 col-sm-6">
+              <div class="card bg-success">
+                <div class="card-body text-success text-center">
+                  <h1 class="issues-count ">6</h1>
+                  <span class="issues-type">Fixed</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card bg-info">
+                <div class="card-body text-info text-center">
+                  <h1 class="issues-count">4</h1>
+                  <span class="issues-type">Won't Fix</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card bg-warning">
+                <div class="card-body text-warning text-center">
+                  <h1 class="issues-count">8</h1>
+                  <span class="issues-type">Re-Opened</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card bg-danger">
+                <div class="card-body text-danger text-center">
+                  <h1 class="issues-count">6</h1>
+                  <span class="issues-type">High Priority</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

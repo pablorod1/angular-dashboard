@@ -111,3 +111,17 @@
   text-decoration: none;
   color: #1a322f;
 }
+.save-btn{
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #1a322f;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  border: 0;
+  width: 80px;
+  border-radius: 20px;
+  color: #ded7cf;
+  transition: transform .3s ease;
+}
+.save-btn:focus{
+  transform: scale(1.05);
+}

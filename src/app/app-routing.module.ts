@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 
 // Authentication Components
 import { ConfirmationClassicComponent } from './pages/authentication/confirmation/confirmation-classic/confirmation-classic.component';
@@ -25,12 +24,15 @@ import { UnlockClassicComponent } from './pages/authentication/unlock-session/un
 import { UnlockModernComponent } from './pages/authentication/unlock-session/unlock-modern/unlock-modern.component';
 import { UnlockFullscreenComponent } from './pages/authentication/unlock-session/unlock-fullscreen/unlock-fullscreen.component';
 
+//Dashboard
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+
 //MailBox
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent},
   // Authentication Paths
   // Confirmation Paths
   {path: 'confirmation-classic', component: ConfirmationClassicComponent},

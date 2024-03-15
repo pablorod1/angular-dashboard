@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 //Primeng Modules
 import { SidebarModule } from 'primeng/sidebar';
@@ -12,10 +13,16 @@ import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+
+// ApexCharts Module
+import {NgApexchartsModule} from 'ng-apexcharts';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +34,6 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { NotificationsMenuComponent } from './components/notifications-menu/notifications-menu.component';
 import { ProfileMenuComponent } from './components/profile-menu/profile-menu.component';
 import { FullscreenTogglerComponent } from './components/fullscreen-toggler/fullscreen-toggler.component';
-import { HomeComponent } from './pages/home/home.component';
 import { SigninClassicComponent } from './pages/authentication/signin/signin-classic/signin-classic.component';
 import { SigninModernComponent } from './pages/authentication/signin/signin-modern/signin-modern.component';
 import { SigninFullscreenComponent } from './pages/authentication/signin/signin-fullscreen/signin-fullscreen.component';
@@ -52,6 +58,8 @@ import { ConfirmationFullscreenComponent } from './pages/authentication/confirma
 import { MessageMenuComponent } from './components/message-menu/message-menu.component';
 import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-menu.component';
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { IssuesChartComponent } from './components/issues-chart/issues-chart.component';
 
 
 
@@ -64,7 +72,6 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
     NotificationsMenuComponent,
     ProfileMenuComponent,
     FullscreenTogglerComponent,
-    HomeComponent,
     SigninClassicComponent,
     SigninModernComponent,
     SigninFullscreenComponent,
@@ -89,6 +96,8 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
     MessageMenuComponent,
     ShortcutsMenuComponent,
     MailboxComponent,
+    DashboardComponent,
+    IssuesChartComponent,
 
   ],
   imports: [
@@ -106,6 +115,11 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
     MatDividerModule,
     MatIconModule,
     ReactiveFormsModule,
+    FormsModule,
+    TabMenuModule,
+    TabViewModule,
+    MatTabsModule,
+    NgApexchartsModule
   ],
   providers: [
     provideClientHydration(),

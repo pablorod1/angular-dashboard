@@ -1,0 +1,409 @@
+<section class="section">
+  <div class="container profile-container d-flex justify-content-between align-items-center mb-5">
+    <div class="row profile d-flex align-items-center gap-3">
+      <div class="col-md-6 profile-image">
+        <img class="profile-picture" src="../../../assets/profile-picture.webp" alt="Profile Image">
+      </div>
+      <div class="col-md-6 profile-details">
+        <h2>John Doe</h2>
+        <p>Web Developer</p>
+      </div>
+    </div>
+    <div class="btn-container d-flex align-items-center gap-3">
+      <button class="btn messages-btn"><i class="bi bi-envelope-fill px-1"></i> Messages </button>
+      <button class="btn settings-btn"><i class="bi bi-gear px-1"></i> Settings </button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <span>Project {{selectedProject}}</span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a role="button" class="dropdown-item" (click)="selectProject(1)">Project 1</a></li>
+      <li><a role="button" class="dropdown-item" (click)="selectProject(2)">Project 2</a></li>
+      <li><a role="button" class="dropdown-item" (click)="selectProject(3)">Project 3</a></li>
+    </ul>
+  </div>
+
+  <div *ngIf="selectedProject === 1" class="container-fluid p-3">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-house px-2"></i>
+          <span>Home</span>
+        </ng-template>
+        <!-- Home container -->
+        <div class="home-container p-3 mt-5 mb-5">
+          <div class="row  cards-container">
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-primary bi bi-clipboard2"></i>
+                  <div class="info text-end text-primary">
+                    <h3 class="text-muted">Tasks</h3>
+                    <h1>21</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-arrow-repeat"></i> Updated Now</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-success bi bi-cash-coin"></i>
+                  <div class="info text-end text-success">
+                    <h3 class="text-muted">Revenue</h3>
+                    <h1>1.500€</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-calendar"></i> Yesterday</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-danger bi bi-exclamation-circle"></i>
+                  <div class="info text-end text-danger">
+                    <h3 class="text-muted">Errors</h3>
+                    <h1>10</h1>
+                  </div>
+                </div>
+                <div class="card-footer text-danger">
+                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-info bi bi-graph-up"></i>
+                  <div class="info text-end text-info">
+                    <h3 class="text-muted">Performance</h3>
+                    <h1>49,65%</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="text-success"><i class="bi bi-arrow-up"></i> 3.50%</span>
+                  <small class="text-muted"> Since last month</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row issues-container mt-3">
+            <div class="col-md-12">
+              <app-issues-chart></app-issues-chart>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-currency-euro px-2"></i>
+          <span>Budget</span>
+        </ng-template>
+        <div>
+          <!-- Budget container -->
+          <div class="container budget-container mt-5 mb-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-people px-2"></i>
+          <span>Team</span>
+        </ng-template>
+        <div>
+          <!-- Team container -->
+          <div class="container team-container mb-5 mt-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+
+
+  <div *ngIf="selectedProject === 2" class="container-fluid dashboard-container py-5 d-flex justify-content-center">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+      <mat-tab>
+        <ng-template class="mat-tab-label" mat-tab-label>
+          <i class="bi bi-house px-2"></i>
+          <span>Home</span>
+        </ng-template>
+        <!-- Home container -->
+        <div class="container home-container mt-5 mb-5">
+          <div class="row  cards-container">
+            <div class="col-md-3">
+              <div class="card ">
+                <div class="card-body ">
+                  <i class="text-primary bi bi-clipboard2"></i>
+                  <div class="info text-end text-primary">
+                    <h3 class="text-muted">Tasks</h3>
+                    <h1>21</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-arrow-repeat"></i> Updated Now</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-success bi bi-cash-coin"></i>
+                  <div class="info text-end text-success">
+                    <h3 class="text-muted">Revenue</h3>
+                    <h1>1.500€</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-calendar"></i> Yesterday</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-danger bi bi-exclamation-circle"></i>
+                  <div class="info text-end text-danger">
+                    <h3 class="text-muted">Errors</h3>
+                    <h1>10</h1>
+                  </div>
+                </div>
+                <div class="card-footer text-danger">
+                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-info bi bi-graph-up"></i>
+                  <div class="info text-end text-info">
+                    <h3 class="text-muted">Performance</h3>
+                    <h1>49,65%</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="text-success"><i class="bi bi-arrow-up"></i> 3.50%</span>
+                  <small class="text-muted"> Since last month</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row issues-container mt-3">
+            <div class="col-md-12">
+              <app-issues-chart></app-issues-chart>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-currency-euro px-2"></i>
+          <span>Budget</span>
+        </ng-template>
+        <div>
+          <!-- Budget container -->
+          <div class="container budget-container mt-5 mb-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-people px-2"></i>
+          <span>Team</span>
+        </ng-template>
+        <div>
+          <!-- Team container -->
+          <div class="container team-container mb-5 mt-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <div *ngIf="selectedProject === 3" class="container-fluid dashboard-container py-5 d-flex justify-content-center">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+      <mat-tab>
+        <ng-template class="mat-tab-label" mat-tab-label>
+          <i class="bi bi-house px-2"></i>
+          <span>Home</span>
+        </ng-template>
+        <!-- Home container -->
+        <div class="container home-container mt-5 mb-5">
+          <div class="row  cards-container">
+            <div class="col-md-3">
+              <div class="card ">
+                <div class="card-body ">
+                  <i class="text-primary bi bi-clipboard2"></i>
+                  <div class="info text-end text-primary">
+                    <h3 class="text-muted">Tasks</h3>
+                    <h1>21</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-arrow-repeat"></i> Updated Now</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-success bi bi-cash-coin"></i>
+                  <div class="info text-end text-success">
+                    <h3 class="text-muted">Revenue</h3>
+                    <h1>1.500€</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-calendar"></i> Yesterday</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-danger bi bi-exclamation-circle"></i>
+                  <div class="info text-end text-danger">
+                    <h3 class="text-muted">Errors</h3>
+                    <h1>10</h1>
+                  </div>
+                </div>
+                <div class="card-footer text-danger">
+                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-info bi bi-graph-up"></i>
+                  <div class="info text-end text-info">
+                    <h3 class="text-muted">Performance</h3>
+                    <h1>49,65%</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="text-success"><i class="bi bi-arrow-up"></i> 3.50%</span>
+                  <small class="text-muted"> Since last month</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row issues-container mt-3">
+            <div class="col-md-12">
+              <app-issues-chart></app-issues-chart>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-currency-euro px-2"></i>
+          <span>Budget</span>
+        </ng-template>
+        <div>
+          <!-- Budget container -->
+          <div class="container budget-container mt-5 mb-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-people px-2"></i>
+          <span>Team</span>
+        </ng-template>
+        <div>
+          <!-- Team container -->
+          <div class="container team-container mb-5 mt-5">
+
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="title d-flex justify-content-between">
+                      <h3>Summary</h3>
+                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

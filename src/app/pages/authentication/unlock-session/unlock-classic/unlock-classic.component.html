@@ -1,1 +1,40 @@
-<p>unlock-classic works!</p>
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="icon-container">
+          <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
+        </div>
+        <div class="title-header">
+          <h2 class="title">Welcome back!</h2>
+          <small class="title-2"> Your session is locked due to inactivity. </small>
+        </div>
+        <div class="profile-container mt-2 py-3">
+          <img class="profile-picture" src="../../../../../assets/profile-picture.webp" alt="Angular Logo"
+            loading="lazy" />
+          <span class="name mt-4">Javier Martínez</span>
+        </div>
+      </div>
+      <div class="card-body pt-0">
+        <form [formGroup]="unlockForm" (ngSubmit)="onSubmit()">
+          <!--Password-->
+          <div class="form-floating d-flex align-items-center py-3">
+            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
+              placeholder="Password" formControlName="password">
+            <label for="floatingPassword"> Password </label>
+            <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+            </button>
+          </div>
+          <!--Submit Button-->
+          <div class="btn-container py-3">
+            <button type="submit" class="btn submit-btn">Log In</button>
+          </div>
+        </form>
+        <div class="signout-container d-flex justify-content-center">
+          <a class="signout" href="/signout-classic"><small>I'm not Javier Martínez</small></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

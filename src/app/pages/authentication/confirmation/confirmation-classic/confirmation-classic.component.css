@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  flex-wrap: wrap;
+  width: 400px;
+  max-width: 500px;
+  border: 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.logo-picture {
+  width: 50px;
+}
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.title-2 {
+  font-size: 15px;
+}
+.redirect{
+  text-decoration: none;
+}

@@ -4,12 +4,16 @@
     <header class="header">
       <h3 class="m-0"> Shortcuts </h3>
       <div class="btn-container">
-        <button *ngIf="!editMode || shortcuts.length === 0" [disabled]="shortcuts.length === 0" type="button"  class="btn" [pTooltip]="'Enter Edit Mode'" tooltipPosition="top" (click)="toggleEditMode()"><i class="bi bi-pencil"></i></button>
-        <button *ngIf="!editMode || shortcuts.length === 0"  type="button"  class="btn" [pTooltip]="'Add Shortcut'" tooltipPosition="top"><i class="bi bi-plus-circle"></i></button>
-        <button *ngIf="editMode && shortcuts.length > 0"  type="button"  class="btn" [pTooltip]="'Finish Editing'" tooltipPosition="top" (click)="toggleEditMode()"><i class="bi bi-check-circle"></i></button>
+        <button *ngIf="!editMode && !addingShortcutToggle" [disabled]="shortcuts.length === 0" type="button"
+          class="btn" [pTooltip]="'Enter Edit Mode'" tooltipPosition="top" (click)="toggleEditMode()"><i
+            class="bi bi-pencil"></i></button>
+        <button *ngIf="(!editMode || shortcuts.length === 0) && !addingShortcutToggle" type="button" class="btn" [pTooltip]="'Add Shortcut'"
+          tooltipPosition="top" (click)="toggleAddingShortcut()" ><i class="bi bi-plus-circle"></i></button>
+        <button *ngIf="editMode && shortcuts.length > 0 && !editingShortcutToggle" type="button" class="btn" [pTooltip]="'Finish Editing'"
+          tooltipPosition="top" (click)="toggleEditMode()"><i class="bi bi-check-circle"></i></button>
       </div>
     </header>
-    <div class="shortcuts">
+    <div *ngIf="!editingShortcutToggle && !addingShortcutToggle" class="shortcuts">
       <div class="row">
         <div *ngFor="let shortcut of shortcuts; index as i" role="button" class="col-6 shortcut">
           <a *ngIf="!editMode" class="shortcut-link" [href]="shortcut.url">
@@ -18,7 +22,7 @@
             <small class="description">{{shortcut.description}}</small>
           </a>
           <div *ngIf="editMode" class="edit-mode-container">
-            <button type="button" class="btn" ><i class="bi bi-pencil"></i></button>
+            <button type="button" class="btn" (click)="editShortcut(i)"><i class="bi bi-pencil"></i></button>
             <button type="button" class="btn" (click)="deleteShortcut(i)"><i class="bi bi-x"></i></button>
           </div>
           <div class="shortcut-item" *ngIf="editMode">
@@ -32,6 +36,53 @@
         <i class="mb-4 bi bi-window-plus"></i>
         <span class="mb-1">No Shortcuts</span>
         <small>Click the plus button to add a new shortcut</small>
+      </div>
+    </div>
+    <div *ngIf="editingShortcutToggle" class="edit-shortcut">
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-group py-2">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="editingShortcut.title" placeholder="Enter Title">
+          </div>
+          <div class="form-group py-2">
+            <label for="icon">Icon</label>
+            <input type="text" class="form-control" id="icon" [(ngModel)]="editingShortcut.icon" placeholder="Enter Icon">
+          </div>
+          <div class="form-group py-2">
+            <label for="url">URL</label>
+            <input type="text" class="form-control" id="url" [(ngModel)]="editingShortcut.url" placeholder="Enter URL">
+          </div>
+          <div class="form-group py-2">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="editingShortcut.description" placeholder="Enter Description">
+          </div>
+          <div class="save-container p-1"></div>
+          <button type="button" class="btn save-btn" (click)="saveShortcut()">Save</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="addingShortcutToggle" class="add-shortcut">
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-group py-2">
+            <label for="newTitle">Title</label>
+            <input type="text" class="form-control" id="newTitle" [(ngModel)]="newShortcut.title" placeholder="Enter Title">
+          </div>
+          <div class="form-group py-2">
+            <label for="newIcon">Icon</label>
+            <input type="text" class="form-control" id="newIcon" [(ngModel)]="newShortcut.icon" placeholder="Enter Icon">
+          </div>
+          <div class="form-group py-2">
+            <label for="newUrl">URL</label>
+            <input type="text" class="form-control" id="newUrl" [(ngModel)]="newShortcut.url" placeholder="Enter URL">
+          </div>
+          <div class="form-group py-2">
+            <label for="newDescription">Description</label>
+            <input type="text" class="form-control" id="newDescription" [(ngModel)]="newShortcut.description" placeholder="Enter Description">
+          </div>
+          <button type="button" class="btn save-btn" (click)="addShortcut()">Add</button>
+        </div>
       </div>
     </div>
   </ng-template>

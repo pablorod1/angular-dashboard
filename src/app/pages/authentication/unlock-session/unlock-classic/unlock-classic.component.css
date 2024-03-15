@@ -1,0 +1,107 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-picture{
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.6);
+  border: 2px solid #ded7cf;
+  object-fit: cover;
+}
+.name{
+  font-size: 18px;
+  font-weight: 500;
+}
+.signout{
+  text-decoration: none;
+}
+.card{
+  flex-wrap: wrap;
+  width: 400px;
+  max-width: 500px;
+  border: 0;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+}
+.card-header{
+  background-color: #fff;
+  border-bottom: 0;
+}
+.logo-picture{
+  width: 50px;
+}
+.title{
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+.title-2{
+  font-size: 15px;
+}
+.sign-in, .terms{
+  text-decoration: none;
+}
+.form-control{
+  box-shadow: none;
+}
+.form-control:focus{
+  box-shadow: none !important;
+  outline: 0;
+  border: 1px solid #1a322f;
+}
+.form-check-input{
+  box-shadow: none;
+}
+.btn-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-btn{
+  font-weight: 500;
+  width: 200px;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #1a322f;
+  color: #ded7cf;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  transition: transform .3s ease-in-out;
+}
+.submit-btn:hover{
+  transform: scale(1.05);
+}
+.submit-btn:active{
+  box-shadow: none;
+  background-color: #1a322f;
+  color: #ded7cf;
+}
+.form-floating label{
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  height: fit-content;
+  font-size: 16px;
+  font-weight: 300;
+  transition: transform .3s ease-in-out, top .2s ease-in-out;
+}
+
+.form-floating:focus-within label{
+  position: absolute;
+  top: 8px;
+  background-color: #fff;
+  padding: 5px;
+  color: #1a322f;
+  border-radius: 20px;
+  border: 1px solid #1a322f;
+}
+.btn i{
+  color: #1a322f;
+}
