@@ -60,6 +60,7 @@ import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-me
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { IssuesChartComponent } from './components/issues-chart/issues-chart.component';
+import { TasksChartsComponent } from './components/tasks-charts/tasks-charts.component';
 
 
 
@@ -98,6 +99,7 @@ import { IssuesChartComponent } from './components/issues-chart/issues-chart.com
     MailboxComponent,
     DashboardComponent,
     IssuesChartComponent,
+    TasksChartsComponent,
 
   ],
   imports: [

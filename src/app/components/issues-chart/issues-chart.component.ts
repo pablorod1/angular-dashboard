@@ -18,6 +18,7 @@ export type ChartOptions = {
   yaxis: ApexYAxis | ApexYAxis[];
   title: ApexTitleSubtitle;
   labels: string[];
+  colors: string[];
   stroke: any; // ApexStroke;
   dataLabels: any; // ApexDataLabels;
   fill: ApexFill;
@@ -43,8 +44,12 @@ export class IssuesChartComponent {
       series: currentWeekData,
       chart: {
         height: 350,
-        type: "line"
+        type: "line",
+        toolbar: {
+          show: false
+        }
       },
+      colors: ["#198754", "#0d6efd"],
       stroke: {
         width: [0, 4]
       },

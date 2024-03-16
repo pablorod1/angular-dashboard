@@ -10,7 +10,7 @@
           <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [yaxis]="chartOptions.yaxis!"
             [xaxis]="chartOptions.xaxis!" [labels]="chartOptions.labels!" [stroke]="chartOptions.stroke"
             [dataLabels]="chartOptions.dataLabels" [fill]="chartOptions.fill!"
-            [tooltip]="chartOptions.tooltip!"></apx-chart>
+            [tooltip]="chartOptions.tooltip!" [colors]="chartOptions.colors || []" ></apx-chart>
         </div>
       </div>
       <div class="col-md-6">
@@ -20,7 +20,7 @@
         </div>
         <div class="issues-overview">
           <span class="title">Issues Overview</span>
-          <div class="row count mt-3 g-2">
+          <div class="row count mt-4 g-2">
             <div class="col-sm-6 ">
               <div class="card bg-primary text-primary">
                 <div class="card-body text-center">
@@ -38,9 +38,9 @@
               </div>
             </div>
           </div>
-          <div class="row secondary mt-2 g-2">
+          <div class="row secondary mt-1 g-2">
             <div class="col-md-3 col-sm-6">
-              <div class="card bg-success">
+              <div class="card bg-success py-3">
                 <div class="card-body text-success text-center">
                   <h1 class="issues-count ">6</h1>
                   <span class="issues-type">Fixed</span>
@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
-              <div class="card bg-info">
+              <div class="card bg-info py-3">
                 <div class="card-body text-info text-center">
                   <h1 class="issues-count">4</h1>
                   <span class="issues-type">Won't Fix</span>
@@ -56,7 +56,7 @@
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
-              <div class="card bg-warning">
+              <div class="card bg-warning py-3">
                 <div class="card-body text-warning text-center">
                   <h1 class="issues-count">8</h1>
                   <span class="issues-type">Re-Opened</span>
@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="col-md-3 col-sm-6">
-              <div class="card bg-danger">
+              <div class="card bg-danger py-3">
                 <div class="card-body text-danger text-center">
                   <h1 class="issues-count">6</h1>
                   <span class="issues-type">High Priority</span>
