@@ -6,6 +6,7 @@ import {
   ApexResponsive,
   ApexYAxis,
   ChartComponent,
+  ApexFill,
 } from 'ng-apexcharts';
 import { ApexAxisChartSeries, ApexChart, ApexXAxis } from 'ng-apexcharts';
 
@@ -22,23 +23,20 @@ export class BudgetChartComponent implements OnInit {
   public responsive!: ApexResponsive[];
   public yaxis!: ApexYAxis;
   public xaxis!: ApexXAxis;
+  public fill!: ApexFill;
 
   constructor(private budgetChartDataService: BudgetChartDataService) {}
 
   ngOnInit(): void {
-    this.budgetChartDataService
-      .getCurrentWeekData()
-      .subscribe(
-        ([series, chart, dataLabels, markers, yaxis, xaxis, responsive]) => {
-          this.series = series;
-          this.chart = chart;
-          this.dataLabels = dataLabels;
-          this.yaxis = yaxis;
-          this.xaxis = xaxis;
-          this.responsive = responsive;
-          this.markers = markers;
-        }
-      );
+    this.budgetChartDataService.getCurrentWeekData().subscribe((data) => {
+      this.series = data.series;
+      this.chart = data.chart;
+      this.dataLabels = data.dataLabels;
+      this.markers = data.markers;
+      this.yaxis = data.yaxis;
+      this.xaxis = data.xaxis;
+      this.responsive = data.responsive;
+      this.fill = data.fill;
+    });
   }
-
 }

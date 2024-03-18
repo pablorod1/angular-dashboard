@@ -63,6 +63,8 @@ import { IssuesChartComponent } from './components/issues-chart/issues-chart.com
 import { TasksChartsComponent } from './components/tasks-charts/tasks-charts.component';
 import { BudgetChartComponent } from './components/budget-chart/budget-chart.component';
 import { WeeklyExpensesComponent } from './components/weekly-expenses/weekly-expenses.component';
+import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
+import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-expenses.component';
 
 
 
@@ -104,6 +106,8 @@ import { WeeklyExpensesComponent } from './components/weekly-expenses/weekly-exp
     TasksChartsComponent,
     BudgetChartComponent,
     WeeklyExpensesComponent,
+    MonthlyExpensesComponent,
+    YearlyExpensesComponent,
 
   ],
   imports: [

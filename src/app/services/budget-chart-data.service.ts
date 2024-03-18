@@ -8,6 +8,7 @@ import {
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
+  ApexFill,
 } from 'ng-apexcharts';
 import { Observable, of } from 'rxjs';
 @Injectable({
@@ -21,8 +22,9 @@ export class BudgetChartDataService {
   public yaxis!: ApexYAxis;
   public xaxis!: ApexXAxis;
   public responsive!: ApexResponsive[];
+  public fill!: ApexFill;
 
-  getCurrentWeekData(): Observable<any[]> {
+  getCurrentWeekData(): Observable<any> {
     this.series = [
       {
         name: 'Project 1',
@@ -38,6 +40,13 @@ export class BudgetChartDataService {
     };
     this.xaxis = {
       categories: ['Concept', 'Design', 'Development', 'Marketing', 'Extras'],
+      labels: {
+        show: true,
+        style: {
+          fontSize: '14px',
+          fontWeight: 600,
+        },
+      }
     };
     this.yaxis = {
       show: false,
@@ -48,12 +57,24 @@ export class BudgetChartDataService {
         return val + '%';
       },
       offsetX: 0,
-      offsetY: -10,
+      offsetY: 20,
+      background: {
+        dropShadow: {
+          enabled: true,
+          left: 2,
+          top: 1,
+          opacity: 0.3,
+        },
+        borderColor: undefined,
+      }
     };
     this.markers = {
-      size: 4,
+      size: 5,
       strokeWidth: 0,
     };
+    this.fill = {
+      opacity: 0.3,
+    }
     this.responsive = [
       {
         breakpoint: 600,
@@ -67,15 +88,16 @@ export class BudgetChartDataService {
         },
       },
     ];
-    const data = [
-      this.series,
-      this.chart,
-      this.dataLabels,
-      this.markers,
-      this.yaxis,
-      this.xaxis,
-      this.responsive,
-    ];
-    return of(data);
+    const chartOptions = {
+      series: this.series,
+      chart: this.chart,
+      dataLabels: this.dataLabels,
+      markers: this.markers,
+      xaxis: this.xaxis,
+      yaxis: this.yaxis,
+      responsive: this.responsive,
+      fill: this.fill,
+    };
+    return of(chartOptions);
   }
 }

@@ -1,5 +1,5 @@
 .section{
-  background-color: #F8F8FF;
+
 }
 .container{
   display: flex;
@@ -14,6 +14,17 @@
 .profile-picture{
   width: 100px;
   border-radius: 50%;
+}
+.profile-details{
+  h2{
+    font-size: 35px;
+    font-weight: 600;
+    color: #1a322f;
+  }
+  span {
+    color: #1a322f;
+    font-size: 15px;
+  }
 }
 .btn{
   border-radius: 30px;
@@ -48,6 +59,8 @@
 }
 .dropdown-btn{
   position: relative;
+  font-size: 16px;
+  padding: 10px;
   top: 1px;
   z-index: 1;
   border: 1px solid #ded7cf;
@@ -55,7 +68,10 @@
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   border-radius: 5px;
-  background-color: #f8f8ff;
+  background-color: #f7f2ee;
+}
+.dropdown-btn::after{
+  display: none;
 }
 ::ng-deep .mat-mdc-tab .mdc-tab__text-label{
   color: #1a322f !important;
@@ -97,6 +113,9 @@
   }
 
 }
+.budget-container{
+  overflow-x: hidden;
+}
 .home-container .cards-container .card .card-body .info h3 {
   font-size: clamp(1rem, 1.5vw, 1.25rem);
 }
@@ -112,6 +131,25 @@
   padding: 15px;
   background-color: transparent;
 }
+@keyframes growDown {
+  0% {
+      transform: scaleY(0)
+  }
+  80% {
+      transform: scaleY(1.1)
+  }
+  100% {
+      transform: scaleY(1)
+  }
+}
+
+.dropdown-menu {
+  border: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  animation: growDown 0.3s ease-in-out forwards;
+  transform-origin: top center;
+}
+
 
 @media (max-width: 768px){
   .profile-container{
@@ -121,6 +159,14 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+  .profile-image{
+    display: flex;
+    justify-content: center !important;
+    margin-bottom: 20px;
+  }
+  .profile-details{
+    margin-bottom: 20px;
   }
 }
 

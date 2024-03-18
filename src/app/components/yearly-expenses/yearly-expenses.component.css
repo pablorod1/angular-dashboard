@@ -12,11 +12,11 @@
   font-weight: 400;
   color: #1a322f;
 }
-.btn i{
-  color: #1a322f;
-}
 .dropdown-toggle::after{
   display: none;
+}
+.btn i{
+  color: #1a322f;
 }
 @keyframes growDown {
   0% {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeeklyExpensesDataService } from '../../services/weekly-expenses-data.service';
+import { MonthlyExpensesDataService } from '../../services/monthly-expenses-data.service';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -14,11 +14,11 @@ import {
 } from 'ng-apexcharts';
 
 @Component({
-  selector: 'app-weekly-expenses',
-  templateUrl: './weekly-expenses.component.html',
-  styleUrl: './weekly-expenses.component.css',
+  selector: 'app-monthly-expenses',
+  templateUrl: './monthly-expenses.component.html',
+  styleUrl: './monthly-expenses.component.css'
 })
-export class WeeklyExpensesComponent {
+export class MonthlyExpensesComponent {
   series!: ApexAxisChartSeries;
   chart!: ApexChart;
   xaxis!: ApexXAxis;
@@ -32,10 +32,10 @@ export class WeeklyExpensesComponent {
   colors!: string[];
   totalExpenses!: number;
 
-  constructor(private weeklyExpensesDataService: WeeklyExpensesDataService) {}
+  constructor(private monthlyExpensesDataService: MonthlyExpensesDataService) {}
 
   ngOnInit(): void {
-    this.weeklyExpensesDataService.getCurrentWeekData().subscribe((data) => {
+    this.monthlyExpensesDataService.getCurrentMonthData().subscribe((data) => {
       this.series = data.series;
       this.chart = data.chart;
       this.xaxis = data.xaxis;
@@ -51,7 +51,7 @@ export class WeeklyExpensesComponent {
     });
   }
   showLastWeekData(): void {
-    this.weeklyExpensesDataService.getLastWeekData().subscribe((data) => {
+    this.monthlyExpensesDataService.getLastMonthData().subscribe((data) => {
       this.series = data.series;
       this.chart = data.chart;
       this.xaxis = data.xaxis;
@@ -67,7 +67,7 @@ export class WeeklyExpensesComponent {
     });
   }
   showCurrentWeekData(): void {
-    this.weeklyExpensesDataService.getCurrentWeekData().subscribe((data) => {
+    this.monthlyExpensesDataService.getCurrentMonthData().subscribe((data) => {
       this.series = data.series;
       this.chart = data.chart;
       this.xaxis = data.xaxis;
@@ -83,7 +83,7 @@ export class WeeklyExpensesComponent {
     });
   }
   show2WeeksAgoData(): void {
-    this.weeklyExpensesDataService.get2WeeksAgoData().subscribe((data) => {
+    this.monthlyExpensesDataService.get2MonthsAgoData().subscribe((data) => {
       this.series = data.series;
       this.chart = data.chart;
       this.xaxis = data.xaxis;

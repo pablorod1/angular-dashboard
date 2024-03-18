@@ -14,9 +14,10 @@ import {
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class WeeklyExpensesDataService {
+export class YearlyExpensesDataService {
+
   public series!: ApexAxisChartSeries;
   public chart!: ApexChart;
   public dataLabels!: ApexDataLabels;
@@ -29,11 +30,11 @@ export class WeeklyExpensesDataService {
   public tooltip!: ApexTooltip;
   public responsive!: ApexResponsive[];
 
-  getCurrentWeekData(): Observable<any> {
+  getCurrentYearData(): Observable<any> {
     this.series = [
       {
-        name: 'Current Week Expenses',
-        data: [3200, 2356, 4567, 2580, 5689, 2580, 5689],
+        name: 'Current Year Expenses',
+        data: [40134, 41768, 41890, 42100, 40350, 45600, 45430, 43200, 44100, 44500, 45350, 46126],
       },
     ];
     this.chart = {
@@ -55,7 +56,7 @@ export class WeeklyExpensesDataService {
     };
     this.xaxis = {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 
       labels: {
         show: false,
@@ -71,12 +72,12 @@ export class WeeklyExpensesDataService {
       enabled: true,
       y: {
         formatter: function(value) {
-          return value + ' €';
+          return value.toLocaleString() + ' €';
         }
       },
       theme: 'dark',
     };
-    this.colors = ['#0dcaf0'];
+    this.colors = ['#198754'];
     this.yaxis = {
       show: false,
     };
@@ -120,11 +121,11 @@ export class WeeklyExpensesDataService {
     return of(chartOptions);
   }
 
-  getLastWeekData(): Observable<any> {
+  getLastYearData(): Observable<any> {
     this.series = [
       {
-        name: 'Last Week Expenses',
-        data: [4456, 5234, 4567, 2580, 5689, 2580, 5689],
+        name: 'Last Year Expenses',
+        data: [46728, 42371, 45129, 45625, 45709, 44200, 43234, 44100, 44500, 45350, 46126, 46789],
       },
     ];
     this.chart = {
@@ -146,7 +147,7 @@ export class WeeklyExpensesDataService {
     };
     this.xaxis = {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 
       labels: {
         show: false,
@@ -167,7 +168,7 @@ export class WeeklyExpensesDataService {
       },
       theme: 'dark',
     };
-    this.colors = ['#0dcaf0'];
+    this.colors = ['#198754'];
     this.yaxis = {
       show: false,
     };
@@ -210,11 +211,11 @@ export class WeeklyExpensesDataService {
     };
     return of(chartOptions);
   }
-  get2WeeksAgoData(): Observable<any> {
+  get2YearAgoData(): Observable<any> {
     this.series = [
       {
-        name: '2 Week Ago Expenses',
-        data: [2678, 3485, 2352, 3157, 4444, 2314, 3567],
+        name: '2 Year Ago Expenses',
+        data: [46324, 45758, 44198, 43200, 46756, 42587, 43586, 41256, 45390, 44178, 42891, 43578],
       },
     ];
     this.chart = {
@@ -236,7 +237,7 @@ export class WeeklyExpensesDataService {
     };
     this.xaxis = {
       type: 'category',
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 
       labels: {
         show: false,
@@ -257,7 +258,7 @@ export class WeeklyExpensesDataService {
       },
       theme: 'dark',
     };
-    this.colors = ['#0dcaf0'];
+    this.colors = ['#198754'];
     this.yaxis = {
       show: false,
     };

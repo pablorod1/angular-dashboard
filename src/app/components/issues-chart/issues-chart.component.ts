@@ -8,7 +8,8 @@ import {
   ApexYAxis,
   ApexTooltip,
   ApexTitleSubtitle,
-  ApexXAxis
+  ApexXAxis,
+  ApexMarkers
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -23,6 +24,7 @@ export type ChartOptions = {
   dataLabels: any; // ApexDataLabels;
   fill: ApexFill;
   tooltip: ApexTooltip;
+  markers: ApexMarkers;
 };
 
 
@@ -54,8 +56,19 @@ export class IssuesChartComponent {
         width: [0, 4]
       },
       dataLabels: {
+        offsetX: 0,
+        offsetY: -10,
         enabled: true,
-        enabledOnSeries: [1]
+        enabledOnSeries: [1],
+        background: {
+          dropShadow: {
+            enabled: true,
+            left: 2,
+            top: 1,
+            opacity: 0.3,
+          },
+          borderColor: undefined,
+        }
       },
       labels: [
         "MON",
@@ -69,6 +82,13 @@ export class IssuesChartComponent {
       xaxis: {
         type: "category"
       },
+      markers: {
+        size: 5,
+        strokeWidth: 0,
+      },
+      tooltip: {
+        theme: "dark",
+      }
     };
     this.newIssuesCount = currentWeekData[1].data.reduce((a: number, b: number) => a + b, 0);
     this.closedIssuesCount = currentWeekData[0].data.reduce((a: number, b: number) => a + b, 0);
