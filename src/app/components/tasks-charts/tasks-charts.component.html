@@ -1,16 +1,173 @@
 <div class="row">
   <div class="col-md-6">
-    <div class="card">
+    <div class="card chart-card">
       <div class="card-body w-100">
-        <div class="chart">
+        <div class="header">
+          <h2 class="m-0">Tasks Distribution</h2>
+          <div class="btn-container">
+            <button type="button" class="btn" (click)="showLastWeekData()">Last Week</button>
+            <button type="button" class="btn" (click)="showCurrentWeekData()">This Week</button>
+          </div>
+        </div>
+        <div class="chart mt-3">
           <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [labels]="chartOptions.labels"
             [title]="chartOptions.title!" [theme]="chartOptions.theme!" [fill]="chartOptions.fill!"
             [yaxis]="chartOptions.yaxis!" [stroke]="chartOptions.stroke!" [legend]="chartOptions.legend!"
             [responsive]="chartOptions.responsive!" [plotOptions]="chartOptions.plotOptions!"></apx-chart>
         </div>
+        <div class="row footer text-center mt-5">
+          <div class="col-6">
+            <h1 class="count m-0">{{totalTasksCount}}</h1>
+            <span class="task-type">Total Tasks</span>
+          </div>
+          <div class="col-6">
+            <h1 class="count m-0">{{completedTaskCount}}</h1>
+            <span class="task-type">Completed Tasks</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="col-md-6">
+    <div class="card progress-card">
+      <div class="card-body py-4">
+        <div class="row">
+          <div class="col-6">
+            <h2 style="font-style: italic;">API</h2>
+            <div class="progress-container">
+              <h4 class="mb-1"> Web Design </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Website Markup </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 10%;"></div>
+              </div>
+            </div>
+            <div class="progress-container ">
+              <h4 class="mb-1"> One Page </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Mobile Template </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="progress-container">
+              <h4 class="mb-1"> Backend API </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 33%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <h2 style="font-style: italic;"> Frontend </h2>
+            <div class="progress-container">
+              <h4 class="mb-1"> Web Design </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Website Markup </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 10%;"></div>
+              </div>
+            </div>
+            <div class="progress-container ">
+              <h4 class="mb-1"> One Page </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Mobile Template </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="progress-container">
+              <h4 class="mb-1"> Backend API </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 33%;"></div>
+              </div>
+            </div>
+          </div>
 
-  <div class="col-md-6"></div>
+
+          <div class="col-6 mt-5">
+            <h2 style="font-style: italic;">Backend Status</h2>
+            <div class="progress-container">
+              <h4 class="mb-1"> Web Design </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Website Markup </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 10%;"></div>
+              </div>
+            </div>
+            <div class="progress-container ">
+              <h4 class="mb-1"> One Page </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Mobile Template </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="progress-container">
+              <h4 class="mb-1"> Backend API </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 33%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 mt-5">
+            <h2 style="font-style: italic;"> Issues Status  </h2>
+            <div class="progress-container">
+              <h4 class="mb-1"> Web Design </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Website Markup </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 10%;"></div>
+              </div>
+            </div>
+            <div class="progress-container ">
+              <h4 class="mb-1"> One Page </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="progress-container py-3">
+              <h4 class="mb-1"> Mobile Template </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 100%;"></div>
+              </div>
+            </div>
+            <div class="progress-container">
+              <h4 class="mb-1"> Backend API </h4>
+              <div class="progress" role="progressbar">
+                <div class="progress-bar bg-primary text-white" style="width: 33%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

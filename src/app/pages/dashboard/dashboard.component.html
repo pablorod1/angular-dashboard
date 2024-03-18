@@ -112,18 +112,13 @@
         </ng-template>
         <div>
           <!-- Budget container -->
-          <div class="container budget-container mt-5 mb-5">
-
+          <div class=" budget-container p-3 mt-5 mb-5">
             <div class="row">
-              <div class="col-md-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="title d-flex justify-content-between">
-                      <h3>Summary</h3>
-                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
-                    </div>
-                  </div>
-                </div>
+              <div class="col-md-8 col-sm-12">
+                <app-budget-chart></app-budget-chart>
+              </div>
+              <div class="col-md-4">
+                <app-weekly-expenses></app-weekly-expenses>
               </div>
             </div>
           </div>

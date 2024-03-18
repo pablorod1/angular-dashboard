@@ -1,0 +1,15 @@
+<div class="card chart-card">
+  <div class="card-body w-100">
+    <div class="header">
+      <h2 class="m-0">Weekly Expenses</h2>
+    </div>
+    <div class="chart d-flex justify-content-between align-items-center">
+      <div class="info">
+        <h2 class="m-0">19.200€</h2>
+        <small class="text-success"><i class="bi bi-arrow-down-right"></i> 2%<span class="text-muted">below projected</span></small>
+      </div>
+      <apx-chart [series]="series" [chart]="chart" [xaxis]="xaxis" [responsive]="responsive" [dataLabels]="dataLabels"
+        [yaxis]="yaxis" [grid]="grid" [markers]="markers" [stroke]="stroke" [colors]="colors"></apx-chart>
+    </div>
+  </div>
+</div>

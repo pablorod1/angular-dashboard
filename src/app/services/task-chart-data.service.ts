@@ -13,6 +13,7 @@ export class TaskChartDataService {
   private lastWeekData: any[] = [
     {
       data: [ 40, 35, 30, 28 ],
+      type: ['API', 'Backend', 'Frontend', 'Issues']
     }
   ];
 

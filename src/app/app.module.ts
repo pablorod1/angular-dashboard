@@ -61,6 +61,8 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { IssuesChartComponent } from './components/issues-chart/issues-chart.component';
 import { TasksChartsComponent } from './components/tasks-charts/tasks-charts.component';
+import { BudgetChartComponent } from './components/budget-chart/budget-chart.component';
+import { WeeklyExpensesComponent } from './components/weekly-expenses/weekly-expenses.component';
 
 
 
@@ -100,6 +102,8 @@ import { TasksChartsComponent } from './components/tasks-charts/tasks-charts.com
     DashboardComponent,
     IssuesChartComponent,
     TasksChartsComponent,
+    BudgetChartComponent,
+    WeeklyExpensesComponent,
 
   ],
   imports: [
