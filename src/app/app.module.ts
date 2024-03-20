@@ -15,6 +15,7 @@ import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
+import {ProgressBarModule} from 'primeng/progressbar';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -65,6 +66,8 @@ import { BudgetChartComponent } from './components/budget-chart/budget-chart.com
 import { WeeklyExpensesComponent } from './components/weekly-expenses/weekly-expenses.component';
 import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
 import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-expenses.component';
+import { BudgetTableComponent } from './components/budget-table/budget-table.component';
+import { TeamMembersComponent } from './components/team-members/team-members.component';
 
 
 
@@ -108,6 +111,8 @@ import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-exp
     WeeklyExpensesComponent,
     MonthlyExpensesComponent,
     YearlyExpensesComponent,
+    BudgetTableComponent,
+    TeamMembersComponent,
 
   ],
   imports: [
@@ -129,7 +134,8 @@ import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-exp
     TabMenuModule,
     TabViewModule,
     MatTabsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    ProgressBarModule
   ],
   providers: [
     provideClientHydration(),

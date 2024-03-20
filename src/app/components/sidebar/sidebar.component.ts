@@ -10,6 +10,7 @@ import { Sidebar } from 'primeng/sidebar';
 export class SidebarComponent {
   sidebarVisible: boolean = false;
 
+
   isHelpCenterVisible = false;
   isAuthVisible = false;
   isSignInVisible = false;
@@ -28,6 +29,7 @@ export class SidebarComponent {
   closeCallback(e: Event): void {
     this.sidebarRef.close(e);
   }
+
 
   toggleHelpCenter() {
     this.isHelpCenterVisible = !this.isHelpCenterVisible;

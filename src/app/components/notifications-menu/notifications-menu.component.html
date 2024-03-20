@@ -1,4 +1,4 @@
-<button type="button" (click)="overlayPanel.toggle($event)" class="btn"><i class="bi bi-bell" ><span *ngIf="readedCount > 0" pBadge value={{readedCount}}></span> </i></button>
+<button type="button" (click)="overlayPanel.toggle($event)" class="button"><i class="bi bi-bell" ><span *ngIf="readedCount > 0" pBadge value={{readedCount}}></span> </i></button>
 <p-overlayPanel #overlayPanel [style]="{ width: '370px'}">
   <ng-template pTemplate="content">
     <header class="header">

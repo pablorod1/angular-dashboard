@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-body w-100">
+    <div class="header">
+      <h2 class="m-2">Budget Details</h2>
+    </div>
+    <p-table [columns]="cols" [value]="budgetTableData" [tableStyle]="{'min-width' : '50rem'}">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            <strong class="table-header">{{col.header}}</strong>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            <span *ngIf="col.field === 'name'" class="badge rounded-circle mx-2 p-1" [ngClass]="getBadgeClass(rowData[col.field])">
+              <span class="visually-hidden">a</span>
+            </span>
+            <span class="table-data" *ngIf="col.field === 'name'">{{rowData[col.field]}}</span>
+            <span class="table-data" *ngIf="col.field === 'totalBudget' || col.field === 'expenses' || col.field === 'remaining'">{{rowData[col.field] | currency:'EUR':'symbol':'1.0-0'}}</span>
+            <span class="table-data" *ngIf="col.field === 'expensesPercentage'">{{rowData[col.field] / 100 | percent:'1.0-2'}}</span>
+            <div *ngIf="col.field === 'remainingPercentage'" class="d-flex align-items-center gap-3">
+              <div class="progress-bar-container ">
+                <p-progressBar class="custom-progress" [style]="{ height: '6px', width: '100%'}" [showValue]="false" [value]="rowData[col.field]" [ngClass]="{'bg-danger': rowData[col.field] < 50, 'bg-success': rowData[col.field] >= 50}"></p-progressBar>
+              </div>
+              <span class="table-data">{{rowData[col.field] / 100 | percent:'1.0-2'}}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -31,17 +31,17 @@ export class MessageMenuComponent {
       readed: false,
     },
     {
-      sender: 'Jane Doe',
+      sender: 'Maria Elena',
       message: 'I need your help with the project',
       timestamp: 'Mon 12, 10:00 AM',
       img: '../../../assets/profile-picture5.webp',
       readed: true,
     },
     {
-      sender: 'Maria Elena',
+      sender: 'Natalia Sánchez',
       message: "Don't forget to bring the documents for the meeting",
       timestamp: 'Mon 12, 9:00 AM',
-      img: '../../../assets/profile-picture6.webp',
+      img: '../../../assets/profile-picture9.webp',
       readed: true,
     }
   ];

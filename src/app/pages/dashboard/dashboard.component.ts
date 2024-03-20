@@ -1,11 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { IssuesChartDataService } from '../../services/issues-chart-data.service';
+import { Member } from '../../components/team-members/team-members';
+import { TeamMembersDataService } from '../../services/team-members-data.service';
 
-interface MenuItemInterface {
-  label: string;
-  icon: string;
-  id: string;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -14,26 +10,13 @@ interface MenuItemInterface {
 })
 export class DashboardComponent implements OnInit {
   selectedProject = 1;
-  items: MenuItemInterface[] | undefined;
-  activeItem!: MenuItemInterface;
+  teamMembers!: Member[];
   @Output() changeData = new EventEmitter<string>();
 
-  constructor(private issuesChartDataService: IssuesChartDataService) { }
+  constructor(private teamMembersDataService: TeamMembersDataService) { }
 
-  ngOnInit(){
-    this.items = [
-      {id:'home', label: 'Home', icon: 'bi bi-home'},
-      {id:'budget', label: 'Budget', icon: 'bi bi-cash'},
-      {id:'team', label: 'Team', icon: 'bi bi-people'}
-    ];
-    this.activeItem = this.items[0];
-  }
-
-  showLastWeekData(): void {
-    this.changeData.emit('lastWeek');
-  }
-  showCurrentWeekData(): void {
-    this.changeData.emit('currentWeek');
+  ngOnInit(): void {
+    this.teamMembers = this.teamMembersDataService.getMembers();
   }
 
   selectProject(projectNumber: number) {

@@ -1,6 +1,9 @@
 .card{
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  padding: 15px;
   border: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+
 }
 .info h2{
   font-size: clamp(1.5rem, 2vw, 2.2rem);

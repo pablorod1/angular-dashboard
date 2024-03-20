@@ -14,10 +14,10 @@
       <button class="btn settings-btn"><i class="bi bi-gear px-1"></i> Settings </button>
     </div>
   </div>
+  <button class="dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Project {{selectedProject}}
+  </button>
   <div class="dropdown">
-    <button class="dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <span>Project {{selectedProject}}</span>
-    </button>
     <ul class="dropdown-menu">
       <li><a role="button" class="dropdown-item" (click)="selectProject(1)">Project 1</a></li>
       <li><a role="button" class="dropdown-item" (click)="selectProject(2)">Project 2</a></li>
@@ -26,18 +26,18 @@
   </div>
 
   <div *ngIf="selectedProject === 1" class="container-fluid p-3">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+    <mat-tab-group  mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
         <ng-template mat-tab-label>
           <i class="bi bi-house px-2"></i>
           <span>Home</span>
         </ng-template>
         <!-- Home container -->
-        <div class="home-container p-3 mt-5 mb-5">
+        <div class="home-container p-3">
           <div class="row  cards-container g-2">
             <div class="col-md-3 col-sm-6">
               <div class="card">
-                <div class="card-body ">
+                <div class="card-body">
                   <i class="text-primary bi bi-clipboard2"></i>
                   <div class="info text-end text-primary">
                     <h3 class="text-muted">Tasks</h3>
@@ -112,8 +112,8 @@
         </ng-template>
         <div>
           <!-- Budget container -->
-          <div class=" budget-container p-3 mt-5 mb-5">
-            <div class="row g-3">
+          <div class=" budget-container p-3">
+            <div class="row g-3 ">
               <div class="col-md-8 col-sm-12">
                 <app-budget-chart></app-budget-chart>
               </div>
@@ -130,6 +130,9 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-12">
+                <app-budget-table></app-budget-table>
+              </div>
             </div>
           </div>
         </div>
@@ -137,25 +140,12 @@
       <mat-tab>
         <ng-template mat-tab-label>
           <i class="bi bi-people px-2"></i>
-          <span>Team</span>
+          <span class="d-flex align-items-center gap-2">Team <span class="badge"> {{teamMembers.length}}</span></span>
         </ng-template>
         <div>
           <!-- Team container -->
-          <div class="container team-container mb-5 mt-5">
-
-            <div class="row">
-              <div class="col-md-3">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="title d-flex justify-content-between">
-                      <h3>Summary</h3>
-                      <button type="button" class="btn"><i class="bi bi-three-dots-vertical"></i></button>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="team-container p-3">
+            <app-team-members></app-team-members>
           </div>
         </div>
       </mat-tab>
@@ -165,14 +155,14 @@
 
 
   <div *ngIf="selectedProject === 2" class="container-fluid p-3">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
 
       </mat-tab>
     </mat-tab-group>
   </div>
   <div *ngIf="selectedProject === 3" class="container-fluid  p-3">
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="1000ms">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
 
       </mat-tab>

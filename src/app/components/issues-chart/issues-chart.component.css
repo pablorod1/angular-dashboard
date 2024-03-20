@@ -1,54 +1,118 @@
-.card{
+.card {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
   padding: 15px;
   width: 100%;
   max-width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
   border: 0;
+  border-radius: 15px;
 }
-.issues-overview .card{
+.issues-overview .card {
   padding: 20px;
   border: 0;
   box-shadow: none;
 }
-.issues-overview .count .card .card-body{
+.issues-overview .count .card .card-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.issues-overview .count .card .card-body .issues-count{
+.issues-overview .count .card .card-body .issues-count {
   font-size: 50px;
   font-weight: 500;
   margin-bottom: 20px;
 }
-.issues-overview .count .card .card-body .issues-type{
+.issues-overview .count .card .card-body .issues-type {
   font-size: 18px;
   font-weight: 400;
 }
-.issues-overview .secondary .card .card-body .issues-count{
+.issues-overview .secondary .card .card-body .issues-count {
   font-size: 30px;
   font-weight: 500;
   margin-bottom: 10px;
 }
-.issues-overview .secondary .card .card-body .issues-type{
+.issues-overview .secondary .card .card-body .issues-type {
   font-size: 16px;
   font-weight: 400;
 }
-.bg-primary, .bg-success, .bg-secondary, .bg-danger, .bg-warning, .bg-info {
+.bg-primary,
+.bg-success,
+.bg-secondary,
+.bg-danger,
+.bg-warning,
+.bg-info {
   --bs-bg-opacity: 0.18;
 }
-.issues-overview .col-md-3 .card{
+.issues-overview .col-md-3 .card {
   padding: 5px;
 }
-.text-primary{
+.text-primary {
   color: rgb(0, 63, 157) !important;
 }
-.text-warning{
+.text-warning {
   color: rgb(185, 139, 0) !important;
 }
-.text-info{
-  color: rgb(0,123,147) !important;
+.text-info {
+  color: rgb(0, 123, 147) !important;
+}
+.button {
+  appearance: none;
+  background-color: #fafbfc;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #24292e;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.button:hover {
+  background-color: #f3f4f6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button:disabled {
+  background-color: #fafbfc;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959da5;
+  cursor: default;
+}
+
+.button:active {
+  background-color: #edeff2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button:focus {
+  outline: 1px transparent;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.button:before {
+  display: none;
+}
+
+.button:-webkit-details-marker {
+  display: none;
 }

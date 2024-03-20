@@ -36,6 +36,7 @@ export class BudgetChartDataService {
         show: false
       },
       width: 800,
+      height: 500,
       type: 'radar', // Add the required 'data' property here
     };
     this.xaxis = {
@@ -44,7 +45,8 @@ export class BudgetChartDataService {
         show: true,
         style: {
           fontSize: '14px',
-          fontWeight: 600,
+          fontFamily: 'Poppins, sans-serif',
+          colors: ['#000000', '#000000', '#000000', '#000000', '#000000']
         },
       }
     };
@@ -67,6 +69,7 @@ export class BudgetChartDataService {
         },
         borderColor: undefined,
       }
+
     };
     this.markers = {
       size: 5,
