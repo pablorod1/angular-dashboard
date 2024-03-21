@@ -15,7 +15,7 @@
     </div>
   </div>
   <button class="dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Project {{selectedProject}}
+    Project {{selectedProject}} <i class="bi bi-caret-down-fill arrow"></i>
   </button>
   <div class="dropdown">
     <ul class="dropdown-menu">
@@ -26,7 +26,7 @@
   </div>
 
   <div *ngIf="selectedProject === 1" class="container-fluid p-3">
-    <mat-tab-group  mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
         <ng-template mat-tab-label>
           <i class="bi bi-house px-2"></i>
@@ -157,14 +157,252 @@
   <div *ngIf="selectedProject === 2" class="container-fluid p-3">
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
-
+        <ng-template mat-tab-label>
+          <i class="bi bi-house px-2"></i>
+          <span>Home</span>
+        </ng-template>
+        <!-- Home container -->
+        <div class="home-container p-3">
+          <div class="row  cards-container g-2">
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <i class="text-primary bi bi-clipboard2"></i>
+                  <div class="info text-end text-primary">
+                    <h3 class="text-muted">Tasks</h3>
+                    <h1>21</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-arrow-repeat"></i> Updated Now</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-success bi bi-cash-coin"></i>
+                  <div class="info text-end text-success">
+                    <h3 class="text-muted">Revenue</h3>
+                    <h1>1.500€</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-calendar"></i> Yesterday</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-danger bi bi-exclamation-circle"></i>
+                  <div class="info text-end text-danger">
+                    <h3 class="text-muted">Errors</h3>
+                    <h1>10</h1>
+                  </div>
+                </div>
+                <div class="card-footer text-danger">
+                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-info bi bi-graph-up"></i>
+                  <div class="info text-end text-info">
+                    <h3 class="text-muted">Performance</h3>
+                    <h1>49,65%</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="text-success"><i class="bi bi-arrow-up"></i> 3.50%</span>
+                  <small class="text-muted"> Since last month</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row issues-container mt-3">
+            <div class="col-md-12">
+              <app-issues-chart></app-issues-chart>
+            </div>
+          </div>
+          <div class="row tasks-container mt-3">
+            <div class="col-md-12">
+              <app-tasks-charts></app-tasks-charts>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-currency-euro px-2"></i>
+          <span>Budget</span>
+        </ng-template>
+        <div>
+          <!-- Budget container -->
+          <div class=" budget-container p-3">
+            <div class="row g-3 ">
+              <div class="col-md-8 col-sm-12">
+                <app-budget-chart></app-budget-chart>
+              </div>
+              <div class="col-md-4">
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <app-weekly-expenses></app-weekly-expenses>
+                  </div>
+                  <div class="col-md-12">
+                    <app-monthly-expenses></app-monthly-expenses>
+                  </div>
+                  <div class="col-md-12">
+                    <app-yearly-expenses></app-yearly-expenses>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <app-budget-table></app-budget-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-people px-2"></i>
+          <span class="d-flex align-items-center gap-2">Team <span class="badge"> {{teamMembers.length}}</span></span>
+        </ng-template>
+        <div>
+          <!-- Team container -->
+          <div class="team-container p-3">
+            <app-team-members></app-team-members>
+          </div>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>
   <div *ngIf="selectedProject === 3" class="container-fluid  p-3">
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="800ms">
       <mat-tab>
-
+        <ng-template mat-tab-label>
+          <i class="bi bi-house px-2"></i>
+          <span>Home</span>
+        </ng-template>
+        <!-- Home container -->
+        <div class="home-container p-3">
+          <div class="row  cards-container g-2">
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <i class="text-primary bi bi-clipboard2"></i>
+                  <div class="info text-end text-primary">
+                    <h3 class="text-muted">Tasks</h3>
+                    <h1>21</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-arrow-repeat"></i> Updated Now</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-success bi bi-cash-coin"></i>
+                  <div class="info text-end text-success">
+                    <h3 class="text-muted">Revenue</h3>
+                    <h1>1.500€</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span><i class="bi bi-calendar"></i> Yesterday</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-danger bi bi-exclamation-circle"></i>
+                  <div class="info text-end text-danger">
+                    <h3 class="text-muted">Errors</h3>
+                    <h1>10</h1>
+                  </div>
+                </div>
+                <div class="card-footer text-danger">
+                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="card">
+                <div class="card-body ">
+                  <i class="text-info bi bi-graph-up"></i>
+                  <div class="info text-end text-info">
+                    <h3 class="text-muted">Performance</h3>
+                    <h1>49,65%</h1>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span class="text-success"><i class="bi bi-arrow-up"></i> 3.50%</span>
+                  <small class="text-muted"> Since last month</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row issues-container mt-3">
+            <div class="col-md-12">
+              <app-issues-chart></app-issues-chart>
+            </div>
+          </div>
+          <div class="row tasks-container mt-3">
+            <div class="col-md-12">
+              <app-tasks-charts></app-tasks-charts>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-currency-euro px-2"></i>
+          <span>Budget</span>
+        </ng-template>
+        <div>
+          <!-- Budget container -->
+          <div class=" budget-container p-3">
+            <div class="row g-3 ">
+              <div class="col-md-8 col-sm-12">
+                <app-budget-chart></app-budget-chart>
+              </div>
+              <div class="col-md-4">
+                <div class="row g-3">
+                  <div class="col-md-12">
+                    <app-weekly-expenses></app-weekly-expenses>
+                  </div>
+                  <div class="col-md-12">
+                    <app-monthly-expenses></app-monthly-expenses>
+                  </div>
+                  <div class="col-md-12">
+                    <app-yearly-expenses></app-yearly-expenses>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <app-budget-table></app-budget-table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-people px-2"></i>
+          <span class="d-flex align-items-center gap-2">Team <span class="badge"> {{teamMembers.length}}</span></span>
+        </ng-template>
+        <div>
+          <!-- Team container -->
+          <div class="team-container p-3">
+            <app-team-members></app-team-members>
+          </div>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

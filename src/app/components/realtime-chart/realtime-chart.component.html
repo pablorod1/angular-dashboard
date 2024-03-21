@@ -1,0 +1,29 @@
+<div class="card bg-dark text-white">
+  <div class="header p-3">
+    <h1 class="title mb-0">Realtime Analytics</h1>
+  </div>
+  <div class="card-body">
+    <div class="chart">
+      <button (click)="updateOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
+        1M
+      </button>
+      <button (click)="updateOptions( '6m' )" [class.active]="activeOptionButton=='6m'">
+        6M
+      </button>
+      <button (click)="updateOptions( '1y' )" [class.active]="activeOptionButton=='1y'">
+        1Y
+      </button>
+      <button (click)="updateOptions( '1yd' )" [class.active]="activeOptionButton=='1yd'">
+        1YD
+      </button>
+      <button (click)="updateOptions( 'all' )" [class.active]="activeOptionButton=='all'">
+        All
+      </button>
+      <apx-chart #chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [colors]="chartOptions.colors"
+        [yaxis]="chartOptions.yaxis!" [grid]="chartOptions.grid!" [dataLabels]="chartOptions.dataLabels!" [markers]="chartOptions.markers!"
+        [stroke]="chartOptions.stroke!" [xaxis]="chartOptions.xaxis!"
+        [tooltip]="chartOptions.tooltip!"></apx-chart>
+
+    </div>
+  </div>
+</div>

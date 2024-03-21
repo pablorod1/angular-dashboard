@@ -1,3 +1,5 @@
+
+
 .profile-picture{
   width: 180px;
   min-height: 180px;
@@ -21,7 +23,6 @@
   padding: 30px;
   border: 0;
   border-radius: 15px;
-  margin: 20px;
   height: 100%;
 }
 .card-body{

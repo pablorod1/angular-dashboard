@@ -131,7 +131,7 @@ export class WeeklyExpensesDataService {
       toolbar: {
         show: false,
       },
-      height: '100',
+      height: 100,
       width: 380,
       type: 'line',
       zoom: {

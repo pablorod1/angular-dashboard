@@ -7,7 +7,7 @@
 }
 
 .row{
-  min-height: 92.6lvh;
+  min-height: 100vh;
 }
 
 .logo-picture{
@@ -49,6 +49,6 @@
 
 @media (max-width: 768px){
   .row{
-    margin-top: 1rem !important;
+    margin-top: 1.5rem !important;
   }
 }

@@ -68,6 +68,12 @@ import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-
 import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-expenses.component';
 import { BudgetTableComponent } from './components/budget-table/budget-table.component';
 import { TeamMembersComponent } from './components/team-members/team-members.component';
+import { AnalyticsComponent } from './pages/analytics/analytics.component';
+import { BalanceChartComponent } from './components/balance-chart/balance-chart.component';
+import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
+import { ExpensesChartComponent } from './components/expenses-chart/expenses-chart.component';
+import { RealtimeChartComponent } from './components/realtime-chart/realtime-chart.component';
+import { LocationChartComponent } from './components/location-chart/location-chart.component';
 
 
 
@@ -113,6 +119,12 @@ import { TeamMembersComponent } from './components/team-members/team-members.com
     YearlyExpensesComponent,
     BudgetTableComponent,
     TeamMembersComponent,
+    AnalyticsComponent,
+    BalanceChartComponent,
+    EarningsChartComponent,
+    ExpensesChartComponent,
+    RealtimeChartComponent,
+    LocationChartComponent,
 
   ],
   imports: [

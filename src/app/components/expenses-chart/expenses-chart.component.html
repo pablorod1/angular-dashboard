@@ -1,0 +1,12 @@
+<div class="card bg-dark text-white">
+  <div class="card-body d-flex justify-content-evenly align-items-center">
+    <div class="info">
+      <h3 class="mb-0"> Expenses </h3>
+      <h1 class="balance">{{expenses}}</h1>
+    </div>
+    <div class="chart">
+      <apx-chart [series]="series" [chart]="chart"  [responsive]="responsive"
+        [labels]="labels" [plotOptions]="plotOptions" [tooltip]="tooltip" ></apx-chart>
+    </div>
+  </div>
+</div>

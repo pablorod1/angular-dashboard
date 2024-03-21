@@ -27,12 +27,15 @@ import { UnlockFullscreenComponent } from './pages/authentication/unlock-session
 //Dashboard
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
+
 //MailBox
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
+import { AnalyticsComponent } from './pages/analytics/analytics.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
+  {path: 'analytics', component: AnalyticsComponent},
   // Authentication Paths
   // Confirmation Paths
   {path: 'confirmation-classic', component: ConfirmationClassicComponent},

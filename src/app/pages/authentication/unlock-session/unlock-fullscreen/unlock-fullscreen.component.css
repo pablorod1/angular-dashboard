@@ -11,7 +11,7 @@
   justify-content: center!important;
 }
 .row{
-  min-height: 92.6lvh;
+  min-height: 100vh;
 }
 
 .logo-picture{
@@ -33,7 +33,7 @@
 }
 .form-control{
   flex-wrap: wrap;
-  width: 100%;
+  width: 300px;
   max-width: 500px;
   box-shadow: none;
 }
@@ -53,7 +53,7 @@
 
 .submit-btn{
   font-weight: 500;
-  width: 100px;
+  width: 200px;
   padding: 10px;
   border-radius: 20px;
   background-color: #1a322f;
@@ -131,6 +131,6 @@
 
 @media (max-width: 768px){
   .row{
-    margin-top: 1rem !important;
+    margin-top: 1.5rem !important;
   }
 }

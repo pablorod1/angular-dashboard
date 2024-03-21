@@ -2,7 +2,6 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Member } from '../../components/team-members/team-members';
 import { TeamMembersDataService } from '../../services/team-members-data.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

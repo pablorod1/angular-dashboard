@@ -67,7 +67,7 @@
   border-bottom-right-radius: 0 !important;
   border-radius: 5px;
   background-color: #f1f1f1;
-  width: 100px;
+  width: 150px;
 }
 .dropdown-btn::after{
   display: none;
@@ -105,10 +105,10 @@
   border: 0;
   border-radius: 15px;
   margin: 20px;
+  transition: transform 0.3s ease;
 }
-.team-container .card{
-  height: 100%;
-  width: 100%;
+.card:hover{
+  transform: translateY(-4px);
 }
 .home-container, .team-container{
   margin: 0 1rem 1rem 1rem;
@@ -159,6 +159,7 @@
 .dropdown-menu {
   border: 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
   animation: growDown 0.3s ease-in-out forwards;
   transform-origin: top center;
 }
@@ -168,6 +169,15 @@
   background-color: rgba(26, 50, 47, 0.8) !important;
   border-radius: 50%;
   color: #fff;
+}
+.dropdown-btn .arrow {
+  display: inline-block;
+  font-size: 13px;
+  transition: transform 0.2s ease-out;
+}
+
+.dropdown-btn[aria-expanded="true"] .arrow {
+  transform: rotate(-180deg);
 }
 
 @media (max-width: 768px){
