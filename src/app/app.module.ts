@@ -71,7 +71,6 @@ import { TeamMembersComponent } from './components/team-members/team-members.com
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { BalanceChartComponent } from './components/balance-chart/balance-chart.component';
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
-import { ExpensesChartComponent } from './components/expenses-chart/expenses-chart.component';
 import { RealtimeChartComponent } from './components/realtime-chart/realtime-chart.component';
 import { LocationChartComponent } from './components/location-chart/location-chart.component';
 
@@ -122,7 +121,6 @@ import { LocationChartComponent } from './components/location-chart/location-cha
     AnalyticsComponent,
     BalanceChartComponent,
     EarningsChartComponent,
-    ExpensesChartComponent,
     RealtimeChartComponent,
     LocationChartComponent,
 

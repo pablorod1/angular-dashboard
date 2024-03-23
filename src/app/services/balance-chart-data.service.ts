@@ -33,7 +33,7 @@ export class BalanceChartDataService {
   getBalanceChartData(): Observable<any>{
     this.series = [
       {
-        name: 'Balance',
+        name: 'Weekly Users',
         data: [3257, 3290, 3189, 3200, 3250, 3300, 3150]
       }
     ];
@@ -76,11 +76,6 @@ export class BalanceChartDataService {
     this.tooltip = {
       enabled: true,
       theme: 'dark',
-      y: {
-        formatter: function(value) {
-          return value + ' €';
-        }
-      },
     };
     this.markers = {
       size: 4,
@@ -112,7 +107,7 @@ export class BalanceChartDataService {
       stroke: this.stroke,
       tooltip: this.tooltip,
       responsive: this.responsive,
-      balance: balance?.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })
+      balance: balance?.toLocaleString('en-US')
     };
     return of(chartOptions);
   }

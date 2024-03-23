@@ -13,7 +13,7 @@ export class NotificationsMenuComponent {
       sender: 'Pedro López',
       message: 'accepted your friend request',
       timestamp: 'Mar 13, 12:50 PM',
-      img: '../../../assets/profile-picture.webp',
+      img: '../../../assets/profile-picture2.webp',
       readed: false,
     },
     {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {
   ChartComponent,
   ApexChart,
@@ -15,9 +15,10 @@ import {
   ApexGrid,
 } from 'ng-apexcharts';
 import { data } from './series-data';
+import { Subscription, timer } from 'rxjs';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
+interface ChartOptions {
+  series: { data: [number, number][] }[];
   chart: ApexChart;
   dataLabels: ApexDataLabels;
   markers: ApexMarkers;
@@ -31,81 +32,59 @@ export type ChartOptions = {
   grid: ApexGrid;
   colors: any;
   toolbar: any;
-};
+}
 
 @Component({
   selector: 'app-realtime-chart',
   templateUrl: './realtime-chart.component.html',
   styleUrl: './realtime-chart.component.css',
 })
-export class RealtimeChartComponent {
+export class RealtimeChartComponent implements OnDestroy {
   @ViewChild('chart', { static: false }) chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   public activeOptionButton = 'all';
-  public updateOptionsData = {
-    '1m': {
-      xaxis: {
-        min: new Date('28 Jan 2013').getTime(),
-        max: new Date('27 Feb 2013').getTime(),
-      },
-    },
-    '6m': {
-      xaxis: {
-        min: new Date('27 Sep 2012').getTime(),
-        max: new Date('27 Feb 2013').getTime(),
-      },
-    },
-    '1y': {
-      xaxis: {
-        min: new Date('27 Feb 2012').getTime(),
-        max: new Date('27 Feb 2013').getTime(),
-      },
-    },
-    '1yd': {
-      xaxis: {
-        min: new Date('01 Jan 2013').getTime(),
-        max: new Date('27 Feb 2013').getTime(),
-      },
-    },
-    all: {
-      xaxis: {
-        min: undefined,
-        max: undefined,
-      },
-    },
-  };
+  public updateInterval = 3000;
+  private dataSubscription: Subscription | undefined;
 
   constructor() {
     this.initChart();
+    this.startRealtimeUpdates();
+  }
+
+  ngOnDestroy(): void {
+    this.stopRealtimeUpdates();
   }
 
   initChart(): void {
+    const transformedData = data.map(([timestamp, value]) => [
+      timestamp,
+      value,
+    ]) as [number, number][];
     this.chartOptions = {
-      series: [
-        {
-          data: data
-        },
-      ],
+      series: [{ data: transformedData }],
       chart: {
         type: 'area',
         height: 350,
         animations: {
-          enabled: false
+          enabled: true,
         },
-
       },
-
       grid: {
         show: false,
+
       },
       dataLabels: {
         enabled: false,
       },
       markers: {
         size: 0,
+
       },
       yaxis: {
         labels: {
+          formatter: function (val) {
+            return val.toFixed(2);
+          },
           style: {
             colors: '#fff',
           },
@@ -118,8 +97,6 @@ export class RealtimeChartComponent {
           },
         },
         type: 'datetime',
-        min: new Date('01 Mar 2012').getTime(),
-        tickAmount: 6,
       },
       tooltip: {
         theme: 'dark',
@@ -137,13 +114,64 @@ export class RealtimeChartComponent {
       },
     };
   }
-  generateRandomData(length: number) {
-    return Array.from({length}, () => Math.floor(Math.random() * 40));
+  startRealtimeUpdates(): void {
+    this.dataSubscription = timer(0, this.updateInterval).subscribe(() => {
+      const newDataPoint = this.generateRandomDataPoint();
+      if (this.chartOptions && this.chartOptions.series) {
+        const updatedSeriesData = [...this.chartOptions.series[0].data, newDataPoint];
+        // console.log(updatedSeriesData[updatedSeriesData.length - 1]);
+        const updatedSeries = [{ data: updatedSeriesData }];
+
+        // Calculate the visible range
+        const visibleRange = 100; // replace with the number of data points you want to show at a time
+        const oldestVisibleDataPointIndex = Math.max(updatedSeriesData.length - visibleRange , 0);
+        const oldestVisibleDataPointTime = updatedSeriesData[oldestVisibleDataPointIndex][0];
+
+        const newestDataPointTime = updatedSeriesData[updatedSeriesData.length - 1][0];
+
+        this.chartOptions = { ...this.chartOptions, series: updatedSeries };
+        this.chart.updateOptions({
+          xaxis: {
+            min: oldestVisibleDataPointTime,
+            max: newestDataPointTime
+          },
+          chart: {
+            animations: {
+              enabled: true,
+              easing: 'linear',
+              speed: 300,
+              animateGradually: {
+                enabled: true,
+                delay: 150
+              },
+              dynamicAnimation: {
+                enabled: true,
+                speed: 350
+              }
+            },
+          }
+        }, false, true, true);
+      }
+    });
   }
 
-  public updateOptions(option: keyof typeof this.updateOptionsData): void {
-    this.activeOptionButton = option;
-    this.chart.updateOptions(this.updateOptionsData[option], false, true, true);
+  stopRealtimeUpdates(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
+  }
+
+
+  generateRandomDataPoint(): [number, number] {
+    if (this.chartOptions && this.chartOptions.series && this.chartOptions.series[0].data) {
+      const lastIndex = this.chartOptions.series[0].data.length - 1;
+      const lastDataPoint = this.chartOptions.series[0].data[lastIndex];
+      const nextTimestamp = lastDataPoint[0] + 86400000; // Añade un día en milisegundos
+      const min = 30;
+      const max = 40;
+      const randomValue = Math.random() * (max - min) + min;
+      return [nextTimestamp, randomValue];
+    }
+    return [0, 0]; // Return default values if data is undefined
   }
 }
-
