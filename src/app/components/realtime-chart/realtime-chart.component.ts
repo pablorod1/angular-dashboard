@@ -40,7 +40,7 @@ interface ChartOptions {
   styleUrl: './realtime-chart.component.css',
 })
 export class RealtimeChartComponent implements OnDestroy {
-  @ViewChild('chart', { static: false }) chart!: ChartComponent;
+  @ViewChild('chart', { static: true }) chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   public activeOptionButton = 'all';
   public updateInterval = 3000;

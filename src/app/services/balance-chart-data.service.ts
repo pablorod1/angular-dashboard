@@ -40,7 +40,7 @@ export class BalanceChartDataService {
     this.chart = {
       height: 100,
       width: '100%',
-      type: 'line',
+      type: 'area',
       toolbar: {
         show: false
       },
@@ -78,7 +78,7 @@ export class BalanceChartDataService {
       theme: 'dark',
     };
     this.markers = {
-      size: 4,
+      size: 0,
       strokeWidth: 0,
       shape: 'square'
     };
@@ -87,7 +87,7 @@ export class BalanceChartDataService {
         breakpoint: 1700,
         options: {
           chart: {
-            width: '70%',
+            width: '100%',
           },
           legend: {
             position: 'bottom',

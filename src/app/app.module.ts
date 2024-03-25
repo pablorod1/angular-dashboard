@@ -16,6 +16,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import {ProgressBarModule} from 'primeng/progressbar';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -73,6 +75,11 @@ import { BalanceChartComponent } from './components/balance-chart/balance-chart.
 import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
 import { RealtimeChartComponent } from './components/realtime-chart/realtime-chart.component';
 import { LocationChartComponent } from './components/location-chart/location-chart.component';
+import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
+import { MonthlyUsersComponent } from './components/monthly-users/monthly-users.component';
+import { CommingSoonClassicComponent } from './pages/comming-soon/comming-soon-classic/comming-soon-classic.component';
+import { CommingSoonModernComponent } from './pages/comming-soon/comming-soon-modern/comming-soon-modern.component';
+import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soon-fullscreen/comming-soon-fullscreen.component';
 
 
 
@@ -123,6 +130,11 @@ import { LocationChartComponent } from './components/location-chart/location-cha
     EarningsChartComponent,
     RealtimeChartComponent,
     LocationChartComponent,
+    AccSettingsComponent,
+    MonthlyUsersComponent,
+    CommingSoonClassicComponent,
+    CommingSoonModernComponent,
+    CommingSoonFullscreenComponent,
 
   ],
   imports: [
@@ -145,7 +157,9 @@ import { LocationChartComponent } from './components/location-chart/location-cha
     TabViewModule,
     MatTabsModule,
     NgApexchartsModule,
-    ProgressBarModule
+    ProgressBarModule,
+    DropdownModule,
+    MultiSelectModule
   ],
   providers: [
     provideClientHydration(),

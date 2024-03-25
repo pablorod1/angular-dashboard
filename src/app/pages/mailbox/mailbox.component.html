@@ -1,1 +1,125 @@
-<p>mailbox works!</p>
+<section class="section">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <h1 class="title mb-0 mt-4">MailBox</h1>
+        <button class="btn compose-btn m-4"> Compose </button>
+        <div class="list-container">
+          <div>
+            <h3> Mailboxes </h3>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-inbox"></i> Inbox </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-send"></i> Sent </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-file-earmark"></i> Drafts </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-exclamation-triangle"></i> Spam </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-trash3"></i> Trash </a></li>
+          </ul>
+        </div>
+        <div class="list-container">
+          <div class="title">
+            <h3> Filters </h3>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-star"></i> Starred </a></li>
+            <li class="nav-item"><a role="button"><i class="me-3 bi bi-exclamation-circle"></i> Important </a></li>
+          </ul>
+        </div>
+        <div class="list-container">
+          <div>
+            <h3> Labels </h3>
+          </div>
+          <ul class="list-unstyled mt-4">
+            <li *ngFor="let tag of tags" class="nav-item"><a role="button"><i class="me-3 bi bi-tag" [ngClass]="{
+              'text-primary': tag === 'Primary',
+              'text-success': tag === 'Promotions',
+              'text-info': tag === 'Social',
+              'text-danger': tag === 'Spam',
+              'text-warning': tag === 'Forums',
+
+            }"></i> {{tag}} </a></li>
+            <li class="nav-item"><a role="button"> <i class="me-3 bi bi-gear"></i> Settings </a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- SearchBar -->
+        <div class="input-container mt-4">
+          <label for="searchInput" class="search-icon">
+            <i class="bi bi-search"></i>
+          </label>
+          <input pInputText type="text" id="searchInput" class="filter-input form-control"
+            placeholder="Search keyword" />
+        </div>
+        <div class="msg-container mt-4">
+          <div class="row w-100">
+            <div class="col-12 p-3">
+              <div class="user d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 username"> Name </h3>
+                <span class="text-muted date"> Date </span>
+              </div>
+              <div class="msg-title">
+                <h4> Message Title </h4>
+              </div>
+              <div class="msg-content">
+                <p> Message Content </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="msg-view">
+          <div class="btn-container dropdown-center d-flex justify-content-end mt-4 mb-4">
+            <button type="button" class="btn dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown"
+              aria-expanded="false"> <i class="bi bi-tag"></i> </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let tag of tags" class="dropdown-item">
+                <div class="form-check">
+                  <input class="form-check-input" [ngClass]="{
+                    'bg-primary': tag === 'Primary',
+                    'bg-success': tag === 'Promotions',
+                    'bg-info': tag === 'Social',
+                    'bg-danger': tag === 'Spam',
+                    'bg-warning': tag === 'Forums',
+
+                  }" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{tag}}
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <button type="button" class="btn"> <i class="bi bi-star"></i> </button>
+            <button type="button" class="btn"> <i class="bi bi-exclamation-circle"></i> </button>
+          </div>
+          <div class="msg-title d-flex justify-content-between align-items-center mb-5">
+            <h3 class="title mb-0"> Message Title </h3>
+            <div class="tags d-flex gap-2">
+              <span class="badge rounded-pill p-2 bg-primary">Primary</span>
+              <span class="badge rounded-pill p-2 bg-success">Promotions</span>
+              <span class="badge rounded-pill p-2 bg-info text-dark">Social</span>
+              <span class="badge rounded-pill p-2 bg-warning text-dark">Forums</span>
+              <span class="badge rounded-pill p-2 bg-danger">Spam</span>
+            </div>
+          </div>
+          <div class="message">
+            <div class="user-container d-flex align-items-center">
+              <div class="img-container">
+                <img class="profile-picture" src="../../../assets/profile-picture.webp" alt="Profile Picture">
+              </div>
+              <div class="user-info">
+                <h1 class="mb-0">Name</h1>
+                <span>To: me <i class="bi bi-chevron-down"></i> </span>
+              </div>
+            </div>
+            <div class="msg-content m-4">
+              <p> Dear  Sir/Madam, </p>
+              <p> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -24,6 +24,11 @@ import { UnlockClassicComponent } from './pages/authentication/unlock-session/un
 import { UnlockModernComponent } from './pages/authentication/unlock-session/unlock-modern/unlock-modern.component';
 import { UnlockFullscreenComponent } from './pages/authentication/unlock-session/unlock-fullscreen/unlock-fullscreen.component';
 
+// Comming Soon
+import { CommingSoonClassicComponent } from './pages/comming-soon/comming-soon-classic/comming-soon-classic.component';
+import { CommingSoonModernComponent } from './pages/comming-soon/comming-soon-modern/comming-soon-modern.component';
+import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soon-fullscreen/comming-soon-fullscreen.component';
+
 //Dashboard
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
@@ -31,6 +36,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 //MailBox
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
+import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -65,9 +71,15 @@ const routes: Routes = [
   {path: 'unlock-classic', component: UnlockClassicComponent},
   {path: 'unlock-modern', component: UnlockModernComponent},
   {path: 'unlock-fullscreen', component: UnlockFullscreenComponent},
-  // Coming Soon Paths
+  // Comming Soon Paths
+  {path: 'coming-soon-classic', component: CommingSoonClassicComponent},
+  {path: 'coming-soon-modern', component: CommingSoonModernComponent},
+  {path: 'coming-soon-fullscreen', component: CommingSoonFullscreenComponent},
+
   // MailBox Path
   {path: 'mailbox', component: MailboxComponent},
+  // Account Settings Path
+  {path: 'acc-settings', component: AccSettingsComponent},
 ];
 
 @NgModule({

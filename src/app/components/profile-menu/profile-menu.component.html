@@ -4,7 +4,7 @@
   'badge-busy': userStatus === 'busy',
   'badge-invisible': userStatus === 'invisible'
 }"></span></i></button>
-<p-tieredMenu #menu [model]="items"  [style]="{ width: 'fit-content'}" [popup]="true" class="custom-menu">
+<p-tieredMenu #menu [model]="items"  [style]="{ width: 'fit-content'}" [popup]="true">
   <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
     <a class="p-menuitem-link">
       <span [class]="item.icon" class="bi"></span>

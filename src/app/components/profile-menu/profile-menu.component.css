@@ -13,12 +13,6 @@
   padding: 1rem 1rem;
   text-decoration: none;
   color: #4b5563;
-  transition: background-color 0.3s;
-}
-
-::ng-deep .custom-menu {
-  /* Add your styles here */
-  border-radius: 10px !important;
 }
 
 .badge-online {

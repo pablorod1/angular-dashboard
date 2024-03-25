@@ -1,0 +1,78 @@
+.container-fluid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important;
+
+}
+
+.row{
+  min-height: 100vh;
+}
+
+.logo-picture{
+  width: 40px;
+}
+.title-header{
+  .title{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .title-2{
+    font-size: 15px;
+  }
+}
+.redirect{
+  text-decoration: none;
+}
+
+
+
+.right-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a322f;
+  color: #ded7cf;
+  .title{
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .description{
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+.form-control:focus{
+  box-shadow: none !important;
+  outline: 0;
+  border: 1px solid #1a322f;
+}
+.form-floating label{
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  height: fit-content;
+  font-size: 16px;
+  font-weight: 300;
+  transition: transform .3s ease-in-out, top .2s ease-in-out;
+}
+
+.form-floating:focus-within label{
+  position: absolute;
+  top: 8px;
+  background-color: #fff;
+  padding: 5px;
+  color: #1a322f;
+  border-radius: 20px;
+  border: 1px solid #1a322f;
+}
+
+
+@media (max-width: 768px){
+  .row{
+    margin-top: 1.5rem !important;
+  }
+}

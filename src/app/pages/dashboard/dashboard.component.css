@@ -23,6 +23,9 @@
     font-size: 15px;
   }
 }
+.btn i{
+  font-size: 16px;
+}
 .btn{
   border-radius: 30px;
   padding: 10px;
@@ -30,9 +33,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  i{
-    font-size: 16px;
-  }
+  transition: transform 0.3s ease;
+
+}
+.btn:hover{
+  transform: none;
+}
+.btn:active{
+  transform: scale(0.9);
 }
 .messages-btn{
   background-color: #1a322f;
@@ -42,6 +50,14 @@
   i{
     color: #fff;
   }
+}
+.messages-btn:active{
+  background-color: #1a322f;
+  color: #fff;
+}
+.settings-btn:active{
+  background-color: #927e63;
+  color: #fff;
 }
 .settings-btn{
   background-color: #927e63;

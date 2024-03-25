@@ -11,15 +11,15 @@ import {
   ApexFill,
   ApexGrid,
   ApexStroke,
-  ApexTooltip,
-  ApexPlotOptions
+  ApexTooltip
 } from 'ng-apexcharts';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class EarningsChartDataService {
+export class MonthlyUsersChartDataService {
+
   public series!: ApexAxisChartSeries;
   public chart!: ApexChart;
   public dataLabels!: ApexDataLabels;
@@ -29,38 +29,38 @@ export class EarningsChartDataService {
   public grid!: ApexGrid;
   public stroke!: ApexStroke;
   public tooltip!: ApexTooltip;
-  public plotOptions!: ApexPlotOptions;
   public responsive!: ApexResponsive[];
 
-  getBalanceChartData(): Observable<any> {
+  getMonthlyUsersChartData(): Observable<any>{
     this.series = [
       {
-        name: 'Earnings',
-        data: [115, 100, 85, 56, 90, 62, 140],
-      },
+        name: 'Monthly Users',
+        data: [13257, 13290, 13189, 13200, 13250, 13300, 13254]
+      }
     ];
     this.chart = {
       height: 100,
       width: '100%',
-      type: 'bar',
+      type: 'area',
       toolbar: {
-        show: false,
+        show: false
       },
       zoom: {
-        enabled: false,
-      },
+        enabled: false
+      }
     };
     this.dataLabels = {
-      enabled: false,
+      enabled: false
     };
     this.stroke = {
-      width: 0,
+      curve: 'smooth',
+      width: 3
     };
     this.grid = {
-      show: false,
+      show: false
     };
     this.xaxis = {
-      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL'],
       labels: {
         show: false,
       },
@@ -72,28 +72,16 @@ export class EarningsChartDataService {
       },
     };
     this.yaxis = {
-      show: false,
+      show: false
     };
     this.tooltip = {
       enabled: true,
       theme: 'dark',
-      y: {
-        formatter: function (value) {
-          return value + ' €';
-        },
-      },
     };
     this.markers = {
-      size: 4,
+      size: 0,
       strokeWidth: 0,
-      shape: 'square',
-    };
-    this.plotOptions = {
-      bar: {
-        columnWidth: '40%',
-        isFunnel3d: true,
-        borderRadius: 3,
-      }
+      shape: 'square'
     };
     this.responsive = [
       {
@@ -103,18 +91,13 @@ export class EarningsChartDataService {
             width: '100%',
           },
           legend: {
+
             position: 'bottom',
           },
         },
       },
     ];
-    const total = this.series[0].data.reduce((a, b) => {
-      if (typeof a === 'number' && typeof b === 'number') {
-        return a + b;
-      } else {
-        return a;
-      }
-    }, 0);
+    let balance = this.series[0].data[this.series[0].data.length - 1];
     const chartOptions = {
       series: this.series,
       chart: this.chart,
@@ -126,13 +109,8 @@ export class EarningsChartDataService {
       stroke: this.stroke,
       tooltip: this.tooltip,
       responsive: this.responsive,
-      plotOptions: this.plotOptions,
-      total: total?.toLocaleString('es-ES', {
-        style: 'currency',
-        currency: 'EUR',
-      }),
+      balance: balance?.toLocaleString('en-US')
     };
     return of(chartOptions);
   }
-
 }
