@@ -18,6 +18,8 @@ import { TabViewModule } from 'primeng/tabview';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ToastModule} from 'primeng/toast';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -159,7 +161,9 @@ import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soo
     NgApexchartsModule,
     ProgressBarModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    ConfirmDialogModule,
+    ToastModule,
   ],
   providers: [
     provideClientHydration(),

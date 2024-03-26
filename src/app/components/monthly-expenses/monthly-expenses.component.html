@@ -2,17 +2,19 @@
   <div class="card-body w-100">
     <div class="header d-flex justify-content-between align-items-center">
       <h2 class="m-0">Monthly Expenses</h2>
-      <button class="btn dropdown-toggle hidden-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" role="button" (click)="show2WeeksAgoData()">2 Months Ago</a></li>
-        <li><a class="dropdown-item" role="button" (click)="showLastWeekData()">Last Month</a></li>
-        <li><a class="dropdown-item" role="button" (click)="showCurrentWeekData()">This Month</a></li>
-      </ul>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle hidden-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" role="button" (click)="show2WeeksAgoData()">2 Months Ago</a></li>
+          <li><a class="dropdown-item" role="button" (click)="showLastWeekData()">Last Month</a></li>
+          <li><a class="dropdown-item" role="button" (click)="showCurrentWeekData()">This Month</a></li>
+        </ul>
+      </div>
     </div>
     <div class="chart px-3 d-flex justify-content-between align-items-center">
       <div class="info">
         <h2 class="m-0">{{totalExpenses}}€</h2>
-        <small class="text-warning"><i class="bi bi-arrow-up-right"></i> 4%<span class="text-muted">above projected</span></small>
+        <span class="text-warning"><i class="bi bi-arrow-up-right"></i> 4% <small class="text-muted"> Above Projected </small></span>
       </div>
       <apx-chart [series]="series" [chart]="chart" [xaxis]="xaxis" [responsive]="responsive" [dataLabels]="dataLabels"
         [yaxis]="yaxis" [grid]="grid" [markers]="markers" [stroke]="stroke" [tooltip]="tooltip" [colors]="colors"></apx-chart>

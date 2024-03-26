@@ -4,3 +4,67 @@
 .bg-dark{
   background-color: rgba(33, 37, 41, 0.9) !important;
 }
+.title{
+  font-size: 28px;
+  font-weight: 500;
+}
+.export-btn {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: #ded7cf;
+  border: 2px solid #ded7cf;
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+.export-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: #ded7cf;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.export-btn:hover::before {
+  scale: 4;
+}
+
+.export-btn:hover {
+  color: #212121;
+  scale: 1.03;
+  box-shadow: 0 0px 20px rgba(193, 163, 98, 0.4);
+  i{
+    color: #212121;
+  }
+}
+
+.export-btn:active {
+  scale: 1;
+}
+.settings-btn{
+  color: #fff;
+  i{
+    color: #fff;
+  }
+}
+.rotate-icon{
+  display: inline-block;
+  transition: transform .3s ease;
+}
+.settings-btn:hover  .rotate-icon{
+  transform: rotateZ(90deg);
+}
+.settings-btn:hover{
+  transform: none;
+}

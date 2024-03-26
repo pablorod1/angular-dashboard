@@ -41,7 +41,7 @@ export class LocationChartDataService {
       show: false,
     };
     this.chart = {
-      height: 350,
+      height: 700,
       type: 'treemap',
       toolbar: {
         show: false,

@@ -9,14 +9,13 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
 .btn{
   padding: 10px;
   border-radius: 50%;
-  transition: transform .5s ease;
 }
 .btn:focus, .btn:not(:focus){
   border: 0;
 
 }
 .btn:hover{
-  transform: scale(1.08);
+  transform: scale(1.1);
 }
 
 .btn i{

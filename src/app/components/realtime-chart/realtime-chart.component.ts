@@ -43,8 +43,9 @@ export class RealtimeChartComponent implements OnDestroy {
   @ViewChild('chart', { static: true }) chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   public activeOptionButton = 'all';
-  public updateInterval = 3000;
+  public updateInterval = 3000; // Intervalo de actualización en milisegundos
   private dataSubscription: Subscription | undefined;
+  paused = false;
 
   constructor() {
     this.initChart();
@@ -115,21 +116,22 @@ export class RealtimeChartComponent implements OnDestroy {
     };
   }
   startRealtimeUpdates(): void {
+    this.paused = false;
     this.dataSubscription = timer(0, this.updateInterval).subscribe(() => {
-      const newDataPoint = this.generateRandomDataPoint();
-      if (this.chartOptions && this.chartOptions.series) {
-        const updatedSeriesData = [...this.chartOptions.series[0].data, newDataPoint];
+      const newDataPoint = this.generateRandomDataPoint(); // Generar datos aleatorios (timestamp, valor)
+      if (this.chartOptions && this.chartOptions.series) { // Comprobar si la serie está definida
+        const updatedSeriesData = [...this.chartOptions.series[0].data, newDataPoint]; // Añadir el nuevo punto de datos a la serie
         // console.log(updatedSeriesData[updatedSeriesData.length - 1]);
-        const updatedSeries = [{ data: updatedSeriesData }];
+        const updatedSeries = [{ data: updatedSeriesData }]; // Actualizar la serie con los nuevos datos
 
         // Calculate the visible range
-        const visibleRange = 100; // replace with the number of data points you want to show at a time
-        const oldestVisibleDataPointIndex = Math.max(updatedSeriesData.length - visibleRange , 0);
-        const oldestVisibleDataPointTime = updatedSeriesData[oldestVisibleDataPointIndex][0];
+        const visibleRange = 100; // Número de datos visibles en la gráfica
+        const oldestVisibleDataPointIndex = Math.max(updatedSeriesData.length - visibleRange , 0); // Índice del punto de datos más antiguo visible
+        const oldestVisibleDataPointTime = updatedSeriesData[oldestVisibleDataPointIndex][0]; // Fecha del punto de datos más antiguo visible
 
-        const newestDataPointTime = updatedSeriesData[updatedSeriesData.length - 1][0];
+        const newestDataPointTime = updatedSeriesData[updatedSeriesData.length - 1][0]; // Fecha del punto de datos más reciente
 
-        this.chartOptions = { ...this.chartOptions, series: updatedSeries };
+        this.chartOptions = { ...this.chartOptions, series: updatedSeries }; // Actualizar la serie de datos en las opciones de la gráfica
         this.chart.updateOptions({
           xaxis: {
             min: oldestVisibleDataPointTime,
@@ -158,20 +160,21 @@ export class RealtimeChartComponent implements OnDestroy {
   stopRealtimeUpdates(): void {
     if (this.dataSubscription) {
       this.dataSubscription.unsubscribe();
+      this.paused = true;
     }
   }
 
 
   generateRandomDataPoint(): [number, number] {
     if (this.chartOptions && this.chartOptions.series && this.chartOptions.series[0].data) {
-      const lastIndex = this.chartOptions.series[0].data.length - 1;
-      const lastDataPoint = this.chartOptions.series[0].data[lastIndex];
+      const lastIndex = this.chartOptions.series[0].data.length - 1; // Índice del último punto de datos
+      const lastDataPoint = this.chartOptions.series[0].data[lastIndex]; // Último punto de datos
       const nextTimestamp = lastDataPoint[0] + 86400000; // Añade un día en milisegundos
-      const min = 30;
+      const min = 35;
       const max = 40;
       const randomValue = Math.random() * (max - min) + min;
       return [nextTimestamp, randomValue];
     }
-    return [0, 0]; // Return default values if data is undefined
+    return [0, 0]; // Devuelve un punto de datos por defecto
   }
 }
