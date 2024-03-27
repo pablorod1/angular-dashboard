@@ -1,8 +1,8 @@
 .section{
   padding-top: 0;
   overflow: hidden;
-  max-height: 92.6vh !important;
-  min-height: 92.6vh !important;
+  max-height: 91.87vh !important;
+  min-height: 91.87vh !important;
 
 }
 .user-container .img-container .profile-picture{
@@ -12,6 +12,7 @@
   margin: 0;
 }
 .user-name{
+  color: #1a322f;
   font-weight: 500;
 }
 .email{
@@ -129,7 +130,7 @@
   border: 0;
   width: 0; /* Inicialmente oculto */
   overflow: hidden; /* Para ocultar completamente el input */
-  transition: width 0.3s ease, background-color 0.1s ease; /* Transición suave al mostrar */
+  transition: width .5s ease, background-color .5s ease; /* Transición suave al mostrar */
 }
 .input-container:focus-within .filter-input {
   width: 100%;
@@ -137,10 +138,21 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   border: 0;
   background-color: #fff;
-
 }
 .input-container:focus-within .search-icon {
   font-size: 14px;
+}
+.title-box {
+  position: relative;
+  transition: transform .5s ease, opacity 0.5s ease, visibility .5s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+.input-container:focus-within ~ .title-box {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px);
 }
 .col-12{
   cursor: pointer;
@@ -156,7 +168,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 210px;
+  max-width: 150px;
 }
 
 .msg-container .msg-content p{
@@ -238,7 +250,7 @@
   color: #d6975a !important;
 
 }
-.msg-title .bg-primary,.msg-title .bg-danger,.msg-title .bg-warning,.msg-title .bg-success, .msg-title .bg-info{
+.tags .bg-primary,.tags .bg-danger,.tags .bg-warning,.tags .bg-success, .tags .bg-info{
   --bs-bg-opacity: 0.2;
 }
 .badge{
@@ -275,6 +287,15 @@
 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+::ng-deep .custom-sidebar .p-sidebar{
+  background-color: #f1f1f1 !important;
+  overflow: hidden !important;
+  height: 120% !important;
+}
+
+
+
 @media (min-width: 764px) and (max-width: 955px){
   .compose-btn{
     font-size: clamp(10px, 14px, 14px);
@@ -284,6 +305,15 @@
 @media (max-width: 764px){
   .col-sm-12{
     width: 100%;
+  }
+  .msg-container{
+    max-height: 20vh;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+  .section{
+    min-height: 100% !important;
+    max-height: 100% !important;
   }
 }
 @media (max-width: 1650px){

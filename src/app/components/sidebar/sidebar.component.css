@@ -136,3 +136,6 @@
   margin-top: 10px;
   max-height: 1000px; /* adjust as needed */
 }
+::ng-deep .p-sidebar{
+  color: #ded7cf;
+}

@@ -1,47 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MailsDataService } from '../../services/mails-data.service';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+  FilterService
+} from 'primeng/api';
+import { Sidebar } from 'primeng/sidebar';
 
 @Component({
   selector: 'app-mailbox',
   templateUrl: './mailbox.component.html',
   styleUrl: './mailbox.component.css',
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService, FilterService],
 })
 export class MailboxComponent implements OnInit {
-  // applyGlobalFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.productTable.filterGlobal(filterValue, 'contains');
-  // }
-
-  constructor(private mailsDataService: MailsDataService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
-
-  confirmDelete(event: Event) {
-    this.confirmationService.confirm({
-        target: event.target as EventTarget,
-        message: 'Are you sure that you want to proceed?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        acceptIcon:"none",
-        rejectIcon:"none",
-        rejectButtonStyleClass:"p-button-text",
-        accept: () => {
-            this.messageService.add({ severity: 'success', summary: 'Mail Deleted', detail: 'Check Trash Inbox' });
-            this.markAsTrash();
-        },
-        reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-        }
-    });
-  }
-
+  sidebarVisible: boolean = false;
   tags!: any[];
   mails!: any[];
   spamMails!: any[];
   trashMails!: any[];
+
   selectedMail!: any;
   unreadedCount!: number;
   showInbox = true;
+
   showSpam = false;
   showTrash = false;
   showStarred = false;
@@ -53,14 +36,33 @@ export class MailboxComponent implements OnInit {
   activeNavItem!: string;
   newLabelName: string = '';
 
+  constructor(
+    private mailsDataService: MailsDataService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private filterService: FilterService
+  ) {}
+  @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+
+  closeCallback(e: Event): void {
+    this.sidebarRef.close(e);
+  }
+
+
   ngOnInit() {
     this.mails = this.mailsDataService.getMailsData();
-    this.mails.sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime());
-    this.unreadedCount = this.mails.filter(mail => !mail.readed).length;
+    this.mails.sort(
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
+    this.unreadedCount = this.mails.filter((mail) => !mail.readed).length;
     this.spamMails = this.mailsDataService.getSpamMailsData();
-    this.spamMails.sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime());
+    this.spamMails.sort(
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
     this.trashMails = this.mailsDataService.getTrashMailsData();
-    this.trashMails.sort((a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime());
+    this.trashMails.sort(
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
     this.tags = [
       { name: 'Social', checked: false },
       { name: 'Personal', checked: false },
@@ -69,7 +71,7 @@ export class MailboxComponent implements OnInit {
     ];
 
     this.selectedMail = this.mails[0];
-    this.tags.forEach(tag => {
+    this.tags.forEach((tag) => {
       tag.checked = this.selectedMail.tags.includes(tag.name);
     });
   }
@@ -77,28 +79,26 @@ export class MailboxComponent implements OnInit {
   markAsRead(): void {
     if (this.selectedMail) {
       this.selectedMail.readed = this.selectedMail.readed = true;
-      this.unreadedCount = this.mails.filter(mail => !mail.readed).length;
+      this.unreadedCount = this.mails.filter((mail) => !mail.readed).length;
     }
   }
 
   markAsUnread(): void {
     if (this.selectedMail) {
       this.selectedMail.readed = this.selectedMail.readed = false;
-      this.unreadedCount = this.mails.filter(mail => !mail.readed).length;
+      this.unreadedCount = this.mails.filter((mail) => !mail.readed).length;
     }
   }
 
   markAllAsRead(): void {
     this.mails.forEach((mail) => (mail.readed = true));
-    this.unreadedCount = this.mails.filter(mail => !mail.readed).length;
-
+    this.unreadedCount = this.mails.filter((mail) => !mail.readed).length;
   }
   selectMail(mail: any) {
     this.selectedMail = mail;
-    this.tags.forEach(tag => {
+    this.tags.forEach((tag) => {
       tag.checked = this.selectedMail.tags.includes(tag.name);
     });
-
   }
 
   // Inbox Mails
@@ -112,6 +112,7 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
+    this.sidebarVisible = false;
     this.selectedMail = this.mails[0];
   }
 
@@ -126,6 +127,7 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
+    this.sidebarVisible = false;
     this.selectedMail = this.spamMails[0];
   }
 
@@ -162,6 +164,7 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
+    this.sidebarVisible = false;
     this.selectedMail = this.trashMails[0];
   }
   markAsTrash(): void {
@@ -185,6 +188,33 @@ export class MailboxComponent implements OnInit {
       this.selectedMail = this.mails[0];
     }
   }
+  confirmDelete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to proceed?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Mail Deleted',
+          detail: 'Check Trash Inbox',
+        });
+        this.markAsTrash();
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+          life: 3000,
+        });
+      },
+    });
+  }
 
   // Starred Mails
   get starredMails() {
@@ -200,7 +230,8 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.starredMails[0];
   }
   markAsStarred(): void {
     if (this.selectedMail) {
@@ -222,7 +253,8 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.importantMails[0];
   }
   markAsImportant(): void {
     if (this.selectedMail) {
@@ -244,7 +276,8 @@ export class MailboxComponent implements OnInit {
     this.showPersonal = false;
     this.showForums = false;
     this.showPromotions = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.socialMails[0];
   }
 
   // Personal Mails
@@ -261,7 +294,8 @@ export class MailboxComponent implements OnInit {
     this.showSocial = false;
     this.showForums = false;
     this.showPromotions = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.personalMails[0];
   }
 
   // Promotions Mails
@@ -278,7 +312,8 @@ export class MailboxComponent implements OnInit {
     this.showSocial = false;
     this.showPersonal = false;
     this.showForums = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.promotionsMails[0];
   }
 
   // Forums Mails
@@ -295,9 +330,9 @@ export class MailboxComponent implements OnInit {
     this.showSocial = false;
     this.showPersonal = false;
     this.showPromotions = false;
-    this.selectedMail = this.mails[0];
+    this.sidebarVisible = false;
+    this.selectedMail = this.forumsMails[0];
   }
-
 
   // Update Mail Tags with Checkbox
   updateMailTags(tag: any) {
@@ -313,5 +348,143 @@ export class MailboxComponent implements OnInit {
         this.selectedMail.tags.splice(index, 1);
       }
     }
+  }
+
+
+
+  // Control Selected Mail
+  selectNextMail() {
+    let currentMailList;
+    let currentState = '';
+
+    if (this.showSpam) {
+      currentState = 'spam';
+      currentMailList = this.spamMails;
+    } else if (this.showTrash) {
+      currentState = 'trash';
+      currentMailList = this.trashMails;
+    } else if (this.showStarred) {
+      currentState = 'starred';
+      currentMailList = this.starredMails;
+    } else if (this.showImportant) {
+      currentState = 'important';
+      currentMailList = this.importantMails;
+    } else if (this.showSocial) {
+      currentState = 'social';
+      currentMailList = this.socialMails;
+    } else if (this.showPersonal) {
+      currentState = 'personal';
+      currentMailList = this.personalMails;
+    } else if (this.showPromotions) {
+      currentState = 'promotions';
+      currentMailList = this.promotionsMails;
+    } else if (this.showForums) {
+      currentState = 'forums';
+      currentMailList = this.forumsMails;
+    } else {
+      currentState = 'default';
+      currentMailList = this.mails;
+    }
+
+    const index = currentMailList.indexOf(this.selectedMail);
+
+    switch (currentState) {
+      case 'spam':
+      case 'trash':
+      case 'starred':
+      case 'important':
+      case 'social':
+      case 'personal':
+      case 'promotions':
+      case 'forums':
+      case 'default':
+        if (index < currentMailList.length - 1) {
+          this.selectedMail = currentMailList[index + 1];
+        }
+        break;
+    }
+  }
+  selectPreviousMail() {
+    let currentMailList;
+    let currentState = '';
+
+    if (this.showSpam) {
+      currentState = 'spam';
+      currentMailList = this.spamMails;
+    } else if (this.showTrash) {
+      currentState = 'trash';
+      currentMailList = this.trashMails;
+    } else if (this.showStarred) {
+      currentState = 'starred';
+      currentMailList = this.starredMails;
+    } else if (this.showImportant) {
+      currentState = 'important';
+      currentMailList = this.importantMails;
+    } else if (this.showSocial) {
+      currentState = 'social';
+      currentMailList = this.socialMails;
+    } else if (this.showPersonal) {
+      currentState = 'personal';
+      currentMailList = this.personalMails;
+    } else if (this.showPromotions) {
+      currentState = 'promotions';
+      currentMailList = this.promotionsMails;
+    } else if (this.showForums) {
+      currentState = 'forums';
+      currentMailList = this.forumsMails;
+    } else {
+      currentState = 'default';
+      currentMailList = this.mails;
+    }
+
+    const index = currentMailList.indexOf(this.selectedMail);
+
+    switch (currentState) {
+      case 'spam':
+      case 'trash':
+      case 'starred':
+      case 'important':
+      case 'social':
+      case 'personal':
+      case 'promotions':
+      case 'forums':
+      case 'default':
+        if (index > 0) {
+          this.selectedMail = currentMailList[index - 1];
+        }
+        break;
+    }
+  }
+
+  //Print Mail
+  printMail() {
+    const printWindow = window.open('', '_blank');
+    const emailElement = document.querySelector('.msg-content');
+    const emailElement2 = document.querySelector('.user-info');
+    const emailContent = emailElement ? emailElement.innerHTML : '';
+    const emailContent2 = emailElement2 ? emailElement2.innerHTML : '';
+
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print email</title>
+            <style>
+              /* Add any additional styles for printing here */
+            </style>
+          </head>
+          <body onload="window.print();window.close()">
+            ${emailContent2}
+            ${emailContent}
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+  }
+
+  // Toggle Sidebar
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
   }
 }

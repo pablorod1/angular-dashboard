@@ -1,0 +1,11 @@
+<section class="section">
+  <div class="container-fluid">
+    <button type="button" class="btn btn-primary" (click)="toggleHospitalMarkers()"> Hospitals </button>
+    <google-map height="800px" width="100%" [zoom]="zoom" [center]="center">
+      <ng-container *ngFor="let position of markerHospitalPositions; trackBy: trackPosition">
+        <map-marker *ngIf="!activeMarker || (activeMarker.lat === position.lat && activeMarker.lng === position.lng)" [position]="position"
+          [options]="markerHospitalOptions" (mapClick)="onMarkerClick(position)"></map-marker>
+      </ng-container>
+    </google-map>
+  </div>
+</section>

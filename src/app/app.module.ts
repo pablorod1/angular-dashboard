@@ -4,6 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
+// Google Map
+import { GoogleMap } from '@angular/google-maps';
+import { MapMarker } from '@angular/google-maps';
+
 //Primeng Modules
 import { SidebarModule } from 'primeng/sidebar';
 import { DialogModule } from 'primeng/dialog';
@@ -20,6 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
+import { PrimeNGConfig } from 'primeng/api';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -82,6 +87,7 @@ import { MonthlyUsersComponent } from './components/monthly-users/monthly-users.
 import { CommingSoonClassicComponent } from './pages/comming-soon/comming-soon-classic/comming-soon-classic.component';
 import { CommingSoonModernComponent } from './pages/comming-soon/comming-soon-modern/comming-soon-modern.component';
 import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soon-fullscreen/comming-soon-fullscreen.component';
+import { PoiComponent } from './pages/poi/poi.component';
 
 
 
@@ -137,6 +143,9 @@ import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soo
     CommingSoonClassicComponent,
     CommingSoonModernComponent,
     CommingSoonFullscreenComponent,
+    PoiComponent,
+
+
 
   ],
   imports: [
@@ -164,6 +173,9 @@ import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soo
     MultiSelectModule,
     ConfirmDialogModule,
     ToastModule,
+    GoogleMap,
+    MapMarker,
+
   ],
   providers: [
     provideClientHydration(),

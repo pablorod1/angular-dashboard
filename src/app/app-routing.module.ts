@@ -31,17 +31,22 @@ import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soo
 
 //Dashboard
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AnalyticsComponent } from './pages/analytics/analytics.component';
+import { PoiComponent } from './pages/poi/poi.component';
 
 
 //MailBox
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
-import { AnalyticsComponent } from './pages/analytics/analytics.component';
+
+// Account Settings
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  // Dashboard Paths
   {path: 'dashboard', component: DashboardComponent},
   {path: 'analytics', component: AnalyticsComponent},
+  {path: 'poi', component: PoiComponent},
   // Authentication Paths
   // Confirmation Paths
   {path: 'confirmation-classic', component: ConfirmationClassicComponent},
