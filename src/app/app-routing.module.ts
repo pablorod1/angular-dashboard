@@ -25,9 +25,7 @@ import { UnlockModernComponent } from './pages/authentication/unlock-session/unl
 import { UnlockFullscreenComponent } from './pages/authentication/unlock-session/unlock-fullscreen/unlock-fullscreen.component';
 
 // Comming Soon
-import { CommingSoonClassicComponent } from './pages/comming-soon/comming-soon-classic/comming-soon-classic.component';
-import { CommingSoonModernComponent } from './pages/comming-soon/comming-soon-modern/comming-soon-modern.component';
-import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soon-fullscreen/comming-soon-fullscreen.component';
+import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
 
 //Dashboard
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -77,9 +75,7 @@ const routes: Routes = [
   {path: 'unlock-modern', component: UnlockModernComponent},
   {path: 'unlock-fullscreen', component: UnlockFullscreenComponent},
   // Comming Soon Paths
-  {path: 'coming-soon-classic', component: CommingSoonClassicComponent},
-  {path: 'coming-soon-modern', component: CommingSoonModernComponent},
-  {path: 'coming-soon-fullscreen', component: CommingSoonFullscreenComponent},
+  {path: 'coming-soon', component: ComingSoonComponent},
 
   // MailBox Path
   {path: 'mailbox', component: MailboxComponent},

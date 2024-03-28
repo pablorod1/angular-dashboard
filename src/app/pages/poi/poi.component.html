@@ -3,8 +3,15 @@
     <button type="button" class="btn btn-primary" (click)="toggleHospitalMarkers()"> Hospitals </button>
     <google-map height="800px" width="100%" [zoom]="zoom" [center]="center">
       <ng-container *ngFor="let position of markerHospitalPositions; trackBy: trackPosition">
+        <!-- Hospital Markers -->
         <map-marker *ngIf="!activeMarker || (activeMarker.lat === position.lat && activeMarker.lng === position.lng)" [position]="position"
           [options]="markerHospitalOptions" (mapClick)="onMarkerClick(position)"></map-marker>
+
+          <!-- Hotel Markers -->
+
+          <!-- Map Info Window -->
+        <map-info-window> Info Window Content</map-info-window>
+
       </ng-container>
     </google-map>
   </div>

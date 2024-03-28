@@ -122,13 +122,8 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item" (click)="toggleComing($event)" [attr.aria-expanded]="isComingVisible ? 'true' : 'false'">
-              <a role="button" ><i class="me-3 bi bi-clock"></i> Coming Soon <i class="bi bi-caret-right-fill arrow"></i></a>
-              <ul class="list-unstyled submenu" [class.open]="isComingVisible">
-                <li class="nav-item"><a role="button" href="/coming-soon-classic"> Classic </a></li>
-                <li class="nav-item"><a role="button" href="/coming-soon-modern"> Modern </a></li>
-                <li class="nav-item"><a role="button" href="/coming-soon-fullscreen"> Full Screen </a></li>
-              </ul>
+            <li class="nav-item"  >
+              <a role="button" href="/coming-soon"><i class="me-3 bi bi-clock"></i> Coming Soon </a>
             </li>
             <li class="nav-item" (click)="toggleError($event)" [attr.aria-expanded]="isErrorVisible ? 'true' : 'false'">
               <a role="button" ><i class="me-3 bi bi-exclamation-circle"></i> Error <i class="bi bi-caret-right-fill arrow"></i> </a>

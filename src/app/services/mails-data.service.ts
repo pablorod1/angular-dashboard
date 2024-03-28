@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MailsDataService {
   mails: any[] = this.getMailsData();
   unreadedCount: number = 3;
-  getMailsData(){
+  getMailsData() {
     return [
       {
         sender: 'Pedro López',
         email: 'pedrolopez@lucentialab.es',
         title: 'Meeting with the team at 7pm for the project review',
-        message: 'We should meet at 7pm for the project review and discuss the next steps lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum',
+        message:
+          'We should meet at 7pm for the project review and discuss the next steps lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum',
         timestamp: 'Tue 13, 12:50 PM',
         img: '../../../assets/profile-picture4.webp',
         receiver: 'me',
@@ -46,7 +47,8 @@ export class MailsDataService {
         sender: 'John Doe',
         email: 'johndoe@lucentialab.es',
         title: 'Party',
-        message: 'Dude, I heard you are going to the party tonight, is that true?',
+        message:
+          'Dude, I heard you are going to the party tonight, is that true?',
         timestamp: 'Tue 13, 10:00 AM',
         img: '../../../assets/profile-picture2.webp',
         receiver: 'me',
@@ -103,7 +105,6 @@ export class MailsDataService {
         important: false,
         tags: ['Personal'],
         spam: false,
-
       },
       {
         sender: 'Natalia Sánchez',
@@ -119,7 +120,6 @@ export class MailsDataService {
         starred: false,
         tags: ['Promotions'],
         spam: false,
-
       },
       {
         sender: 'Natalia Sánchez',
@@ -136,10 +136,37 @@ export class MailsDataService {
         tags: ['Forums'],
         spam: false,
       },
+    ];
+  }
+  getSentMailsData() {
+    return [
+      {
+        sender: 'me',
+        email: 'javiermartinez@lucentialab.es',
+        title: 'Meeting with the team at 7pm for the project review',
+        message:
+          'We should meet at 7pm for the project review and discuss the next steps',
+        timestamp: 'Tue 13, 12:50 PM',
+        img: '../../../assets/profile-picture.webp',
+        receiver: 'Pedro López',
+        receiverEmail: 'pedrolopez@lucentialab.es',
+      },
+    ];
+  }
 
+  getDraftMailsData(){
+    return [
+      {
+        sender: 'me',
+        email: 'drafts@mail.com',
+        timestamp: 'Tue 13, 12:50 PM',
+        message: 'This is a draft',
+        title: 'Draft',
+      }
     ]
   }
-  getSpamMailsData(){
+
+  getSpamMailsData() {
     return [
       {
         sender: 'Pedro López',
@@ -179,7 +206,8 @@ export class MailsDataService {
         sender: 'John Doe',
         email: 'johndoe@lucentialab.es',
         title: 'Party',
-        message: 'Dude, I heard you are going to the party tonight, is that true?',
+        message:
+          'Dude, I heard you are going to the party tonight, is that true?',
         timestamp: 'Mar 13, 10:00 AM',
         img: '../../../assets/profile-picture2.webp',
         receiver: 'me',
@@ -192,9 +220,9 @@ export class MailsDataService {
         tags: ['Forums'],
         spam: true,
       },
-    ]
+    ];
   }
-  getTrashMailsData(){
+  getTrashMailsData() {
     return [
       {
         sender: 'Pedro López',
@@ -216,7 +244,7 @@ export class MailsDataService {
         spam: false,
         trash: true,
       },
-    ]
+    ];
   }
   getUnreadMailsCount() {
     return this.mails.filter((mail) => !mail.readed).length;

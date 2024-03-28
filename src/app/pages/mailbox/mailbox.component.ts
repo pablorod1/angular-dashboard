@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MailsDataService } from '../../services/mails-data.service';
 import {
   ConfirmationService,
   MessageService,
   ConfirmEventType,
-  FilterService
+  FilterService,
 } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Sidebar } from 'primeng/sidebar';
 
 @Component({
@@ -16,15 +17,22 @@ import { Sidebar } from 'primeng/sidebar';
 })
 export class MailboxComponent implements OnInit {
   sidebarVisible: boolean = false;
+  submitted = false;
+  composeForm!: FormGroup;
   tags!: any[];
+
   mails!: any[];
   spamMails!: any[];
   trashMails!: any[];
+  sentMails!: any[];
+  draftMails!: any[];
 
   selectedMail!: any;
   unreadedCount!: number;
-  showInbox = true;
 
+  showInbox = true;
+  showSent = false;
+  showDraft = false;
   showSpam = false;
   showTrash = false;
   showStarred = false;
@@ -33,6 +41,8 @@ export class MailboxComponent implements OnInit {
   showPersonal = false;
   showPromotions = false;
   showForums = false;
+  showCompose = false;
+
   activeNavItem!: string;
   newLabelName: string = '';
 
@@ -40,7 +50,9 @@ export class MailboxComponent implements OnInit {
     private mailsDataService: MailsDataService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {}
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
 
@@ -48,21 +60,33 @@ export class MailboxComponent implements OnInit {
     this.sidebarRef.close(e);
   }
 
-
   ngOnInit() {
     this.mails = this.mailsDataService.getMailsData();
     this.mails.sort(
       (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
     );
     this.unreadedCount = this.mails.filter((mail) => !mail.readed).length;
+
+    this.sentMails = this.mailsDataService.getSentMailsData();
+    this.sentMails.sort(
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
+
+    this.draftMails = this.mailsDataService.getDraftMailsData();
+    this.draftMails.sort(
+      (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+    );
+
     this.spamMails = this.mailsDataService.getSpamMailsData();
     this.spamMails.sort(
       (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
     );
+
     this.trashMails = this.mailsDataService.getTrashMailsData();
     this.trashMails.sort(
       (a, b) => new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
     );
+
     this.tags = [
       { name: 'Social', checked: false },
       { name: 'Personal', checked: false },
@@ -73,6 +97,13 @@ export class MailboxComponent implements OnInit {
     this.selectedMail = this.mails[0];
     this.tags.forEach((tag) => {
       tag.checked = this.selectedMail.tags.includes(tag.name);
+    });
+
+    // Compose Form
+    this.composeForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      title: ['', [Validators.required]],
+      message: [''],
     });
   }
 
@@ -104,6 +135,8 @@ export class MailboxComponent implements OnInit {
   // Inbox Mails
   toggleShowInbox() {
     this.showInbox = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showSpam = false;
     this.showTrash = false;
     this.showStarred = false;
@@ -116,9 +149,117 @@ export class MailboxComponent implements OnInit {
     this.selectedMail = this.mails[0];
   }
 
+  toggleShowSent() {
+    this.showSent = true;
+    this.showDraft = false;
+    this.showInbox = false;
+    this.showSpam = false;
+    this.showTrash = false;
+    this.showStarred = false;
+    this.showImportant = false;
+    this.showSocial = false;
+    this.showPersonal = false;
+    this.showForums = false;
+    this.showPromotions = false;
+    this.sidebarVisible = false;
+    this.selectedMail = this.mails[0];
+  }
+
+  toggleShowDraft(){
+    this.showDraft = true;
+    this.showInbox = false;
+    this.showSent = false;
+    this.showSpam = false;
+    this.showTrash = false;
+    this.showStarred = false;
+    this.showImportant = false;
+    this.showSocial = false;
+    this.showPersonal = false;
+    this.showForums = false;
+    this.showPromotions = false;
+    this.sidebarVisible = false;
+    this.selectedMail = this.draftMails[0];
+  }
+
+  confirmDraft(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to save this message as draft?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        if (this.composeForm.valid || this.composeForm.invalid) {
+          const newMail = {
+            sender: 'Me',
+            email: this.composeForm.value.email,
+            title: this.composeForm.value.title,
+            message: this.composeForm.value.message,
+            timestamp: new Date(),
+          };
+          this.draftMails.push(newMail);
+          this.showCompose = !this.showCompose;
+          this.messageService.add({
+            severity: 'warn',
+            icon: 'bi bi-archive',
+            summary: 'Draft Saved',
+            detail: 'Check Draft Inbox',
+            life: 3000,
+          });
+          this.toggleShowDraft();
+        }
+      },
+      reject: () => {},
+    });
+  }
+
+  confirmSend(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure that you want to send this message?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        if (this.composeForm.valid) {
+          const newMail = {
+            sender: 'Me',
+            email: this.composeForm.value.email,
+            title: this.composeForm.value.title,
+            message: this.composeForm.value.message,
+            timestamp: new Date(),
+          };
+          this.sentMails.push(newMail);
+          this.showCompose = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Mail Sent',
+            detail: 'Receiver: ' + this.composeForm.value.email,
+            life: 3000,
+          });
+          this.toggleShowSent();
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Please fill all the required fields',
+            life: 2000,
+          });
+        }
+      },
+      reject: () => {},
+    });
+  }
+
   // Spam Mails
   toggleShowSpam() {
     this.showSpam = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showTrash = false;
     this.showInbox = false;
     this.showStarred = false;
@@ -156,6 +297,8 @@ export class MailboxComponent implements OnInit {
   // Trash Mails
   toggleShowTrash() {
     this.showTrash = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showInbox = false;
     this.showSpam = false;
     this.showStarred = false;
@@ -222,6 +365,8 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowStarred() {
     this.showStarred = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showInbox = false;
     this.showSpam = false;
     this.showTrash = false;
@@ -245,6 +390,8 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowImportant() {
     this.showImportant = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showInbox = false;
     this.showSpam = false;
     this.showTrash = false;
@@ -268,7 +415,9 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowSocial() {
     this.showSocial = true;
+    this.showDraft = false;
     this.showInbox = false;
+    this.showSent = false;
     this.showSpam = false;
     this.showTrash = false;
     this.showStarred = false;
@@ -286,7 +435,9 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowPersonal() {
     this.showPersonal = true;
+    this.showDraft = false;
     this.showSpam = false;
+    this.showSent = false;
     this.showStarred = false;
     this.showInbox = false;
     this.showTrash = false;
@@ -304,6 +455,8 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowPromotions() {
     this.showPromotions = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showStarred = false;
     this.showInbox = false;
     this.showSpam = false;
@@ -322,6 +475,8 @@ export class MailboxComponent implements OnInit {
   }
   toggleShowForums() {
     this.showForums = true;
+    this.showDraft = false;
+    this.showSent = false;
     this.showStarred = false;
     this.showInbox = false;
     this.showSpam = false;
@@ -349,8 +504,6 @@ export class MailboxComponent implements OnInit {
       }
     }
   }
-
-
 
   // Control Selected Mail
   selectNextMail() {
@@ -481,6 +634,10 @@ export class MailboxComponent implements OnInit {
       `);
       printWindow.document.close();
     }
+  }
+
+  toggleShowCompose() {
+    this.showCompose = true;
   }
 
   // Toggle Sidebar

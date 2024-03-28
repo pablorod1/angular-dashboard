@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 
 
 @Component({
@@ -9,9 +9,11 @@ import { GoogleMap } from '@angular/google-maps';
 })
 export class PoiComponent implements AfterViewInit{
   @ViewChild(GoogleMap) map!: GoogleMap;
+  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
   showHospitalMarkers = false;
   activeMarker: any = null;
   markerHospitalOptions!: google.maps.MarkerOptions;
+  markerHotelOptions!: google.maps.MarkerOptions;
   // Google Map
   center = { lat: 38.385255975420314, lng: -0.4311613386245738 };
   zoom = 12;
@@ -23,7 +25,12 @@ export class PoiComponent implements AfterViewInit{
         url: '../../../assets/h-circle-fill.svg',
       }
     };
-
+    this.markerHotelOptions = {
+      draggable: false,
+      icon: {
+        url: '../../../assets/h-circle-fill.svg',
+      }
+    };
   }
   markerHospitalPositions = [
     // Replace these with the actual coordinates for each hospital
@@ -32,6 +39,9 @@ export class PoiComponent implements AfterViewInit{
     { lat: 38.364517315411696, lng: -0.46221061045565515 }, // Hospital Clínica Benidorm
     { lat: 38.404153850859686, lng: -0.530838588314908 }, // Hospital Universitario San Vicente del Raspeig
     { lat: 38.35275827611593, lng: -0.47615546057137914 }, // Hospital Perpetuo Socorro
+  ];
+  markerHotelsPositions = [
+
   ];
   trackPosition(index: number, position: any): number {
     return index; // or unique identifier corresponding to the item
@@ -58,6 +68,10 @@ export class PoiComponent implements AfterViewInit{
     this.activeMarker = marker;
     this.map.googleMap?.setCenter(new google.maps.LatLng(marker.lat, marker.lng));
     this.map.googleMap?.setZoom(16);
+    this.openInfoWindow(marker);
 
+  }
+  openInfoWindow(marker: MapMarker) {
+    this.infoWindow.open(marker);
   }
 }

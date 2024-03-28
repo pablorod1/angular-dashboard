@@ -3,10 +3,12 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Google Map
 import { GoogleMap } from '@angular/google-maps';
 import { MapMarker } from '@angular/google-maps';
+import { MapInfoWindow } from '@angular/google-maps';
 
 //Primeng Modules
 import { SidebarModule } from 'primeng/sidebar';
@@ -25,6 +27,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
 import { PrimeNGConfig } from 'primeng/api';
+import {ChipModule} from 'primeng/chip';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -33,6 +36,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 // ApexCharts Module
 import {NgApexchartsModule} from 'ng-apexcharts';
+
+// Angular Editor
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -84,10 +90,10 @@ import { RealtimeChartComponent } from './components/realtime-chart/realtime-cha
 import { LocationChartComponent } from './components/location-chart/location-chart.component';
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 import { MonthlyUsersComponent } from './components/monthly-users/monthly-users.component';
-import { CommingSoonClassicComponent } from './pages/comming-soon/comming-soon-classic/comming-soon-classic.component';
-import { CommingSoonModernComponent } from './pages/comming-soon/comming-soon-modern/comming-soon-modern.component';
-import { CommingSoonFullscreenComponent } from './pages/comming-soon/comming-soon-fullscreen/comming-soon-fullscreen.component';
+
 import { PoiComponent } from './pages/poi/poi.component';
+import { EmailComposeEditorComponent } from './components/email-compose-editor/email-compose-editor.component';
+import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
 
 
 
@@ -140,10 +146,9 @@ import { PoiComponent } from './pages/poi/poi.component';
     LocationChartComponent,
     AccSettingsComponent,
     MonthlyUsersComponent,
-    CommingSoonClassicComponent,
-    CommingSoonModernComponent,
-    CommingSoonFullscreenComponent,
     PoiComponent,
+    EmailComposeEditorComponent,
+    ComingSoonComponent,
 
 
 
@@ -175,6 +180,10 @@ import { PoiComponent } from './pages/poi/poi.component';
     ToastModule,
     GoogleMap,
     MapMarker,
+    MapInfoWindow,
+    ChipModule,
+    AngularEditorModule,
+    HttpClientModule
 
   ],
   providers: [
