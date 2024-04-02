@@ -102,7 +102,7 @@
 .sidebar{
   overflow: auto;
   overflow-x: hidden;
-  max-height: 92vh;
+  max-height: 99vh;
 }
 .msg-container{
   max-height: 80vh;

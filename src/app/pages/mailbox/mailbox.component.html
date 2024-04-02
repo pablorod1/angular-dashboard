@@ -11,7 +11,7 @@
               class="bi bi-x"></i></button>
           <div class="user-container d-flex justify-content-center align-items-center mt-4">
             <div class=" img-container">
-              <img class="profile-picture" src="../../../assets/profile-picture.webp" alt="Profile Picture">
+              <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Picture">
             </div>
             <div class=" user-info">
               <h1 class="user-name mb-0"> Javier Martínez </h1>
@@ -145,7 +145,6 @@
                 <span><i class="me-3 bi bi-tag text-warning"></i> Forums </span>
                 <span *ngIf="forumsMails.length > 0"> {{forumsMails.length}}</span>
               </li>
-              <li class="nav-item"><a role="button"> <i class="me-3 bi bi-gear"></i> Settings </a></li>
             </ul>
           </div>
         </div>
@@ -587,7 +586,7 @@
                 </ul>
                 <button (click)="printMail()" type="button" class="btn" [pTooltip]="'Print'" tooltipPosition="top"> <i
                     class="bi bi-printer"></i> </button>
-                <button (click)="markAsTrash()" (click)="confirmDelete($event)" type="button" class="btn"
+                <button [disabled]="showTrash" (click)="markAsTrash()" (click)="confirmDelete($event)" type="button" class="btn"
                   [pTooltip]="'Delete'" tooltipPosition="top"> <i class="bi bi-trash3"></i> </button>
                 <p-toast position="bottom-right"></p-toast>
                 <p-confirmDialog></p-confirmDialog>
@@ -597,7 +596,7 @@
             <div class="message mt-4">
               <div class="user d-flex align-items-center">
                 <div class="img-container">
-                  <img class="profile-picture" src="../../../assets/profile-picture.webp" alt="Profile Picture">
+                  <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Picture">
                 </div>
                 <div class="user-info w-100">
                   <div class="d-flex justify-content-between align-items-center">

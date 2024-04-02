@@ -22,7 +22,7 @@ export class ComingSoonComponent implements OnInit {
 
     setInterval(() => {
       const now = new Date().getTime();
-      const distance = countDownDate - now
+      const distance = countDownDate - now;
 
       // Calculo de tiempo
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));

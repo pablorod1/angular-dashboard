@@ -13,7 +13,7 @@ export class NotificationsMenuComponent {
       sender: 'Pedro López',
       message: 'accepted your friend request',
       timestamp: 'Mar 13, 12:50 PM',
-      img: '../../../assets/profile-picture2.webp',
+      img: '../../../assets/profile-pictures/profile-picture2.webp',
       readed: false,
     },
     {
@@ -27,7 +27,7 @@ export class NotificationsMenuComponent {
       sender: 'Jessica Stones',
       message: 'sent you a message',
       timestamp: 'Mar 13, 11:30 AM',
-      img: '../../../assets/profile-picture3.webp',
+      img: '../../../assets/profile-pictures/profile-picture3.webp',
       readed: false,
     },
     {

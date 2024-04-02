@@ -4,7 +4,12 @@
     <h1 class="title"> we are launching soon </h1>
   </div>
   <div class="countdown gap-2 d-flex justify-content-center align-items-center">
-    <div class="card flip">
+    <div *ngIf="countdown === 'COUNTDOWN FINISHED!'" class="card flip">
+      <div class="card-body">
+        <h1>{{countdown}}</h1>
+      </div>
+    </div>
+    <div *ngIf="days >= 0" class="card flip">
       <div class="card-body">
         <div class="count-item">
           <span class="count-number"> {{days}} </span>
@@ -12,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="card flip">
+    <div *ngIf="hours >= 0" class="card flip">
       <div class="card-body">
         <div class="count-item ">
           <span class="count-number"> {{hours}} </span>
@@ -20,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="card flip">
+    <div *ngIf="minutes >= 0" class="card flip">
       <div class="card-body">
         <div class="count-item  ">
           <span class="count-number"> {{minutes}} </span>
@@ -28,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="card flip">
+    <div *ngIf="seconds >= 0" class="card flip">
       <div class="card-body">
         <div class="count-item  ">
           <span class="count-number"> {{seconds}} </span>
