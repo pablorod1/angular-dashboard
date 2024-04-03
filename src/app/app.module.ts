@@ -94,6 +94,7 @@ import { MonthlyUsersComponent } from './components/monthly-users/monthly-users.
 import { PoiComponent } from './pages/poi/poi.component';
 import { EmailComposeEditorComponent } from './components/email-compose-editor/email-compose-editor.component';
 import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
+import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-btn.component';
 
 
 
@@ -149,6 +150,7 @@ import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
     PoiComponent,
     EmailComposeEditorComponent,
     ComingSoonComponent,
+    ExploreBtnComponent,
 
 
 

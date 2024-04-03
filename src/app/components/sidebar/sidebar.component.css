@@ -139,3 +139,10 @@
 ::ng-deep .p-sidebar{
   color: #ded7cf;
 }
+.sidebar-btn {
+  background-color: transparent;
+  border: none;
+}
+.sidebar-btn i{
+  color: #ded7cf;
+}

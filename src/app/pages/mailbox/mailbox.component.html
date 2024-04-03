@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <!-- SideBar -->
-    <p-sidebar class="custom-sidebar" [dismissible]="false" [modal]="false" styleClass="w-30rem"
+    <p-sidebar class="custom-sidebar" [modal]="false" styleClass="w-30rem"
       [visible]="sidebarVisible">
       <ng-template pTemplate="headless">
 
@@ -22,7 +22,7 @@
             <button (click)="toggleShowCompose()" class="btn compose-btn m-4"><i class="me-1 bi bi-plus"></i> Compose
             </button>
           </div>
-          <p-dialog [closable]="false" header="Compose Email" [draggable]="false" [visible]="showCompose"
+          <p-dialog [modal]="true" [closable]="false" header="Compose Email" [draggable]="false" [visible]="showCompose"
             [style]="{width: '50vw'}">
             <form [formGroup]="composeForm" (ngSubmit)="confirmSend($event)">
               <div class="form-floating mt-3 mb-3">

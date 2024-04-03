@@ -44,7 +44,6 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
   padding-top: 8rem;
   padding-bottom: 4rem;
   background-color: #f1f1f1;
-  min-height: 100vh;
 }
 ::-webkit-scrollbar-track
 {

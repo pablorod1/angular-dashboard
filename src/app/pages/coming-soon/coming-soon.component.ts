@@ -12,6 +12,7 @@ export class ComingSoonComponent implements OnInit {
   hours!: number;
   minutes!: number;
   seconds!: number;
+  showDialog = false;
 
   ngOnInit() {
     this.startCountdown();
@@ -43,5 +44,8 @@ export class ComingSoonComponent implements OnInit {
       }
     }, 1000);
 
+  }
+  toggleDialog(){
+    this.showDialog = !this.showDialog;
   }
 }

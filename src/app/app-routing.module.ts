@@ -41,6 +41,7 @@ import { AccSettingsComponent } from './pages/acc-settings/acc-settings.componen
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+
   // Dashboard Paths
   {path: 'dashboard', component: DashboardComponent},
   {path: 'analytics', component: AnalyticsComponent},
@@ -81,6 +82,8 @@ const routes: Routes = [
   {path: 'mailbox', component: MailboxComponent},
   // Account Settings Path
   {path: 'acc-settings', component: AccSettingsComponent},
+
+  {path: '**', redirectTo: '/dashboard'},
 ];
 
 @NgModule({

@@ -1,47 +1,88 @@
 <section class="section ">
-  <div class="title-container text-center">
-    <h4 class="hello mb-0"> Hello Creatives </h4>
-    <h1 class="title"> we are launching soon </h1>
-  </div>
-  <div class="countdown gap-2 d-flex justify-content-center align-items-center">
-    <div *ngIf="countdown === 'COUNTDOWN FINISHED!'" class="card flip">
-      <div class="card-body">
-        <h1>{{countdown}}</h1>
-      </div>
-    </div>
-    <div *ngIf="days >= 0" class="card flip">
-      <div class="card-body">
-        <div class="count-item">
-          <span class="count-number"> {{days}} </span>
-          <span class="count-text"> Days </span>
+  <div class="container-fluid">
+    <div class="countdown">
+      <h1>Coming Soon</h1>
+      <h3>Our website is under construction. We'll be here soon with our new awesome site,<br> subscribe to be notified.
+      </h3>
+      <div class="countdown-timer">
+        <div class="row text-white mt-2 mb-0 g-3 gap-1">
+          <div class="col-md-2">
+            <span class="countdown-timer-number">{{days}}</span>
+            <span class="countdown-timer-text">Days</span>
+          </div>
+          <div class="col-md-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-md-2">
+            <span class="countdown-timer-number">{{hours}}</span>
+            <span class="countdown-timer-text">Hours</span>
+          </div>
+          <div class="col-md-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-md-2">
+            <span class="countdown-timer-number">{{minutes}}</span>
+            <span class="countdown-timer-text">Minutes</span>
+          </div>
+          <div class="col-md-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-md-2">
+            <span class="countdown-timer-number">{{seconds}}</span>
+            <span class="countdown-timer-text">Seconds</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="hours >= 0" class="card flip">
-      <div class="card-body">
-        <div class="count-item ">
-          <span class="count-number"> {{hours}} </span>
-          <span class="count-text"> hours </span>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="minutes >= 0" class="card flip">
-      <div class="card-body">
-        <div class="count-item  ">
-          <span class="count-number"> {{minutes}} </span>
-          <span class="count-text"> Minutes </span>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="seconds >= 0" class="card flip">
-      <div class="card-body">
-        <div class="count-item  ">
-          <span class="count-number"> {{seconds}} </span>
-          <span class="count-text"> Seconds </span>
-        </div>
-      </div>
-    </div>
+      <div class="btn-container">
+        <button (click)="toggleDialog()" type="button" class="notified-btn"> Get Notified </button>
+        <p-dialog [modal]="true" [closable]="false" [dismissableMask]="true" [visible]="showDialog" [draggable]="false"
+          [resizable]="false">
+          <ng-template class="custom-template" pTemplate="headless">
+            <div class="close-container">
+              <button type="button" class="close-btn">
+                <i class="bi bi-x-lg" (click)="toggleDialog()"></i>
+              </button>
+            </div>
+            <div class="image-container mb-5">
+              <img src="../../../assets/bell-icon.png">
+            </div>
+            <div class="newsletter-title">
+              <h1> Subscribe to our Newsletter </h1>
+              <p>Subscribe to our newsletter to get the latest updates.</p>
+            </div>
 
-
+            <div class="newsletter-form">
+              <form>
+                <div class="m-3">
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email">
+                </div>
+                <button type="submit" class="subscribe mt-3">
+                  <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                  </span>
+                  <span class="button-text">Subscribe</span>
+                </button>
+              </form>
+            </div>
+          </ng-template>
+        </p-dialog>
+        <explore-btn></explore-btn>
+      </div>
+      <div class="social-container">
+        <a href="https://www.facebook.com/" class="social-icon">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://twitter.com/?lang=es" class="social-icon">
+          <i class="bi bi-twitter-x"></i>
+        </a>
+        <a href="https://www.instagram.com/" class="social-icon">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://github.com/" class="social-icon">
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
