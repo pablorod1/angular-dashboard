@@ -28,6 +28,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
 import { PrimeNGConfig } from 'primeng/api';
 import {ChipModule} from 'primeng/chip';
+import {AccordionModule} from 'primeng/accordion';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -185,7 +186,8 @@ import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-bt
     MapInfoWindow,
     ChipModule,
     AngularEditorModule,
-    HttpClientModule
+    HttpClientModule,
+    AccordionModule
 
   ],
   providers: [

@@ -191,7 +191,7 @@ export class MailboxComponent implements OnInit {
       rejectIcon: 'none',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
-        if (this.composeForm.valid || this.composeForm.invalid) {
+        if (this.composeForm.valid || this.composeForm.invalid) {
           const newMail = {
             sender: 'Me',
             email: this.composeForm.value.email,
