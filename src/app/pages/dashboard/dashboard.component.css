@@ -4,7 +4,8 @@
   align-items: center;
 }
 .container-fluid{
-  border-top: 1px solid #ded7cf;
+  border-top: 4px solid #ded7cf;
+  overflow-x: hidden !important;
 }
 
 
@@ -72,17 +73,17 @@
 }
 .dropdown-btn{
   position: relative;
-  left: 100px;
+  left: 95px;
   font-size: 16px;
   padding: 10px;
-  top: 1px;
+  top: 4px;
   z-index: 1;
-  border: 1px solid #ded7cf;
+  border: 4px solid #ded7cf;
   border-bottom: 0;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   border-radius: 5px;
-  background-color: #f1f1f1;
+  background-color: #f6f6f6;
   width: 150px;
 }
 .dropdown-btn::after{
@@ -145,6 +146,9 @@
 .budget-container{
   overflow-x: hidden;
   margin: 20px 1rem 1rem 1rem;
+}
+.info h3{
+  font-size: clamp(1rem, 1.3vw, 2rem);
 }
 .home-container .cards-container .card .card-body .info h3 {
   font-size: clamp(1rem, 1.3vw, 2rem);

@@ -44,6 +44,7 @@
   height: 8px!important;
   border-radius: 10px;
   box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.3);
+  transition: width 2s ease-in-out;
 }
 .count{
   margin-bottom: 1rem !important;

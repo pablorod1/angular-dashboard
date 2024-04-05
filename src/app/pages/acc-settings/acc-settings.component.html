@@ -1,388 +1,481 @@
 <section class="section">
   <div class="container-fluid">
-    <div class="row">
-      <!-- SideBar -->
-      <div class="col-md-2 ps-0">
-
-        <ul class="list-unstyled">
-          <h3 class="tab-category"> General </h3>
-          <li><button (click)="toggleSettings()" type="button" class="tab-item" [ngClass]="{'active': showSettings}"><i
-                class="me-3 bi bi-gear-fill"></i> Account </button></li>
-          <li><button (click)="togglePayments()" type="button" class="tab-item" [ngClass]="{'active': showPayments}"><i
-                class="me-3 bi bi-credit-card-fill"></i> Payments </button></li>
-          <li><button (click)="toggleNotifications()" type="button" class="tab-item"
-              [ngClass]="{'active': showNotifications}"><i class="me-3 bi bi-bell-fill"></i> Notifications </button>
-          </li>
-        </ul>
-      </div>
-      <!-- Panels -->
-      <div class="col-md-10 p-1">
-        <div class="card">
-          <div *ngIf="showSettings" class="card-body">
-            <div class="title">
-              <h4>Account</h4>
-              <span> Real-time information and activities of your property. </span>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="user-info">
-              <div class="img-container">
-                <div class="profile-picture-container">
-                  <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp"
-                    alt="Profile Picture" loading="lazy">
-                  <div>
-                    <h4 class="mb-1"> Profile Picture </h4>
-                    <small> PNG, JPEG under 15MB </small>
-                  </div>
-                </div>
-                <div class="btn-container">
-                  <button type="button" class="button"> Upload Image </button>
-                  <button disabled type="button" class="button"> Delete </button>
-                </div>
+    <mat-tab-group mat-stretch-tabs="false" class="mt-2" animationDuration="0" mat-align-tabs="center">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-person-circle me-2"></i>
+          <span> Account </span>
+        </ng-template>
+        <div class="container-fluid p-1">
+          <div class="card">
+            <div class="card-body">
+              <div class="title">
+                <h4>Account</h4>
+                <span> Real-time information and activities of your property. </span>
               </div>
-              <div class="name-container">
-                <h3> Full Name </h3>
-                <div class="row">
-                  <div class="col-md-6">
+              <mat-divider></mat-divider>
+              <div class="user-info">
+                <div class="img-container">
+                  <div class="profile-picture-container">
+                    <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp"
+                      alt="Profile Picture" loading="lazy">
                     <div>
-                      <label class="form-label" for="first-name">First Name</label>
-                      <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                      <h4 class="mb-1"> Profile Picture </h4>
+                      <small> PNG, JPEG under 15MB </small>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div>
-                      <label class="form-label" for="last-name">Last Name</label>
-                      <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                  <div class="btn-container">
+                    <button type="button" class="button"> Upload Image </button>
+                    <button disabled type="button" class="button"> Delete </button>
+                  </div>
+                </div>
+                <div class="name-container">
+                  <h3> Full Name </h3>
+                  <div class="row g-2">
+                    <div class="col-md-6">
+                      <div>
+                        <label class="form-label" for="first-name">First Name</label>
+                        <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div>
+                        <label class="form-label" for="last-name">Last Name</label>
+                        <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="email-container">
-                <h3 class="mb-0"> Contact Email </h3>
-                <small class="text-muted"> Manage your accounts email address for the invoices. </small>
-                <div class="row mt-3 ">
-                  <div class="col-md-6">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="email"><i class="bi bi-envelope"></i></span>
-                      <input type="email" class="form-control" placeholder="Email Address" aria-label="Email"
-                        aria-describedby="email">
+                <mat-divider></mat-divider>
+                <div class="email-container">
+                  <h3 class="mb-0"> Contact Email </h3>
+                  <small class="text-muted"> Manage your accounts email address for the invoices. </small>
+                  <div class="row mt-3 ">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="email"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" placeholder="Email Address" aria-label="Email"
+                          aria-describedby="email">
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6 text-end">
-                    <button type="button" class="button"><i class="me-2 bi bi-plus-circle text-success"></i>Add Another
-                      Email</button>
-                  </div>
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="password-container">
-                <h3 class="mb-0"> Password </h3>
-                <span class="text-muted"> Modify your password. </span>
-                <div class="row mt-3">
-                  <div class="col-md-6">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="password"><i class="bi bi-lock-fill"></i></span>
-                      <input type="password" class="form-control" placeholder="Current Password" aria-label="Password"
-                        aria-describedby="password">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="newPassword"><i class="bi bi-lock-fill"></i></span>
-                      <input type="password" class="form-control" placeholder="New Password" aria-label="NewPassword"
-                        aria-describedby="newPassword">
+                    <div class="col-md-6 text-end">
+                      <button type="button" class="button"><i class="me-2 bi bi-plus-circle text-success"></i>Add
+                        Another
+                        Email</button>
                     </div>
                   </div>
                 </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="socials-container">
-                <h3 class="mb-0"> Connections </h3>
-                <span class="text-muted"> Manage your current integrated accounts.</span>
-                <div class="mt-3 card social-card">
-                  <div class="card-body p-3">
-                    <div class="row align-items-center">
-                      <div class="col-2 pe-0">
-                        <div class="icon-container">
-                          <img class="icon" src="../../../assets/icons/google-icon.svg" alt="Google Icon"
-                            loading="lazy">
+                <mat-divider></mat-divider>
+                <div class="password-container">
+                  <h3 class="mb-0"> Password </h3>
+                  <span class="text-muted"> Modify your password. </span>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="password"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" class="form-control" placeholder="Current Password" aria-label="Password"
+                          aria-describedby="password">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text" id="newPassword"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" class="form-control" placeholder="New Password" aria-label="NewPassword"
+                          aria-describedby="newPassword">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="socials-container">
+                  <h3 class="mb-0"> Connections </h3>
+                  <span class="text-muted"> Manage your current integrated accounts.</span>
+                  <div class="mt-3 card social-card">
+                    <div class="card-body p-3">
+                      <div class="row d-flex align-items-center">
+                        <div class="col-2 pe-0">
+                          <div class="icon-container">
+                            <img class="icon" src="../../../assets/icons/google-icon.svg" alt="Google Icon"
+                              loading="lazy">
+                          </div>
+                        </div>
+                        <div class="col-auto p-0">
+                          <h4 class="mb-0"> Google </h4>
+                          <small class="text-muted"> Use Google for the faster login methods in your account. </small>
+                        </div>
+                        <div class="col-auto ms-auto">
+                          <button (click)="toggleGoogleConnected()"
+                            [ngClass]="{'text-success connected-btn': googleConnected}" type="button" class="button">
+                            <span *ngIf="googleConnected"> Connected </span>
+                            <span *ngIf="!googleConnected"> Connect </span>
+                          </button>
                         </div>
                       </div>
-                      <div class="col-6 p-0">
-                        <h4 class="mb-0"> Google </h4>
-                        <small class="text-muted"> Use Google for the faster login methods in your account. </small>
-                      </div>
-                      <div class="col-4 text-end">
-                        <button (click)="toggleGoogleConnected()"
-                          [ngClass]="{'text-success connected-btn': googleConnected}" type="button" class="button">
-                          <span *ngIf="googleConnected"> Connected </span>
-                          <span *ngIf="!googleConnected"> Connect </span>
-                        </button>
-                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="mt-3 card social-card">
-                  <div class="card-body p-3">
-                    <div class="row align-items-center">
-                      <div class="col-2 pe-0">
-                        <div class="icon-container">
-                          <i class="bi bi-github icon"></i>
+                  <div class="mt-3 card social-card">
+                    <div class="card-body p-3">
+                      <div class="row d-flex align-items-center">
+                        <div class="col-2 pe-0">
+                          <div class="icon-container">
+                            <i class="bi bi-github icon"></i>
+                          </div>
+                        </div>
+                        <div class="col-auto p-0">
+                          <h4 class="mb-0"> GitHub </h4>
+                          <small class="text-muted"> Use for private repositories. </small>
+                        </div>
+                        <div class="col-auto ms-auto">
+                          <button (click)="toggleGithubConnected()"
+                            [ngClass]="{'text-success connected-btn': githubConnected}" type="button" class="button">
+                            <span *ngIf="githubConnected"> Connected </span>
+                            <span *ngIf="!githubConnected"> Connect </span>
+                          </button>
                         </div>
                       </div>
-                      <div class="col-6 p-0">
-                        <h4 class="mb-0"> GitHub </h4>
-                        <small class="text-muted"> Use for private repositories. </small>
-                      </div>
-                      <div class="col-4 text-end">
-                        <button (click)="toggleGithubConnected()"
-                          [ngClass]="{'text-success connected-btn': githubConnected}" type="button" class="button">
-                          <span *ngIf="githubConnected"> Connected </span>
-                          <span *ngIf="!githubConnected"> Connect </span>
-                        </button>
-                        <p-toast></p-toast>
-                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="footer">
-                <h3> Close Your Session </h3>
-                <small class="text-muted"> </small>
-                <div class="btn-container">
-                  <button type="button" class="button"><i class="me-2 bi bi-box-arrow-right"></i> Log Out </button>
-                  <button type="button" class="button text-danger"> <i class="me-2 bi bi-trash3"></i> Delete Account
-                  </button>
+                <mat-divider></mat-divider>
+                <div class="footer">
+                  <h3> Close Your Session </h3>
+                  <small class="text-muted"> </small>
+                  <div class="btn-container">
+                    <button type="button" class="button"><i class="me-2 bi bi-box-arrow-right"></i> Log Out </button>
+                    <button type="button" class="button text-danger"> <i class="me-2 bi bi-trash3"></i> Delete Account
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div *ngIf="showPayments" class="card-body">
-            <div class="title d-flex justify-content-between align-items-center">
-              <div>
-                <h4> Payment Methods </h4>
-                <span> Manage your payment methods and invoices. </span>
-              </div>
-              <div class="btn-container text-end">
-                <button type="button" class="button"> <i class="bi bi-plus"></i> Add New </button>
-              </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="methods-container">
-              <p-accordion expandIcon="bi bi-chevron-down" collapseIcon="bi bi-chevron-up" class="w-100">
-                <p-accordionTab aria-expanded="true" iconPos="end">
-                  <ng-template pTemplate="header">
-                    <div class="row w-100 g-3 method-header">
-                      <div class="col-md-1">
-                        <i class="mx-3 fa-brands fa-cc-visa icon visa"></i>
-                      </div>
-                      <div class="col-md-2 title-bank">
-                        <small> BBVA Bank </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> Javier Martinez </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> 1234 **** **** 6789 </small>
-                      </div>
-                      <div class="col-md-1">
-                        <button type="button" class="btn text-end"><i class="bi bi-three-dots"></i></button>
-                      </div>
-                    </div>
-                  </ng-template>
-                  <div class="method-body">
-                    <div class="row mb-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Bank Name </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> BBVA Bank </small>
-                      </div>
-                      <div class="col-sm-3">
-                        <small class="text-muted"> Current Balance:<span><strong> 12.356€ </strong></span> </small>
-                      </div>
-                      <div class="col-sm-4 text-end">
-                        <button type="button" class="btn text-muted"><i class="bi bi-pencil"></i> <small> Edit
-                          </small></button>
-                        <button type="button" class="btn text-danger text-danger"><i
-                            class="bi bi-trash text-danger"></i> <small> Delete </small></button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Routing(ABA) </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 09876543312 </small>
-                      </div>
-                      <div class="col-sm-7 d-flex gap-2">
-                        <button type="button" class="button bg-primary text-white"> Deposit </button>
-                        <button type="button" class="button"> Withdraw </button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Account Number </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 1234 5678 9012 3456 </small>
-                      </div>
-                    </div>
-                  </div>
-                </p-accordionTab>
-                <p-accordionTab iconPos="end">
-                  <ng-template pTemplate="header">
-                    <div class="row w-100 g-3 method-header">
-                      <div class="col-md-1">
-                        <i class="mx-3 fa-brands fa-cc-visa icon visa"></i>
-                      </div>
-                      <div class="col-md-2 title-bank">
-                        <small> BBVA Bank </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> Javier Martinez </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> 1234 **** **** 6789 </small>
-                      </div>
-                      <div class="col-md-1">
-                        <button type="button" class="btn text-end"><i class="bi bi-three-dots"></i></button>
-                      </div>
-                    </div>
-                  </ng-template>
-                  <div class="method-body">
-                    <div class="row mb-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Bank Name </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> BBVA Bank </small>
-                      </div>
-                      <div class="col-sm-3">
-                        <small class="text-muted"> Current Balance:<span><strong> 12.356€ </strong></span> </small>
-                      </div>
-                      <div class="col-sm-4 text-end">
-                        <button type="button" class="btn text-muted"><i class="bi bi-pencil"></i> <small> Edit
-                          </small></button>
-                        <button type="button" class="btn text-danger text-danger"><i
-                            class="bi bi-trash text-danger"></i> <small> Delete </small></button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Routing(ABA) </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 09876543312 </small>
-                      </div>
-                      <div class="col-sm-7 d-flex gap-2">
-                        <button type="button" class="button bg-primary text-white"> Deposit </button>
-                        <button type="button" class="button"> Withdraw </button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Account Number </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 1234 5678 9012 3456 </small>
-                      </div>
-                    </div>
-                  </div>
-                </p-accordionTab>
-                <p-accordionTab iconPos="end">
-                  <ng-template pTemplate="header">
-                    <div class="row w-100 g-3 method-header">
-                      <div class="col-md-1">
-                        <i class="mx-3 fa-brands fa-cc-visa icon visa"></i>
-                      </div>
-                      <div class="col-md-2 title-bank">
-                        <small> BBVA Bank </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> Javier Martinez </small>
-                      </div>
-                      <div class="col-md-3">
-                        <small class="text-muted"> 1234 **** **** 6789 </small>
-                      </div>
-                      <div class="col-md-1">
-                        <button type="button" class="btn text-end"><i class="bi bi-three-dots"></i></button>
-                      </div>
-                    </div>
-                  </ng-template>
-                  <div class="method-body">
-                    <div class="row mb-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Bank Name </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> BBVA Bank </small>
-                      </div>
-                      <div class="col-sm-3">
-                        <small class="text-muted"> Current Balance:<span><strong> 12.356€ </strong></span> </small>
-                      </div>
-                      <div class="col-sm-4 text-end">
-                        <button type="button" class="btn text-muted"><i class="bi bi-pencil"></i> <small> Edit
-                          </small></button>
-                        <button type="button" class="btn text-danger text-danger"><i
-                            class="bi bi-trash text-danger"></i> <small> Delete </small></button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Routing(ABA) </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 09876543312 </small>
-                      </div>
-                      <div class="col-sm-7 d-flex gap-2">
-                        <button type="button" class="button bg-primary text-white"> Deposit </button>
-                        <button type="button" class="button"> Withdraw </button>
-                      </div>
-                    </div>
-                    <div class="row my-4 d-flex align-items-center">
-                      <div class="col-sm-2">
-                        <span> Account Number </span>
-                      </div>
-                      <div class="col-sm-1">
-                        <span> : </span>
-                      </div>
-                      <div class="col-sm-2">
-                        <small class="text-muted"> 1234 5678 9012 3456 </small>
-                      </div>
-                    </div>
-                  </div>
-                </p-accordionTab>
-              </p-accordion>
             </div>
           </div>
         </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-credit-card-fill me-2"></i>
+          <span> Payment </span>
+        </ng-template>
+        <div class="container-fluid p-1">
+          <div class="card">
+            <div class="card-body">
+              <div class="title d-flex justify-content-between align-items-center">
+                <div>
+                  <h4> Payment Methods </h4>
+                  <span> Manage your payment methods and invoices. </span>
+                </div>
+                <div class="btn-container text-end">
+                  <button (click)="showNewDialog = true" type="button" class="button"> <i class="bi bi-plus"></i> Add
+                    New </button>
+                </div>
+              </div>
+
+              <mat-divider></mat-divider>
+              <div class="methods-container">
+                <p-accordion expandIcon="bi bi-chevron-down" collapseIcon="bi bi-chevron-up" class="w-100">
+                  <p-accordionTab *ngFor="let method of paymentMethods" aria-expanded="true" iconPos="end">
+                    <ng-template pTemplate="header">
+                      <div class="row w-100 g-3 method-header">
+                        <div class="col-md-1">
+                          <i class="mx-3 icon" [class]="method.icon"></i>
+                        </div>
+                        <div class="col-md-2 title-bank">
+                          <small> {{method.bankName}} </small>
+                        </div>
+                        <div class="col-md-3">
+                          <small class="text-muted"> {{method.accountName}} </small>
+                        </div>
+                        <div class="col-md-3">
+                          <small class="text-muted"> {{hideAccountNumber(method.accountNumber)}} </small>
+                        </div>
+                        <div class="col-md-1">
+                          <button type="button" class="btn text-end"><i class="bi bi-three-dots"></i></button>
+                        </div>
+                      </div>
+                    </ng-template>
+                    <div class="method-body">
+                      <div class="row mb-4 d-flex align-items-center">
+                        <div class="col-sm-2">
+                          <span> Bank Name </span>
+                        </div>
+                        <div class="col-sm-1">
+                          <span> : </span>
+                        </div>
+                        <div class="col-sm-2">
+                          <small class="text-muted"> {{method.bankName}} </small>
+                        </div>
+                        <div class="col-sm-3">
+                          <small class="text-muted"> Current Balance:<span><strong> {{method.balance |
+                                currency:'EUR':'symbol':'1.2-2'}} </strong></span> </small>
+                        </div>
+                        <div class="col-sm-4 text-end">
+                          <button (click)="editPaymentMethod(method)" type="button" class="btn text-muted"><i
+                              class="bi bi-pencil"></i> <small> Edit
+                            </small></button>
+                          <button (click)="deletePaymentMethod($event, method.id)" type="button"
+                            class="btn text-danger text-danger"><i class="bi bi-trash text-danger"></i> <small> Delete
+                            </small></button>
+                        </div>
+                      </div>
+                      <div class="row my-4 d-flex align-items-center">
+                        <div class="col-sm-2">
+                          <span> Routing(ABA) </span>
+                        </div>
+                        <div class="col-sm-1">
+                          <span> : </span>
+                        </div>
+                        <div class="col-sm-2">
+                          <small class="text-muted"> {{method.routingNumber}} </small>
+                        </div>
+                        <div class="col-sm-7 d-flex gap-2">
+                          <button type="button" class="button bg-primary text-white"> Deposit </button>
+                          <button type="button" class="button"> Withdraw </button>
+                        </div>
+                      </div>
+                      <div class="row my-4 d-flex align-items-center">
+                        <div class="col-sm-2">
+                          <span> Account Number </span>
+                        </div>
+                        <div class="col-sm-1">
+                          <span> : </span>
+                        </div>
+                        <div class="col-sm-2">
+                          <small class="text-muted"> {{method.accountNumber}} </small>
+                        </div>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </p-accordion>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <i class="bi bi-bell-fill me-2"></i>
+          <span> Notifications </span>
+        </ng-template>
+        <div class="container-fluid p-1">
+          <div class="card">
+            <div class="card-body">
+              <div class="container d-flex justify-content-between align-items-center">
+                <div class="title">
+                  <h4>Notifications</h4>
+                  <span> Manage your notifications and alerts. </span>
+                </div>
+                <div class="form-check form-switch">
+                  <input [(ngModel)]="notifications" class="form-check-input" type="checkbox" role="switch"
+                    id="switchNotifications">
+                  <label class="form-check-label" for="switchNotifications"> Enable all notifications </label>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row g-4 notifications-container">
+                <div class="col-md-5">
+                  <h2> General Notifications </h2>
+                  <span> Receive the latest news, updates and industry tutorials from us </span>
+                </div>
+                <div class="col-md-7">
+                  <div class="container">
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" type="checkbox" id="newsCheck">
+                      <label class="form-check-label" for="newsCheck"> <strong> News and Updates </strong><br><small
+                          class="text-muted"> News about product and features updates. </small> </label>
+                    </div>
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" type="checkbox" id="tipsCheck">
+                      <label class="form-check-label" for="tipsCheck"> <strong> Tips and Tutorials </strong><br><small
+                          class="text-muted"> Tips on getting more out of Untitled. </small> </label>
+                    </div>
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" type="checkbox" id="researchCheck">
+                      <label class="form-check-label" for="researchCheck"> <strong> User research </strong><br><small
+                          class="text-muted"> Get involved in our beta testing program or participate in paid procuct
+                          user reseach. </small> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row g-4 notifications-container">
+                <div class="col-md-5">
+                  <h2> Comments </h2>
+                  <span> These are notifications for comments on your posts and replies to your comments. </span>
+                </div>
+                <div class="col-md-7">
+                  <div class="container">
+                    <div class="form-check">
+                      <input [checked]="!notifications" class="form-check-input" name="commentsRadio" type="radio"
+                        id="noComments">
+                      <label class="form-check-label" for="noComments"> <strong> Do not notify me </strong></label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" name="commentsRadio" type="radio" id="mentions">
+                      <label class="form-check-label" for="mentions"> <strong> Mentions only </strong><br><small
+                          class="text-muted"> Only notify me if I'm mentioned in a comment. </small> </label>
+                    </div>
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" name="commentsRadio" type="radio"
+                        id="allComments">
+                      <label class="form-check-label" for="allComments"> <strong> All comments </strong><br><small
+                          class="text-muted"> Notify me for all comments on my posts. </small> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row g-4 notifications-container">
+                <div class="col-md-5">
+                  <h2> Reminders </h2>
+                  <span> These are notifications to remind you of updates you might have missed. </span>
+                </div>
+                <div class="col-md-7">
+                  <div class="container">
+                    <div class="form-check">
+                      <input [checked]="!notifications" class="form-check-input" name="notificationsRadio" type="radio"
+                        id="noReminders">
+                      <label class="form-check-label" for="noReminders"> <strong> Do not notify me </strong></label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" name="notificationsRadio" type="radio" id="important">
+                      <label class="form-check-label" for="important"> <strong> Important reminders only
+                        </strong><br><small class="text-muted"> Only notify me if the reminder is tagged as important.
+                        </small> </label>
+                    </div>
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" name="notificationsRadio" type="radio"
+                        id="allReminders">
+                      <label class="form-check-label" for="allReminders"> <strong> All reminders </strong><br><small
+                          class="text-muted"> Notify me for all reminders. </small> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row g-4 notifications-container">
+                <div class="col-md-5">
+                  <h2> More activity about you </h2>
+                  <span> These are notifications for posts on your profile, likes and other reactions to your posts, and
+                    more. </span>
+                </div>
+                <div class="col-md-7">
+                  <div class="container">
+                    <div class="form-check">
+                      <input [checked]="!notifications" class="form-check-input" name="activitiesRadio" type="radio"
+                        id="noActivity">
+                      <label class="form-check-label" for="noActivity"> <strong> Do not notify me </strong></label>
+                    </div>
+                    <div class="form-check">
+                      <input [checked]="notifications" class="form-check-input" name="activitiesRadio" type="radio"
+                        id="allActivity">
+                      <label class="form-check-label" for="allActivity"> <strong> All activity </strong><br><small
+                          class="text-muted"> Notify me for all other activity. </small> </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <!-- Add Payment Method Dialog -->
+  <p-dialog [closable]="false" header="Add Payment Method" [draggable]="false" [modal]="true" [visible]="showNewDialog">
+    <div class="form-group">
+      <label class="form-label" for="bankName"> Bank Name </label>
+      <div class="input-group">
+        <span class="input-group-text" id="bankName"><i class="bi bi-bank"></i></span>
+        <input [(ngModel)]="newPaymentMethod.accountName" type="text" class="form-control" id="bankName"
+          placeholder="BBVA Bank">
       </div>
     </div>
-  </div>
+    <div class="form-group">
+      <label class="form-label" for="accountName"> Account Full Name </label>
+      <div class="input-group">
+        <span class="input-group-text" id="accountName"><i class="bi bi-person-fill"></i></span>
+        <input [(ngModel)]="newPaymentMethod.bankName" type="text" class="form-control" id="accountName"
+          placeholder="Javier Martínez">
+      </div>
+    </div>
+    <label class="form-label" for="accountNumber"> Account Number </label>
+    <p-inputMask [(ngModel)]="newPaymentMethod.accountNumber" mask="9999 9999 9999 9999"
+      class="form-control"></p-inputMask>
+    <div class="form-group">
+      <label class="form-label" for="routingNumber"> Routing(ABA) </label>
+      <div class="input-group">
+        <span class="input-group-text" id="routingNumber"><i class="bi bi-person-fill"></i></span>
+        <input [(ngModel)]="newPaymentMethod.routingNumber" type="number" [min]="0" class="form-control"
+          id="routingNumber" placeholder="123456789">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="balance"> Balance </label>
+      <div class="input-group">
+        <span class="input-group-text" id="balance"><i class="bi bi-currency-euro"></i></span>
+        <input [(ngModel)]="newPaymentMethod.balance" type="number" [min]="0" class="form-control" id="balance"
+          placeholder="10000">
+      </div>
+    </div>
+    <div class="btn-container d-flex gap-2">
+      <button type="button" class="button bg-primary text-white" (click)="confirmAddPaymentMethod($event)"> Add
+      </button>
+      <button type="button" class="button btn-outline-danger text-danger" (click)="cancelAddPaymentMethod($event)">
+        Cancel </button>
+    </div>
+  </p-dialog>
+
+  <!-- Edit Payment Method Dialog -->
+  <p-dialog [closable]="false" header="Edit Payment Method" [draggable]="false" [modal]="true"
+    [visible]="showEditDialog">
+    <div class="form-group">
+      <label class="form-label" for="bankName"> Bank Name </label>
+      <div class="input-group">
+        <span class="input-group-text" id="bankName"><i class="bi bi-bank"></i></span>
+        <input [(ngModel)]="editingPaymentMethod.accountName" type="text" class="form-control" id="bankName"
+          placeholder="BBVA Bank">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="accountName"> Account Full Name </label>
+      <div class="input-group">
+        <span class="input-group-text" id="accountName"><i class="bi bi-person-fill"></i></span>
+        <input [(ngModel)]="editingPaymentMethod.bankName" type="text" class="form-control" id="accountName"
+          placeholder="Javier Martínez">
+      </div>
+    </div>
+    <label class="form-label" for="accountNumber"> Account Number </label>
+    <p-inputMask [(ngModel)]="editingPaymentMethod.accountNumber" mask="9999 9999 9999 9999"
+      class="form-control"></p-inputMask>
+    <div class="form-group">
+      <label class="form-label" for="routingNumber"> Routing(ABA) </label>
+      <div class="input-group">
+        <span class="input-group-text" id="routingNumber"><i class="bi bi-person-fill"></i></span>
+        <input [(ngModel)]="editingPaymentMethod.routingNumber" type="number" [min]="0" class="form-control"
+          id="routingNumber" placeholder="123456789">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="balance"> Balance </label>
+      <div class="input-group">
+        <span class="input-group-text" id="balance"><i class="bi bi-currency-euro"></i></span>
+        <input [(ngModel)]="editingPaymentMethod.balance" type="number" [min]="0" class="form-control" id="balance"
+          placeholder="10000">
+      </div>
+    </div>
+    <div class="btn-container d-flex gap-2">
+      <button type="button" class="button bg-primary text-white" (click)="confirmEditPaymentMethod($event)"> Save
+        Changes </button>
+      <button type="button" class="button btn-outline-danger text-danger" (click)="cancelEditPaymentMethod($event)">
+        Cancel </button>
+    </div>
+  </p-dialog>
+  <p-confirmDialog></p-confirmDialog>
+
+  <!-- Toast -->
+  <p-toast [position]="'bottom-right'"></p-toast>
 </section>

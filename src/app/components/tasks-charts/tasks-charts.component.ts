@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TaskChartDataService } from '../../services/task-chart-data.service';
 import {
   ChartComponent,
@@ -13,6 +13,15 @@ import {
   ApexLegend,
   ApexPlotOptions,
 } from 'ng-apexcharts';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+  keyframes,
+} from '@angular/animations';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -39,13 +48,21 @@ export class TasksChartsComponent implements OnInit {
   public chartOptions!: Partial<ChartOptions>;
   totalTasksCount!: number;
   completedTaskCount!: number;
+  progress = [0, 0, 0, 0, 0];
 
   constructor(
     private tasksChartDataService: TaskChartDataService,
     private cdRef: ChangeDetectorRef
   ) {}
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.progress = [75, 10, 50, 100, 33]; // adjust this value as needed
+    }, 0);
+  }
+
   ngOnInit(): void {
+
     const currentWeekData = this.tasksChartDataService.getCurrentWeekData();
     const seriesData = currentWeekData.map((item) => item.data);
     this.totalTasksCount = seriesData.reduce((a, b) => a + b, 0);

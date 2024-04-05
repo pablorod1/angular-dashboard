@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 // Google Map
 import { GoogleMap } from '@angular/google-maps';
@@ -28,7 +29,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
 import { PrimeNGConfig } from 'primeng/api';
 import {ChipModule} from 'primeng/chip';
+import { InputOtpModule } from 'primeng/inputotp';
 import {AccordionModule} from 'primeng/accordion';
+import { InputMaskModule } from 'primeng/inputmask';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -187,8 +190,10 @@ import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-bt
     ChipModule,
     AngularEditorModule,
     HttpClientModule,
-    AccordionModule
-
+    AccordionModule,
+    InputOtpModule,
+    InputMaskModule,
+    ScrollingModule
   ],
   providers: [
     provideClientHydration(),
