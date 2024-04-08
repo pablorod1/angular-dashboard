@@ -49,7 +49,8 @@
                 <li class="nav-item"><a role="button" href=""> Support </a></li>
               </ul>
             </li>
-            <li class="nav-item"><a role="button" href="/mailbox"><i class="me-3 bi bi-envelope"></i> Mailbox </a></li>
+            <li class="nav-item d-flex justify-content-between align-items-center flex-row"><a role="button" href="/mailbox"><i class="me-3 bi bi-envelope"></i> Mailbox </a><span *ngIf="unreadedMails > 0" class="badge bg-danger rounded-pill"> {{unreadedMails}} </span>
+            </li>
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-pencil-square"></i> Notes </a></li>
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-card-checklist"></i> Scrumboard </a></li>
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-journal-check"></i> Tasks </a></li>
@@ -132,16 +133,16 @@
                 <li class="nav-item"><a role="button" href=""> 500 </a></li>
               </ul>
             </li>
-            <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-receipt-cutoff"></i> Invoice  </a></li>
+            <li class="nav-item"><a role="button" href="/invoice"><i class="me-3 bi bi-receipt-cutoff"></i> Invoice  </a></li>
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-exclamation-triangle"></i> Maintenance </a></li>
             <li class="nav-item" (click)="togglePricing($event)" [attr.aria-expanded]="isPricingVisible ? 'true' : 'false'">
               <a role="button" ><i class="me-3 bi bi-cash-stack"></i> Pricing <i class="bi bi-caret-right-fill arrow"></i></a>
               <ul class="list-unstyled submenu" [class.open]="isPricingVisible">
-                <li class="nav-item"><a role="button" href=""> Classic </a></li>
-                <li class="nav-item"><a role="button" href=""> Table </a></li>
+                <li class="nav-item"><a role="button" href="/pricing-classic"> Classic </a></li>
+                <li class="nav-item"><a role="button" href="/pricing-table"> Table </a></li>
               </ul>
             </li>
-            <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-person-circle"></i> Profile </a></li>
+            <li class="nav-item"><a role="button" href="/profile"><i class="me-3 bi bi-person-circle"></i> Profile </a></li>
             <li class="nav-item"><a role="button" href="/acc-settings"><i class="me-3 bi bi-gear"></i> Settings </a></li>
           </ul>
         </div>

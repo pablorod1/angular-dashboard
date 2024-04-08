@@ -110,6 +110,9 @@
     text-decoration: none;
     color: #ded7cf;
   }
+  .nav-item .badge{
+    font-size: 14px;
+  }
 }
 
 .submenu {

@@ -1,5 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Sidebar } from 'primeng/sidebar';
+import { MailsDataService } from '../../services/mails-data.service';
 
 
 @Component({
@@ -7,9 +8,9 @@ import { Sidebar } from 'primeng/sidebar';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   sidebarVisible: boolean = false;
-
+  unreadedMails!: number;
 
   isHelpCenterVisible = false;
   isAuthVisible = false;
@@ -28,6 +29,12 @@ export class SidebarComponent {
 
   closeCallback(e: Event): void {
     this.sidebarRef.close(e);
+  }
+
+  constructor( private mailsDataService: MailsDataService){}
+
+  ngOnInit(): void {
+    this.unreadedMails = this.mailsDataService.getUnreadMailsCount();
   }
 
 

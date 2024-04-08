@@ -39,6 +39,14 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
 // Account Settings
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 
+// Invoice Page
+import { InvoiceComponent } from './pages/invoice/invoice.component';
+
+// User Profile
+import { ProfileComponent } from './pages/profile/profile.component';
+import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
+import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
+
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
@@ -82,6 +90,13 @@ const routes: Routes = [
   {path: 'mailbox', component: MailboxComponent},
   // Account Settings Path
   {path: 'acc-settings', component: AccSettingsComponent},
+  // Invoice Page
+  {path: 'invoice', component: InvoiceComponent},
+  // User Profile
+  {path: 'profile', component: ProfileComponent},
+  // Pricing Paths
+  {path: 'pricing-classic', component: PricingClassicComponent},
+  {path: 'pricing-table', component: PricingTableComponent},
 
   {path: '**', redirectTo: '/dashboard'},
 ];

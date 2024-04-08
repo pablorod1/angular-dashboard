@@ -22,10 +22,12 @@ export class ProfileMenuComponent implements OnInit {
       {
         label: 'Profile',
         icon: 'bi-person-circle',
+        link: '/profile'
       },
       {
         label: 'Settings',
         icon: 'bi-gear',
+        link: '/acc-settings'
       },
       {
         label: 'Status',

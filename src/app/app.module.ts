@@ -29,6 +29,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {ToastModule} from 'primeng/toast';
 import { PrimeNGConfig } from 'primeng/api';
 import {ChipModule} from 'primeng/chip';
+import {ChipsModule} from 'primeng/chips';
 import { InputOtpModule } from 'primeng/inputotp';
 import {AccordionModule} from 'primeng/accordion';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -99,6 +100,10 @@ import { PoiComponent } from './pages/poi/poi.component';
 import { EmailComposeEditorComponent } from './components/email-compose-editor/email-compose-editor.component';
 import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
 import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-btn.component';
+import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
+import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
 
 
 
@@ -155,6 +160,10 @@ import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-bt
     EmailComposeEditorComponent,
     ComingSoonComponent,
     ExploreBtnComponent,
+    InvoiceComponent,
+    ProfileComponent,
+    PricingClassicComponent,
+    PricingTableComponent,
 
 
 
@@ -193,7 +202,8 @@ import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-bt
     AccordionModule,
     InputOtpModule,
     InputMaskModule,
-    ScrollingModule
+    ScrollingModule,
+    ChipsModule
   ],
   providers: [
     provideClientHydration(),

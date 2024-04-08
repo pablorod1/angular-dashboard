@@ -1,0 +1,44 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container h1{
+  font-size: 40px;
+  font-weight: 600;
+}
+.container .badge{
+  font-size: 14px;
+}
+
+.btn-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: #4b4bdf;
+  padding: 12px 24px;
+  gap: 10px;
+}
+.pricing-btn{
+  background-color: transparent;
+  border: none;
+  color: #fff;
+
+}
+.active{
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 8px 14px;
+  color: #000;
+  font-weight: 600;
+}
+.card{
+  border: 2px solid #4b4bdf;
+  box-shadow: none;
+  border-radius: 15px;
+}
+::ng-deep .mat-divider{
+  background-color: #4b4bdf81;
+}

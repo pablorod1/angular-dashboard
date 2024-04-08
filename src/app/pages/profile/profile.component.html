@@ -1,0 +1,198 @@
+<section class="section">
+  <div class="container">
+    <div class="row w-100">
+      <div class="col-md-8">
+        <div class="row g-4">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header"></div>
+              <div class="card-body">
+                <div class="img-container">
+                  <img src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Picture" class="profile-picture">
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="user-info">
+                      <h1 class="mb-0"> Javier Martínez </h1>
+                      <span class="text-muted"> Software Developer </span>
+                      <span class="badge rounded-pill bg-secondary text-dark mt-3"> Alicante, Spain </span>
+                      <div class="socials-container mt-5">
+                        <a href="#" class="social-link"><i class="bi bi-facebook" style="color: #3b5998;"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-instagram" style="color: #ac2bac;"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-github" style="color: #333333;"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 d-flex justify-content-end">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="btn-container">
+                          <button *ngIf="!editSkills" (click)="editSkills = true" class="button" type="button"><i class="me-1 bi bi-pencil"></i> Edit Skills </button>
+                          <button *ngIf="!editSkills" routerLink="/acc-settings" class="button" type="button"><i class="me-1 bi bi-gear"></i> Settings </button>
+
+                          <button *ngIf="editSkills" (click)="editSkills = false" class="button text-success outline-success" type="button"><i class="me-1 bi bi-check2"></i> Save Skills </button>
+                          <button *ngIf="editSkills" (click)="cancelEditingSkills()" class="button text-danger outline-danger" type="button"><i class="bi bi-arrow-clockwise"></i> Reset </button>
+                        </div>
+                      </div>
+                      <div class="col-md-12 text-end">
+                        <h2 class=" me-1"> Skills </h2>
+                        <input *ngIf="editSkills" [(ngModel)]="newSkill" (keyup.enter)="addSkill()" type="text" class="form-control" placeholder="Add a new skill">
+                        <div class="skills-container mt-2">
+                          <p-chip [removable]="editSkills" *ngFor="let skill of skills" [label]="skill.label"></p-chip>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 overview-column">
+            <mat-tab-group [fitInkBarToContent]="false"  mat-stretch-tabs="true" animationDuration="0ms">
+              <mat-tab label="Overview">
+                <div class="card mt-3">
+                  <div class="card-body">
+                    <h2> Overview </h2>
+                    <div class="row overview">
+                      <div class="col-md-3" *ngFor="let task of overviewTasks">
+                        <div class="card">
+                          <div class="card-body text-center d-flex justify-content-center align-items-center">
+                            <div class="title d-flex justify-content-center align-items-center flex-column">
+                              <h4 class="mb-0"> <strong>{{ task.label }}</strong> </h4>
+                              <h1> {{task.value}} </h1>
+                            </div>
+                            <span class="badge bg-{{task.color}}"><i class="{{task.icon}}"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progressbars-container mt-4">
+                      <div class="progress-container py-2" *ngFor="let task of overviewTasks">
+                        <h4 class="mb-1"> {{task.label}} </h4>
+                        <div class="progress" role="progressbar">
+                          <div class="progress-bar bg-{{task.color}} text-white" pTooltip="{{task.value}}" tooltipPosition="top" [style.width]="task.value"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Tasks">
+                <div class="card mt-3">
+                  <div class="card-body">
+                    <h2> Overview </h2>
+                    <div class="row overview">
+                      <div class="col-md-3" *ngFor="let task of overviewTasks">
+                        <div class="card">
+                          <div class="card-body text-center d-flex justify-content-center align-items-center">
+                            <div class="title d-flex justify-content-center align-items-center flex-column">
+                              <h4 class="mb-0"> <strong>{{ task.label }}</strong> </h4>
+                              <h1> {{task.value}} </h1>
+                            </div>
+                            <span class="badge bg-{{task.color}}"><i class="{{task.icon}}"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progressbars-container mt-4">
+                      <div class="progress-container py-2" *ngFor="let task of overviewTasks">
+                        <h4 class="mb-1"> {{task.label}} </h4>
+                        <div class="progress" role="progressbar">
+                          <div class="progress-bar bg-{{task.color}} text-white" pTooltip="{{task.value}}" tooltipPosition="top" [style.width]="task.value"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="Team">
+                <div class="card mt-3">
+                  <div class="card-body">
+                    <h2> Overview </h2>
+                    <div class="row overview">
+                      <div class="col-md-3" *ngFor="let task of overviewTasks">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="title text-center d-flex justify-content-center align-items-center flex-column">
+                              <h4 class="mb-0"> <strong>{{ task.label }}</strong> </h4>
+                              <h1> {{task.value}} </h1>
+                            </div>
+                            <span class="badge bg-{{task.color}}"><i class="{{task.icon}}"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progressbars-container mt-4">
+                      <div class="progress-container py-2" *ngFor="let task of overviewTasks">
+                        <h4 class="mb-1"> {{task.label}} </h4>
+                        <div class="progress" role="progressbar">
+                          <div class="progress-bar bg-{{task.color}} text-white" pTooltip="{{task.value}}" tooltipPosition="top" [style.width]="task.value"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+        </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="title d-flex justify-content-between align-items-center">
+              <h1 class="mb-0"> Aditional Information </h1>
+              <button class="button" type="button"><i class="bi bi-pencil"></i></button>
+            </div>
+            <div class="item-container d-flex justify-content-start align-items-center gap-3 ">
+              <div class="icon-container">
+                <i class="bi bi-envelope "></i>
+              </div>
+              <div class="info-container">
+                <h4 class="mb-1 "> Email </h4>
+                <span> javiermartinez&commat;lucentialab.es </span>
+              </div>
+            </div>
+            <div class="item-container d-flex justify-content-start align-items-center gap-3 ">
+              <div class="icon-container">
+                <i class="bi bi-globe "></i>
+              </div>
+              <div class="info-container">
+                <h4 class="mb-1 "> Languages </h4>
+                <span> Spanish, English </span>
+              </div>
+            </div>
+            <div class="item-container d-flex justify-content-start align-items-center gap-3 ">
+              <div class="icon-container">
+                <i class="bi bi-file-earmark-text"></i>
+              </div>
+              <div class="info-container">
+                <h4 class="mb-1"> Project Groups </h4>
+                <span> Backend , Frontend </span>
+              </div>
+            </div>
+            <div class="item-container d-flex justify-content-start align-items-center gap-3 ">
+              <div class="icon-container">
+                <i class="bi bi-journal-bookmark-fill"></i>
+              </div>
+              <div class="info-container">
+                <h4 class="mb-1"> Education </h4>
+                <span> Software Engineering </span>
+              </div>
+            </div>
+            <div class="item-container d-flex justify-content-start align-items-center gap-3 ">
+              <div class="icon-container">
+                <i class="bi bi-person-circle"></i>
+              </div>
+              <div class="info-container">
+                <h4 class="mb-1"> Nickname </h4>
+                <span> Javi </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

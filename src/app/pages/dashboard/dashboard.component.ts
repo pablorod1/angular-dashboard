@@ -101,7 +101,10 @@ export class DashboardComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: any) {
   this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  if (this.scrollPosition > 280 && !this.tasksAnimationFinished) {
+  if ( this.scrollPosition > 50 && !this.issuesAnimationFinished && this.card4AnimationFinished) {
+    this.issuesAnimationFinished = true;
+  }
+  else if (this.scrollPosition > 350 && !this.tasksAnimationFinished && this.issuesAnimationFinished) {
     this.tasksAnimationFinished = true;
   }
 }

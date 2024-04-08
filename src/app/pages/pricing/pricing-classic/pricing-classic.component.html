@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="container">
+    <span class="badge bg-success text-white rounded-pill my-3"> PRICING </span>
+    <h1 class="my-3"> Take control of your productivity </h1>
+    <span class="text-muted">Start small and free, upgrade as you go.
+      Take control of everything.</span>
+    <div class="btn-container mt-4">
+      <button (click)="toggleMonthly()" class="pricing-btn" [ngClass]="{
+        'active' : pricingType === 'monthly'
+      }" type="button"> Monthly </button>
+      <button (click)="toggleYearly()" class="pricing-btn" [ngClass]="{
+        'active' : pricingType === 'yearly'
+
+      }" type="button"> Yearly </button>
+    </div>
+  </div>
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body text-center">
+            <h3> Personal </h3>
+            <div class="price-container mb-4">
+              <h1 class="mb-0">49€ <small> /month </small></h1>
+              <small class="text-muted">441€ billed anual</small>
+            </div>
+            <span>Perfect for an individual starting to get bigger</span>
+            <div class="details-container my-4">
+              <div class="item py-4">
+                <i class="me-3 fas fa-check text-success"></i>
+                <span>Unlimited Bandwidth</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="item py-4">
+                <i class="fas fa-check text-success"></i>
+                <span>Unlimited Bandwidth</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="item py-4">
+                <i class="fas fa-check text-success"></i>
+                <span>Unlimited Bandwidth</span>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="item py-4">
+                <i class="fas fa-check text-success"></i>
+                <span>Unlimited Bandwidth</span>
+              </div>
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body"></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

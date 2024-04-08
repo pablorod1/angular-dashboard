@@ -6,7 +6,7 @@
 }"></span></i></button>
 <p-tieredMenu #menu [model]="items"  [style]="{ width: 'fit-content', position: 'absolute'}" [popup]="true">
   <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-    <a class="p-menuitem-link">
+    <a href="{{item.link}}" class="p-menuitem-link">
       <span [class]="item.icon" class="bi"></span>
       <div class="container">
         <span *ngIf="item.badge" pBadge [severity]="item.severity"></span>
