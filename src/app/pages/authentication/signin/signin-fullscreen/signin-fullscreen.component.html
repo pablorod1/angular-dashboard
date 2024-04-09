@@ -1,64 +1,91 @@
-<div class="container-fluid w-100">
-  <div class="row w-100">
-    <div class="px-5 col-md-6 d-flex justify-content-center" style="flex-direction:column;">
-      <div class="header text-end">
-        <div class="title-header">
-          <h2 class="title">Sign In</h2>
-          <small class="title-2"> You don't have an account yet? <a class="sign-in" href="signup-fullscreen">Sign Up</a></small>
-        </div>
-      </div>
-      <div class="body d-flex justify-content-end">
-        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-          <!--Email-->
-          <div class="form-floating py-3">
-            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
-              formControlName="email"
-              [ngClass]="{'is-invalid' : signinForm.get('email')?.errors?.['email'] || signinForm.get('email')?.errors?.['required'] && submitted}"
-              [ngClass]="{'is-valid': signinForm.get('email')?.valid}">
-            <label for="floatingEmail"> Email </label>
-            <small class="text-danger" *ngIf="
+<section class="section">
+  <div class="container-fluid">
+    <div class="row w-100 h-100">
+      <div class="px-5 col-md-6 d-flex justify-content-end">
+        <div class="body">
+          <div class="title-header py-3">
+            <h2 class="title">Sign In</h2>
+            <small class="title-2"> You don't have an account yet? <a class="sign-in" href="signup-fullscreen">Sign
+                Up</a></small>
+          </div>
+          <div class="socials-container py-3">
+            <button type="button" class="button"><img class="google-icon"
+                src="../../../../../assets/icons/google-icon.svg" alt="Google Icon"> Sign in with Google</button>
+            <button class="button"><i class="bi bi-github"></i> Sign in with GitHub </button>
+          </div>
+          <div class="text-center">
+            <p-divider align="center" type="solid">
+              <small> Or sign in with your credentials </small>
+            </p-divider>
+          </div>
+          <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+            <!--Email-->
+            <div class="py-3">
+              <label class="form-label" for="Email"> Email </label>
+              <div class="input-group">
+                <input type="email" class="form-control" id="Email" placeholder="Your Email" formControlName="email"
+                  [ngClass]="{'is-invalid' : signinForm.get('email')?.errors?.['email'] || signinForm.get('email')?.errors?.['required'] && submitted}"
+                  [ngClass]="{'is-valid': signinForm.get('email')?.valid}">
+              </div>
+              <small class="text-danger" *ngIf="
                     signinForm.get('email')?.errors?.['email'] &&
                     submitted
                   ">
-              Email not valid.
-            </small>
-            <small class="text-danger" *ngIf="
+                Email not valid.
+              </small>
+              <small class="text-danger" *ngIf="
                     signinForm.get('email')?.errors?.['required'] &&
                     submitted
                   ">
-              Email required.
-            </small>
-          </div>
-          <!--Password-->
-          <div class="form-floating d-flex align-items-center py-3">
-            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Password"
-              formControlName="password" [ngClass]="{'is-invalid' : signinForm.get('password')?.invalid && submitted}"
-              [ngClass]="{'is-valid' : signinForm.get('password')?.valid}">
-            <label for="floatingPassword"> Password </label>
-            <button type="button" class="btn" (click)="hidePassword = !hidePassword">
-              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
-            </button>
-          </div>
-          <small class="text-danger p-0 m-0" *ngIf="
-                    signinForm.get('password')?.invalid &&
-                    submitted
-                  ">
-              Password must be at least 6 characters.
-            </small>
-          <!--Submit Button-->
+                Email required.
+              </small>
+            </div>
+
+            <!--Password-->
+            <div class="py-3">
+              <label class="form-label" for="Password"> Password </label>
+              <div class="input-group">
+                <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="Password"
+                  placeholder="Password" formControlName="password"
+                  [ngClass]="{'is-invalid' : signinForm.get('password')?.invalid && submitted}">
+                <div class="input-group-text">
+                  <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+                    <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+                  </button>
+                </div>
+              </div>
+
+              <small class="text-danger p-0 m-0" *ngIf="
+                      signinForm.get('password')?.invalid &&
+                      submitted
+                    ">
+                Password required.
+              </small>
+            </div>
+            <!--Submit Button-->
           <div class="btn-container py-3">
             <button type="submit" class="btn submit-btn">Log In</button>
           </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
-    <div class="col-md-6 right-container">
-      <div class="right-content m-2">
-        <h2 class="title">Welcome to Angular</h2>
-        <p class="description">
-          Enter your personal details and start your journey with us.
-        </p>
+      <div class="col-md-6 right-container">
+        <div class="right-content p-4">
+          <h2 class="title mb-4">Welcome to<br> our community</h2>
+          <p class="description">
+            Enter your personal details and start your journey with us. Let's build a better community together!
+          </p>
+          <div class="users-container d-flex align-items-center gap-3 py-4">
+            <div class="img-container">
+              <img src="../../../../../assets/profile-pictures/profile-picture10.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture9.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture8.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture7.webp" alt="Profile Picture" class="user-img">
+            </div>
+            <span>More than 17k people joined us, it's your turn</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>

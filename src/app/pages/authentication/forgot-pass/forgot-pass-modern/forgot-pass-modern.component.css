@@ -6,10 +6,11 @@
 
 .card{
   flex-wrap: wrap;
-  width: 800px;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1600px;
   border: 0;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
 }
 .card-header{
   background-color: #fff;
@@ -29,6 +30,7 @@
   }
   .title-2{
     font-size: 15px;
+    font-weight: 400;
   }
 }
 
@@ -37,11 +39,12 @@
 }
 .form-control{
   box-shadow: none;
+  padding: 10px;
 }
-.form-control:focus{
-  box-shadow: none !important;
+.input-group:focus-within .form-control {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
   outline: 0;
-  border: 1px solid #1a322f;
+  border-color: #1a322f84;
 }
 .form-check-input{
   box-shadow: none;
@@ -70,42 +73,52 @@
   background-color: #1a322f;
   color: #ded7cf;
 }
-
-.right-container{
-  border-radius: 6px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.form-label{
+  font-weight: 400;
+  margin-left: 5px;
+}
+.right-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #1a322f;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(26%2c 50%2c 47%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c449.259C98.166%2c447.245%2c198.798%2c488.775%2c288.596%2c449.063C383.669%2c407.018%2c468.822%2c327.48%2c499.777%2c228.241C529.883%2c131.721%2c466.829%2c34.958%2c448.794%2c-64.527C431.578%2c-159.494%2c447.732%2c-261.697%2c396.17%2c-343.284C340.897%2c-430.744%2c253.859%2c-497.433%2c155.305%2c-528.921C55.575%2c-560.785%2c-58.389%2c-564.897%2c-152.247%2c-518.506C-241.473%2c-474.404%2c-274.332%2c-368.843%2c-332.28%2c-287.922C-384.136%2c-215.507%2c-449.728%2c-153.749%2c-474.677%2c-68.248C-502.091%2c25.699%2c-511.553%2c126.605%2c-480.301%2c219.346C-447.296%2c317.286%2c-389.529%2c416.438%2c-296.307%2c461.062C-205.305%2c504.623%2c-100.87%2c451.328%2c0%2c449.259' fill='%23152826'%3e%3c/path%3e%3cpath d='M1440 958.498C1513.258 961.104 1556.759 876.4010000000001 1622.506 843.9839999999999 1700.146 805.703 1817.593 827.316 1859.584 751.617 1900.812 677.293 1829.549 589.469 1809.504 506.873 1791.645 433.284 1801.417 346.822 1748.258 292.893 1695.589 239.462 1611.613 236.216 1536.825 230.24599999999998 1473.362 225.18 1411.735 238.49400000000003 1352.288 261.282 1296.693 282.593 1254.051 322.15 1205.859 357.115 1141.978 403.462 1040.8 423.14 1023.1669999999999 500.068 1005.845 575.638 1080.743 640.594 1126.541 703.152 1164.5520000000001 755.073 1215.761 790.6510000000001 1265.651 831.2919999999999 1322.581 877.6669999999999 1366.618 955.8879999999999 1440 958.498' fill='%231f3c38'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: right;
   color: #ded7cf;
-  .title{
-    font-size: 25px;
-    font-weight: 600;
-  }
-  .description{
-    font-size: 18px;
-    font-weight: 400;
-  }
 }
-.form-floating label{
-  position: absolute;
-  top: 18px;
-  left: 10px;
-  height: fit-content;
-  font-size: 16px;
-  font-weight: 300;
-  transition: transform .3s ease-in-out, top .2s ease-in-out;
-}
+.right-content {
+  max-width: 700px;
+  width: 100%;
 
-.form-floating:focus-within label{
-  position: absolute;
-  top: 8px;
-  background-color: #fff;
-  padding: 5px;
-  color: #1a322f;
-  border-radius: 20px;
-  border: 1px solid #1a322f;
+}
+.right-content .title {
+  font-size: 40px;
+  font-weight: 600;
+}
+.right-content .description {
+  font-size: 18px;
+  font-weight: 300;
+}
+.user-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+  border: 5px solid #1a322f;
+  object-fit: cover;
+}
+.img-container :nth-child(1),
+.img-container :nth-child(2),
+.img-container :nth-child(3) {
+  margin-right: -18px;
+}
+@media (max-width: 1400px){
+  .users-container{
+    display: flex;
+    flex-direction: column;
+  }
 }

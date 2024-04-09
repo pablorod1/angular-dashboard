@@ -3,7 +3,7 @@
   <div class="container">
     <div class="card">
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="card-header">
             <div class="icon-container">
               <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo"
@@ -23,22 +23,28 @@
           <div class="card-body pt-0">
             <form [formGroup]="unlockForm" (ngSubmit)="onSubmit()">
               <!--Password-->
-              <div class="form-floating d-flex align-items-center py-3">
-                <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
-                  placeholder="Password" formControlName="password"
-                  [ngClass]="{'is-invalid' : unlockForm.get('password')?.invalid && submitted}"
-                  [ngClass]="{'is-valid' : unlockForm.get('password')?.valid}">
-                <label for="floatingPassword"> Password </label>
-                <button type="button" class="btn" (click)="hidePassword = !hidePassword">
-                  <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
-                </button>
-              </div>
-              <small class="text-danger p-0 m-0" *ngIf="
-                    unlockForm.get('password')?.invalid &&
-                    submitted
-                  ">
-                Password must be at least 6 characters.
-              </small>
+
+                <div class="py-3">
+                  <label class="form-label" for="floatingPassword"> Password </label>
+                  <div class="input-group">
+                    <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
+                      placeholder="Password" formControlName="password"
+                      [ngClass]="{'is-invalid' : unlockForm.get('password')?.invalid && submitted}"
+                      [ngClass]="{'is-valid' : unlockForm.get('password')?.valid}">
+                      <div class="input-group-text">
+                        <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+                          <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+                        </button>
+                      </div>
+                  </div>
+
+                                <small class="text-danger p-0 m-0" *ngIf="
+                      unlockForm.get('password')?.invalid &&
+                      submitted
+                    ">
+                  Password must be at least 6 characters.
+                                </small>
+                </div>
               <!--Submit Button-->
               <div class="btn-container py-3">
                 <button type="submit" class="btn submit-btn">Log In</button>
@@ -46,12 +52,21 @@
             </form>
           </div>
         </div>
-        <div class="col-6 right-container">
-          <div class="right-content m-2">
-            <h2 class="title">Welcome to Angular</h2>
+        <div class="col-md-6 right-container">
+          <div class="right-content p-4">
+            <h2 class="title mb-4">Welcome to<br> our community</h2>
             <p class="description">
-              Enter your personal details and start your journey with us.
+              Enter your personal details and start your journey with us. Let's build a better community together!
             </p>
+            <div class="users-container d-flex align-items-center gap-3 py-4">
+              <div class="img-container">
+                <img src="../../../../../assets/profile-pictures/profile-picture10.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture9.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture8.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture7.webp" alt="Profile Picture" class="user-img">
+              </div>
+              <span>More than 17k people joined us, it's your turn</span>
+            </div>
           </div>
         </div>
       </div>

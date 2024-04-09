@@ -1,77 +1,99 @@
-<div class="container-fluid w-100">
-  <div class="row w-100">
-    <div class="px-5 col-md-6 d-flex justify-content-center" style="flex-direction:column;">
-      <div class="header text-end">
-        <div class="icon-container">
-          <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
-        </div>
-        <div class="title-header">
-          <h2 class="title">Reset Your Password</h2>
+<section class="section">
+  <div class="container-fluid">
+    <div class="row w-100">
+      <div class="px-5 col-md-6 d-flex justify-content-end align-items-center">
+
+        <div class="body">
+          <div class="icon-container">
+            <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo" loading="lazy" />
+          </div>
+          <div class="title-header">
+            <h2 class="title">Reset Your Password</h2>
+          </div>
+          <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+            <!--Current Password-->
+
+            <div class="py-3">
+              <label class="form-label" for="floatingPassword"> Current Password </label>
+              <div class="input-group">
+                <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
+                  placeholder="Current Password" formControlName="password"
+                  [ngClass]="{'is-invalid' : resetForm.get('password')?.errors?.['required'] && submitted}"
+                  [ngClass]="{'is-valid' : resetForm.get('password')?.valid}">
+              </div>
+              <small class="text-danger" *ngIf="
+                      resetForm.get('password')?.errors?.['required'] &&
+                      submitted
+                    ">
+                Current Password required.
+              </small>
+            </div>
+
+            <!--New Password-->
+
+              <div class="py-3">
+                <label class="form-label" for="floatingNewPassword"> New Password </label>
+                <div class="input-group">
+                  <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingNewPassword"
+                    placeholder="New Password" formControlName="newPassword"
+                    [ngClass]="{'is-invalid' : resetForm.get('newPassword')?.invalid && submitted}"
+                    [ngClass]="{'is-valid' : resetForm.get('newPassword')?.valid}">
+                </div>
+                <small class="text-danger" *ngIf="
+                      resetForm.get('newPassword')?.invalid &&
+                      submitted
+                    ">
+                  Password must be at least 6 characters.
+                </small>
+              </div>
+
+            <!--Confirm Password-->
+
+              <div class="py-3">
+                <label class="form-label" for="floatingConfirmPassword"> Confirm Password </label>
+                <div class="input-group">
+                  <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingConfirmPassword"
+                    placeholder="Confirm Password" formControlName="confirmPassword"
+                    [ngClass]="{'is-invalid': !resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
+                    [ngClass]="{'is-valid': resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
+                </div>
+                <small class="text-danger" *ngIf="
+                      resetForm.errors?.['passwordNoMatch'] &&
+                      submitted
+                    ">
+                  Passwords don't match.
+                </small>
+              </div>
+
+            <button type="button" class="btn hide-btn" (click)="hidePassword = !hidePassword">
+              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+              <span *ngIf="hidePassword">Show Password</span>
+              <span *ngIf="!hidePassword">Hide Password</span>
+            </button>
+            <!--Submit Button-->
+            <div class="btn-container py-3">
+              <button type="submit" class="btn submit-btn">Reset Password</button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="body d-flex justify-content-end">
-        <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
-          <!--Current Password-->
-          <div class="form-floating py-2">
-            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword" placeholder="Current Password"
-              formControlName="password"
-              [ngClass]="{'is-invalid' : resetForm.get('password')?.errors?.['required'] && submitted}"
-              [ngClass]="{'is-valid' : resetForm.get('password')?.valid}">
-            <label for="floatingPassword"> Current Password </label>
-            <small class="text-danger" *ngIf="
-                  resetForm.get('password')?.errors?.['required'] &&
-                  submitted
-                ">
-              Current Password required.
-            </small>
+      <div class="col-md-6 right-container">
+        <div class="right-content p-4">
+          <h2 class="title mb-4">Welcome to<br> our community</h2>
+          <p class="description">
+            Enter your personal details and start your journey with us. Let's build a better community together!
+          </p>
+          <div class="users-container d-flex align-items-center gap-3 py-4">
+            <div class="img-container">
+              <img src="../../../../../assets/profile-pictures/profile-picture10.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture9.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture8.webp" alt="Profile Picture" class="user-img">
+              <img src="../../../../../assets/profile-pictures/profile-picture7.webp" alt="Profile Picture" class="user-img">
+            </div>
+            <span>More than 17k people joined us, it's your turn</span>
           </div>
-          <!--New Password-->
-          <div class="form-floating py-2">
-            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingNewPassword" placeholder="New Password"
-              formControlName="newPassword"
-              [ngClass]="{'is-invalid' : resetForm.get('newPassword')?.invalid && submitted}"
-              [ngClass]="{'is-valid' : resetForm.get('newPassword')?.valid}">
-            <label for="floatingNewPassword"> New Password </label>
-            <small class="text-danger" *ngIf="
-                  resetForm.get('newPassword')?.invalid &&
-                  submitted
-                ">
-              Password must be at least 6 characters.
-            </small>
-          </div>
-          <!--Confirm Password-->
-          <div class="form-floating py-2">
-            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingConfirmPassword" placeholder="Confirm Password"
-              formControlName="confirmPassword"
-              [ngClass]="{'is-invalid': !resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}"
-              [ngClass]="{'is-valid': resetForm.get('confirmPassword')?.errors?.['passwordNoMatch'] && submitted}">
-            <label for="floatingConfirmPassword"> Confirm Password </label>
-            <small class="text-danger" *ngIf="
-                  resetForm.errors?.['passwordNoMatch'] &&
-                  submitted
-                ">
-              Passwords don't match.
-            </small>
-          </div>
-          <button type="button" class="btn hide-btn" (click)="hidePassword = !hidePassword">
-            <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
-            <span *ngIf="hidePassword">Show Password</span>
-            <span *ngIf="!hidePassword">Hide Password</span>
-          </button>
-          <!--Submit Button-->
-          <div class="btn-container py-3">
-            <button type="submit" class="btn submit-btn">Reset Password</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-6 right-container">
-      <div class="right-content m-2">
-        <h2 class="title">Welcome to Angular</h2>
-        <p class="description">
-          Enter your personal details and start your journey with us.
-        </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>

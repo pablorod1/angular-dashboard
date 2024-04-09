@@ -1,20 +1,16 @@
+::ng-deep html{
+  overflow: hidden !important;
+}
 .section {
-  min-height: 100vh !important;
-  overflow-x: hidden !important;
-  overflow-y: hidden !important;
+  min-height: 100vh;
+  max-height: 100vh;
   background-image: url("../../../assets/green-views.webp");
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   position: relative;
   top: -71px;
+  overflow: hidden !important;
 }
-.image {
-  position: relative;
-  right: -80px;
-  z-index: 1;
-  width: 70%;
-}
+
 .countdown {
   display: flex;
   justify-content: center;
@@ -59,7 +55,7 @@
   font-size: 18px;
   font-weight: 400;
 }
-.col-md-2 {
+.col-2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,6 +173,10 @@
 ::ng-deep .p-dialog {
   background-color: #fff;
   padding: 40px;
+
+}
+::ng-deep .p-dialog-mask.p-component-overlay.p-component-overlay-enter.p-dialog-mask-scrollblocker{
+  z-index: 2000 !important;
 }
 .image-container {
   margin: 20px;
@@ -321,16 +321,26 @@ button:hover .button-text {
     overflow-x: hidden !important;
     padding-bottom: 4rem !important;
   }
+  .col-2{
+    display: flex;
+    flex-direction: column;
+  }
   .countdown h1 {
     line-height: 3rem;
+    color: #fff;
+  }
+  .countdown h3{
+    color: #fff;
   }
   .countdown-timer {
     flex-wrap: nowrap;
+    max-height: 300px;
     width: 100% !important;
+    padding: 10px;
   }
-  .separator {
+  /* .separator {
     display: none;
-  }
+  } */
   .social-container {
     bottom: -50px;
   }

@@ -34,7 +34,7 @@
         </ng-template>
         <!-- Home container -->
         <div class="home-container p-3">
-          <div class="row  cards-container g-2">
+          <div class="row  cards-container g-4">
             <div class="col-md-3 col-sm-6" *ngIf="dropdownAnimationFinished" @card1Animation >
               <div class="card">
                 <div class="card-body">
@@ -93,7 +93,7 @@
               </div>
             </div>
           </div>
-          <div class="row issues-container mt-3" *ngIf="issuesAnimationFinished" @issuesAnimation >
+          <div class="row issues-container mt-5" *ngIf="issuesAnimationFinished" @issuesAnimation >
             <div class="col-md-12" >
               <app-issues-chart></app-issues-chart>
             </div>

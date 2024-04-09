@@ -9,23 +9,27 @@
           <h2 class="title">Welcome back!</h2>
           <small class="title-2"> Your session is locked due to inactivity. </small>
         </div>
-        <div class="profile-container mt-2 py-3">
+        <div class="profile-container pt-5">
           <img class="profile-picture" src="../../../../../assets/profile-pictures/profile-picture.webp" alt="Angular Logo"
             loading="lazy" />
           <span class="name mt-4">Javier Martínez</span>
         </div>
       </div>
-      <div class="card-body pt-0">
+      <div class="card-body">
         <form [formGroup]="unlockForm" (ngSubmit)="onSubmit()">
           <!--Password-->
-          <div class="form-floating d-flex align-items-center py-3">
-            <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
-              placeholder="Password" formControlName="password">
-            <label for="floatingPassword"> Password </label>
-            <button type="button" class="btn" (click)="hidePassword = !hidePassword">
-              <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
-            </button>
-          </div>
+
+          <label class="form-label" for="floatingPassword"> Password </label>
+            <div class="input-group">
+              <input [type]="hidePassword ? 'password' : 'text'" class="form-control" id="floatingPassword"
+                placeholder="Password" formControlName="password">
+                <div class="input-group-text">
+                  <button type="button" class="btn" (click)="hidePassword = !hidePassword">
+                    <i class="bi" [ngClass]="{'bi-eye-slash': !hidePassword, 'bi-eye': hidePassword}"></i>
+                  </button>
+                </div>
+            </div>
+
           <!--Submit Button-->
           <div class="btn-container py-3">
             <button type="submit" class="btn submit-btn">Log In</button>

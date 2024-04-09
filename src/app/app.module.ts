@@ -33,6 +33,7 @@ import {ChipsModule} from 'primeng/chips';
 import { InputOtpModule } from 'primeng/inputotp';
 import {AccordionModule} from 'primeng/accordion';
 import { InputMaskModule } from 'primeng/inputmask';
+import {DividerModule} from 'primeng/divider';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -203,7 +204,8 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
     InputOtpModule,
     InputMaskModule,
     ScrollingModule,
-    ChipsModule
+    ChipsModule,
+    DividerModule
   ],
   providers: [
     provideClientHydration(),

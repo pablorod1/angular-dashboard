@@ -30,7 +30,7 @@ import { ScrollDispatcher, CdkScrollable } from '@angular/cdk/scrolling';
     ]),
     trigger('dropdownAnimation', [
       transition(':enter', [
-        style({  transform: 'translateX(-200px)' }),
+        style({ transform: 'translateX(-200px)' }),
         animate('400ms ease-out', style({ transform: 'none' })),
       ]),
     ]),
@@ -100,14 +100,30 @@ export class DashboardComponent implements OnInit {
   scrollPosition = 0;
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: any) {
-  this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-  if ( this.scrollPosition > 50 && !this.issuesAnimationFinished && this.card4AnimationFinished) {
-    this.issuesAnimationFinished = true;
+    this.scrollPosition =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    const isScrollable = document.body.offsetHeight > window.innerHeight;
+
+    if (isScrollable) {
+      if (
+        this.scrollPosition > 50 &&
+        !this.issuesAnimationFinished &&
+        this.card4AnimationFinished
+      ) {
+        this.issuesAnimationFinished = true;
+      }
+    }
+    if (
+      this.scrollPosition > 350 &&
+      !this.tasksAnimationFinished &&
+      this.issuesAnimationFinished
+    ) {
+      this.tasksAnimationFinished = true;
+    }
   }
-  else if (this.scrollPosition > 350 && !this.tasksAnimationFinished && this.issuesAnimationFinished) {
-    this.tasksAnimationFinished = true;
-  }
-}
 
   constructor(
     private teamMembersDataService: TeamMembersDataService,
@@ -137,6 +153,12 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.card4AnimationFinished = true;
     }, 2500);
+    const isScrollable = document.body.offsetHeight > window.innerHeight;
+    if (!isScrollable) {
+      setTimeout(() => {
+        this.issuesAnimationFinished = true;
+      }, 2600);
+    }
   }
 
   selectProject(projectNumber: number) {

@@ -35,7 +35,7 @@ export class BudgetChartDataService {
       toolbar: {
         show: false
       },
-      width: 800,
+      width: 1000,
       height: 500,
       type: 'radar', // Add the required 'data' property here
     };

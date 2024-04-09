@@ -16,7 +16,7 @@ export class SignoutFullscreenComponent {
       this.countdown--;
       if (this.countdown === 0) {
         clearInterval(interval);
-        this.router.navigate(['/signin-classic']);
+        this.router.navigate(['/signin-modern']);
       }
     }, 1000);
   }

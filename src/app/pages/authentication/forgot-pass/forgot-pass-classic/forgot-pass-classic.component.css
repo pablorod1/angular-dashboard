@@ -3,7 +3,10 @@
   justify-content: center;
   align-items: center;
 }
-
+.form-label{
+  font-weight: 400;
+  margin-left: 5px;
+}
 .card{
   flex-wrap: wrap;
   width: 600px;
@@ -25,14 +28,16 @@
 }
 .title-2{
   font-size: 15px;
+  font-weight: 400;
 }
 .form-control{
   box-shadow: none;
+  padding: 10px;
 }
-.form-control:focus{
-  box-shadow: none !important;
+.input-group:focus-within .form-control {
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
   outline: 0;
-  border: 1px solid #1a322f;
+  border-color: #1a322f84;
 }
 .form-check-input{
   box-shadow: none;

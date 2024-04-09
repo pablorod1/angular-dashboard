@@ -2,7 +2,7 @@
   <div class="container">
     <div class="card">
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div class="card-header">
             <div class="icon-container">
               <img class="logo-picture" src="../../../../../assets/angular-logo.webp" alt="Angular Logo"
@@ -16,25 +16,29 @@
           <div class="card-body">
             <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
               <!--Email-->
-              <div class="form-floating py-3">
-                <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
-                  formControlName="email"
-                  [ngClass]="{'is-invalid' : forgotForm.get('email')?.errors?.['email'] || forgotForm.get('email')?.errors?.['required'] && submitted}"
-                  [ngClass]="{'is-valid': forgotForm.get('email')?.valid}">
-                <label for="floatingEmail"> Email </label>
+
+              <div class="py-3">
+                <label class="form-label" for="floatingEmail"> Email </label>
+                <div class="input-group">
+                  <input type="email" class="form-control" id="floatingEmail" placeholder="Your Email"
+                    formControlName="email"
+                    [ngClass]="{'is-invalid' : forgotForm.get('email')?.errors?.['email'] || forgotForm.get('email')?.errors?.['required'] && submitted}"
+                    [ngClass]="{'is-valid': forgotForm.get('email')?.valid}">
+                </div>
                 <small class="text-danger" *ngIf="
-                      forgotForm.get('email')?.errors?.['email'] &&
-                      submitted
-                    ">
+                        forgotForm.get('email')?.errors?.['email'] &&
+                        submitted
+                      ">
                   Email not valid.
                 </small>
                 <small class="text-danger" *ngIf="
-                      forgotForm.get('email')?.errors?.['required'] &&
-                      submitted
-                    ">
+                        forgotForm.get('email')?.errors?.['required'] &&
+                        submitted
+                      ">
                   Email required.
                 </small>
               </div>
+
               <!--Submit Button-->
               <div class="btn-container py-3">
                 <button type="submit" class="btn submit-btn">Submit</button>
@@ -42,12 +46,21 @@
             </form>
           </div>
         </div>
-        <div class="col-6 right-container">
-          <div class="right-content m-2">
-            <h2 class="title">Welcome to Angular</h2>
+        <div class="col-md-6 right-container">
+          <div class="right-content p-4">
+            <h2 class="title mb-4">Welcome to<br> our community</h2>
             <p class="description">
-              Enter your personal details and start your journey with us.
+              Enter your personal details and start your journey with us. Let's build a better community together!
             </p>
+            <div class="users-container d-flex align-items-center gap-3 py-4">
+              <div class="img-container">
+                <img src="../../../../../assets/profile-pictures/profile-picture10.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture9.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture8.webp" alt="Profile Picture" class="user-img">
+                <img src="../../../../../assets/profile-pictures/profile-picture7.webp" alt="Profile Picture" class="user-img">
+              </div>
+              <span>More than 17k people joined us, it's your turn</span>
+            </div>
           </div>
         </div>
       </div>

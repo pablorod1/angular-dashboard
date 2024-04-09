@@ -9,6 +9,13 @@
   border: 0;
   border-radius: 15px;
 }
+.header{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 .issues-overview .card {
   padding: 20px;
   border: 0;
@@ -28,6 +35,9 @@
 .issues-overview .count .card .card-body .issues-type {
   font-size: 18px;
   font-weight: 400;
+}
+.issues-overview .secondary .card  {
+  height: 100%;
 }
 .issues-overview .secondary .card .card-body .issues-count {
   font-size: 30px;
@@ -115,4 +125,12 @@
 
 .button:-webkit-details-marker {
   display: none;
+}
+@media (max-width: 768px) {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
 }
