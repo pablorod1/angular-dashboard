@@ -37,7 +37,7 @@ export class ShortcutsMenuComponent {
       id: 3,
       title: 'Settings',
       icon: 'bi-gear',
-      url: ''
+      url: '/acc-settings'
     },
     {
       id: 4,
@@ -50,7 +50,7 @@ export class ShortcutsMenuComponent {
       id: 5,
       title: 'Log Out',
       icon: 'bi-box-arrow-right',
-      url: ''
+      url: '/signout-fullscreen'
     }
   ]
   toggleEditMode() {

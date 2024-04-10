@@ -1,0 +1,55 @@
+<p-carousel [value]="teamMembers" [circular]="true" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+  <ng-template let-member let-i="index" pTemplate="member">
+    <div class="card" *ngIf="i !== 0">
+      <div class="card-img">
+
+        <div class="dropdown">
+          <button type="button" class="btn p-0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
+              class="bi bi-gear-fill"></i></button>
+          <ul role="menu" class="dropdown-menu">
+            <li><a role="button" class="dropdown-item">Action</a></li>
+            <li><a role="button" class="dropdown-item">Another action</a></li>
+            <li><a role="button" class="dropdown-item">Something else here</a></li>
+          </ul>
+        </div>
+        <img class="profile-picture" [src]="member.imageUrl"
+          alt="Profile Picture">
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="name"> {{member.name}} </h2>
+          <h1> {{member.role}} </h1>
+        </div>
+        <div class="row py-3 d-flex justify-content-between align-items-center">
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="px-2 fas fa-atom"></i>
+            <h3 class="m-0"> Skills </h3>
+          </div>
+          <div class="col-md-6 text-end">
+            <h3 *ngFor="let skill of member.skills | slice:0:2" class="m-0">{{skill}}</h3>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row py-3 d-flex justify-content-between align-items-center">
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="px-2 fa-regular fa-futbol"></i>
+            <h3 class="m-0"> Hobbies </h3>
+          </div>
+          <div class="col-md-6 text-end">
+            <h3 *ngFor="let hobby of member.hobbies | slice:0:2" class="m-0"> {{hobby}} </h3>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row pt-3 d-flex justify-content-between align-items-center">
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="px-2 bi bi-bar-chart"></i>
+            <h3 class="m-0"> Level </h3>
+          </div>
+          <div class="col-md-6 text-end ">
+            <p-rating [(ngModel)]="member.level" [readonly]="true" [cancel]="false"></p-rating>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>

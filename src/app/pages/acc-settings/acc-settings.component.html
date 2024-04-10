@@ -35,18 +35,17 @@
                     <div class="col-md-6">
                       <div>
                         <label class="form-label" for="first-name">First Name</label>
-                        <input type="text" class="form-control" id="first-name" placeholder="First Name">
+                        <input [(ngModel)]="firstName" type="text" class="form-control" id="first-name" placeholder="First Name">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div>
                         <label class="form-label" for="last-name">Last Name</label>
-                        <input type="text" class="form-control" id="last-name" placeholder="Last Name">
+                        <input type="text" [(ngModel)]="lastName" class="form-control" id="last-name" placeholder="Last Name">
                       </div>
                     </div>
                   </div>
                 </div>
-                <mat-divider></mat-divider>
                 <div class="email-container">
                   <h3 class="mb-0"> Contact Email </h3>
                   <small class="text-muted"> Manage your accounts email address for the invoices. </small>
@@ -54,14 +53,12 @@
                     <div class="col-md-6">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="email"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control" placeholder="Email Address" aria-label="Email"
+                        <input [(ngModel)]="email" type="email" class="form-control" placeholder="Email Address" aria-label="Email"
                           aria-describedby="email">
                       </div>
                     </div>
                     <div class="col-md-6 text-end">
-                      <button type="button" class="button"><i class="me-2 bi bi-plus-circle text-success"></i>Add
-                        Another
-                        Email</button>
+                      <button type="button" class="button text-success outline-success"> Save Changes</button>
                     </div>
                   </div>
                 </div>
@@ -73,18 +70,19 @@
                     <div class="col-md-6">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="password"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" class="form-control" placeholder="Current Password" aria-label="Password"
+                        <input [(ngModel)]="currentPassword" type="password" class="form-control" placeholder="Current Password" aria-label="Password"
                           aria-describedby="password">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="input-group mb-3">
                         <span class="input-group-text" id="newPassword"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" class="form-control" placeholder="New Password" aria-label="NewPassword"
+                        <input [(ngModel)]="newPassword" type="password" class="form-control" placeholder="New Password" aria-label="NewPassword"
                           aria-describedby="newPassword">
                       </div>
                     </div>
                   </div>
+                  <button type="button" class="button "> Change Password</button>
                 </div>
                 <mat-divider></mat-divider>
                 <div class="socials-container">
@@ -142,7 +140,7 @@
                   <small class="text-muted"> </small>
                   <div class="btn-container">
                     <button routerLink="/signout-modern" type="button" class="button"><i class="me-2 bi bi-box-arrow-right"></i> Log Out </button>
-                    <button type="button" class="button text-danger"> <i class="me-2 bi bi-trash3"></i> Delete Account
+                    <button type="button" class="button outline-danger text-danger"> <i class="me-2 bi bi-trash3"></i> Delete Account
                     </button>
                   </div>
                 </div>

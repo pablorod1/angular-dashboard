@@ -1,0 +1,67 @@
+.card{
+  background-color: transparent;
+  border: 0;
+  width: 350px;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu{
+  position: absolute;
+  right: -100px;
+}
+
+.card-body{
+  background-color: #fff!important;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  h1{
+    font-size: 27px;
+    font-weight: 600;
+  }
+  i{
+    color: #023047;
+    font-size: 18px;
+  }
+  h3{
+    font-weight: 500;
+  }
+}
+
+.card-img{
+  background-color: transparent;
+  position: relative;
+  color: #fff;
+
+}
+.name{
+  color: currentColor !important;
+}
+.btn{
+  color: #fff;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+}
+.btn i{
+  color: #fff;
+}
+.dropdown-toggle::after{
+  display: none;
+}
+.profile-picture{
+  object-position: center;
+  max-width: 350px;
+  max-height: 200px;
+  min-height: 200px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+::ng-deep .p-carousel-items-container{
+  padding: 30px 0;
+}

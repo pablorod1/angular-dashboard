@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { PaymentMethodsService} from '../../services/payment-methods.service';
+import { PaymentMethodsService } from '../../services/payment-methods.service';
 import { PaymentMethod } from '../../services/payment-methods.service';
 
 @Component({
@@ -10,8 +10,15 @@ import { PaymentMethod } from '../../services/payment-methods.service';
   providers: [MessageService, ConfirmationService],
 })
 export class AccSettingsComponent implements OnInit {
+  // Profile default data
+  firstName = 'Javier';
+  lastName = 'Martínez';
+  email = 'javiermartinez@lucentialab.es';
+  currentPassword = '123456';
+  newPassword = '';
   googleConnected = true;
   githubConnected = false;
+
   showNewDialog = false;
   showEditDialog = false;
   notifications = false;
@@ -120,7 +127,7 @@ export class AccSettingsComponent implements OnInit {
           detail: 'You have cancelled the operation.',
           life: 3000,
         });
-      }
+      },
     });
   }
   cancelAddPaymentMethod(event: Event) {
@@ -158,7 +165,7 @@ export class AccSettingsComponent implements OnInit {
           life: 3000,
         });
       },
-      reject: () => {}
+      reject: () => {},
     });
   }
   editPaymentMethod(paymentMethod: PaymentMethod) {
@@ -172,7 +179,9 @@ export class AccSettingsComponent implements OnInit {
       header: 'Update Payment Method',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.paymentMethodsService.updatePaymentMethod(this.editingPaymentMethod);
+        this.paymentMethodsService.updatePaymentMethod(
+          this.editingPaymentMethod
+        );
         this.showEditDialog = false;
         this.messageService.add({
           severity: 'success',
@@ -182,7 +191,7 @@ export class AccSettingsComponent implements OnInit {
           life: 3000,
         });
       },
-      reject: () => {}
+      reject: () => {},
     });
   }
   cancelEditPaymentMethod(event: Event) {

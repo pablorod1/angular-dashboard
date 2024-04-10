@@ -3,7 +3,8 @@
   padding: 15px;
   border: 0;
   border-radius: 15px;
-
+  height: 100%;
+  max-height: 210px;
 }
 .info h2{
   font-size: clamp(1.5rem, 2vw, 2.2rem);
@@ -13,13 +14,13 @@
 .header h2{
   font-size: 18px;
   font-weight: 400;
-  color: #1a322f;
+  color: #023047;
 }
 .dropdown-toggle::after{
   display: none;
 }
 .btn i{
-  color: #1a322f;
+  color: #023047;
 }
 @keyframes growDown {
   0% {

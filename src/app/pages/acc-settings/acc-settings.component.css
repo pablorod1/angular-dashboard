@@ -22,7 +22,7 @@
 }
 
 .active {
-  background-color: #1a322f;
+  background-color: #023047;
   color: #fff;
 }
 
@@ -130,7 +130,7 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 .form-control:focus {
-  border: 0.5px solid #1a322f4e;
+  border: 0.5px solid #0230474e;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 .form-control::placeholder {
@@ -208,23 +208,49 @@
 .card-body .payment-invoices {
   padding: 20px 0;
 }
+::ng-deep .mat-mdc-tab .mdc-tab__text-label span{
+  font-weight: 500 !important;
+}
 ::ng-deep .mat-mdc-tab-group {
-  --mdc-tab-indicator-active-indicator-color: #1a322f;
+  --mdc-tab-indicator-active-indicator-color: #023047;
   --mat-tab-header-disabled-ripple-color: rgba(0, 0, 0, 0.38);
   --mat-tab-header-pagination-icon-color: black;
   --mat-tab-header-inactive-label-text-color: rgba(0, 0, 0, 0.6);
-  --mat-tab-header-active-label-text-color: #1a322f;
-  --mat-tab-header-active-ripple-color: #1a322f;
-  --mat-tab-header-inactive-ripple-color: #1a322f;
+  --mat-tab-header-active-label-text-color: #023047;
+  --mat-tab-header-active-ripple-color: #023047;
+  --mat-tab-header-inactive-ripple-color: #023047;
   --mat-tab-header-inactive-focus-label-text-color: rgba(0, 0, 0, 0.6);
   --mat-tab-header-inactive-hover-label-text-color: rgba(0, 0, 0, 0.6);
-  --mat-tab-header-active-focus-label-text-color: #1a322f;
-  --mat-tab-header-active-hover-label-text-color: #1a322f;
-  --mat-tab-header-active-focus-indicator-color: #1a322f;
-  --mat-tab-header-active-hover-indicator-color: #1a322f;
+  --mat-tab-header-active-focus-label-text-color: #023047;
+  --mat-tab-header-active-hover-label-text-color: #023047;
+  --mat-tab-header-active-focus-indicator-color: #023047;
+  --mat-tab-header-active-hover-indicator-color: #023047;
 }
 ::ng-deep .mdc-tab-indicator__content--underline{
   width: 50px !important;
+}
+::ng-deep .mat-mdc-tab-labels{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  background-color: #02304729;
+  border-radius: 6px;
+  margin: 10px 0 10px 5px;
+}
+::ng-deep .mdc-tab-indicator__content.mdc-tab-indicator__content--underline{
+  display: none;
+}
+::ng-deep .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.mdc-tab-indicator--active {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 10px;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0 10px;
+  border: none;
 }
 .form-group{
   margin: 35px 0;
@@ -274,8 +300,8 @@
   box-shadow: none;
 }
 .notifications-container .form-check-input:checked{
-  background-color: #1a322f;
-  border: 1px solid  #1a322f;
+  background-color: #023047;
+  border: 1px solid  #023047;
 }
 .form-switch{
   display: flex;
@@ -293,8 +319,12 @@
   margin-top: 0 !important;
 }
 .form-switch .form-check-input:checked{
-  background-color: #1a322f;
-  border: 1px solid  #1a322f;
+  background-color: #023047;
+  border: 1px solid  #023047;
+}
+
+.outline-success{
+  border: 1px solid #198754;
 }
 
 @media (min-width: 764px) and (max-width: 1040px) {

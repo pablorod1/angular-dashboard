@@ -34,6 +34,8 @@ import { InputOtpModule } from 'primeng/inputotp';
 import {AccordionModule} from 'primeng/accordion';
 import { InputMaskModule } from 'primeng/inputmask';
 import {DividerModule} from 'primeng/divider';
+import {CarouselModule} from 'primeng/carousel';
+import {RatingModule} from 'primeng/rating';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -105,6 +107,7 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
+import { TeamMembersCarouselComponent } from './components/team-members-carousel/team-members-carousel.component';
 
 
 
@@ -165,6 +168,7 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
     ProfileComponent,
     PricingClassicComponent,
     PricingTableComponent,
+    TeamMembersCarouselComponent,
 
 
 
@@ -205,7 +209,9 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
     InputMaskModule,
     ScrollingModule,
     ChipsModule,
-    DividerModule
+    DividerModule,
+    CarouselModule,
+    RatingModule,
   ],
   providers: [
     provideClientHydration(),

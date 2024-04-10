@@ -4,8 +4,8 @@
   display: inline-flex;
   align-items: center;
   gap: .75rem;
-  background-color: #1a322f;
-  color: #ded7cf;
+  background-color: #023047;
+  color: #fff;
   border-radius: 10rem;
   font-weight: 600;
   font-size: 16px;
@@ -22,8 +22,8 @@
   width: 25px;
   height: 25px;
   position: relative;
-  color: #1a322f;
-  background-color: #ded7cf;
+  color: #023047;
+  background-color: #fff;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -31,13 +31,13 @@
 }
 
 .button:hover {
-  background-color: #ded7cf;
-  color: #1a322f;
+  background-color: #fff;
+  color: #023047;
 }
 
 .button:hover .button__icon-wrapper {
-  color: #ded7cf !important;
-  background-color: #1a322f;
+  color: #fff !important;
+  background-color: #023047;
 }
 
 .button__icon-svg--copy {

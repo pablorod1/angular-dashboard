@@ -37,7 +37,7 @@
 .input-group:focus-within .form-control {
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
   outline: 0;
-  border-color: #1a322f84;
+  border-color: #02304784;
 }
 .form-check-input{
   box-shadow: none;
@@ -53,8 +53,8 @@
   width: 200px;
   padding: 10px;
   border-radius: 20px;
-  background-color: #1a322f;
-  color: #ded7cf;
+  background-color: #023047;
+  color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
   transition: transform .3s ease-in-out;
 }
@@ -63,8 +63,8 @@
 }
 .submit-btn:active{
   box-shadow: none;
-  background-color: #1a322f;
-  color: #ded7cf;
+  background-color: #023047;
+  color: #fff;
 }
 .form-label{
   font-weight: 400;
@@ -79,7 +79,7 @@
 .btn i{
   padding: 0;
   margin: 0;
-  color: #1a322f;
+  color: #023047;
   font-size: 16px;
 }
 .hide-btn:hover{

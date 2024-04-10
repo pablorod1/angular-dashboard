@@ -5,4 +5,7 @@ export interface Member{
   role: string;
   email: string;
   phoneNumber: string;
+  skills: string[];
+  hobbies: string[];
+  level: number;
 }

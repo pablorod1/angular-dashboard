@@ -1,106 +1,89 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
+import { BudgetTableDataService } from './budget-table-data.service';
 import {
-  ApexDataLabels,
-  ApexMarkers,
-  ApexResponsive,
-  ApexYAxis,
-  ChartComponent,
-  ApexAxisChartSeries,
+  ApexNonAxisChartSeries,
+  ApexPlotOptions,
   ApexChart,
-  ApexXAxis,
-  ApexFill,
+  ApexTooltip,
+  ApexDataLabels,
+  ChartComponent,
 } from 'ng-apexcharts';
-import { Observable, of } from 'rxjs';
+
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  labels: string[];
+  tooltip: ApexTooltip;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+};
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetChartDataService {
-  public series!: ApexAxisChartSeries;
-  public chart!: ApexChart;
-  public dataLabels!: ApexDataLabels;
-  public markers!: ApexMarkers;
-  public yaxis!: ApexYAxis;
-  public xaxis!: ApexXAxis;
-  public responsive!: ApexResponsive[];
-  public fill!: ApexFill;
+  @ViewChild('chart') chart!: ChartComponent;
 
-  getCurrentWeekData(): Observable<any> {
-    this.series = [
-      {
-        name: 'Project 1',
-        data: [30, 14, 25, 15, 16],
-      },
-    ];
-    this.chart = {
-      toolbar: {
-        show: false
-      },
-      width: 1000,
-      height: 500,
-      type: 'radar', // Add the required 'data' property here
-    };
-    this.xaxis = {
-      categories: ['Concept', 'Design', 'Development', 'Marketing', 'Extras'],
-      labels: {
-        show: true,
-        style: {
-          fontSize: '14px',
-          fontFamily: 'Poppins, sans-serif',
-          colors: ['#000000', '#000000', '#000000', '#000000', '#000000']
+  constructor(private budgetTableDataService: BudgetTableDataService) {}
+  getBudgetChartData() {
+    const budgetTableData = this.budgetTableDataService.getBudgetTableData();
+    const budgetChartData = budgetTableData.map((data) => {
+      return {
+        series: [data.expensesPercentage],
+        chart: {
+          height: 270,
+          type: 'radialBar',
+          dropShadow: {
+            enabled: true,
+            enabledOnSeries: undefined,
+            top: 3,
+            left:0,
+            blur: 2,
+            color: data.color,
+            opacity: 0.3,
+          },
         },
-      }
-    };
-    this.yaxis = {
-      show: false,
-    };
-    this.dataLabels = {
-      enabled: true,
-      formatter: function (val) {
-        return val + '%';
-      },
-      offsetX: 0,
-      offsetY: 20,
-      background: {
-        dropShadow: {
+        plotOptions: {
+          radialBar: {
+            hollow: {
+              margin: 0,
+              size: '70%',
+            },
+            track: {
+              background: data.color,
+              opacity: 0.2,
+            },
+            dataLabels: {
+              name: {
+                fontSize: '20px',
+                fontWeight: 600,
+              },
+              value: {
+                fontSize: '16px',
+                fontWeight: 'bold',
+              },
+            },
+          },
+        },
+        tooltip: {
           enabled: true,
-          left: 2,
-          top: 1,
-          opacity: 0.3,
-        },
-        borderColor: undefined,
-      }
-
-    };
-    this.markers = {
-      size: 5,
-      strokeWidth: 0,
-    };
-    this.fill = {
-      opacity: 0.3,
-    }
-    this.responsive = [
-      {
-        breakpoint: 600,
-        options: {
-          chart: {
-            width: '100%',
-          },
-          legend: {
-            position: 'bottom',
+          show: true,
+          theme: 'dark',
+          followCursor: false,
+          y: {
+            formatter: function (val: any) {
+              return val + '%';
+            },
           },
         },
-      },
-    ];
-    const chartOptions = {
-      series: this.series,
-      chart: this.chart,
-      dataLabels: this.dataLabels,
-      markers: this.markers,
-      xaxis: this.xaxis,
-      yaxis: this.yaxis,
-      responsive: this.responsive,
-      fill: this.fill,
-    };
-    return of(chartOptions);
+        stroke: {
+          lineCap: 'round',
+        },
+        colors: [data.color],
+        labels: [data.name],
+        remaining: data.remaining,
+        expenses: data.expenses,
+      };
+    });
+    return budgetChartData;
   }
 }

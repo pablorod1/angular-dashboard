@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a322f;
+  background-color: #023047;
   padding: 20px;
   border-radius: 8px;
   border-bottom-left-radius: 0;
@@ -10,7 +10,7 @@
   h3{
     font-size: 18px;
     font-weight: 500;
-    color: #c9ad89;
+    color: #fff;
   }
   .btn i{
       color: #fff;
@@ -18,22 +18,22 @@
 }
 ::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	-webkit-box-shadow: inset 0 0px 6px rgba(0,0,0,0.1);
 	border-radius: 14px;
 	background-color: currentColor;
 }
 
 ::-webkit-scrollbar
 {
-	width: 8px;
+	width: 5px;
 	background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb
 {
 	border-radius: 14px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: #c9ad89;
+	-webkit-box-shadow: inset 0 0px 6px rgba(0,0,0,0.1);
+	background-color: #ff9f31;
 }
 
 ::ng-deep .p-overlaypanel {
@@ -51,17 +51,16 @@
   text-align: center;
   padding: 15px;
   text-decoration: none;
-  color: #1a322f;
+  color: #023047;
 }
 .shortcut:hover{
-  background-color: rgba(26,50,47,.1);
+  background-color: #02304721;
 }
 .icon{
   position: relative;
   margin-bottom: 10px;
   padding: 20px;
   border-radius: 50%;
-  background-color: rgba(26,50,47,0.3);
   font-size: 30px;
 }
 
@@ -99,7 +98,7 @@
   gap: 50px;
 }
 .edit-mode-container .btn i{
-  color: #1a322f;
+  color: #023047;
 }
 .shortcut-link, .shortcut-item{
   display: flex;
@@ -109,17 +108,17 @@
   text-align: center;
   padding: 15px;
   text-decoration: none;
-  color: #1a322f;
+  color: #023047;
 }
 .save-btn{
   font-weight: 500;
   text-transform: uppercase;
-  background-color: #1a322f;
+  background-color: #023047;
   box-shadow: 0 2px 8px rgba(0,0,0,.3);
   border: 0;
   width: 80px;
   border-radius: 20px;
-  color: #ded7cf;
+  color: #fff;
   transition: transform .3s ease;
 }
 .save-btn:focus{

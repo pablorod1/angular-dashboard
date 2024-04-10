@@ -4,7 +4,7 @@
   outline: none; /* Eliminar borde de enfoque */
   font-size: 25px;
   font-weight: 300;
-  border: 1px solid #ded7cf;
+  border: 1px solid #fff;
 }
 .form-control::placeholder{
   font-size: 25px;

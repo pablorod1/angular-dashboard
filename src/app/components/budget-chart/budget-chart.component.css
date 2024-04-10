@@ -1,4 +1,4 @@
-.card{
+.card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,4 +7,39 @@
   border: 0;
   border-radius: 15px;
   height: 100%;
+}
+.card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.header h2 {
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.g-3 {
+  --bs-gutter-x: 2.1rem !important;
+  --bs-gutter-y: 2.1rem !important;
+}
+.remaining .badge {
+  opacity: 0.5;
+}
+.info .title {
+  font-size: 16px;
+}
+.info .value {
+  font-size: 16px;
+  font-weight: 500;
+}
+.info .percent {
+  font-size: 16px;
+  font-weight: 400;
+}
+::ng-deep .apexcharts-datalabels-group :nth-child(1),
+::ng-deep .apexcharts-datalabels-group :nth-child(2) {
+  font-weight: 600 !important;
+  font-family: "Poppins", sans-serif;
 }

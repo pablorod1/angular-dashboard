@@ -16,7 +16,7 @@
   font-size: clamp(1rem, 1vw, 1rem);
 }
 .btn i{
-  color: #1a322f;
+  color: #023047;
 }
 .card{
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
@@ -33,7 +33,7 @@
 }
 .btn{
 
-  color: #1a322f;
+  color: #023047;
   border: 0;
   border-radius: 15px;
   font-weight: 500;

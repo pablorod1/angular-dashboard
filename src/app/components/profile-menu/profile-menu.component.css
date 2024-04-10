@@ -58,3 +58,9 @@
   bottom: -5px;
   right: 5px;
 }
+.btn i{
+  color: #fff;
+}
+.btn{
+  transform: none;
+}

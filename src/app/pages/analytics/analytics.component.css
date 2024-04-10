@@ -13,8 +13,8 @@
   position: relative;
   padding: 10px 24px;
   font-size: 18px;
-  color: #ded7cf;
-  border: 2px solid #ded7cf;
+  color: #fff;
+  border: 2px solid #fff;
   border-radius: 34px;
   background-color: transparent;
   font-weight: 600;
@@ -32,7 +32,7 @@
   border-radius: inherit;
   scale: 0;
   z-index: -1;
-  background-color: #ded7cf;
+  background-color: #fff;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 

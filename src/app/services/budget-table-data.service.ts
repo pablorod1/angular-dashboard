@@ -13,7 +13,8 @@ export class BudgetTableDataService {
         expenses: 14000,
         expensesPercentage: 93.33,
         remaining: 1000,
-        remainingPercentage: 6.67
+        remainingPercentage: 6.67,
+        color: '#DC3545'
       },
       {
         id: 2,
@@ -22,7 +23,8 @@ export class BudgetTableDataService {
         expenses: 10000,
         expensesPercentage: 50,
         remaining: 10000,
-        remainingPercentage: 50
+        remainingPercentage: 50,
+        color: '#0DCAF0'
       },
       {
         id: 3,
@@ -31,7 +33,8 @@ export class BudgetTableDataService {
         expenses: 25876,
         expensesPercentage: 84.99,
         remaining: 5580,
-        remainingPercentage: 15.01
+        remainingPercentage: 15.01,
+        color: '#FFC107'
       },
       {
         id: 4,
@@ -40,7 +43,8 @@ export class BudgetTableDataService {
         expenses: 12567,
         expensesPercentage: 100,
         remaining:  0,
-        remainingPercentage: 0
+        remainingPercentage: 0,
+        color: '#198754'
       },
       {
         id: 5,
