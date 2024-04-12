@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container features py-5">
+    <div class="title2">
+      <h1> Everything you need to build efficiently </h1>
+      <span class="text-muted">Start small and free, upgrade as you go. Take control of everything.</span>
+    </div>
+    <div class="features-container">
+      <div class="row g-5">
+        <div class="col-md-4" *ngFor="let feature of features">
+          <div class="icon-container">
+            <i class="{{feature.icon}}"></i>
+          </div>
+          <div class="text-container">
+            <h3 class="mb-0"> {{feature.title}} </h3>
+            <span> {{feature.description}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <h1> Boost Your Productivity </h1>
+    <button class="button1"> Sign Up for free </button>
+  </div>
+</section>

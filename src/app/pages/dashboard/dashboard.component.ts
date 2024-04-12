@@ -117,7 +117,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     if (
-      this.scrollPosition > 350 &&
+      this.scrollPosition > 310 &&
       !this.tasksAnimationFinished &&
       this.issuesAnimationFinished
     ) {

@@ -1,0 +1,23 @@
+.title2{
+  margin-bottom: 50px;
+}
+.title2 h1{
+  font-size: 30px;
+  font-weight: 600;
+  color: #4b4bdf;
+  margin-bottom: 5px;
+}
+.title2 span{
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.faq-item h3{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.faq-item span{
+  font-size: 16px;
+  font-weight: 400;
+}

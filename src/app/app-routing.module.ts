@@ -47,8 +47,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
 
+// Errors
+import { Error404Component } from './pages/error/error-404/error-404.component';
+
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/error-404', pathMatch: 'full'},
 
   // Dashboard Paths
   {path: 'dashboard', component: DashboardComponent},
@@ -97,8 +100,11 @@ const routes: Routes = [
   // Pricing Paths
   {path: 'pricing-classic', component: PricingClassicComponent},
   {path: 'pricing-table', component: PricingTableComponent},
+  // Errors
+  // 404
+  {path: 'error-404', component: Error404Component},
 
-  {path: '**', redirectTo: '/dashboard'},
+  {path: '**', redirectTo: '/error-404'},
 ];
 
 @NgModule({

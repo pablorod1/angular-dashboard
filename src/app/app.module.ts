@@ -108,6 +108,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
 import { TeamMembersCarouselComponent } from './components/team-members-carousel/team-members-carousel.component';
+import { FeaturesSectionComponent } from './components/features-section/features-section.component';
+import { FaqSectionComponent } from './components/faq-section/faq-section.component';
+import { Error404Component } from './pages/error/error-404/error-404.component';
 
 
 
@@ -169,6 +172,9 @@ import { TeamMembersCarouselComponent } from './components/team-members-carousel
     PricingClassicComponent,
     PricingTableComponent,
     TeamMembersCarouselComponent,
+    FeaturesSectionComponent,
+    FaqSectionComponent,
+    Error404Component,
 
 
 

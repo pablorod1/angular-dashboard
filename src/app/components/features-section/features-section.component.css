@@ -1,0 +1,87 @@
+.features{
+  margin-bottom: 3rem;
+}
+.title2{
+  margin-bottom: 50px;
+}
+.title2 h1{
+  font-size: 30px;
+  font-weight: 600;
+  color: #4b4bdf;
+  margin-bottom: 5px;
+}
+.title2 span{
+  font-size: 16px;
+  font-weight: 400;
+}
+.features-container .icon-container{
+  margin-bottom: 10px;
+  font-size: 20px;
+  background-color: #4b4bdf;
+  color: #fff;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 15px;
+}
+.features-container .text-container h3{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.features-container .text-container small{
+  font-weight: 400;
+  font-size: 14px;
+}
+.section .container-fluid{
+  padding: 50px 0;
+  background-color: #4b4bdf;
+  text-align: center;
+}
+.section .container-fluid h1{
+  margin-bottom: 30px;
+  font-size: 40px;
+  font-weight: 600;
+  color: #fff;
+}
+.button1 {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: #4b4bdf;
+  border: 2px solid #4b4bdf;
+  border-radius: 34px;
+  background-color: #fff;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+.button1::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: #4b4bdf;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.button1:hover::before {
+  scale: 5.1;
+}
+
+.button1:hover {
+  color: #fff;
+  scale: 1.03;
+  box-shadow: 0 0px 20px rgba(255, 255, 255, 0.4);
+}
+
+.button1:active {
+  scale: 1.1;
+}
+

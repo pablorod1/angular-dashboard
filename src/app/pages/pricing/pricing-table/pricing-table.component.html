@@ -1,1 +1,109 @@
-<p>pricing-table works!</p>
+<section class="section">
+  <div class="container title">
+    <span class="badge text-white rounded-pill my-3"> PRICING </span>
+    <h1 class="my-3"> Take control of your productivity </h1>
+    <span class="text-muted">Start small and free, upgrade as you go.
+      Take control of everything.</span>
+    <div class="btn-container my-5">
+      <button [class.active]="pricingType === 'monthly'" (click)="pricingType = 'monthly'" class="pricing-btn"
+        type="button"> Monthly </button>
+      <button [class.active]="pricingType === 'yearly'" (click)="pricingType = 'yearly'" class="pricing-btn"
+        type="button"> Yearly </button>
+    </div>
+  </div>
+  <div class="container table-container py-4">
+    <div class="card p-0">
+      <div class="card-body p-0">
+        <p-table  [value]="value">
+          <ng-template pTemplate="header">
+            <tr class="header">
+              <th></th>
+              <th *ngFor="let plan of plans">
+                <h3 class="plan-title"> {{plan.name}} </h3>
+                <h1 class="price">
+                  {{ pricingType === 'monthly' ? plan.monthlyPrice + '€' : plan.yearlyPrice + '€' }}
+                  <small class="text-muted"> /month </small>
+                </h1>
+                <small> billed {{pricingType}} </small><br>
+                <small><strong> {{ pricingType === 'monthly' ? plan.yearlyPrice + '€' : plan.monthlyPrice + '€' }} </strong> billed {{pricingType === 'monthly' ? 'yearly' : 'monthly'}} </small><br>
+                <button class="button1 my-3"> Buy {{plan.name}} </button>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body">
+            <ng-container>
+              <tr class="bg-title">
+                <td class="row-title"> Features </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td> Unlimited Projects </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr>
+                <td> Unlimited Storage </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr>
+                <td> Custom Domain Support </td>
+                <td> <i class="bi bi-dash-lg"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr>
+                <td> Dedicated Hardware </td>
+                <td> <i class="bi bi-dash-lg"></i> </td>
+                <td> <i class="bi bi-dash-lg"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr>
+                <td> 24/7 Support </td>
+                <td> <i class="bi bi-dash-lg"></i> </td>
+                <td> <i class="bi bi-dash-lg"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr class="bg-title">
+                <td class="row-title"> Payments </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td> Fraud Analysis </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+                <td> <i class="bi bi-check2"></i> </td>
+              </tr>
+              <tr>
+                <td> Rates for in-house payment systems </td>
+                <td> 2.9% </td>
+                <td> 2.6% </td>
+                <td> 2.4% </td>
+              </tr>
+              <tr>
+                <td> Rates for other payment systems </td>
+                <td> 4.9% </td>
+                <td> 4.6% </td>
+                <td> 4.4% </td>
+              </tr>
+              <tr>
+                <td> Additional fees using other payment systems </td>
+                <td> 2% </td>
+                <td> 1% </td>
+                <td> 0.5% </td>
+              </tr>
+            </ng-container>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</section>
+<app-features-section></app-features-section>
+<app-faq-section></app-faq-section>

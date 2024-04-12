@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 4px 0 rgba(0, 0, 0, 0.19);
   padding: 15px;
   border: 0;
   border-radius: 15px;
   height: 100%;
+  position: relative;
 }
 .card-body {
   display: flex;
@@ -14,10 +15,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-}
-.header h2 {
-  font-size: 25px;
-  font-weight: 500;
 }
 
 .g-3 {
@@ -42,4 +39,34 @@
 ::ng-deep .apexcharts-datalabels-group :nth-child(2) {
   font-weight: 600 !important;
   font-family: "Poppins", sans-serif;
+}
+.btn i{
+  color: #023047;
+}
+.header{
+  position: absolute;
+  top: 0;
+}
+.card-title{
+  padding: 10px 30px;
+  border-radius: 15px;
+  position: relative;
+  top: -8px;
+  left: -8px;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 25px;
+  font-weight: 500;
+}
+.shadow-danger{
+  box-shadow: 0 1px 2px 0 rgba(220, 53, 69, 0.2), 0 1px 2px 0 rgba(220, 53, 69, 0.2);
+}
+.shadow-info{
+  box-shadow: 0 1px 2px 0 rgba(23, 162, 184, 0.2), 0 1px 2px 0 rgba(23, 162, 184, 0.2);
+}
+.shadow-warning{
+  box-shadow: 0 1px 2px 0 rgba(255, 193, 7, 0.2), 0 1px 2px 0 rgba(255, 193, 7, 0.2);
+}
+.shadow-success{
+  box-shadow: 0 1px 2px 0 rgba(40, 167, 69, 0.2), 0 1px 2px 0 rgba(40, 167, 69, 0.2);
 }
