@@ -46,6 +46,10 @@
   color: #000;
   font-weight: 600;
 }
+.pricing{
+  display: flex;
+  justify-content: center;
+}
 .card {
   max-width: 500px;
   width: 100%;

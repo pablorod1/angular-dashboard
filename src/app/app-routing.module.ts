@@ -51,7 +51,7 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
 import { Error404Component } from './pages/error/error-404/error-404.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/error-404', pathMatch: 'full'},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
   // Dashboard Paths
   {path: 'dashboard', component: DashboardComponent},
@@ -104,7 +104,7 @@ const routes: Routes = [
   // 404
   {path: 'error-404', component: Error404Component},
 
-  {path: '**', redirectTo: '/error-404'},
+  {path: '**', redirectTo: '/dashboard'},
 ];
 
 @NgModule({
