@@ -1,6 +1,28 @@
-.navbar{
+.navbar {
   position: relative;
   width: 100%;
   background-color: #023047;
-
+}
+.container-fluid {
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  .sidebar {
+    visibility: visible;
+  }
+  .megamenu {
+    display: none;
+    visibility: hidden;
+  }
+}
+@media (min-width: 1024px) {
+  .sidebar {
+    display: none;
+    visibility: hidden;
+  }
+  .megamenu {
+    display: block;
+    visibility: visible;
+  }
 }

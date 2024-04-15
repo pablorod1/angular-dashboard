@@ -180,3 +180,6 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
 .animated-button:active {
   scale: 1.1;
 }
+::ng-deep .p-divider-content{
+  background-color: #fff !important;
+}

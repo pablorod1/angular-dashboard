@@ -36,6 +36,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import {DividerModule} from 'primeng/divider';
 import {CarouselModule} from 'primeng/carousel';
 import {RatingModule} from 'primeng/rating';
+import { MegaMenuModule} from 'primeng/megamenu';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -111,6 +112,7 @@ import { TeamMembersCarouselComponent } from './components/team-members-carousel
 import { FeaturesSectionComponent } from './components/features-section/features-section.component';
 import { FaqSectionComponent } from './components/faq-section/faq-section.component';
 import { Error404Component } from './pages/error/error-404/error-404.component';
+import { MegamenuComponent } from './components/megamenu/megamenu.component';
 
 
 
@@ -175,6 +177,7 @@ import { Error404Component } from './pages/error/error-404/error-404.component';
     FeaturesSectionComponent,
     FaqSectionComponent,
     Error404Component,
+    MegamenuComponent,
 
 
 
@@ -218,6 +221,7 @@ import { Error404Component } from './pages/error/error-404/error-404.component';
     DividerModule,
     CarouselModule,
     RatingModule,
+    MegaMenuModule
   ],
   providers: [
     provideClientHydration(),

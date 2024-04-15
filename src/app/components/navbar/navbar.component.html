@@ -1,6 +1,13 @@
 <nav class="navbar py-3">
   <div class="container-fluid">
-    <app-sidebar></app-sidebar>
+    <div class="left-container d-flex align-items-center">
+      <div class="sidebar">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="megamenu">
+        <app-megamenu></app-megamenu>
+      </div>
+    </div>
     <div class="right-container d-flex align-items-center">
       <app-searchbar></app-searchbar>
       <app-fullscreen-toggler></app-fullscreen-toggler>

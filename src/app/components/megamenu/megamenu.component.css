@@ -1,0 +1,49 @@
+::ng-deep .p-megamenu {
+  background-color: transparent;
+  border: 0;
+}
+::ng-deep .p-megamenu-root-list {
+  padding: 0;
+  margin: 0;
+}
+::ng-deep .p-megamenu-panel {
+  z-index: 100 !important;
+  border-radius: 8px;
+  box-shadow: 0 0px 10px 0 rgba(0, 0, 0, 0.3);
+}
+::ng-deep .p-megamenu a {
+  text-decoration: none;
+}
+::ng-deep .p-menu-item-link {
+  color: #fff !important;
+}
+::ng-deep .p-menuitem-badge {
+  margin-left: 20px;
+  background-color: rgba(255, 0, 0, 0.9);
+  padding: 4px 10px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+}
+::ng-deep .p-menuitem-text,
+::ng-deep .p-menuitem-icon,
+::ng-deep .p-submenu-icon {
+  color: #fff !important;
+}
+::ng-deep .p-menuitem-content:hover,
+::ng-deep .p-menuitem-content:not(:hover) {
+  background-color: transparent;
+}
+::ng-deep .p-megamenu-submenu-header {
+  color: #ff9f31;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+::ng-deep .p-submenu-list {
+  padding-left: 0;
+}
+::ng-deep .p-submenu-list .p-menuitem-text,
+::ng-deep .p-submenu-list .p-menuitem-icon {
+  color: #023047 !important;
+  font-weight: 400;
+}
