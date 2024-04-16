@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './faq-section2.component.css'
 })
 export class FaqSection2Component {
-  accordionData: any[] = [
+  mostAsked: any[] = [
     {
       header: 'Is there a 14-day free trial?',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.'
@@ -17,6 +17,18 @@ export class FaqSection2Component {
     },
     {
       header: 'Can I upgrade my plan?',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.'
+    },
+    {
+      header: 'Can I downgrade my plan?',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.'
+    },
+    {
+      header: 'Can I change my plan?',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.'
+    },
+    {
+      header: 'Can I get a refund?',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien.'
     }
   ]

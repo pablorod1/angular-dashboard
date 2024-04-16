@@ -1,1 +1,20 @@
-<p>faqs works!</p>
+<section class="section">
+  <div class="container title">
+    <button class="btn" routerLink="/help-home"><i class="bi bi-arrow-left"></i> Go back to help center </button>
+    <h1> Frequently Asked Questions </h1>
+  </div>
+  <div class="container questions">
+    <div *ngFor="let questions of frequentlyQuestions" class="question-container">
+      <h3 class="mb-1"> {{questions.title}} </h3>
+      <div class="accordion-container">
+        <p-accordion>
+          <p-accordionTab *ngFor="let question of questions.questions" iconPos="end" header="{{question.header}}">
+            <p>
+              {{question.content}}
+            </p>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </div>
+</section>

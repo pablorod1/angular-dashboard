@@ -5,13 +5,13 @@
       <span class="text-muted"> Here are some of the most frequently asked questions by our users </span>
     </div>
     <div class="accordion-container">
-      <p-accordion >
-        <p-accordionTab *ngFor="let accordion of accordionData" iconPos="end" header="{{accordion.header}}">
-            <p>
-                {{accordion.content}}
-            </p>
+      <p-accordion>
+        <p-accordionTab *ngFor="let accordion of mostAsked" iconPos="end" header="{{accordion.header}}">
+          <p>
+            {{accordion.content}}
+          </p>
         </p-accordionTab>
-    </p-accordion>
+      </p-accordion>
     </div>
   </div>
 </section>
