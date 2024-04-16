@@ -50,6 +50,12 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
 // Errors
 import { Error404Component } from './pages/error/error-404/error-404.component';
 
+// Help Center
+import { HelpHomeComponent } from './pages/help-center/help-home/help-home.component';
+import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
+import { SupportComponent } from './pages/help-center/support/support.component';
+import { GuidesComponent } from './pages/help-center/guides/guides.component';
+
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
@@ -103,6 +109,12 @@ const routes: Routes = [
   // Errors
   // 404
   {path: 'error-404', component: Error404Component},
+
+  // Help Center
+  {path: 'help-home', component: HelpHomeComponent},
+  {path: 'faqs', component: FaqsComponent},
+  {path: 'support', component: SupportComponent},
+  {path: 'guides', component: GuidesComponent},
 
   {path: '**', redirectTo: '/dashboard'},
 ];

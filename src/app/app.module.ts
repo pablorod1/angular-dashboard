@@ -113,6 +113,11 @@ import { FeaturesSectionComponent } from './components/features-section/features
 import { FaqSectionComponent } from './components/faq-section/faq-section.component';
 import { Error404Component } from './pages/error/error-404/error-404.component';
 import { MegamenuComponent } from './components/megamenu/megamenu.component';
+import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
+import { SupportComponent } from './pages/help-center/support/support.component';
+import { HelpHomeComponent } from './pages/help-center/help-home/help-home.component';
+import { GuidesComponent } from './pages/help-center/guides/guides.component';
+import { FaqSection2Component } from './components/faq-section2/faq-section2.component';
 
 
 
@@ -178,6 +183,11 @@ import { MegamenuComponent } from './components/megamenu/megamenu.component';
     FaqSectionComponent,
     Error404Component,
     MegamenuComponent,
+    FaqsComponent,
+    SupportComponent,
+    HelpHomeComponent,
+    GuidesComponent,
+    FaqSection2Component,
 
 
 

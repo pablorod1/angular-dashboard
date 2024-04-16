@@ -65,8 +65,9 @@ export class MegamenuComponent {
             {
               label: 'Help Center',
               items: [
-                { label: 'Home', icon: 'bi bi-house', routerLink: '/home' },
+                { label: 'Home', icon: 'bi bi-house', routerLink: '/help-home' },
                 { label: 'FAQs', icon: 'bi bi-question', routerLink: '/faqs' },
+                { label: 'Guides', icon: 'bi bi-bookmark', routerLink: '/guides' },
                 { label: 'Support', icon: 'bi bi-life-preserver', routerLink: '/support' },
               ],
             }

@@ -1,0 +1,120 @@
+.section{
+  padding-top: 0;
+}
+::ng-deep .navbar{
+  background-color: white !important;
+}
+::ng-deep .btn i{
+  color: #023047;
+}
+::ng-deep .p-menuitem-text,
+::ng-deep .p-menuitem-icon,
+::ng-deep .p-submenu-icon {
+  color: #023047 !important;
+}
+::ng-deep .sidebar-btn i{
+  color: #023047 !important;
+}
+.header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-direction: column;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1001%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(2%2c 48%2c 71%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c585.611C107.215%2c596.001%2c192.332%2c492.778%2c266.466%2c414.63C328.917%2c348.797%2c358.799%2c263.062%2c387.606%2c177.014C413.664%2c99.175%2c433.863%2c20.469%2c425.766%2c-61.216C417.408%2c-145.527%2c397.472%2c-232.326%2c340.786%2c-295.293C284.533%2c-357.778%2c199.87%2c-382.541%2c118.268%2c-402.785C39.459%2c-422.336%2c-40.456%2c-424.485%2c-120.292%2c-409.677C-207.298%2c-393.539%2c-294.938%2c-371.4%2c-362.028%2c-313.699C-434.961%2c-250.973%2c-499.723%2c-169.008%2c-511.178%2c-73.496C-522.556%2c21.376%2c-473.617%2c112.166%2c-422.807%2c193.089C-376.65%2c266.601%2c-298.834%2c306.953%2c-235.22%2c366.01C-154.984%2c440.499%2c-108.972%2c575.05%2c0%2c585.611' fill='%23022639'%3e%3c/path%3e%3cpath d='M1440 1031.036C1525.603 1017.6030000000001 1590.497 951.0450000000001 1652.232 890.24 1704.153 839.102 1740.609 777.2470000000001 1766.742 709.218 1791.556 644.624 1798.622 577.59 1798.917 508.395 1799.258 428.41499999999996 1816.828 339.073 1768.59 275.276 1719.983 210.99 1628.159 205.197 1551.309 180.918 1472.766 156.10399999999998 1396.035 121.928 1314.251 131.738 1223.939 142.57100000000003 1124.663 166.61200000000002 1069.247 238.74099999999999 1014.271 310.298 1027.112 410.942 1030.46 501.117 1033.328 578.366 1063.385 647.581 1087.158 721.137 1114.399 805.424 1113.607 905.8620000000001 1180.162 964.316 1248.738 1024.546 1349.8319999999999 1045.185 1440 1031.036' fill='%23023a55'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1001'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+  margin-bottom: 5rem;
+}
+.title{
+  color: #fff;
+  margin-top: 5rem;
+}
+.small-title{
+  font-weight: 500;
+}
+.title h1{
+  font-size: 50px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.title span{
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffffb4;
+}
+.search-bar{
+  max-width: 500px;
+  width: 100%;
+}
+.form-control{
+  background-color: transparent;
+  border-left: 0 !important;
+  border-radius: 20px;
+  border: 2px solid #4b4bdf81;
+  transition: border 0.3s ease-in-out;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  color: #fff;
+}
+.form-control::placeholder{
+  color: #ffffffb4;
+}
+.input-group-text{
+  background-color: transparent;
+  border-right: 0 !important;
+  border-radius: 20px;
+  border: 2px solid #4b4bdf81;
+  transition: border 0.3s ease-in-out;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #ffffffb4;
+}
+.form-control:focus{
+  box-shadow: none;
+  border: 2px solid #4b4bdf;
+}
+.input-group:focus-within .input-group-text {
+  border: 2px solid #4b4bdf;
+}
+.cards-container{
+  position: relative;
+  bottom: -90px;
+}
+.cards-container a{
+  text-decoration: none;
+}
+.card{
+  min-width: 300px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.2s ease-in-out;
+}
+.card:hover{
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+}
+.card-body{
+  padding: 30px;
+}
+.card-body h1{
+  font-size: 20px;
+  font-weight: 600;
+  color: #023047;
+  margin-bottom: 10px
+}
+.card-body span{
+  font-size: 14px;
+  font-weight: 400;
+  color: #023047b4;
+}
+.card-footer{
+  font-size: 16px;
+  font-weight: 400;
+  color: #4b4bdf;
+  padding: 16px;
+  border: 0;
+}

@@ -44,9 +44,10 @@
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-folder"></i> File Manager </a></li>
             <li class="nav-item" (click)="toggleHelpCenter()" [attr.aria-expanded]="isHelpCenterVisible ? 'true' : 'false'"><a role="button"><i class="me-3 bi bi-info-circle"></i> Help Center <i class="bi bi-caret-right-fill arrow"></i> </a>
               <ul class="list-unstyled submenu"  [class.open]="isHelpCenterVisible">
-                <li class="nav-item"><a role="button" href=""> Home </a></li>
-                <li class="nav-item"><a role="button" href=""> FAQs </a></li>
-                <li class="nav-item"><a role="button" href=""> Support </a></li>
+                <li class="nav-item"><a role="button" href="/help-home"> Home </a></li>
+                <li class="nav-item"><a role="button" href="/faqs"> FAQs </a></li>
+                <li class="nav-item"><a role="button" href="/guides"> Guides </a></li>
+                <li class="nav-item"><a role="button" href="/support"> Support </a></li>
               </ul>
             </li>
             <li class="nav-item d-flex justify-content-between align-items-center flex-row"><a role="button" href="/mailbox"><i class="me-3 bi bi-envelope"></i> Mailbox </a><span *ngIf="unreadedMails > 0" class="badge bg-danger rounded-pill"> {{unreadedMails}} </span>

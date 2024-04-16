@@ -1,0 +1,17 @@
+<section class="section">
+  <div class="container">
+    <div class="title text-center">
+      <h1> Most frequently asked questions </h1>
+      <span class="text-muted"> Here are some of the most frequently asked questions by our users </span>
+    </div>
+    <div class="accordion-container">
+      <p-accordion >
+        <p-accordionTab *ngFor="let accordion of accordionData" iconPos="end" header="{{accordion.header}}">
+            <p>
+                {{accordion.content}}
+            </p>
+        </p-accordionTab>
+    </p-accordion>
+    </div>
+  </div>
+</section>

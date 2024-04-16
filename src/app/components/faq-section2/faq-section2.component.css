@@ -1,0 +1,40 @@
+.section{
+  padding-top: 2rem;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.title h1{
+  font-size: 40px;
+  font-weight: 600;
+  color: #4b4bdf;
+}
+.title span{
+  font-size: 18px;
+  font-weight: 400;
+}
+.accordion-container{
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 3rem;
+}
+::ng-deep a{
+  text-decoration: none;
+  color: #023047;
+}
+::ng-deep .p-accordion-header-link{
+  background-color: #fff;
+  transition: border-bottom .5s ease-out;
+}
+::ng-deep .p-accordion-header-link[aria-expanded="true"]{
+  border-bottom: 0;
+}
+::ng-deep .p-accordion-tab{
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+  background-color: transparent;
+  margin: 18px;
+  border-radius: 16px;
+}
