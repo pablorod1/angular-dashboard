@@ -55,6 +55,8 @@ import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
 import { SupportComponent } from './pages/help-center/support/support.component';
 import { GuidesComponent } from './pages/help-center/guides/guides.component';
 import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
+import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
+import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -100,6 +102,8 @@ const routes: Routes = [
   // Account Settings Path
   {path: 'acc-settings', component: AccSettingsComponent},
   // Invoice Page
+  {path: 'invoice-classic', component: InvoiceClassicComponent},
+  {path: 'invoice-table', component: InvoicesTableComponent},
   // User Profile
   {path: 'profile', component: ProfileComponent},
   // Pricing Paths

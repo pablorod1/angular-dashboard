@@ -1,0 +1,52 @@
+.section {
+  padding-top: 0;
+}
+.title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.title h1 {
+  font-size: 50px;
+  font-weight: 600;
+}
+.title .btn-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+}
+.card {
+  max-width: 1000px;
+  width: 100%;
+  padding: 0;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+::ng-deep tr td,
+::ng-deep tr th {
+  padding: 1.5rem;
+}
+::ng-deep .p-datatable-wrapper {
+  border-radius: 16px !important;
+}
+::ng-deep tr th {
+  background-color: #4b4bdf;
+  color: #fff !important;
+  font-weight: 500;
+}
+::ng-deep .p-tag {
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+::ng-deep .p-tag-value {
+  font-weight: 600;
+}

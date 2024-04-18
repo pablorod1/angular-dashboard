@@ -1,1 +1,99 @@
-<p>invoices-table works!</p>
+<section class="section">
+  <div class="container-fluid title">
+    <h1> Invoices </h1>
+    <div class="btn-container">
+      <button class="animated-button-inverse" type="button"> Export CSV </button>
+      <button (click)="toggleCreateInvoice()" class="animated-button" type="button"> Create Invoice </button>
+    </div>
+  </div>
+  <div class="container table-container">
+    <div class="card">
+      <p-table [value]="invoices" [rowHover]="true" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template class="header" pTemplate="header">
+          <tr>
+            <!-- <th class="first-col" style="width: 4rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th> -->
+            <th> Invoice </th>
+            <th> Customer </th>
+            <th> Status </th>
+            <th> Amount </th>
+            <th> Due Date </th>
+            <th> Issued Date </th>
+          </tr>
+        </ng-template>
+        <ng-template class="body" pTemplate="body" let-invoice let-columns="columns">
+          <tr role="button" routerLink="/invoice-classic">
+            <!-- <td>
+              <p-tableCheckbox [value]="invoice"></p-tableCheckbox>
+            </td> -->
+            <td>{{invoice.invoice}}</td>
+            <td>
+              <div class="d-flex flex-column">
+                <span>{{invoice.billTo.name}}</span>
+                <small class="text-muted">{{invoice.billTo.email}}</small>
+              </div>
+            </td>
+            <td><p-tag [value]="invoice.status" [severity]="getSeverity(invoice.status)"></p-tag></td>
+            <td>{{invoice.totalAmount | currency:'€'}}</td>
+            <td>{{invoice.issuedDate}}</td>
+            <td>{{invoice.dueDate}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <!-- Create Invoice Dialog -->
+  <p-dialog [style]="{width: '50vw'}" [closable]="false" header="Create Invoice" [draggable]="false" [modal]="true"
+    [visible]="createInvoiceDialog">
+    <h2> Details </h2>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="billFrom"> Bill from </label>
+        <input type="text" class="form-control" id="billFrom">
+      </div>
+      <div class="col">
+        <label class="form-label" for="billTo"> Bill to </label>
+        <input type="text" class="form-control" id="billTo">
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="email"> Client Email </label>
+      <input type="email" class="form-control" id="email">
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label class="form-label" for="issuedDate"> Issued On </label>
+        <input type="date" class="form-control" id="issuedDate">
+      </div>
+      <div class="col">
+        <label class="form-label" for="dueDate"> Due On </label>
+        <input type="date" class="form-control" id="dueDate">
+      </div>
+    </div>
+    <mat-divider class="py-3"></mat-divider>
+    <h2> Invoice Item </h2>
+    <div class="row">
+      <div class="col">
+        <label class="form-label" for="item"> Item </label>
+        <input type="text" class="form-control" placeholder="Product 1" id="item">
+      </div>
+      <div class="col">
+        <label class="form-label" for="price"> Price </label>
+        <input type="number" class="form-control" placeholder="500€" id="price">
+      </div>
+      <div class="col">
+        <label class="form-label" for="qty"> Qty </label>
+        <input type="number" class="form-control" placeholder="1" id="qty">
+      </div>
+    </div>
+    <div class="btn-container d-flex align-items-center gap-2 pt-4">
+      <button type="button" class="button bg-primary text-white"> Create
+      </button>
+      <button type="button" class="button btn-outline-danger text-danger">
+        Cancel </button>
+    </div>
+  </p-dialog>
+</section>
+

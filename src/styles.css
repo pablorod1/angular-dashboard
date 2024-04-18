@@ -180,6 +180,47 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
 .animated-button:active {
   scale: 1.1;
 }
+.animated-button-inverse {
+  cursor: pointer;
+  position: relative;
+  padding: 10px 24px;
+  font-size: 18px;
+  color: #fff;
+  border: 2px solid #4b4bdf;
+  border-radius: 34px;
+  background-color: #4b4bdf;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+.animated-button-inverse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: #fff;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button-inverse:hover::before {
+  scale: 5.1;
+}
+
+.animated-button-inverse:hover {
+  color: #4b4bdf;
+  scale: 1.03;
+  box-shadow: 0 0px 20px rgba(75, 75, 223, 0.4);
+}
+
+.animated-button-inverse:active {
+  scale: 1.1;
+}
 ::ng-deep .p-divider-content{
   background-color: #fff !important;
 }

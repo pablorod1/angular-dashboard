@@ -134,7 +134,13 @@
                 <li class="nav-item"><a role="button" href=""> 500 </a></li>
               </ul>
             </li>
-            <li class="nav-item"><a role="button" href="/invoice"><i class="me-3 bi bi-receipt-cutoff"></i> Invoice  </a></li>
+            <li class="nav-item" (click)="toggleInvoice($event)" [attr.aria-expanded]="isInvoiceVisible ? 'true' : 'false'">
+              <a role="button" ><i class="me-3 bi bi-cash-stack"></i> Invoice <i class="bi bi-caret-right-fill arrow"></i></a>
+              <ul class="list-unstyled submenu" [class.open]="isInvoiceVisible">
+                <li class="nav-item"><a role="button" href="/invoice-classic"> Classic </a></li>
+                <li class="nav-item"><a role="button" href="/invoice-table"> Table </a></li>
+              </ul>
+            </li>
             <li class="nav-item"><a role="button" href=""><i class="me-3 bi bi-exclamation-triangle"></i> Maintenance </a></li>
             <li class="nav-item" (click)="togglePricing($event)" [attr.aria-expanded]="isPricingVisible ? 'true' : 'false'">
               <a role="button" ><i class="me-3 bi bi-cash-stack"></i> Pricing <i class="bi bi-caret-right-fill arrow"></i></a>

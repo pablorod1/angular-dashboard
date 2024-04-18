@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
   isComingVisible = false;
   isErrorVisible = false;
   isPricingVisible = false;
+  isInvoiceVisible = false;
 
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
 
@@ -83,5 +84,9 @@ export class SidebarComponent implements OnInit {
   togglePricing($event: Event) {
     $event.stopPropagation();
     this.isPricingVisible = !this.isPricingVisible;
+  }
+  toggleInvoice($event: Event) {
+    $event.stopPropagation();
+    this.isInvoiceVisible = !this.isInvoiceVisible;
   }
 }

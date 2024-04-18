@@ -85,7 +85,6 @@ export class MegamenuComponent {
               items: [
                 { label: 'Activities', icon: 'bi bi-calendar', routerLink: '/activities' },
                 { label: 'Coming Soon', icon: 'bi bi-clock', routerLink: '/coming-soon' },
-                { label: 'Invoice', icon: 'bi bi-file-earmark-text', routerLink: '/invoice' },
                 { label: 'Maintenance', icon: 'bi bi-tools', routerLink: '/maintenance' },
                 { label: 'Profile', icon: 'bi bi-person-circle', routerLink: '/profile' },
                 { label: 'Settings', icon: 'bi bi-gear', routerLink: '/acc-settings' },
@@ -107,6 +106,13 @@ export class MegamenuComponent {
               items: [
                 { label: 'Classic', icon: 'bi bi-cash-coin', routerLink: 'pricing-classic' },
                 { label: 'Table', icon: 'bi bi-table', routerLink: '/pricing-table' },
+              ],
+            },
+            {
+              label: 'Invoice',
+              items: [
+                { label: 'Classic', icon: 'bi bi-file-earmark-text', routerLink: '/invoice-classic' },
+                { label: 'Table', icon: 'bi bi-table', routerLink: '/invoice-table' },
               ],
             }
           ]

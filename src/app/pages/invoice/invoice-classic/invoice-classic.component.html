@@ -1,1 +1,89 @@
-<p>invoice-classic works!</p>
+<section class="section">
+  <div class="container">
+    <div class="card invoice">
+      <div class="card-body">
+        <img src="../../../../assets/angular-logo.webp" alt="Logo" loading="lazy" class="logo">
+        <div class="btn-container d-flex justify-content-end pb-3">
+
+          <button (click)="toggleDetails()" class="btn" type="button"> Show more details <i class="bi bi-arrow-right"></i></button>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="brand">
+              <h5>LucentiaLab</h5>
+              <span>Alicante, Spain<br></span>
+              <small>
+                tel: +34 123 456 789
+              </small>
+            </div>
+          </div>
+          <div class="col-6 text-end">
+            <div class="billed">
+              <h3>Billed to:</h3>
+              <span>{{invoices[0].billTo.name}}<br></span>
+              <span>{{invoices[0].billTo.address}}<br></span>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col mt-5">
+            <h3 class="mb-0">Invoice nº</h3>
+            <span> {{invoices[0].invoice}} </span>
+          </div>
+          <div class="col text-end mt-5">
+            <span>Issued date: {{invoices[0].issuedDate}} <br></span>
+            <span>Due date: {{invoices[0].dueDate}}</span>
+          </div>
+        </div>
+        <div class="table-responsive mt-5">
+          <table class="table table-hover text-end">
+            <thead class="bg-default">
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of invoices[0].products">
+                <td>{{product.name}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.price | currency: 'EUR': 'symbol':'1.0-0'}}</td>
+                <td>{{product.quantity * product.price | currency: 'EUR': 'symbol':'1.0-0'}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Total</td>
+                <td class="text-end">
+                  {{invoices[0].totalAmount | currency: 'EUR': 'symbol':'1.0-0'}}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="footer d-flex justify-content-end mt-5">
+          <div class="right text-end p-2">
+            <h3>Thank You!</h3>
+            <span>If you encounter any issues related to the invoice<br> you can contact us at:<br></span>
+            <small>email: lucentialab&commat;gmail.com</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showDetails"  class="card details-card ms-3" @detailsAnimation>
+      <div class="card-body">
+        <div class="status-container">
+          <h3>Status</h3>
+          <span *ngIf="invoices[0].status === 'Paid'" class="badge  bg-success">Paid</span>
+          <span *ngIf="invoices[0].status === 'Unpaid'" class="badge  bg-danger">Unpaid</span>
+          <span *ngIf="invoices[0].status === 'Expired'" class="badge  bg-warning">Expired</span>
+        </div>
+        <div class="payment-details">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

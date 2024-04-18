@@ -37,6 +37,7 @@ import {DividerModule} from 'primeng/divider';
 import {CarouselModule} from 'primeng/carousel';
 import {RatingModule} from 'primeng/rating';
 import { MegaMenuModule} from 'primeng/megamenu';
+import { TagModule } from 'primeng/tag';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -236,7 +237,8 @@ import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-
     DividerModule,
     CarouselModule,
     RatingModule,
-    MegaMenuModule
+    MegaMenuModule,
+    TagModule
   ],
   providers: [
     provideClientHydration(),
