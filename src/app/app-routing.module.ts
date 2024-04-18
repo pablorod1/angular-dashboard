@@ -40,7 +40,6 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 
 // Invoice Page
-import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 // User Profile
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -55,6 +54,7 @@ import { HelpHomeComponent } from './pages/help-center/help-home/help-home.compo
 import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
 import { SupportComponent } from './pages/help-center/support/support.component';
 import { GuidesComponent } from './pages/help-center/guides/guides.component';
+import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -100,7 +100,6 @@ const routes: Routes = [
   // Account Settings Path
   {path: 'acc-settings', component: AccSettingsComponent},
   // Invoice Page
-  {path: 'invoice', component: InvoiceComponent},
   // User Profile
   {path: 'profile', component: ProfileComponent},
   // Pricing Paths
@@ -115,6 +114,7 @@ const routes: Routes = [
   {path: 'faqs', component: FaqsComponent},
   {path: 'support', component: SupportComponent},
   {path: 'guides', component: GuidesComponent},
+  {path: 'guides/guide', component: GuideComponent},
 
   {path: '**', redirectTo: '/dashboard'},
 ];

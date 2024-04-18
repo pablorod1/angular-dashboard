@@ -1,0 +1,54 @@
+.section{
+  padding-top: 3rem;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  max-width: 1000px;
+}
+.btn i{
+  color: #4b4bdf ;
+}
+.btn{
+  color: #4b4bdf;
+  background-color: transparent;
+  border-radius: 20px;
+  transition: background-color .3s ease;
+  margin-bottom: 10px;
+}
+.btn:hover{
+  background-color: #4b4bdf13;
+  transform: none;
+}
+.title{
+  padding: 20px 0;
+}
+.title h1{
+  font-size: 40px;
+  color: #023047;
+  font-weight: 600;
+  padding: 10px 0 20px;
+  margin-bottom: 8px;
+}
+.title span{
+  font-size: 18px;
+  font-weight: 400;
+}
+.header{
+  color: #023047;
+}
+.desc-picture{
+  padding: 10px 0;
+  font: italic !important;
+}
+.blockquote-container{
+  padding-left: 20px;
+  border-left: 5px solid #023047;
+}
+.blockquote p{
+  font: italic;
+  font-size: 14px;
+  font-weight: bold;
+}

@@ -104,7 +104,6 @@ import { PoiComponent } from './pages/poi/poi.component';
 import { EmailComposeEditorComponent } from './components/email-compose-editor/email-compose-editor.component';
 import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
 import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-btn.component';
-import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
@@ -118,6 +117,9 @@ import { SupportComponent } from './pages/help-center/support/support.component'
 import { HelpHomeComponent } from './pages/help-center/help-home/help-home.component';
 import { GuidesComponent } from './pages/help-center/guides/guides.component';
 import { FaqSection2Component } from './components/faq-section2/faq-section2.component';
+import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
+import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
+import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
 
 
 
@@ -174,7 +176,6 @@ import { FaqSection2Component } from './components/faq-section2/faq-section2.com
     EmailComposeEditorComponent,
     ComingSoonComponent,
     ExploreBtnComponent,
-    InvoiceComponent,
     ProfileComponent,
     PricingClassicComponent,
     PricingTableComponent,
@@ -188,6 +189,10 @@ import { FaqSection2Component } from './components/faq-section2/faq-section2.com
     HelpHomeComponent,
     GuidesComponent,
     FaqSection2Component,
+    GuideComponent,
+    InvoiceClassicComponent,
+    InvoicesTableComponent,
+
 
 
 
