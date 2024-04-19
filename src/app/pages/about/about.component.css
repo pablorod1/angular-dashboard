@@ -1,0 +1,75 @@
+
+.section {
+  position: relative;
+  top: -78px;
+  overflow: hidden !important;
+  max-height: 70vh !important;
+  min-height: 70vh !important;
+}
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../assets/background_mountain.webp");
+  background-repeat: no-repeat;
+  background-size: 3000px 1000px;
+  background-position: center;
+  filter: brightness(0.5);
+  z-index: 0;
+}
+::ng-deep .navbar {
+  background: none !important;
+  background-color: transparent !important;
+  z-index: 1000 !important;
+}
+
+
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 5rem;
+  z-index: 1;
+  position: relative;
+}
+.title h1{
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 3rem;
+  color: #fff;
+}
+.title h2{
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+}
+.about h1{
+  font-size: 30px;
+  font-weight: 600;
+  color: #4b4bdf;
+  margin-top: 2rem;
+  text-transform: uppercase;
+}
+
+.about p{
+  font-size: 18px;
+  font-weight: 400;
+  color: #023047;
+  margin: 2.5rem 0;
+}
+@keyframes bump {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.bi-heart-fill::before {
+  font-size: 25px;
+  animation: bump 1s infinite;
+}

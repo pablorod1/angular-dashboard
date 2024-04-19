@@ -1,0 +1,107 @@
+.section {
+  padding-top: 0;
+  min-height: 0 !important;
+  overflow: hidden;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  font-size: 30px;
+  font-weight: 300;
+  color: #4b4bdf;
+  margin-bottom: 4rem;
+}
+.card-big-shadow {
+  max-width: 320px;
+  position: relative;
+}
+.card-big-shadow:before {
+  background-image: url(http://static.tumblr.com/i21wc39/coTmrkw40/shadow.png);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  bottom: -12%;
+  content: "";
+  display: block;
+  left: -12%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+}
+.card {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border-radius: 0;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  color: #333;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  border: 0;
+  -webkit-transition: box-shadow 0.2s,
+    -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+  transition: box-shadow 0.2s ease,
+    -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 2, 0.6, 1), box-shadow 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 2, 0.6, 1), box-shadow 0.2s ease,
+    -webkit-transform 0.3s cubic-bezier(0.34, 2, 0.6, 1);
+}
+.card:hover {
+  box-shadow: 0 12px 19px -7px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+}
+.card-body {
+  color: #fff !important;
+  padding: 50px 65px;
+  text-align: center;
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+}
+.card-body h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.5em;
+}
+.card-body h4 {
+  font-size: 1.9em;
+  line-height: 1.2em;
+  margin: 5px 0 0;
+}
+.card-body p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 1.7em;
+}
+.bg-info {
+  background-color: #6ec7e0 !important;
+}
+.bg-success{
+  background-color: #86d9ab !important;
+}
+.bg-warning{
+  background-color: #fcd27b !important;
+}
+.col-lg-4{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

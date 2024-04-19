@@ -121,6 +121,9 @@ import { FaqSection2Component } from './components/faq-section2/faq-section2.com
 import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
 import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
 import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
+import { AboutComponent } from './pages/about/about.component';
+import { TeamSectionComponent } from './components/team-section/team-section.component';
+import { FeaturesSection2Component } from './components/features-section2/features-section2.component';
 
 
 
@@ -193,6 +196,9 @@ import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-
     GuideComponent,
     InvoiceClassicComponent,
     InvoicesTableComponent,
+    AboutComponent,
+    TeamSectionComponent,
+    FeaturesSection2Component,
 
 
 
