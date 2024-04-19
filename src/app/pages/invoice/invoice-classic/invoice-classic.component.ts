@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { InvoicesTableDataService } from '../../../services/invoices-table-data.service';
+import { Invoice } from '../../../services/invoices-table-data.service';
 import {
   trigger,
   transition,
@@ -23,13 +25,19 @@ import {
   ]
 })
 export class InvoiceClassicComponent implements OnInit {
-  invoices!: any[];
+  invoices!: Invoice[];
   showDetails = false;
+  invoice!: Invoice;
+  invoiceId!: number;
 
-  constructor(private invoicesTableDataService: InvoicesTableDataService) {}
+  constructor(private invoicesTableDataService: InvoicesTableDataService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.invoices = this.invoicesTableDataService.getInvoicesData();
+    this.invoices = this.invoicesTableDataService.getInvoices();
+    this.route.params.subscribe(params => {
+      this.invoiceId = +params['id'];
+      this.invoice = this.invoices.find(invoice => invoice.id === this.invoiceId) || {} as Invoice;
+    });
   }
 
   toggleDetails(){

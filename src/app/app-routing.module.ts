@@ -102,7 +102,7 @@ const routes: Routes = [
   // Account Settings Path
   {path: 'acc-settings', component: AccSettingsComponent},
   // Invoice Page
-  {path: 'invoice-classic', component: InvoiceClassicComponent},
+  {path: 'invoice-classic/:id', component: InvoiceClassicComponent},
   {path: 'invoice-table', component: InvoicesTableComponent},
   // User Profile
   {path: 'profile', component: ProfileComponent},
