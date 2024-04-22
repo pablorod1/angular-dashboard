@@ -1,0 +1,89 @@
+
+.section {
+  position: relative;
+  top: -78px;
+  background-color: #f6f6f6;
+  min-height: 110vh;
+  max-height: 110vh;
+  overflow: hidden;
+}
+.section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../assets/sunset_mountain.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.8);
+  z-index: 0;
+  background-color: #f6f6f6;
+}
+::ng-deep .navbar {
+  background: none !important;
+  background-color: transparent !important;
+  z-index: 1000 !important;
+}
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 5rem;
+  z-index: 1;
+  position: relative;
+}
+.title h1{
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 3rem;
+  color: #fff;
+}
+.title h2{
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+}
+.arrow:focus{
+  border: 0;
+}
+
+.arrow i{
+  color: #fff;
+}
+.arrow-container :first-child{
+  position: absolute;
+  bottom: 40px;
+  z-index: 1;
+  animation: bounce 2s infinite;
+}
+.arrow-container :nth-child(2){
+  position: absolute;
+  bottom: 60px;
+  z-index: 1;
+  animation: bounce 2s infinite;
+  animation-delay: .2s;
+}
+.arrow-container :nth-child(3){
+  position: absolute;
+  bottom: 80px;
+  z-index: 1;
+  animation: bounce 2s infinite;
+  animation-delay: .4s;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-70px);
+    opacity: 0;
+    font-size: 20px;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

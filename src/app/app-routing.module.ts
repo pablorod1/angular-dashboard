@@ -60,6 +60,8 @@ import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-
 
 // About Us Page
 import { AboutComponent } from './pages/about/about.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -125,7 +127,12 @@ const routes: Routes = [
 
   // About Us Page
   {path: 'about', component: AboutComponent},
+  // Landing Page
+  {path: 'landing', component: LandingComponent},
+  // Blog Posts Page
+  {path: 'blog', component: BlogPostsComponent},
 
+  // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/dashboard'},
 ];
 

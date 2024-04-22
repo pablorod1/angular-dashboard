@@ -124,6 +124,10 @@ import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-
 import { AboutComponent } from './pages/about/about.component';
 import { TeamSectionComponent } from './components/team-section/team-section.component';
 import { FeaturesSection2Component } from './components/features-section2/features-section2.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
+import { FeaturesSection3Component } from './components/features-section3/features-section3.component';
+import { TeamSection2Component } from './components/team-section2/team-section2.component';
 
 
 
@@ -199,6 +203,10 @@ import { FeaturesSection2Component } from './components/features-section2/featur
     AboutComponent,
     TeamSectionComponent,
     FeaturesSection2Component,
+    LandingComponent,
+    BlogPostsComponent,
+    FeaturesSection3Component,
+    TeamSection2Component,
 
 
 

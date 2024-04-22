@@ -1,0 +1,25 @@
+<section class="section ">
+  <div class="container">
+    <div class="title pb-5">
+      <h1> Everything you need to build efficiently </h1>
+      <span class="text-muted"> Start small and free, upgrade as you go. Take control of everything.
+      </span>
+    </div>
+    <p-carousel [value]="features" [autoplayInterval]="5000" [circular]="true" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+      <ng-template let-feature pTemplate="item">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="mb-0"> {{feature.title}} </h2>
+            <small>
+              {{feature.description}}
+            </small>
+            <div class="btn-container d-flex justify-content-between align-items-center">
+              <button [routerLink]="feature.url" class="button {{feature.backgroundColor}}"><i class="{{feature.icon}}"></i></button>
+              <button [routerLink]="feature.url" class="btn">Explore More <i class="bi bi-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>

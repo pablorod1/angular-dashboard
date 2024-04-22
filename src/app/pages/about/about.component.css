@@ -5,6 +5,7 @@
   overflow: hidden !important;
   max-height: 70vh !important;
   min-height: 70vh !important;
+  background-color: #f6f6f6;
 }
 .section::before {
   content: "";
@@ -19,6 +20,7 @@
   background-position: center;
   filter: brightness(0.5);
   z-index: 0;
+  background-color: #f6f6f6;
 }
 ::ng-deep .navbar {
   background: none !important;

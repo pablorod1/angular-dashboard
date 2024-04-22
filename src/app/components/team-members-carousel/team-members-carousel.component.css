@@ -63,5 +63,12 @@
   width: 100%;
 }
 ::ng-deep .p-carousel-items-container{
-  padding: 30px 0;
+  min-height: 400px;
+}
+::ng-deep .p-carousel-item{
+  margin: 32px 16px;
+  display: flex;
+  width: fit-content !important;
+  justify-content: center;
+  align-items: center;
 }

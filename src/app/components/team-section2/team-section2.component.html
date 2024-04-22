@@ -1,0 +1,36 @@
+<section class="section">
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="row w-100">
+      <div class="col-md-4">
+        <div class="title">
+          <h1> Our Team </h1>
+          <p class="text-muted"> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+          <p class="text-muted"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias pariatur perspiciatis sapiente ratione deserunt voluptatum dolores necessitatibus ullam, delectus.</p>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row g-2">
+          <div class="col-lg-4 col-md-6" *ngFor="let member of members | slice:1:7">
+            <div *ngIf="showPicture" class="card" role="button" (click)="flipCard()">
+              <div  class="img-container">
+                <img [src]="member.imageUrl" [alt]="member.name" class="profile-picture">
+              </div>
+              <div class="info-container">
+                <h1 class="card-title mt-3"> {{ member.name }} </h1>
+                <h3 class="card-text"> {{ member.role }} </h3>
+              </div>
+            </div>
+            <div *ngIf="showInfo" class="card" role="button" (click)="flipCard()">
+              <div class="info-container">
+                <h1 class="card-title mt-3 text-dark"> {{ member.name }} </h1>
+                <h3 class="card-text"> {{ member.role }} </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
