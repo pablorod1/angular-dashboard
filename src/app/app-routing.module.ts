@@ -118,7 +118,7 @@ const routes: Routes = [
   {path: 'faqs', component: FaqsComponent},
   {path: 'support', component: SupportComponent},
   {path: 'guides', component: GuidesComponent},
-  {path: 'guide/:guidesLinks:title', component: GuideComponent},
+  {path: 'guides/guide', component: GuideComponent},
 
   {path: '**', redirectTo: '/dashboard'},
 ];
