@@ -49,9 +49,6 @@ export class MegamenuComponent {
             {
               label: 'App Examples',
               items: [
-                { label: 'Courses', icon: 'bi bi-book', routerLink: '/courses' },
-                { label: 'Chat', icon: 'bi bi-chat', routerLink: '/chat' },
-                { label: 'Contacts', icon: 'bi bi-people', routerLink: '/contacts' },
                 { label: 'Ecommerce', icon: 'bi bi-cart', routerLink: '/ecommerce' },
                 { label: 'File Manager', icon: 'bi bi-folder', routerLink: '/file-manager' },
                 { label: 'Mailbox', icon: 'bi bi-envelope', routerLink: '/mailbox', badge: this.mailsCount.toString() },
@@ -83,9 +80,11 @@ export class MegamenuComponent {
             {
               label: 'Example Pages',
               items: [
-                { label: 'Activities', icon: 'bi bi-calendar', routerLink: '/activities' },
+                { label: 'About Us', icon: 'bi bi-info-circle', routerLink: '/about' },
+                { label: 'Landing Page', icon: 'bi bi-rocket-takeoff', routerLink: '/landing' },
+                { label: 'Blog Posts', icon: 'bi bi-easel', routerLink: '/blog' },
                 { label: 'Coming Soon', icon: 'bi bi-clock', routerLink: '/coming-soon' },
-                { label: 'Maintenance', icon: 'bi bi-tools', routerLink: '/maintenance' },
+
                 { label: 'Profile', icon: 'bi bi-person-circle', routerLink: '/profile' },
                 { label: 'Settings', icon: 'bi bi-gear', routerLink: '/acc-settings' },
               ],
@@ -97,6 +96,7 @@ export class MegamenuComponent {
               items: [
                 { label: 'Error 404', icon: 'bi bi-exclamation-triangle', routerLink: '/error-404'},
                 { label: 'Error 500', icon: 'bi bi-exclamation-diamond', routerLink: '/error-500' },
+                { label: 'Maintenance', icon: 'bi bi-tools', routerLink: '/maintenance' },
               ],
             }
           ],
@@ -111,8 +111,8 @@ export class MegamenuComponent {
             {
               label: 'Invoice',
               items: [
-                { label: 'Classic', icon: 'bi bi-file-earmark-text', routerLink: '/invoice-classic' },
-                { label: 'Table', icon: 'bi bi-table', routerLink: '/invoice-table' },
+                { label: 'Single', icon: 'bi bi-file-earmark-text', routerLink: '/invoice-classic/1' },
+                { label: 'Table', icon: 'bi bi-card-list', routerLink: '/invoice-table' },
               ],
             }
           ]

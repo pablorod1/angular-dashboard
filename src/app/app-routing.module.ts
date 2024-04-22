@@ -58,6 +58,9 @@ import { GuideComponent } from './pages/help-center/guides/guide/guide.component
 import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
 import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
 
+// About Us Page
+import { AboutComponent } from './pages/about/about.component';
+
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
@@ -119,6 +122,9 @@ const routes: Routes = [
   {path: 'support', component: SupportComponent},
   {path: 'guides', component: GuidesComponent},
   {path: 'guides/guide', component: GuideComponent},
+
+  // About Us Page
+  {path: 'about', component: AboutComponent},
 
   {path: '**', redirectTo: '/dashboard'},
 ];
