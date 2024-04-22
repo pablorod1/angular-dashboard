@@ -11,10 +11,10 @@
       <div class="col-md-6" *ngFor="let guide of guides">
         <h2 class=" guide-title"> {{guide.title}} </h2>
         <ul class="list-unstyled">
-          <li class="guide-item" *ngFor="let item of guide.guides | slice:0:4">
-            <a class="guide-link" routerLink="/guides/guide"> {{item.title}} </a>
+          <li class="guide-item" *ngFor="let item of guide.guidesLinks | slice:0:4">
+            <span role="button" class="guide-link" (click)="viewGuide(guide)"> {{item.title}} </span>
           </li>
-          <li class="guide-item" *ngIf="guide.guides.length > 4">
+          <li class="guide-item" *ngIf="guide.guidesLinks.length > 4">
             <button class="all-btn" type="button"> View All <i class="bi bi-arrow-right"></i></button>
           </li>
         </ul>

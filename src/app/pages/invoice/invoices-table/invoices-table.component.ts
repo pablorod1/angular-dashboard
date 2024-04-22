@@ -103,7 +103,7 @@ export class InvoicesTableComponent implements OnInit {
         return 'primary';
     }
   }
-  viewInvoice(invoice: any) {
+  viewInvoice(invoice: Invoice) {
     this.router.navigate(['/invoice-classic', invoice.id]);
   }
   toggleCreateInvoice() {
