@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InvoicesTableDataService } from '../../../services/invoices-table-data.service';
-import { Invoice } from '../../../services/invoices-table-data.service';
+import { InvoicesTableDataService } from '../../../services/charts/invoices-table-data.service';
+import { Invoice } from '../../../services/charts/invoices-table-data.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';

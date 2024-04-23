@@ -2,7 +2,7 @@
   <div class="container profile-container d-flex justify-content-between align-items-center mb-5">
     <div class="row profile w-100 d-flex justify-content-center align-items-center" @titleAnimation>
       <div class="col-md-3 d-flex justify-content-end  profile-image">
-        <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Image">
+        <img loading="lazy" class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Image">
       </div>
       <div class="col-md-9  profile-details">
         <h2>Welcome back, Javier!</h2>
@@ -37,9 +37,9 @@
         </ng-template>
         <!-- Home container -->
         <div class="home-container p-3">
-          <div class="row  cards-container g-4">
+          <div class="row  cards-container py-5 g-4">
             <div class="col-md-3 col-sm-6" *ngIf="dropdownAnimationFinished" @card1Animation>
-              <div class="card">
+              <div class="card primary-card">
                 <div class="card-body">
                   <i class="text-primary bi bi-clipboard2"></i>
                   <div class="info text-end text-primary">
@@ -53,7 +53,7 @@
               </div>
             </div>
             <div class="col-md-3 col-sm-6 " *ngIf="card1AnimationFinished" @card2Animation>
-              <div class="card">
+              <div class="card success-card">
                 <div class="card-body ">
                   <i class="text-success bi bi-cash-coin"></i>
                   <div class="info text-end text-success">
@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="col-md-3 col-sm-6" *ngIf="card2AnimationFinished" @card3Animation>
-              <div class="card">
+              <div class="card danger-card">
                 <div class="card-body ">
                   <i class="text-danger bi bi-exclamation-circle"></i>
                   <div class="info text-end text-danger">
@@ -76,12 +76,12 @@
                   </div>
                 </div>
                 <div class="card-footer text-danger">
-                  <span><i class="bi bi-exclamation"></i> High Priority</span>
+                  <span><i class="bi bi-exclamation-circle"></i> High Priority</span>
                 </div>
               </div>
             </div>
             <div class="col-md-3 col-sm-6" *ngIf="card3AnimationFinished" @card4Animation>
-              <div class="card">
+              <div class="card info-card">
                 <div class="card-body ">
                   <i class="text-info bi bi-graph-up"></i>
                   <div class="info text-end text-info">

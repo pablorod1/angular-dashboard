@@ -3,8 +3,11 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+
+// Recargar la página después de cada navegación
+import { ReloadInterceptorService } from './services/reload-interceptor/reload-interceptor.service';
 
 // Google Map
 import { GoogleMap } from '@angular/google-maps';
@@ -54,11 +57,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { NavbarComponent } from './components/menus/navbar/navbar.component';
+import { SidebarComponent } from './components/menus/sidebar/sidebar.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
-import { NotificationsMenuComponent } from './components/notifications-menu/notifications-menu.component';
-import { ProfileMenuComponent } from './components/profile-menu/profile-menu.component';
+import { NotificationsMenuComponent } from './components/menus/notifications-menu/notifications-menu.component';
+import { ProfileMenuComponent } from './components/menus/profile-menu/profile-menu.component';
 import { FullscreenTogglerComponent } from './components/fullscreen-toggler/fullscreen-toggler.component';
 import { SigninClassicComponent } from './pages/authentication/signin/signin-classic/signin-classic.component';
 import { SigninModernComponent } from './pages/authentication/signin/signin-modern/signin-modern.component';
@@ -81,25 +84,25 @@ import { UnlockModernComponent } from './pages/authentication/unlock-session/unl
 import { ConfirmationClassicComponent } from './pages/authentication/confirmation/confirmation-classic/confirmation-classic.component';
 import { ConfirmationModernComponent } from './pages/authentication/confirmation/confirmation-modern/confirmation-modern.component';
 import { ConfirmationFullscreenComponent } from './pages/authentication/confirmation/confirmation-fullscreen/confirmation-fullscreen.component';
-import { MessageMenuComponent } from './components/message-menu/message-menu.component';
-import { ShortcutsMenuComponent } from './components/shortcuts-menu/shortcuts-menu.component';
+import { MessageMenuComponent } from './components/menus/message-menu/message-menu.component';
+import { ShortcutsMenuComponent } from './components/menus/shortcuts-menu/shortcuts-menu.component';
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { IssuesChartComponent } from './components/issues-chart/issues-chart.component';
-import { TasksChartsComponent } from './components/tasks-charts/tasks-charts.component';
-import { BudgetChartComponent } from './components/budget-chart/budget-chart.component';
-import { WeeklyExpensesComponent } from './components/weekly-expenses/weekly-expenses.component';
-import { MonthlyExpensesComponent } from './components/monthly-expenses/monthly-expenses.component';
-import { YearlyExpensesComponent } from './components/yearly-expenses/yearly-expenses.component';
-import { BudgetTableComponent } from './components/budget-table/budget-table.component';
-import { TeamMembersComponent } from './components/team-members/team-members.component';
+import { IssuesChartComponent } from './components/charts/issues-chart/issues-chart.component';
+import { TasksChartsComponent } from './components/charts/tasks-charts/tasks-charts.component';
+import { BudgetChartComponent } from './components/charts/budget-chart/budget-chart.component';
+import { WeeklyExpensesComponent } from './components/charts/weekly-expenses/weekly-expenses.component';
+import { MonthlyExpensesComponent } from './components/charts/monthly-expenses/monthly-expenses.component';
+import { YearlyExpensesComponent } from './components/charts/yearly-expenses/yearly-expenses.component';
+import { BudgetTableComponent } from './components/charts/budget-table/budget-table.component';
+import { TeamMembersComponent } from './components/team/team-members/team-members.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
-import { BalanceChartComponent } from './components/balance-chart/balance-chart.component';
-import { EarningsChartComponent } from './components/earnings-chart/earnings-chart.component';
-import { RealtimeChartComponent } from './components/realtime-chart/realtime-chart.component';
-import { LocationChartComponent } from './components/location-chart/location-chart.component';
+import { BalanceChartComponent } from './components/charts/balance-chart/balance-chart.component';
+import { EarningsChartComponent } from './components/charts/earnings-chart/earnings-chart.component';
+import { RealtimeChartComponent } from './components/charts/realtime-chart/realtime-chart.component';
+import { LocationChartComponent } from './components/charts/location-chart/location-chart.component';
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
-import { MonthlyUsersComponent } from './components/monthly-users/monthly-users.component';
+import { MonthlyUsersComponent } from './components/charts/monthly-users/monthly-users.component';
 
 import { PoiComponent } from './pages/poi/poi.component';
 import { EmailComposeEditorComponent } from './components/email-compose-editor/email-compose-editor.component';
@@ -108,26 +111,28 @@ import { ExploreBtnComponent } from './components/buttons/explore-btn/explore-bt
 import { ProfileComponent } from './pages/profile/profile.component';
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
-import { TeamMembersCarouselComponent } from './components/team-members-carousel/team-members-carousel.component';
-import { FeaturesSectionComponent } from './components/features-section/features-section.component';
-import { FaqSectionComponent } from './components/faq-section/faq-section.component';
+import { TeamMembersCarouselComponent } from './components/team/team-members-carousel/team-members-carousel.component';
+import { FeaturesSectionComponent } from './components/features/features-section/features-section.component';
+import { FaqSectionComponent } from './components/faq/faq-section/faq-section.component';
 import { Error404Component } from './pages/error/error-404/error-404.component';
-import { MegamenuComponent } from './components/megamenu/megamenu.component';
+import { MegamenuComponent } from './components/menus/megamenu/megamenu.component';
 import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
 import { SupportComponent } from './pages/help-center/support/support.component';
 import { HelpHomeComponent } from './pages/help-center/help-home/help-home.component';
 import { GuidesComponent } from './pages/help-center/guides/guides.component';
-import { FaqSection2Component } from './components/faq-section2/faq-section2.component';
+import { FaqSection2Component } from './components/faq/faq-section2/faq-section2.component';
 import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
 import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
 import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
 import { AboutComponent } from './pages/about/about.component';
-import { TeamSectionComponent } from './components/team-section/team-section.component';
-import { FeaturesSection2Component } from './components/features-section2/features-section2.component';
+import { TeamSectionComponent } from './components/team/team-section/team-section.component';
+import { FeaturesSection2Component } from './components/features/features-section2/features-section2.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
-import { FeaturesSection3Component } from './components/features-section3/features-section3.component';
-import { TeamSection2Component } from './components/team-section2/team-section2.component';
+import { FeaturesSection3Component } from './components/features/features-section3/features-section3.component';
+import { TeamSection2Component } from './components/team/team-section2/team-section2.component';
+import { PricingSectionComponent } from './components/pricing/pricing-section/pricing-section.component';
+
 
 
 
@@ -207,6 +212,7 @@ import { TeamSection2Component } from './components/team-section2/team-section2.
     BlogPostsComponent,
     FeaturesSection3Component,
     TeamSection2Component,
+    PricingSectionComponent,
 
 
 
@@ -252,11 +258,12 @@ import { TeamSection2Component } from './components/team-section2/team-section2.
     CarouselModule,
     RatingModule,
     MegaMenuModule,
-    TagModule
+    TagModule,
   ],
   providers: [
-    provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: ReloadInterceptorService, multi: true},
+    AppComponent,
   ],
   bootstrap: [AppComponent]
 })

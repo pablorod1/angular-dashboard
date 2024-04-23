@@ -1,10 +1,10 @@
-<section class="section">
+<section class="section" [ngClass]="{'scrolled': isScrolled}">
   <div class="container">
-    <div class="title py-3">
+    <div class="title py-3" [ngClass]="{'title-scrolled' : isScrolled}">
       <h1> Landing Page </h1>
       <h2> Everything you need to start and run your own Business</h2>
     </div>
-    <div class="arrow-container d-flex flex-column justify-content-center align-items-center">
+    <div class="arrow-container">
       <button class="btn arrow bounce"><i class="bi bi-chevron-down"></i></button>
       <button class="btn arrow bounce"><i class="bi bi-chevron-down"></i></button>
       <button class="btn arrow bounce"><i class="bi bi-chevron-down"></i></button>
@@ -17,4 +17,6 @@
 
 <!-- Team Section Carousel -->
 <app-team-section2></app-team-section2>
+
 <!-- Pricing Cards -->
+<app-pricing-section></app-pricing-section>

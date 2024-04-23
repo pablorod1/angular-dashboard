@@ -1,0 +1,31 @@
+<section class="section">
+  <div class="container">
+    <h1> Creators </h1>
+    <div class="row w-100">
+      <div class="col-lg-4 col-md-6 d-flex flex-column justify-content-center align-items-center gap-3" *ngFor="let member of teamMembers | slice:2:5">
+        <div class="img-container">
+          <img loading="lazy" [src]="member.imageUrl" [alt]="member.name" class="profile-picture">
+        </div>
+        <div class="info-container text-center">
+          <p class="text-muted"> A group becomes a team when each member is sure enough of himself and his contribution to praise the skill of the others. No one can whistle a symphony. It takes orchestra to play it. </p>
+        </div>
+        <div class="socials-container">
+          <ul class="list-unstyled d-flex gap-3">
+            <li>
+              <a class="btn" style="background-color: #3b5998;" role="button"><i class="bi bi-facebook"></i>
+              </a>
+            </li>
+            <li>
+              <a class="btn" style="background-color: #ac2bac;" role="button"><i class="bi bi-instagram"></i>
+              </a>
+            </li>
+            <li>
+              <a class="btn" style="background-color: #333333;" role="button"><i class="bi bi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

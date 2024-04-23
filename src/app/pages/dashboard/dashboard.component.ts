@@ -5,7 +5,7 @@ import {
   Output,
   HostListener,
 } from '@angular/core';
-import { Member } from '../../components/team-members/team-members';
+import { Member } from '../../components/team/team-members/team-members';
 import { TeamMembersDataService } from '../../services/team-members-data.service';
 import {
   trigger,

@@ -2,7 +2,14 @@
 <p-dialog #search [(visible)]="visible" position="top" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw', position: 'relative', top: '90px' }" [draggable]="false" [resizable]="false">
   <ng-template pTemplate="headless">
     <form class="d-flex" role="search">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchQuery">
     </form>
+    <div *ngIf="filteredPages.length > 0">
+      <ul>
+        <li *ngFor="let page of filteredPages">
+          <a [routerLink]="page.link">{{ page.name }}</a>
+        </li>
+      </ul>
+    </div>
   </ng-template>
 </p-dialog>
