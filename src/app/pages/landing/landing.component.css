@@ -51,6 +51,7 @@
   font-weight: 600;
   line-height: 3rem;
   color: #fff;
+  text-wrap: balance;
 }
 .title h2{
   font-size: 28px;

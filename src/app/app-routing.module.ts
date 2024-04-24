@@ -48,6 +48,8 @@ import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-tab
 
 // Errors
 import { Error404Component } from './pages/error/error-404/error-404.component';
+import { Error500Component } from './pages/error/error-500/error-500.component';
+import { MaintenanceComponent } from './pages/error/maintenance/maintenance.component';
 
 // Help Center
 import { HelpHomeComponent } from './pages/help-center/help-home/help-home.component';
@@ -117,6 +119,10 @@ const routes: Routes = [
   // Errors
   // 404
   {path: 'error-404', component: Error404Component},
+  // 500
+  {path: 'error-500', component: Error500Component},
+  // Maintenance
+  {path: 'maintenance', component: MaintenanceComponent},
 
   // Help Center
   {path: 'help-home', component: HelpHomeComponent},

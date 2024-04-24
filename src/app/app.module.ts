@@ -132,6 +132,11 @@ import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
 import { FeaturesSection3Component } from './components/features/features-section3/features-section3.component';
 import { TeamSection2Component } from './components/team/team-section2/team-section2.component';
 import { PricingSectionComponent } from './components/pricing/pricing-section/pricing-section.component';
+import { Error500Component } from './pages/error/error-500/error-500.component';
+import { MaintenanceComponent } from './pages/error/maintenance/maintenance.component';
+import { TeamSection3Component } from './components/team/team-section3/team-section3.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import { SubscribeBtnComponent } from './components/buttons/subscribe-btn/subscribe-btn.component';
 
 
 
@@ -213,6 +218,11 @@ import { PricingSectionComponent } from './components/pricing/pricing-section/pr
     FeaturesSection3Component,
     TeamSection2Component,
     PricingSectionComponent,
+    Error500Component,
+    MaintenanceComponent,
+    TeamSection3Component,
+    NewsletterComponent,
+    SubscribeBtnComponent,
 
 
 

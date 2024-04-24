@@ -1,3 +1,136 @@
-<section class="section">
-
+<section class="section" [ngClass]="{'scrolled': isScrolled}">
+  <div class="container">
+    <div class="title py-3" [ngClass]="{'title-scrolled' : isScrolled}">
+      <h1> A place for Entrepreneurs to Share and Discover New Stories </h1>
+      <div class="socials-container">
+        <ul class="list-unstyled d-flex gap-3">
+          <li>
+            <a class="btn" style="background-color: #3b5998;" role="button"><i class="bi bi-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="btn" style="background-color: #ac2bac;" role="button"><i class="bi bi-instagram"></i>
+            </a>
+          </li>
+          <li>
+            <a class="btn" style="background-color: #333333;" role="button"><i class="bi bi-github"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
+<section class="section2">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 p-0">
+        <div class="blog-post">
+          <div class="blog-post-img">
+            <img src="../../../assets/ppl-vacations.webp" class="blog-picture" alt="Blog Post 1">
+          </div>
+          <div class="blog-post-info">
+            <h3 role="button" class="blog-post-title">The Best Way to Start Your Day</h3>
+            <div class="blog-title-info">
+              <span class="blog-post-author"><i class="me-2 bi bi-person-circle"></i> John Doe </span>
+              <span class="blog-post-date">January 1, 2021</span>
+              <span class="blog-post-category"> People </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 p-0">
+        <div class="card">
+          <div class="card-info">
+            <h3 role="button" class="card-title">The Best Way to Start Your Day</h3>
+            <div class="card-title-info d-flex align-items-center gap-5 ">
+              <span class="blog-post-author d-flex align-items-center"><i class="me-2 bi bi-person-circle"></i> John Doe
+              </span>
+              <span class="blog-post-date">January 1, 2021</span>
+              <span class="blog-post-category"> People </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 p-0">
+        <div class="blog-post">
+          <div class="blog-post-img">
+            <img src="../../../assets/street.webp" class="blog-picture" alt="Blog Post 1">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 p-0">
+        <div class="card">
+          <div class="card-info">
+            <h3 role="button" class="card-title">The Best Way to Start Your Day</h3>
+            <div class="card-title-info d-flex align-items-center gap-5 ">
+              <span class="blog-post-author d-flex align-items-center"><i class="me-2 bi bi-person-circle"></i> John Doe
+              </span>
+              <span class="blog-post-date">January 1, 2021</span>
+              <span class="blog-post-category"> People </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 p-0">
+        <div class="blog-post">
+          <div class="blog-post-img">
+            <img src="../../../assets/street.webp" class="blog-picture" alt="Blog Post 1">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 p-0">
+        <div class="blog-post">
+          <div class="blog-post-img">
+            <img src="../../../assets/ppl-vacations.webp" class="blog-picture" alt="Blog Post 1">
+          </div>
+          <div class="blog-post-info">
+            <h3 role="button" class="blog-post-title">The Best Way to Start Your Day</h3>
+            <div class="blog-title-info">
+              <span class="blog-post-author"><i class="me-2 bi bi-person-circle"></i> John Doe </span>
+              <span class="blog-post-date">January 1, 2021</span>
+              <span class="blog-post-category"> People </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section2 other-posts-section">
+  <div class="container">
+    <div class="title py-2">
+      <h2> You may also be interested in </h2>
+    </div>
+    <div class="cards-container">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let post of posts">
+          <div class="card">
+            <div class="card-body">
+              <img [src]="post.img" class="card-img" [alt]="post.category">
+              <h5 [ngClass]="{
+                'text-primary': post.category === 'People',
+                'text-info': post.category === 'Travel',
+                'text-danger': post.category === 'Shopping'
+              }" class="post-category"> {{post.category}} </h5>
+              <h3 class="post-title"> {{post.title}} </h3>
+              <p class="post-description text-muted"> {{post.description}} <small class="text-muted"><a href=""> Read More </a></small> </p>
+
+              <div class="user-info">
+                <img [src]="post.userImg" class="user-img" [alt]="post.userName">
+                <h5 class="post-username mb-0"> {{post.userName}} </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-team-section3></app-team-section3>
+
+<app-newsletter></app-newsletter>
