@@ -14,3 +14,20 @@
 .form-control:focus, .form-control:not(:focus){
   border: 0;
 }
+li:hover{
+  background-color: #4b4bdf18;
+}
+a{
+  text-decoration: none;
+  color: #4b4bdf;
+  font-weight: 500;
+  font-size: 18px;
+}
+.list{
+  background-color: #fff;
+  box-shadow: 10px 20px 30px -10px rgba(0, 0, 0, 0.3); /* Efecto de sombra */
+}
+.list-active{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

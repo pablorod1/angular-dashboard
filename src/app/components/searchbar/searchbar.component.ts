@@ -13,15 +13,33 @@ export interface Page {
 export class SearchbarComponent {
   visible: boolean = false;
   searchQuery: string = '';
-  filteredPages!: Page[];
+  filteredPages: Page[] = [];
+  listActive: boolean = false;
 
 
   showDialog() {
     this.visible = !this.visible;
+    this.searchQuery = '';
+    this.filterPages();
   }
 
 
 
+  filterPages() {
+    if (this.searchQuery === '') {
+      this.filteredPages = [];
+      this.listActive = false;
+    } else {
+      this.filteredPages = this.pages.filter(page =>
+        page.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+      this.listActive = true;
+    }
+  }
+
+  onSearchChange() {
+    this.filterPages();
+  }
 
   pages: Page[] = [
     { name: 'Dashboard', link: '/dashboard' },
