@@ -5,6 +5,7 @@ import { PrimeNGConfig } from 'primeng/api';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+
 })
 export class AppComponent implements OnInit {
   title = 'Angular Template';

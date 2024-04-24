@@ -235,3 +235,7 @@ body {
 ::ng-deep .p-divider-content {
   background-color: #fff !important;
 }
+.navbar {
+  background-color: #023047 !important;
+  color: #fff;
+}
