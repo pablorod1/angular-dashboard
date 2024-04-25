@@ -152,7 +152,7 @@
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  text-wrap: nowrap;
+  text-wrap: balance;
   color: #444;
 }
 .card-title{
@@ -163,6 +163,7 @@
   margin: 3rem 0;
   max-width: 350px;
   color: #444;
+  line-height: 2.5rem;
 }
 .card-title:hover{
   text-decoration: underline;

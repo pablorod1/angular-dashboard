@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InvoicesTableDataService } from '../../../services/charts/invoices-table-data.service';
-import { Invoice } from '../../../services/charts/invoices-table-data.service';
+import { InvoicesTableDataService } from '../../../services/invoices-table-data.service';
+import { Invoice } from '../../../services/invoices-table-data.service';
 import {
   trigger,
   transition,

@@ -8,13 +8,13 @@ html,
 body {
   height: 100%;
   font-family: "Poppins", sans-serif;
-  background-color: #f6f6f6;
+  background-color: #f6f6f6 !important;
   scroll-behavior: smooth;
 }
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background-color: #f6f6f6;
+  background-color: #f6f6f6 !important;
   scroll-behavior: smooth;
 }
 .btn {
@@ -235,7 +235,8 @@ body {
 ::ng-deep .p-divider-content {
   background-color: #fff !important;
 }
-.navbar {
+::ng-deep .navbar {
+  background: #023047 !important;
   background-color: #023047 !important;
-  color: #fff;
+  z-index: 1000 !important;
 }

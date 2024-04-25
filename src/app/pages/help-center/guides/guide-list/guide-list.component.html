@@ -1,0 +1,20 @@
+<section class="section">
+  <div class="container title">
+    <button class="btn" routerLink="/guides">
+      <i class="bi bi-arrow-left"></i>
+      <span> All guides </span>
+    </button>
+    <h1> {{guide.title}} </h1>
+  </div>
+  <div class="container guides-container">
+    <div class="row g-4">
+      <div class="col-md-6 p-0">
+        <ul class="list-unstyled">
+          <li class="guide-item" *ngFor="let guide of guide.guideList">
+            <a class="guide-link"> {{guide.title}} </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

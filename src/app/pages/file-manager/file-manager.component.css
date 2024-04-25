@@ -1,0 +1,129 @@
+.text-html{
+  color: #E65100;
+}
+.text-css{
+  color: #0277BD;
+}
+.text-js{
+  color: #FFD600;
+}
+.text-psd{
+  color: #03A9F4;
+}
+.text-ai{
+  color: #FF6D00;
+}
+
+.section {
+  padding: 0;
+}
+.sidebar {
+  background-color: #f1f1f1;
+  border-right: 2px solid #4b4bdfa3;
+  padding: 0.5rem;
+}
+.title {
+  color: #023047;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.logo {
+  max-width: 50px;
+  width: 100%;
+}
+.list-item {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  color: #4b4bdf;
+}
+.list-item.active {
+  background-color: #4b4bdf1d;
+  border-radius: 8px;
+}
+.profile-picture {
+  max-width: 20px;
+  border-radius: 50%;
+  width: 100%;
+}
+.container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .header .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #023047;
+}
+.input-container {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.filter-input {
+  padding-left: 30px; /* Espacio para el ícono */
+  width: 0; /* Inicialmente oculto */
+  overflow: hidden; /* Para ocultar completamente el input */
+  transition: width 0.3s ease; /* Transición suave al mostrar */
+}
+
+/* Mostrar el input cuando está dentro del contenedor y en foco */
+.input-container:focus-within .filter-input {
+  width: 250px;
+}
+::ng-deep .p-divider-content {
+  position: relative;
+  left: -30px;
+  padding: 5px 20px;
+  border-radius: 6px;
+  background-color: #ddd;
+  color: #023047;
+  font-weight: 600;
+}
+.folders {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.folder{
+  position: relative;
+}
+.folder span{
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fd9928;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.files{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 2rem;
+  padding: 1rem;
+}
+.file{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.file span{
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.file i{
+  font-size: 120px;
+}

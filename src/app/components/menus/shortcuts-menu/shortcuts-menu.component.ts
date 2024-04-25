@@ -28,26 +28,31 @@ export class ShortcutsMenuComponent {
     },
     {
       id: 2,
-      title: 'Tasks',
-      description: '7 pending tasks',
-      icon: 'bi-journal-check',
-      url: ''
+      title: 'Help Center',
+      description: 'FAQs, Guides, etc.',
+      icon: 'bi-question-circle',
+      url: '/help-home'
     },
     {
       id: 3,
+      title: 'Landing Page',
+      icon: 'bi-rocket-takeoff',
+      url: '/landing'
+    },
+    {
+      id: 4,
+      title: 'Profile',
+      icon: 'bi-person-circle',
+      url: '/profile'
+    },
+    {
+      id: 5,
       title: 'Settings',
       icon: 'bi-gear',
       url: '/acc-settings'
     },
     {
-      id: 4,
-      title: 'Contacts',
-      description: 'List of all contacts',
-      icon: 'bi-people',
-      url: ''
-    },
-    {
-      id: 5,
+      id: 6,
       title: 'Log Out',
       icon: 'bi-box-arrow-right',
       url: '/signout-fullscreen'

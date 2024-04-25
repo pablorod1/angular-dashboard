@@ -1,0 +1,79 @@
+<section class="section">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 p-0">
+        <div class="sidebar">
+          <div class="header d-flex align-items-center">
+            <img src="../../../assets/angular-logo.webp" alt="Angular Logo" class="logo">
+            <h4 class="mb-0 title">Lucentia Cloud</h4>
+          </div>
+          <div class="body py-3">
+            <ul class="list-unstyled">
+              <li class="list-item active">
+                <a> <i class="me-2 bi bi-folder-fill"></i> File Manager </a>
+              </li>
+              <li class="list-item">
+                <a> <i class="me-2 bi bi-star-fill"></i> Favorite </a>
+              </li>
+              <li class="list-item">
+                <a> <i class="me-2 bi bi-share-fill"></i> Shared </a>
+              </li>
+            </ul>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="footer">
+            <ul class="list-unstyled">
+              <li class="list-item">
+                <a> <i class="me-2 bi bi-gear-fill"></i> Settings </a>
+              </li>
+              <li class="list-item d-flex align-items-center">
+                <img src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Picture"
+                  class="profile-picture me-2">
+                <span> Javier Martínez </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 p-0">
+        <div class="container px-0 py-3">
+          <div class="header px-4 py-3">
+            <h4 class="title mb-0">File Manager</h4>
+            <div class="input-container">
+              <label for="searchInput" class="search-icon">
+                <i class="bi bi-search"></i>
+              </label>
+              <input pInputText type="text" id="searchInput" class="filter-input" placeholder="Search keyword" />
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="body p-4">
+            <div class="folder-container">
+              <p-divider align="left" type="solid"> Folders </p-divider>
+              <div class="folders">
+                <div class="folder" *ngFor="let folder of folders">
+                  <img src="../../../assets/icons/folder.svg" alt="Folder Icon" class="folder-icon">
+                  <span> {{folder.name}} </span>
+                </div>
+              </div>
+              <p-divider align="left" type="solid"> Adobe Files </p-divider>
+              <div class="files">
+                <div class="file" *ngFor="let psdFile of psdFiles">
+                  <i class="bi" [ngClass]="getFileIcon(psdFile.ext)" ></i>
+                  <span> {{psdFile.name}} </span>
+                </div>
+              </div>
+              <p-divider align="left" type="solid"> Web Files </p-divider>
+              <div class="files">
+                <div class="file" *ngFor="let webFile of webFiles">
+                  <i class="bi" [ngClass]="getFileIcon(webFile.ext)" ></i>
+                  <span> {{webFile.name}} </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

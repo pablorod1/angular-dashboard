@@ -39,10 +39,10 @@ import { MailboxComponent } from './pages/mailbox/mailbox.component';
 // Account Settings
 import { AccSettingsComponent } from './pages/acc-settings/acc-settings.component';
 
-// Invoice Page
-
 // User Profile
 import { ProfileComponent } from './pages/profile/profile.component';
+
+// Pricing
 import { PricingClassicComponent } from './pages/pricing/pricing-classic/pricing-classic.component';
 import { PricingTableComponent } from './pages/pricing/pricing-table/pricing-table.component';
 
@@ -56,14 +56,22 @@ import { HelpHomeComponent } from './pages/help-center/help-home/help-home.compo
 import { FaqsComponent } from './pages/help-center/faqs/faqs.component';
 import { SupportComponent } from './pages/help-center/support/support.component';
 import { GuidesComponent } from './pages/help-center/guides/guides.component';
+import { GuideListComponent } from './pages/help-center/guides/guide-list/guide-list.component';
 import { GuideComponent } from './pages/help-center/guides/guide/guide.component';
+
+// Invoices
 import { InvoiceClassicComponent } from './pages/invoice/invoice-classic/invoice-classic.component';
 import { InvoicesTableComponent } from './pages/invoice/invoices-table/invoices-table.component';
 
 // About Us Page
 import { AboutComponent } from './pages/about/about.component';
+// Landing Page
 import { LandingComponent } from './pages/landing/landing.component';
+// Blog Posts Page
 import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
+
+// File Manager
+import { FileManagerComponent } from './pages/file-manager/file-manager.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -129,7 +137,8 @@ const routes: Routes = [
   {path: 'faqs', component: FaqsComponent},
   {path: 'support', component: SupportComponent},
   {path: 'guides', component: GuidesComponent},
-  {path: 'guides/guide', component: GuideComponent},
+  { path: 'guides/:title', component: GuideListComponent},
+  {path: 'guide/:title', component: GuideComponent},
 
   // About Us Page
   {path: 'about', component: AboutComponent},
@@ -137,6 +146,9 @@ const routes: Routes = [
   {path: 'landing', component: LandingComponent},
   // Blog Posts Page
   {path: 'blog', component: BlogPostsComponent},
+
+  // File Manager
+  { path: 'file-manager', component: FileManagerComponent },
 
   // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/dashboard'},

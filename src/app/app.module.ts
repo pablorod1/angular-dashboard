@@ -137,6 +137,8 @@ import { MaintenanceComponent } from './pages/error/maintenance/maintenance.comp
 import { TeamSection3Component } from './components/team/team-section3/team-section3.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
 import { SubscribeBtnComponent } from './components/buttons/subscribe-btn/subscribe-btn.component';
+import { GuideListComponent } from './pages/help-center/guides/guide-list/guide-list.component';
+import { FileManagerComponent } from './pages/file-manager/file-manager.component';
 
 
 
@@ -223,6 +225,9 @@ import { SubscribeBtnComponent } from './components/buttons/subscribe-btn/subscr
     TeamSection3Component,
     NewsletterComponent,
     SubscribeBtnComponent,
+    GuideListComponent,
+    FileManagerComponent,
+
 
 
 
