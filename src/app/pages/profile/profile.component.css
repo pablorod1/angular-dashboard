@@ -78,12 +78,7 @@
   gap: 10px;
 }
 
-.outline-success {
-  border: 1px solid #28a745;
-}
-.outline-danger {
-  border: 1px solid #dc3545;
-}
+
 ::ng-deep .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.mdc-tab-indicator--active {
   background-color: #fff;
   border-radius: 6px;

@@ -41,6 +41,8 @@ import {CarouselModule} from 'primeng/carousel';
 import {RatingModule} from 'primeng/rating';
 import { MegaMenuModule} from 'primeng/megamenu';
 import { TagModule } from 'primeng/tag';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DragDropModule } from 'primeng/dragdrop';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -274,6 +276,8 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     RatingModule,
     MegaMenuModule,
     TagModule,
+    ContextMenuModule,
+    DragDropModule,
   ],
   providers: [
     provideAnimationsAsync(),
