@@ -39,6 +39,7 @@
     "jspdf-autotable": "^3.8.2",
     "lodash": "^4.17.21",
     "ng-apexcharts": "^1.9.0",
+    "ngx-filter-pipe": "^2.1.2",
     "popper.js": "^1.16.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.14.1",

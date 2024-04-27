@@ -14,8 +14,6 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { transform } from 'lodash';
-import { withDebugTracing } from '@angular/router';
 @Component({
   selector: 'app-file-manager',
   templateUrl: './file-manager.component.html',
@@ -60,8 +58,12 @@ export class FileManagerComponent implements OnInit {
   allFiles: boolean = true;
   showDocumentFolder: boolean = false;
   showDraftFolder: boolean = false;
+  showTrashFolder: boolean = false;
+  showDownloadsFolder: boolean = false;
   documentFolder!: FileManagerItem[];
   draftFolder!: FileManagerItem[];
+  trashFolder!: FileManagerItem[];
+  downloadsFolder!: FileManagerItem[];
   oldFolder!: string;
   createFolderDialog: boolean = false;
   newFolderName: string = '';
@@ -75,6 +77,7 @@ export class FileManagerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.fileManagerDataService.autoAddFilesToFolders();
     this.folders = this.fileManagerDataService.getFolders();
     this.files = this.fileManagerDataService.getFiles();
     this.psdFiles = this.fileManagerDataService.getPSDFiles();
@@ -83,13 +86,16 @@ export class FileManagerComponent implements OnInit {
     this.totalSize = this.fileManagerDataService.getTotalSize();
     this.documentFolder = this.fileManagerDataService.getDocumentFolderFiles();
     this.draftFolder = this.fileManagerDataService.getDraftsFolderFiles();
+    this.trashFolder = this.fileManagerDataService.getTrashFolderFiles();
+    this.downloadsFolder = this.fileManagerDataService.getDownloadsFolderFiles();
     this.filesMenu = [
       {
         label: 'Download',
         icon: 'bi bi-download',
         command: () => {
           if (this.selectedFile) {
-          this.downloadFile(this.selectedFile)}
+            this.downloadFile(this.selectedFile);
+          }
         },
       },
       {
@@ -100,32 +106,39 @@ export class FileManagerComponent implements OnInit {
             label: 'Documents',
             icon: 'bi bi-folder',
             command: () => {
-              if (this.selectedFile) this.moveFile(this.selectedFile, 'Documents')},
+              if (this.selectedFile)
+                this.moveFile(this.selectedFile, 'Documents');
+            },
           },
           {
             label: 'Drafts',
             icon: 'bi bi-folder',
-            command: () => { if ( this.selectedFile) this.moveFile(this.selectedFile, 'Drafts')},
+            command: () => {
+              if (this.selectedFile) this.moveFile(this.selectedFile, 'Drafts');
+            },
           },
         ],
       },
       {
         label: 'Rename',
         icon: 'bi bi-pencil',
-        command: () => {if (this.selectedFile) this.renameFile(this.selectedFile)},
+        command: () => {
+          if (this.selectedFile) this.renameFile(this.selectedFile);
+        },
       },
       {
         label: 'Delete',
         icon: 'bi bi-trash3',
-        command: () => {if (this.selectedFile) this.deleteFile(this.selectedFile)},
+        command: () => {
+          if (this.selectedFile) this.deleteFile(this.selectedFile);
+        },
       },
     ];
     this.folderMenu = [
       {
         label: 'Create Folder',
         icon: 'bi bi-folder-plus',
-        command: () => this.createFolderDialog = true,
-
+        command: () => (this.createFolderDialog = true),
       },
       {
         label: 'Delete',
@@ -134,7 +147,6 @@ export class FileManagerComponent implements OnInit {
           return {
             label: folder.name,
             icon: 'bi bi-folder',
-
           };
         }),
       },
@@ -271,7 +283,7 @@ export class FileManagerComponent implements OnInit {
             new Date(file.lastModified).toISOString()
           ),
           size: this.formatFileSize(file.size).toString(),
-          folder: '',
+          folderName: '',
           file: file,
         };
         if (
@@ -300,10 +312,9 @@ export class FileManagerComponent implements OnInit {
     }
   }
 
-
   dropFile(folder: string) {
-    if (this.selectedFile){
-      this.moveFile(this.selectedFile, folder)
+    if (this.selectedFile) {
+      this.moveFile(this.selectedFile, folder);
     }
   }
 
@@ -375,83 +386,160 @@ export class FileManagerComponent implements OnInit {
   }
 
   moveFile(file: FileManagerItem, folder: string) {
-    this.oldFolder = file.folder;
-    file.folder = folder;
-    this.draftFolder = this.draftFolder.filter((f) => f !== file);
-    this.documentFolder = this.documentFolder.filter((f) => f !== file);
-
-
-    if (this.oldFolder === folder) {
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Canceled',
-        detail: 'File already in ' + folder,
-        life: 3000,
-      });
-    } else if (folder === 'Documents') {
-      const isFileInFolder = this.documentFolder.some((f) => f.name === file.name);
-      if (!isFileInFolder) {
-        this.documentFolder.push(file);
-        if (this.oldFolder !== '') {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
-            life: 3000,
-          });
-        } else {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: file.name + ' moved to ' + folder,
-            life: 3000,
-          });
-        }
-      }
-      this.documentFolder.push(file);
-    } else if (folder === 'Drafts') {
-      const isFileInFolder = this.draftFolder.some((f) => f.name === file.name);
-      if (!isFileInFolder) {
-        this.draftFolder.push(file);
-        if (this.oldFolder !== '') {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
-            life: 3000,
-          });
-        } else {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: file.name + ' moved to ' + folder,
-            life: 3000,
-          });
-        }
-      } else {
+    this.oldFolder = file.folderName;
+    file.folderName = folder;
+    switch (folder) {
+      case this.oldFolder:
         this.messageService.add({
           severity: 'info',
           summary: 'Canceled',
           detail: 'File already in ' + folder,
           life: 3000,
         });
-      }
+        break;
+      case 'Documents':
+        this.draftFolder = this.draftFolder.filter((f) => f !== file);
+        const isFileInDocumentFolder = this.documentFolder.some(
+          (f) => f.id === file.id
+        );
+        if (!isFileInDocumentFolder) {
+          this.documentFolder.push(file);
+          if (this.oldFolder !== '') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail:
+                file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
+              life: 3000,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: file.name + ' moved to ' + folder,
+              life: 3000,
+            });
+          }
+        }
+        break;
+      case 'Drafts':
+        this.documentFolder = this.documentFolder.filter((f) => f !== file);
+        const isFileInDraftFolder = this.draftFolder.some(
+          (f) => f.id === file.id
+        );
+        if (!isFileInDraftFolder) {
+          this.draftFolder.push(file);
+          if (this.oldFolder !== '') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail:
+                file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
+              life: 3000,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: file.name + ' moved to ' + folder,
+              life: 3000,
+            });
+          }
+        }
+        break;
+      case 'Trash':
+        this.documentFolder = this.documentFolder.filter((f) => f !== file);
+        this.draftFolder = this.draftFolder.filter((f) => f !== file);
+        const isFileInTrashFolder = this.trashFolder.some(
+          (f) => f.id === file.id
+        );
+        if (!isFileInTrashFolder) {
+          this.trashFolder.push(file);
+          if (this.oldFolder !== '') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail:
+                file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
+              life: 3000,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: file.name + ' moved to ' + folder,
+              life: 3000,
+            });
+          }
+        }
+        break;
+      case 'Downloads':
+        this.documentFolder = this.documentFolder.filter((f) => f !== file);
+        this.draftFolder = this.draftFolder.filter((f) => f !== file);
+        const isFileInDownloadsFolder = this.downloadsFolder.some(
+          (f) => f.id === file.id
+        );
+        if (!isFileInDownloadsFolder) {
+          this.trashFolder.push(file);
+          if (this.oldFolder !== '') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail:
+                file.name + ' moved from ' + this.oldFolder + ' to ' + folder,
+              life: 3000,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: file.name + ' moved to ' + folder,
+              life: 3000,
+            });
+          }
+        }
+        break;
+      default:
+        break;
     }
   }
 
   openFolder(folder: string) {
-    if (this.selectedFolder && folder === 'Documents') {
-      this.selectedFolder.name = 'Documents';
-      this.showDocumentFolder = true;
-      this.showDraftFolder = false;
-    } else if (this.selectedFolder && folder === 'Drafts') {
-      this.selectedFolder.name = 'Drafts';
-      this.showDocumentFolder = false;
-      this.showDraftFolder = true;
+    if (this.selectedFolder) {
+      switch (folder) {
+        case 'Documents':
+          this.selectedFolder.name = 'Documents';
+          this.showDocumentFolder = true;
+          this.showDraftFolder = false;
+          this.showTrashFolder = false;
+          this.showDownloadsFolder = false;
+          break;
+        case 'Drafts':
+          this.selectedFolder.name = 'Drafts';
+          this.showDocumentFolder = false;
+          this.showDraftFolder = true;
+          this.showTrashFolder = false;
+          this.showDownloadsFolder = false;
+          break;
+        case 'Trash':
+          this.selectedFolder.name = 'Trash';
+          this.showDocumentFolder = false;
+          this.showDraftFolder = false;
+          this.showTrashFolder = true;
+          this.showDownloadsFolder = false;
+          break;
+        case 'Downloads':
+          this.selectedFolder.name = 'Downloads';
+          this.showDocumentFolder = false;
+          this.showDraftFolder = false;
+          this.showTrashFolder = false;
+          this.showDownloadsFolder = true;
+          break;
+        default:
+          break;
+      }
     }
   }
-
-
 
   cancelCreateFolder() {
     this.createFolderDialog = false;
@@ -465,7 +553,7 @@ export class FileManagerComponent implements OnInit {
   }
 
   createFolder() {
-    if (this.newFolderName){
+    if (this.newFolderName) {
       const newFolder: FileManagerFolder = {
         id: this.folders.length + 1,
         name: this.newFolderName,

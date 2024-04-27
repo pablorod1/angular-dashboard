@@ -8,7 +8,7 @@ export interface FileManagerItem {
   modifiedOn: string;
   size: string;
   file: File;
-  folder: string;
+  folderName: string;
 }
 export interface FileManagerFolder {
   id: number;
@@ -21,25 +21,6 @@ export interface FileManagerFolder {
   providedIn: 'root',
 })
 export class FileManagerDataService {
-  private folders: FileManagerFolder[] = [
-    {
-      id: 1,
-      name: 'Documents',
-      size: '0B',
-      files: [
-        {
-          id: 1,
-          name: '120340.psd',
-          type: 'Photoshop',
-          ext: 'psd',
-          modifiedOn: this.formatDate(new Date().toISOString()),
-          size: '0B',
-          file: {} as File,
-          folder: 'Documents',
-        }
-      ]
-    }
-  ]
   private files: FileManagerItem[] = [
     {
       id: 1,
@@ -49,7 +30,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Drafts',
     },
     {
       id: 2,
@@ -59,7 +40,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Documents',
     },
     {
       id: 3,
@@ -69,7 +50,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Documents',
     },
     {
       id: 4,
@@ -79,7 +60,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Documents',
     },
     {
       id: 5,
@@ -89,7 +70,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Documents',
     },
     {
       id: 6,
@@ -99,7 +80,7 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Documents',
     },
     {
       id: 7,
@@ -109,9 +90,50 @@ export class FileManagerDataService {
       modifiedOn: this.formatDate(new Date().toISOString()),
       size: '0B',
       file: {} as File,
-      folder: '',
+      folderName: 'Drafts',
     },
   ];
+
+  private folders: FileManagerFolder[] = [
+    {
+      id: 1,
+      name: 'Documents',
+      size: '0B',
+      files: [
+
+      ]
+    },
+    {
+      id: 2,
+      name: 'Drafts',
+      size: '0B',
+      files: []
+    },
+    {
+      id: 3,
+      name: 'Downloads',
+      size: '0B',
+      files: []
+    },
+    {
+      id: 4,
+      name: 'Trash',
+      size: '0B',
+      files: []
+    },
+    {
+      id: 5,
+      name: 'Favorites',
+      size: '0B',
+      files: []
+    },
+    {
+      id: 6,
+      name: 'Shared',
+      size: '0B',
+      files: []
+    }
+  ]
 
   formatDate(date: string): string {
     const d = new Date(date);
@@ -137,6 +159,23 @@ export class FileManagerDataService {
     const second = ('0' + d.getSeconds()).slice(-2);
 
     return `${day} ${month} ${year} ${hour}:${minute}:${second}`;
+  }
+
+  autoAddFilesToFolders() {
+    this.files.forEach(file => {
+      if (file.folderName) {
+        // Busca y guarda la carpeta a la que pertenece el archivo
+        const folder = this.folders.find(f => f.name === file.folderName);
+
+        // Si la carpeta existe, agrega el archivo a los files de la carpeta
+        if (folder) {
+          if (!folder.files) {
+            folder.files = [];
+          }
+          folder.files.push(file);
+        }
+      }
+    });
   }
 
   getItems() {
@@ -180,9 +219,14 @@ export class FileManagerDataService {
     return this.folders.filter((item) => item.name === 'Documents')[0].files;
   }
   getDraftsFolderFiles() {
-    return this.files.filter((item) => item.folder === 'Drafts');
+    return this.folders.filter((item) => item.name === 'Drafts')[0].files;
   }
-
+  getTrashFolderFiles() {
+    return this.folders.filter((item) => item.name === 'Trash')[0].files;
+  }
+  getDownloadsFolderFiles() {
+    return this.folders.filter((item) => item.name === 'Downloads')[0].files;
+  }
   getTotalSize() {
     return this.files.reduce((acc, item) => acc + parseInt(item.size), 0);
   }

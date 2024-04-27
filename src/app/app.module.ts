@@ -278,6 +278,7 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     TagModule,
     ContextMenuModule,
     DragDropModule,
+
   ],
   providers: [
     provideAnimationsAsync(),
