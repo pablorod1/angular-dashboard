@@ -79,15 +79,23 @@ export class FileManagerComponent implements OnInit {
   ngOnInit() {
     this.fileManagerDataService.autoAddFilesToFolders();
     this.folders = this.fileManagerDataService.getFolders();
+
+    // Files
     this.files = this.fileManagerDataService.getFiles();
     this.psdFiles = this.fileManagerDataService.getPSDFiles();
     this.webFiles = this.fileManagerDataService.getWebFiles();
     this.otherFiles = this.fileManagerDataService.getOtherFiles();
+
+    // Total Size
     this.totalSize = this.fileManagerDataService.getTotalSize();
+
+    // Folders
     this.documentFolder = this.fileManagerDataService.getDocumentFolderFiles();
     this.draftFolder = this.fileManagerDataService.getDraftsFolderFiles();
     this.trashFolder = this.fileManagerDataService.getTrashFolderFiles();
     this.downloadsFolder = this.fileManagerDataService.getDownloadsFolderFiles();
+
+    // Context Menus
     this.filesMenu = [
       {
         label: 'Download',
@@ -153,6 +161,7 @@ export class FileManagerComponent implements OnInit {
     ];
   }
 
+  // Get the icon based on the file extension
   getFileIcon(ext: string) {
     switch (ext) {
       case 'psd':
@@ -174,6 +183,7 @@ export class FileManagerComponent implements OnInit {
     }
   }
 
+  // Get the type of file based on the file extension
   getFileType(ext: string) {
     switch (ext) {
       case 'psd':
@@ -195,6 +205,7 @@ export class FileManagerComponent implements OnInit {
     }
   }
 
+  // Delete File from all folders
   deleteFile(file: FileManagerItem) {
     if (this.selectedFile) {
       this.confirmationService.confirm({
@@ -236,6 +247,7 @@ export class FileManagerComponent implements OnInit {
     }
   }
 
+
   renameFile(file: FileManagerItem) {
     this.oldName = file.name;
     this.renamingFile = file;
@@ -260,6 +272,7 @@ export class FileManagerComponent implements OnInit {
     this.renamingFile = {} as FileManagerItem;
   }
 
+  // File Upload
   onFileSelected(fileEvent: any) {
     const file: File = fileEvent.target.files[0];
 
