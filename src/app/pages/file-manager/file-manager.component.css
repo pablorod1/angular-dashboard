@@ -13,8 +13,8 @@
 .text-ai {
   color: #ff6d00;
 }
-::ng-deep html{
-  overflow: hidden!important;
+::ng-deep html {
+  overflow: hidden !important;
 }
 .section {
   padding: 0;
@@ -46,10 +46,10 @@
   border-radius: 50%;
   width: 100%;
 }
-.full-container{
+.full-container {
   width: 100%;
 }
-.full-container{
+.full-container {
   transition: width 0.3s ease-in-out;
 }
 .file-manager-container .header {
@@ -67,12 +67,12 @@
   align-items: center;
   gap: 1rem;
 }
-.file-manager-body{
+.file-manager-body {
   overflow: auto;
   max-height: 80vh;
   overflow-x: visible !important;
 }
-.back-icon{
+.back-icon {
   font-size: 22px;
   color: #023047;
 }
@@ -96,7 +96,7 @@
   overflow: hidden; /* Para ocultar completamente el input */
   background-color: transparent;
   border: 0;
-  transition: width 0.3s ease, background-color .3s ease; /* Transición suave al mostrar */
+  transition: width 0.3s ease, background-color 0.3s ease; /* Transición suave al mostrar */
 }
 
 /* Mostrar el input cuando está dentro del contenedor y en foco */
@@ -125,6 +125,10 @@
   cursor: pointer;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
 }
+.folder :nth-child(2){
+  top: 40%;
+  font-size: 35px;
+}
 .folder span {
   position: absolute;
   bottom: 20%;
@@ -150,15 +154,17 @@
   align-items: center;
   gap: 1rem;
   cursor: pointer;
+  width: 100%;
+  max-width: 200px;
 }
-.file-name{
+.file-name {
+  text-align: center;
   font-weight: 500;
   text-transform: uppercase;
   font-size: 14px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 140px;
   width: 100%;
 }
 .file i {
@@ -173,73 +179,93 @@
 }
 ::ng-deep .p-menuitem-link {
   text-decoration: none !important;
-  padding: .5rem 1.2rem !important;
+  padding: 0.5rem 1.2rem !important;
 }
 ::ng-deep .p-contextmenu .p-menuitem-icon,
 ::ng-deep .p-contextmenu .p-menuitem-text {
   color: #626262 !important;
 }
-.form-control{
+.form-control {
   max-width: 150px;
   width: 100%;
 }
-.input-icon{
+.input-icon {
   font-size: 16px !important;
 }
-.btn:hover{
+.btn:hover {
   transform: none;
 }
-.info-btn i{
+.info-btn i {
   font-size: 22px;
   color: #4b4bdf !important;
 }
-.details-header{
+.details-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
 }
-.file-title{
+.file-title {
   display: flex;
   align-items: start;
-  gap: .5rem;
+  gap: 0.5rem;
   color: #023047;
 }
-.close-btn i{
+.close-btn i {
   font-size: 30px;
 }
-.file-icon{
+.file-icon {
   font-size: 30px;
 }
-.details-body{
+.details-body {
   padding-top: 1rem;
 }
-.details-row{
-  padding: .8rem 0;
+.details-row {
+  padding: 0.8rem 0;
 }
-.details-row h3{
-  font-size: .95rem;
+.details-row h3 {
+  font-size: 0.95rem;
   font-weight: 600;
   color: #023047;
 }
-.details-row span{
-  font-size: .9rem;
+.details-row span {
+  font-size: 0.9rem;
   color: #545454;
   font-weight: 400;
 }
-.dialog-container{
+.dialog-container {
   max-width: 400px;
   width: 100%;
 }
-.dialog-container h4{
+.dialog-container h4 {
   font-size: 1.2rem;
   font-weight: 600;
   color: #023047;
 }
-.dialog-container .form-group{
+.dialog-container .form-group {
   margin-bottom: 1rem;
 }
-@media (max-width: 1024px){
+::ng-deep .p-inputwrapper{
+  width: 100%;
+  min-width: 300px;
+}
+::ng-deep .p-multiselect-close {
+  display: none;
+}
+.multiselect-item{
+  display: flex;
+  align-items: center;
+  margin-left: .5rem;
+  gap: .5rem;
+  text-transform: capitalize;
+}
+.multiselect-item i{
+  font-size: 20px;
+}
+.multiselect-item span{
+  font-weight: 500;
+}
+@media (max-width: 1024px) {
   .file-manager-container .header {
     display: flex;
     align-items: start;
@@ -247,7 +273,7 @@
     gap: 1rem;
   }
 }
-@media (max-width: 768px){
+@media (max-width: 768px) {
   .file-manager-container .header .right-container {
     display: flex;
     justify-content: start;

@@ -8,132 +8,66 @@ export interface FileManagerItem {
   modifiedOn: string;
   size: string;
   file: File;
-  folderName: string;
+  folderName: string[];
 }
 export interface FileManagerFolder {
   id: number;
   name: string;
   files: FileManagerItem[];
   size: string;
+  icon: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileManagerDataService {
-  private files: FileManagerItem[] = [
-    {
-      id: 1,
-      name: '120340.psd',
-      type: 'Photoshop',
-      ext: 'psd',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Drafts',
-    },
-    {
-      id: 2,
-      name: '120350.html',
-      type: 'HTML',
-      ext: 'html',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Documents',
-    },
-    {
-      id: 3,
-      name: '120360.pdf',
-      type: 'PDF',
-      ext: 'pdf',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Documents',
-    },
-    {
-      id: 4,
-      name: '120370.css',
-      type: 'CSS',
-      ext: 'css',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Documents',
-    },
-    {
-      id: 5,
-      name: '120380.html',
-      type: 'HTML',
-      ext: 'html',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Documents',
-    },
-    {
-      id: 6,
-      name: '120390.js',
-      type: 'JavaScript',
-      ext: 'js',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Documents',
-    },
-    {
-      id: 7,
-      name: '120400.ai',
-      type: 'Illustrator',
-      ext: 'ai',
-      modifiedOn: this.formatDate(new Date().toISOString()),
-      size: '0B',
-      file: {} as File,
-      folderName: 'Drafts',
-    },
-  ];
+  private files: FileManagerItem[] = [];
 
   private folders: FileManagerFolder[] = [
     {
       id: 1,
       name: 'Documents',
       size: '0B',
-      files: [
-
-      ]
+      files: [],
+      icon: 'bi-file-earmark-text'
     },
     {
       id: 2,
       name: 'Drafts',
       size: '0B',
-      files: []
+      files: [],
+      icon: 'bi-pencil-square'
     },
     {
       id: 3,
       name: 'Downloads',
       size: '0B',
-      files: []
+      files: [],
+      icon: 'bi-download'
     },
     {
       id: 4,
       name: 'Trash',
       size: '0B',
-      files: []
+      files: [],
+      icon: 'bi-trash3'
     },
     {
       id: 5,
       name: 'Favorites',
       size: '0B',
-      files: []
+      files: [],
+      icon: 'bi-star'
     },
     {
       id: 6,
       name: 'Shared',
       size: '0B',
-      files: []
-    }
-  ]
+      files: [],
+      icon: 'bi-share'
+    },
+  ];
 
   formatDate(date: string): string {
     const d = new Date(date);
@@ -162,10 +96,12 @@ export class FileManagerDataService {
   }
 
   autoAddFilesToFolders() {
-    this.files.forEach(file => {
+    this.files.forEach((file) => {
       if (file.folderName) {
-        // Busca y guarda la carpeta a la que pertenece el archivo
-        const folder = this.folders.find(f => f.name === file.folderName);
+        // Busca y almacena la carpeta a la que pertenece el archivo
+        const folder = this.folders.find(
+          (item) => item.name === file.folderName[file.folderName.length - 1]
+        );
 
         // Si la carpeta existe, agrega el archivo a los files de la carpeta
         if (folder) {
@@ -176,59 +112,146 @@ export class FileManagerDataService {
         }
       }
     });
+    localStorage.setItem('folders', JSON.stringify(this.folders));
   }
 
-  getItems() {
+  getFiles() {
+    localStorage.setItem('files', JSON.stringify(this.files));
     return this.files;
   }
 
   getFolders() {
+    localStorage.setItem('folders', JSON.stringify(this.folders));
     return this.folders;
   }
 
-  getFiles() {
-    return this.files.filter((item) => item.type === 'file');
-  }
-
-  getPSDFiles() {
-    return this.files.filter(
-      (item) => item.ext === 'psd' || item.ext === 'ai' || item.ext === 'pdf'
-    );
+  getAdobeFiles() {
+    let files = JSON.parse(localStorage.getItem('adobeFiles') as string);
+    if (!files) {
+      files = this.files.filter(
+        (item) => item.ext === 'psd' || item.ext === 'ai' || item.ext === 'pdf'
+      );
+      localStorage.setItem('adobeFiles', JSON.stringify(files));
+    }
+    return files;
   }
 
   getWebFiles() {
-    return this.files.filter(
-      (item) => item.ext === 'html' || item.ext === 'css' || item.ext === 'js'
-    );
+    let files = JSON.parse(localStorage.getItem('webFiles') as string);
+    if (!files) {
+      files = this.files.filter(
+        (item) => item.ext === 'html' || item.ext === 'css' || item.ext === 'js'
+      );
+      localStorage.setItem('webFiles', JSON.stringify(files));
+    }
+    return files;
+  }
+
+  getOfficeFiles() {
+    let files = JSON.parse(localStorage.getItem('officeFiles') as string);
+    if (!files) {
+      files = this.files.filter(
+        (item) =>
+          item.ext === 'doc' ||
+          item.ext === 'docx' ||
+          item.ext === 'xls' ||
+          item.ext === 'xlsx' ||
+          item.ext === 'ppt' ||
+          item.ext === 'pptx'
+      );
+      localStorage.setItem('officeFiles', JSON.stringify(files));
+    }
+    return files;
   }
 
   getOtherFiles() {
-    return this.files.filter(
-      (item) =>
-        item.ext !== 'psd' &&
-        item.ext !== 'ai' &&
-        item.ext !== 'pdf' &&
-        item.ext !== 'html' &&
-        item.ext !== 'css' &&
-        item.ext !== 'js' &&
-        item.ext !== ''
-    );
+    let files = JSON.parse(localStorage.getItem('otherFiles') as string);
+    if (!files) {
+      files = this.files.filter(
+        (item) =>
+          item.ext !== 'psd' &&
+          item.ext !== 'ai' &&
+          item.ext !== 'pdf' &&
+          item.ext !== 'html' &&
+          item.ext !== 'css' &&
+          item.ext !== 'js' &&
+          item.ext !== 'doc' &&
+          item.ext !== 'docx' &&
+          item.ext !== 'xls' &&
+          item.ext !== 'xlsx' &&
+          item.ext !== 'ppt' &&
+          item.ext !== 'pptx'
+      );
+      localStorage.setItem('otherFiles', JSON.stringify(files));
+    }
+    return files;
   }
 
   getDocumentFolderFiles() {
-    return this.folders.filter((item) => item.name === 'Documents')[0].files;
+    let files = JSON.parse(
+      localStorage.getItem('documentFolderFiles') as string
+    );
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Documents')[0].files;
+      localStorage.setItem('documentFolderFiles', JSON.stringify(files));
+    }
+    return files;
   }
   getDraftsFolderFiles() {
-    return this.folders.filter((item) => item.name === 'Drafts')[0].files;
+    let files = JSON.parse(localStorage.getItem('draftsFolderFiles') as string);
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Drafts')[0].files;
+      localStorage.setItem('draftsFolderFiles', JSON.stringify(files));
+    }
+    return files;
   }
   getTrashFolderFiles() {
-    return this.folders.filter((item) => item.name === 'Trash')[0].files;
+    let files = JSON.parse(localStorage.getItem('trashFolderFiles') as string);
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Trash')[0].files;
+      localStorage.setItem('trashFolderFiles', JSON.stringify(files));
+    }
+    return files;
   }
   getDownloadsFolderFiles() {
-    return this.folders.filter((item) => item.name === 'Downloads')[0].files;
+    let files = JSON.parse(
+      localStorage.getItem('downloadsFolderFiles') as string
+    );
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Downloads')[0].files;
+      localStorage.setItem('downloadsFolderFiles', JSON.stringify(files));
+    }
+    return files;
+  }
+  getFavoritesFolderFiles() {
+    let files = JSON.parse(
+      localStorage.getItem('favoritesFolderFiles') as string
+    );
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Favorites')[0].files;
+      localStorage.setItem('favoritesFolderFiles', JSON.stringify(files));
+    }
+    return files;
+  }
+  getSharedFolderFiles() {
+    let files = JSON.parse(localStorage.getItem('sharedFolderFiles') as string);
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Shared')[0].files;
+      localStorage.setItem('sharedFolderFiles', JSON.stringify(files));
+    }
+    return files;
   }
   getTotalSize() {
-    return this.files.reduce((acc, item) => acc + parseInt(item.size), 0);
+    let size = JSON.parse(localStorage.getItem('totalSize') as string);
+    console.log(size);
+    if (!size) {
+      size = 0;
+    }
+    this.files.forEach((file) => {
+      size += parseInt(file.size);
+    });
+    localStorage.setItem('totalSize', JSON.stringify(size));
+    return size;
   }
   getFileType(ext: string) {
     switch (ext) {
@@ -250,5 +273,4 @@ export class FileManagerDataService {
         return 'File';
     }
   }
-
 }

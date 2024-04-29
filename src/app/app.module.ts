@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
+// Pipes
+
 // Recargar la página después de cada navegación
 import { ReloadInterceptorService } from './services/reload-interceptor/reload-interceptor.service';
 
@@ -43,6 +45,7 @@ import { MegaMenuModule} from 'primeng/megamenu';
 import { TagModule } from 'primeng/tag';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
+
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -229,11 +232,6 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     SubscribeBtnComponent,
     GuideListComponent,
     FileManagerComponent,
-
-
-
-
-
   ],
   imports: [
     BrowserModule,
