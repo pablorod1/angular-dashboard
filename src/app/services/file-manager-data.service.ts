@@ -6,7 +6,7 @@ export interface FileManagerItem {
   type: string;
   ext: string;
   modifiedOn: string;
-  size: string;
+  size: number;
   file: File;
   imageUrl: string;
   folderName: string[];
@@ -15,7 +15,7 @@ export interface FileManagerFolder {
   id: number;
   name: string;
   files: FileManagerItem[];
-  size: string;
+  size: number;
   icon: string;
 }
 
@@ -29,49 +29,49 @@ export class FileManagerDataService {
     {
       id: 1,
       name: 'Documents',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-file-earmark-text'
     },
     {
       id: 2,
       name: 'Drafts',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-pencil-square'
     },
     {
       id: 3,
       name: 'Downloads',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-download'
     },
     {
       id: 4,
       name: 'Images',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-image'
     },
     {
       id: 5,
       name: 'Trash',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-trash3'
     },
     {
       id: 6,
       name: 'Favorites',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-star'
     },
     {
       id: 7,
       name: 'Shared',
-      size: '0',
+      size: 0,
       files: [],
       icon: 'bi-share'
     },

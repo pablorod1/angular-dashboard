@@ -40,431 +40,419 @@
               <li>
                 <small *ngIf="totalSize"> {{formatFileSize(totalSize)}} of 10Gb </small>
                 <small *ngIf="!totalSize"> 0 Bytes of 10Gb </small>
-                <p-meterGroup [value]="totalSizeMeter"></p-meterGroup>
+                <p-meterGroup [max]="10737418240" [value]="totalSizeMeter"></p-meterGroup>
               </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- File Manager Container -->
-    <div class="col-lg-10 col-md-8 p-0">
-      <div class="row">
-        <div class="col-lg-9 col-md-7" [ngClass]="{
+      <!-- File Manager Container -->
+      <div class="col-lg-10 col-md-8 p-0">
+        <div class="row">
+          <div class="col-lg-9 col-md-7" [ngClass]="{
             'full-container' : !detailsActive,
           }">
-          <div class="container-fluid file-manager-container px-0 py-3">
-            <!-- Header Container -->
-            <div class="header px-4 pt-3">
-              <div class="d-flex align-items-center gap-2">
-                <button (click)="backToAllFiles()" type="button" class="btn back-icon"
-                  *ngIf="showDocumentFolder || showDraftFolder || showDownloadsFolder || showTrashFolder || showFavoritesFolder || showSharedFolder || showImageFolder"><i
-                    class="bi bi-arrow-left text-dark"></i></button>
-                <h4 class="title mb-0">File Manager</h4>
+            <div class="container-fluid file-manager-container px-0 py-3">
+              <!-- Header Container -->
+              <div class="header px-4 pt-3">
+                <div class="d-flex align-items-center gap-2">
+                  <button (click)="backToAllFiles()" type="button" class="btn back-icon"
+                    *ngIf="showDocumentFolder || showDraftFolder || showDownloadsFolder || showTrashFolder || showFavoritesFolder || showSharedFolder || showImageFolder"><i
+                      class="bi bi-arrow-left text-dark"></i></button>
+                  <h4 class="title mb-0">File Manager</h4>
 
-              </div>
-              <div class="right-container">
-                <button type="button" (click)="fileInput.click()" class="animated-button"><i class="bi bi-upload"></i>
-                  Upload File </button>
-                <input type="file" [dragEffect]="'copy'" [multiple]="true" (change)="uploadFile($event)"
-                  style="display: none" pDraggable #fileInput>
-                <!-- Search -->
-                <div class="input-container">
-                  <label for="searchInput" class="search-icon">
-                    <i class="bi bi-search"></i>
-                  </label>
-                  <input pInputText (change)="searchFile()" [(ngModel)]="searchQuery" type="text" id="searchInput"
-                    class="filter-input" placeholder="Search keyword" />
                 </div>
-                <button *ngIf="!detailsActive" type="button" (click)="detailsActive = !detailsActive"
-                  class="btn info-btn"> <i class="bi bi-info-circle text-dark"></i></button>
+                <div class="right-container">
+                  <button type="button" (click)="fileInput.click()" class="animated-button"><i class="bi bi-upload"></i>
+                    Upload File </button>
+                  <input type="file" [dragEffect]="'copy'" [multiple]="true" (change)="uploadFile($event)"
+                    style="display: none" pDraggable #fileInput>
+                  <!-- Search -->
+                  <div class="input-container">
+                    <label for="searchInput" class="search-icon">
+                      <i class="bi bi-search"></i>
+                    </label>
+                    <input pInputText (change)="searchFile()" [(ngModel)]="searchQuery" type="text" id="searchInput"
+                      class="filter-input" placeholder="Search keyword" />
+                  </div>
+                  <button *ngIf="!detailsActive" type="button" (click)="detailsActive = !detailsActive"
+                    class="btn info-btn"> <i class="bi bi-info-circle text-dark"></i></button>
+                </div>
               </div>
-            </div>
-            <div class="multiselect-container">
-              <p-multiSelect *ngIf="showAllFiles" [showClear]="false" [options]="fileTypes"
-                placeholder="Select File Type" (onChange)="onSelectedTypesChange($event.value)"
-                [(ngModel)]="selectedTypes">
-                <ng-template let-type pTemplate="selectedTypes">
-                  <div class="multiselect-item">
-                    <i class="bi" [ngClass]="getFileIcon(type)"></i>
-                    <span> {{type}} </span>
-                  </div>
-                </ng-template>
-              </p-multiSelect>
-              <p-multiSelect *ngIf="showAllFiles" [showClear]="false" [options]="fileFolders"
-                placeholder="Select Location" (onChange)="onSelectedFoldersChange($event.value)"
-                [(ngModel)]="selectedFolders">
-                <ng-template let-folder pTemplate="selectedFolders">
-                  <div class="multiselect-item">
-                    <i class="bi bi-folder-fill"></i>
-                    <span> {{folder}} </span>
-                  </div>
-                </ng-template>
-              </p-multiSelect>
-            </div>
-            <!-- Files Containers -->
-            <div class="body py-4">
-              <!-- All files -->
-              <div *ngIf="showAllFiles" class="file-manager-body">
+              <div *ngIf="showAllFiles" class="multiselect-container">
+                <p-multiSelect [showClear]="false" [options]="fileTypes" placeholder="Select File Type"
+                  (onChange)="onSelectedTypesChange($event.value)" [(ngModel)]="selectedTypes">
+                  <ng-template let-type pTemplate="selectedTypes">
+                    <div class="multiselect-item">
+                      <i class="bi" [ngClass]="getFileIcon(type)"></i>
+                      <span> {{type}} </span>
+                    </div>
+                  </ng-template>
+                </p-multiSelect>
+              </div>
+              <!-- Files Containers -->
+              <div class="body py-4">
+                <!-- All files -->
+                <div *ngIf="showAllFiles" class="file-manager-body">
 
-                <!-- Filtered Type Files Container -->
-                <div *ngIf="filteredFiles.length > 0" class="files-container">
-                  <p-divider align="left" type="solid"> Filtered Files </p-divider>
+                  <!-- Filtered Type Files Container -->
+                  <div *ngIf="filteredFiles.length > 0" class="files-container">
+                    <p-divider align="left" type="solid"> Filtered Files </p-divider>
+                    <div class="files">
+                      <div *ngFor="let filteredFile of filteredFiles" (click)="selectFile(filteredFile)" #file
+                        class="file">
+                        <i class="bi" [ngClass]="getFileIcon(filteredFile.ext)"></i>
+                        <span class="file-name" *ngIf="renamingFile !== filteredFile"> {{filteredFile.name}} </span>
+                        <div *ngIf="renamingFile === filteredFile" class="form-group d-flex">
+                          <input class="form-control" [(ngModel)]="filteredFile.name">
+                          <button class="btn" (click)="saveRenameFile(filteredFile)"> <i
+                              class="bi bi-check-lg text-success input-icon"></i> </button>
+                          <button class="btn" (click)="cancelRenameFile()"> <i
+                              class="bi bi-x-lg text-danger input-icon"></i> </button>
+                        </div>
+                        <p-contextMenu [model]="filesMenu" [target]="file"
+                          (onShow)="selectedFile = filteredFile"></p-contextMenu>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="filteredFiles.length === 0">
+                    <!-- Folders Row -->
+                    <div *ngIf="folders.length > 0 && showFolders" class="files-container">
+                      <p-divider align="left" type="solid"> Folders </p-divider>
+                      <div #foldersId class="folders">
+                        <div *ngFor="let folder of folders">
+                          <div
+                            *ngIf="folder.name !== 'Trash' && folder.name !== 'Favorites' && folder.name !== 'Shared'"
+                            pDroppable (onDrop)="dropFile(folder.name)" (click)="selectFolder(folder)"
+                            (dblclick)="openFolder(folder.name)" class="folder">
+                            <img src="../../../assets/icons/folder.svg" alt="Folder Icon" class="folder-icon">
+                            <span><i class="bi {{folder.icon}} folder-icon"></i></span>
+                            <span> {{folder.name}} </span>
+                          </div>
+                        </div>
+                        <p-contextMenu [model]="folderMenu" [target]="foldersId"
+                          (onShow)="selectedFile"></p-contextMenu>
+                      </div>
+                    </div>
+                    <!-- Adobe Files Row -->
+                    <div *ngIf="adobeFiles.length > 0" class="files-container">
+                      <p-divider align="left" type="solid"> Adobe Files </p-divider>
+                      <div class="files">
+                        <div (click)="selectFile(adobeFile)" (onDragStart)="selectFile(adobeFile)" pDraggable #file
+                          class="file" *ngFor="let adobeFile of adobeFiles">
+                          <i class="bi" [ngClass]="getFileIcon(adobeFile.ext)"></i>
+                          <span class="file-name" *ngIf="renamingFile !== adobeFile"> {{adobeFile.name}} </span>
+                          <div *ngIf="renamingFile === adobeFile" class="form-group d-flex">
+                            <input class="form-control" [(ngModel)]="adobeFile.name">
+                            <button class="btn" (click)="saveRenameFile(adobeFile)"> <i
+                                class="bi bi-check-lg text-success input-icon"></i> </button>
+                            <button class="btn" (click)="cancelRenameFile()"> <i
+                                class="bi bi-x-lg text-danger input-icon"></i>
+                            </button>
+                          </div>
+                          <p-contextMenu [model]="filesMenu" [target]="file"
+                            (onShow)="selectedFile = adobeFile"></p-contextMenu>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Web Files Row -->
+                    <div *ngIf="webFiles.length > 0" class="files-container">
+                      <p-divider align="left" type="solid"> Web Files </p-divider>
+                      <div class="files">
+                        <div (click)="selectFile(webFile)" (onDragStart)="selectFile(webFile)" pDraggable #file
+                          class="file" *ngFor="let webFile of webFiles">
+                          <i class="bi" [ngClass]="getFileIcon(webFile.ext)"></i>
+                          <span class="file-name" *ngIf="renamingFile !== webFile"> {{webFile.name}} </span>
+                          <div *ngIf="renamingFile === webFile" class="form-group d-flex">
+                            <input class="form-control" [(ngModel)]="webFile.name">
+                            <button class="btn" (click)="saveRenameFile(webFile)"> <i
+                                class="bi bi-check-lg text-success input-icon"></i> </button>
+                            <button class="btn" (click)="cancelRenameFile()"> <i
+                                class="bi bi-x-lg text-danger input-icon"></i>
+                            </button>
+                          </div>
+                          <p-contextMenu [model]="filesMenu" [target]="file"
+                            (onShow)="selectedFile = webFile"></p-contextMenu>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Office Files Row -->
+                    <div *ngIf="officeFiles.length > 0" class="files-container">
+                      <p-divider align="left" type="solid"> Office Files </p-divider>
+                      <div class="files">
+                        <div (click)="selectFile(officeFile)" (onDragStart)="selectFile(officeFile)" pDraggable #file
+                          class="file" *ngFor="let officeFile of officeFiles">
+                          <i class="bi" [ngClass]="getFileIcon(officeFile.ext)"></i>
+                          <span class="file-name" *ngIf="renamingFile !== officeFile"> {{officeFile.name}} </span>
+                          <div *ngIf="renamingFile === officeFile" class="form-group d-flex">
+                            <input class="form-control" [(ngModel)]="officeFile.name">
+                            <button class="btn" (click)="saveRenameFile(officeFile)"> <i
+                                class="bi bi-check-lg text-success input-icon"></i> </button>
+                            <button class="btn" (click)="cancelRenameFile()"> <i
+                                class="bi bi-x-lg text-danger input-icon"></i>
+                            </button>
+                          </div>
+                          <p-contextMenu [model]="filesMenu" [target]="file"
+                            (onShow)="selectedFile = officeFile"></p-contextMenu>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Other Files Row -->
+                    <div *ngIf="otherFiles.length > 0" class="files-container">
+                      <p-divider align="left" type="solid"> Other Files </p-divider>
+                      <div class="files">
+                        <div (click)="selectFile(otherFile)" (onDragStart)="selectFile(otherFile)" pDraggable #file
+                          class="file" *ngFor="let otherFile of otherFiles">
+                          <i class="bi" [ngClass]="getFileIcon(otherFile.ext)"></i>
+                          <span class="file-name" *ngIf="renamingFile !== otherFile"> {{otherFile.name}} </span>
+                          <div *ngIf="renamingFile === otherFile" class="form-group d-flex">
+                            <input class="form-control" [(ngModel)]="otherFile.name">
+                            <button class="btn" (click)="saveRenameFile(otherFile)"> <i
+                                class="bi bi-check-lg text-success input-icon"></i> </button>
+                            <button class="btn" (click)="cancelRenameFile()"> <i
+                                class="bi bi-x-lg text-danger input-icon"></i>
+                            </button>
+                          </div>
+                          <p-contextMenu [model]="filesMenu" [target]="file"
+                            (onShow)="selectedFile = otherFile"></p-contextMenu>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Documents Folder Container -->
+                <div *ngIf="showDocumentFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Document Files </p-divider>
                   <div class="files">
-                    <div *ngFor="let filteredFile of filteredFiles" (click)="selectFile(filteredFile)" #file
-                      class="file">
-                      <i class="bi" [ngClass]="getFileIcon(filteredFile.ext)"></i>
-                      <span class="file-name" *ngIf="renamingFile !== filteredFile"> {{filteredFile.name}} </span>
-                      <div *ngIf="renamingFile === filteredFile" class="form-group d-flex">
-                        <input class="form-control" [(ngModel)]="filteredFile.name">
-                        <button class="btn" (click)="saveRenameFile(filteredFile)"> <i
+                    <div (click)="selectFile(documentFile)" pDraggable #file class="file"
+                      *ngFor="let documentFile of documentFolder">
+                      <i class="bi" [ngClass]="getFileIcon(documentFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== documentFile"> {{documentFile.name}} </span>
+                      <div *ngIf="renamingFile === documentFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="documentFile.name">
+                        <button class="btn" (click)="saveRenameFile(documentFile)"> <i
                             class="bi bi-check-lg text-success input-icon"></i> </button>
                         <button class="btn" (click)="cancelRenameFile()"> <i
-                            class="bi bi-x-lg text-danger input-icon"></i> </button>
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
                       <p-contextMenu [model]="filesMenu" [target]="file"
-                        (onShow)="selectedFile = filteredFile"></p-contextMenu>
+                        (onShow)="selectedFile = documentFile"></p-contextMenu>
                     </div>
                   </div>
                 </div>
 
-                <div *ngIf="filteredFiles.length === 0">
-                  <!-- Folders Row -->
-                  <div *ngIf="folders.length > 0 && showFolders" class="files-container">
-                    <p-divider align="left" type="solid"> Folders </p-divider>
-                    <div #foldersId class="folders">
-                      <div *ngFor="let folder of folders">
-                        <div *ngIf="folder.name !== 'Trash' && folder.name !== 'Favorites' && folder.name !== 'Shared'"
-                          pDroppable (onDrop)="dropFile(folder.name)" (click)="selectFolder(folder)"
-                          (dblclick)="openFolder(folder.name)" class="folder">
-                          <img src="../../../assets/icons/folder.svg" alt="Folder Icon" class="folder-icon">
-                          <span><i class="bi {{folder.icon}} folder-icon"></i></span>
-                          <span> {{folder.name}} </span>
-                        </div>
+                <!-- Draft Folder Container -->
+                <div *ngIf="showDraftFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Draft Files </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(draftFile)" pDraggable #file class="file"
+                      *ngFor="let draftFile of draftFolder">
+                      <i class="bi" [ngClass]="getFileIcon(draftFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== draftFile"> {{draftFile.name}} </span>
+                      <div *ngIf="renamingFile === draftFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="draftFile.name">
+                        <button class="btn" (click)="saveRenameFile(draftFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
-                      <p-contextMenu [model]="folderMenu" [target]="foldersId" (onShow)="selectedFile"></p-contextMenu>
+                      <p-contextMenu [model]="filesMenu" [target]="file"
+                        (onShow)="selectedFile = draftFile"></p-contextMenu>
                     </div>
                   </div>
-                  <!-- Adobe Files Row -->
-                  <div *ngIf="adobeFiles.length > 0" class="files-container">
-                    <p-divider align="left" type="solid"> Adobe Files </p-divider>
-                    <div class="files">
-                      <div (click)="selectFile(adobeFile)" (onDragStart)="selectFile(adobeFile)" pDraggable #file
-                        class="file" *ngFor="let adobeFile of adobeFiles">
-                        <i class="bi" [ngClass]="getFileIcon(adobeFile.ext)"></i>
-                        <span class="file-name" *ngIf="renamingFile !== adobeFile"> {{adobeFile.name}} </span>
-                        <div *ngIf="renamingFile === adobeFile" class="form-group d-flex">
-                          <input class="form-control" [(ngModel)]="adobeFile.name">
-                          <button class="btn" (click)="saveRenameFile(adobeFile)"> <i
-                              class="bi bi-check-lg text-success input-icon"></i> </button>
-                          <button class="btn" (click)="cancelRenameFile()"> <i
-                              class="bi bi-x-lg text-danger input-icon"></i>
-                          </button>
-                        </div>
-                        <p-contextMenu [model]="filesMenu" [target]="file"
-                          (onShow)="selectedFile = adobeFile"></p-contextMenu>
+                </div>
+
+                <!-- Downloads Folder Container -->
+                <div *ngIf="showDownloadsFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Downloads </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(downloadsFile)" pDraggable #file class="file"
+                      *ngFor="let downloadsFile of downloadsFolder">
+                      <i class="bi" [ngClass]="getFileIcon(downloadsFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== downloadsFile"> {{downloadsFile.name}} </span>
+                      <div *ngIf="renamingFile === downloadsFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="downloadsFile.name">
+                        <button class="btn" (click)="saveRenameFile(downloadsFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
+                      <p-contextMenu [model]="filesMenu" [target]="file"
+                        (onShow)="selectedFile = downloadsFile"></p-contextMenu>
                     </div>
                   </div>
-                  <!-- Web Files Row -->
-                  <div *ngIf="webFiles.length > 0" class="files-container">
-                    <p-divider align="left" type="solid"> Web Files </p-divider>
-                    <div class="files">
-                      <div (click)="selectFile(webFile)" (onDragStart)="selectFile(webFile)" pDraggable #file
-                        class="file" *ngFor="let webFile of webFiles">
-                        <i class="bi" [ngClass]="getFileIcon(webFile.ext)"></i>
-                        <span class="file-name" *ngIf="renamingFile !== webFile"> {{webFile.name}} </span>
-                        <div *ngIf="renamingFile === webFile" class="form-group d-flex">
-                          <input class="form-control" [(ngModel)]="webFile.name">
-                          <button class="btn" (click)="saveRenameFile(webFile)"> <i
-                              class="bi bi-check-lg text-success input-icon"></i> </button>
-                          <button class="btn" (click)="cancelRenameFile()"> <i
-                              class="bi bi-x-lg text-danger input-icon"></i>
-                          </button>
-                        </div>
-                        <p-contextMenu [model]="filesMenu" [target]="file"
-                          (onShow)="selectedFile = webFile"></p-contextMenu>
+                </div>
+
+                <!-- Images Folder Container -->
+                <div *ngIf="showImageFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Images </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(imagesFile)" pDraggable #file class="file"
+                      *ngFor="let imagesFile of imageFolder">
+                      <i class="bi" [ngClass]="getFileIcon(imagesFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== imagesFile"> {{imagesFile.name}} </span>
+                      <div *ngIf="renamingFile === imagesFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="imagesFile.name">
+                        <button class="btn" (click)="saveRenameFile(imagesFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
+                      <p-contextMenu [model]="filesMenu" [target]="file"
+                        (onShow)="selectedFile = imagesFile"></p-contextMenu>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Office Files Row -->
-                  <div *ngIf="officeFiles.length > 0" class="files-container">
-                    <p-divider align="left" type="solid"> Office Files </p-divider>
-                    <div class="files">
-                      <div (click)="selectFile(officeFile)" (onDragStart)="selectFile(officeFile)" pDraggable #file
-                        class="file" *ngFor="let officeFile of officeFiles">
-                        <i class="bi" [ngClass]="getFileIcon(officeFile.ext)"></i>
-                        <span class="file-name" *ngIf="renamingFile !== officeFile"> {{officeFile.name}} </span>
-                        <div *ngIf="renamingFile === officeFile" class="form-group d-flex">
-                          <input class="form-control" [(ngModel)]="officeFile.name">
-                          <button class="btn" (click)="saveRenameFile(officeFile)"> <i
-                              class="bi bi-check-lg text-success input-icon"></i> </button>
-                          <button class="btn" (click)="cancelRenameFile()"> <i
-                              class="bi bi-x-lg text-danger input-icon"></i>
-                          </button>
-                        </div>
-                        <p-contextMenu [model]="filesMenu" [target]="file"
-                          (onShow)="selectedFile = officeFile"></p-contextMenu>
+                <!-- Favorites Folder Container -->
+                <div *ngIf="showFavoritesFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Favorite Files </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(favoritesFile)" pDraggable #file class="file"
+                      *ngFor="let favoritesFile of favoritesFolder">
+                      <i class="bi" [ngClass]="getFileIcon(favoritesFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== favoritesFile"> {{favoritesFile.name}} </span>
+                      <div *ngIf="renamingFile === favoritesFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="favoritesFile.name">
+                        <button class="btn" (click)="saveRenameFile(favoritesFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
+                      <p-contextMenu [model]="filesMenu" [target]="file"
+                        (onShow)="selectedFile = favoritesFile"></p-contextMenu>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Other Files Row -->
-                  <div *ngIf="otherFiles.length > 0" class="files-container">
-                    <p-divider align="left" type="solid"> Other Files </p-divider>
-                    <div class="files">
-                      <div (click)="selectFile(otherFile)" (onDragStart)="selectFile(otherFile)" pDraggable #file
-                        class="file" *ngFor="let otherFile of otherFiles">
-                        <i class="bi" [ngClass]="getFileIcon(otherFile.ext)"></i>
-                        <span class="file-name" *ngIf="renamingFile !== otherFile"> {{otherFile.name}} </span>
-                        <div *ngIf="renamingFile === otherFile" class="form-group d-flex">
-                          <input class="form-control" [(ngModel)]="otherFile.name">
-                          <button class="btn" (click)="saveRenameFile(otherFile)"> <i
-                              class="bi bi-check-lg text-success input-icon"></i> </button>
-                          <button class="btn" (click)="cancelRenameFile()"> <i
-                              class="bi bi-x-lg text-danger input-icon"></i>
-                          </button>
-                        </div>
-                        <p-contextMenu [model]="filesMenu" [target]="file"
-                          (onShow)="selectedFile = otherFile"></p-contextMenu>
+                <!-- Shared Folder Container -->
+                <div *ngIf="showSharedFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Shared Files </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(sharedFile)" pDraggable #file class="file"
+                      *ngFor="let sharedFile of sharedFolder">
+                      <i class="bi" [ngClass]="getFileIcon(sharedFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== sharedFile"> {{sharedFile.name}} </span>
+                      <div *ngIf="renamingFile === sharedFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="sharedFile.name">
+                        <button class="btn" (click)="saveRenameFile(sharedFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
                       </div>
+                      <p-contextMenu [model]="filesMenu" [target]="file"
+                        (onShow)="selectedFile = sharedFile"></p-contextMenu>
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- Documents Folder Container -->
-              <div *ngIf="showDocumentFolder" class="files-container">
-                <p-divider align="left" type="solid"> Document Files </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(documentFile)" pDraggable #file class="file"
-                    *ngFor="let documentFile of documentFolder">
-                    <i class="bi" [ngClass]="getFileIcon(documentFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== documentFile"> {{documentFile.name}} </span>
-                    <div *ngIf="renamingFile === documentFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="documentFile.name">
-                      <button class="btn" (click)="saveRenameFile(documentFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = documentFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
 
-              <!-- Draft Folder Container -->
-              <div *ngIf="showDraftFolder" class="files-container">
-                <p-divider align="left" type="solid"> Draft Files </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(draftFile)" pDraggable #file class="file"
-                    *ngFor="let draftFile of draftFolder">
-                    <i class="bi" [ngClass]="getFileIcon(draftFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== draftFile"> {{draftFile.name}} </span>
-                    <div *ngIf="renamingFile === draftFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="draftFile.name">
-                      <button class="btn" (click)="saveRenameFile(draftFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
+                <!-- Trash Folder Container -->
+                <div *ngIf="showTrashFolder" class="files-container">
+                  <p-divider align="left" type="solid"> Trash </p-divider>
+                  <div class="files">
+                    <div (click)="selectFile(trashFile)" pDraggable #file class="file"
+                      *ngFor="let trashFile of trashFolder">
+                      <i class="bi" [ngClass]="getFileIcon(trashFile.ext)"></i>
+                      <span class="file-name" *ngIf="renamingFile !== trashFile"> {{trashFile.name}} </span>
+                      <div *ngIf="renamingFile === trashFile" class="form-group d-flex">
+                        <input class="form-control" [(ngModel)]="trashFile.name">
+                        <button class="btn" (click)="saveRenameFile(trashFile)"> <i
+                            class="bi bi-check-lg text-success input-icon"></i> </button>
+                        <button class="btn" (click)="cancelRenameFile()"> <i
+                            class="bi bi-x-lg text-danger input-icon"></i>
+                        </button>
+                      </div>
+                      <p-contextMenu [model]="trashMenu" [target]="file"
+                        (onShow)="selectedFile = trashFile"></p-contextMenu>
                     </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = draftFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Downloads Folder Container -->
-              <div *ngIf="showDownloadsFolder" class="files-container">
-                <p-divider align="left" type="solid"> Downloads </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(downloadsFile)" pDraggable #file class="file"
-                    *ngFor="let downloadsFile of downloadsFolder">
-                    <i class="bi" [ngClass]="getFileIcon(downloadsFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== downloadsFile"> {{downloadsFile.name}} </span>
-                    <div *ngIf="renamingFile === downloadsFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="downloadsFile.name">
-                      <button class="btn" (click)="saveRenameFile(downloadsFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = downloadsFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Images Folder Container -->
-              <div *ngIf="showImageFolder" class="files-container">
-                <p-divider align="left" type="solid"> Images </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(imagesFile)" pDraggable #file class="file"
-                    *ngFor="let imagesFile of imageFolder">
-                    <i class="bi" [ngClass]="getFileIcon(imagesFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== imagesFile"> {{imagesFile.name}} </span>
-                    <div *ngIf="renamingFile === imagesFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="imagesFile.name">
-                      <button class="btn" (click)="saveRenameFile(imagesFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = imagesFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Favorites Folder Container -->
-              <div *ngIf="showFavoritesFolder" class="files-container">
-                <p-divider align="left" type="solid"> Favorite Files </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(favoritesFile)" pDraggable #file class="file"
-                    *ngFor="let favoritesFile of favoritesFolder">
-                    <i class="bi" [ngClass]="getFileIcon(favoritesFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== favoritesFile"> {{favoritesFile.name}} </span>
-                    <div *ngIf="renamingFile === favoritesFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="favoritesFile.name">
-                      <button class="btn" (click)="saveRenameFile(favoritesFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = favoritesFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Shared Folder Container -->
-              <div *ngIf="showSharedFolder" class="files-container">
-                <p-divider align="left" type="solid"> Shared Files </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(sharedFile)" pDraggable #file class="file"
-                    *ngFor="let sharedFile of sharedFolder">
-                    <i class="bi" [ngClass]="getFileIcon(sharedFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== sharedFile"> {{sharedFile.name}} </span>
-                    <div *ngIf="renamingFile === sharedFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="sharedFile.name">
-                      <button class="btn" (click)="saveRenameFile(sharedFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="filesMenu" [target]="file"
-                      (onShow)="selectedFile = sharedFile"></p-contextMenu>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Trash Folder Container -->
-              <div *ngIf="showTrashFolder" class="files-container">
-                <p-divider align="left" type="solid"> Trash </p-divider>
-                <div class="files">
-                  <div (click)="selectFile(trashFile)" pDraggable #file class="file"
-                    *ngFor="let trashFile of trashFolder">
-                    <i class="bi" [ngClass]="getFileIcon(trashFile.ext)"></i>
-                    <span class="file-name" *ngIf="renamingFile !== trashFile"> {{trashFile.name}} </span>
-                    <div *ngIf="renamingFile === trashFile" class="form-group d-flex">
-                      <input class="form-control" [(ngModel)]="trashFile.name">
-                      <button class="btn" (click)="saveRenameFile(trashFile)"> <i
-                          class="bi bi-check-lg text-success input-icon"></i> </button>
-                      <button class="btn" (click)="cancelRenameFile()"> <i
-                          class="bi bi-x-lg text-danger input-icon"></i>
-                      </button>
-                    </div>
-                    <p-contextMenu [model]="trashMenu" [target]="file"
-                      (onShow)="selectedFile = trashFile"></p-contextMenu>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div [@detailsAnimation]="detailsActive ? 'active' : 'inactive'" class="details col-lg-3 col-md-5 px-0">
-          <!-- File // Folder Details When SelectedFile // SelectedFolder -->
-          <div *ngIf="selectedFile || selectedFolder; else emptyDetails" class="container ps-0 p-4">
-            <div class="details-header">
-              <div *ngIf="selectedFile" class="file-title">
-                <i class="file-icon bi" [ngClass]="getFileIcon(selectedFile?.ext ?? '')"></i>
-                <h2 class="mb-0"> {{selectedFile.name}} </h2>
+          <div [@detailsAnimation]="detailsActive ? 'active' : 'inactive'" class="details col-lg-3 col-md-5 px-0">
+            <!-- File // Folder Details When SelectedFile // SelectedFolder -->
+            <div *ngIf="selectedFile || selectedFolder; else emptyDetails" class="container ps-0 p-4">
+              <div class="details-header">
+                <div *ngIf="selectedFile" class="file-title">
+                  <i class="file-icon bi" [ngClass]="getFileIcon(selectedFile?.ext ?? '')"></i>
+                  <h2 class="mb-0"> {{selectedFile.name}} </h2>
+                </div>
+                <div *ngIf="selectedFolder" class="file-title">
+                  <i class="file-icon bi bi-folder-fill"></i>
+                  <h2 class="mb-0"> {{selectedFolder.name}} </h2>
+                </div>
+                <button type="button" (click)="detailsActive = false" class="btn close-btn"> <i
+                    class="bi bi-x text-dark"></i> </button>
               </div>
-              <div *ngIf="selectedFolder" class="file-title">
-                <i class="file-icon bi bi-folder-fill"></i>
-                <h2 class="mb-0"> {{selectedFolder.name}} </h2>
+              <mat-divider></mat-divider>
+              <div class="preview">
+                <img *ngIf="selectedFile && selectedFile.imageUrl" [src]="selectedFile.imageUrl" alt=" Image Preview" class="img-fluid"
+                  loading="lazy">
               </div>
-              <button type="button" (click)="detailsActive = false" class="btn close-btn"> <i
-                  class="bi bi-x text-dark"></i> </button>
+              <mat-divider></mat-divider>
+              <div class="details-body">
+                <div class="details-row">
+                  <h3 class="mb-0"> Name: </h3>
+                  <span *ngIf="selectedFile"> {{selectedFile.name}} </span>
+                  <span *ngIf="selectedFolder"> {{selectedFolder.name}} </span>
+                </div>
+                <div class="details-row">
+                  <h3 class="mb-0"> Type: </h3>
+                  <span *ngIf="selectedFile"> {{getFileType(selectedFile?.ext ?? '')}} </span>
+                  <span *ngIf="selectedFolder"> Folder </span>
+                </div>
+                <div class="details-row">
+                  <h3 class="mb-0"> Size: </h3>
+                  <span *ngIf="selectedFile"> {{formatFileSize(selectedFile.size)}} </span>
+                  <span *ngIf="selectedFolder"> {{formatFileSize(selectedFolder.size)}} </span>
+                </div>
+                <div class="details-row">
+                  <h3 class="mb-0"> Modified: </h3>
+                  <span *ngIf="selectedFile"> {{selectedFile.modifiedOn}} </span>
+                </div>
+                <div *ngIf="selectedFile && selectedFile.folderName[0] !== ''" class="details-row">
+                  <h3 class="mb-0"> Location: </h3>
+                  <span> {{selectedFile.folderName}} </span>
+                </div>
+                <div *ngIf="selectedFolder" class="details-row">
+                  <h3 class="mb-0"> Files: </h3>
+                  <span *ngIf="selectedFolder.files.length === 0"> No files </span>
+                  <ul *ngIf="selectedFolder.files.length > 0" class="list-unstyled">
+                    <li class="list-item" *ngFor="let file of selectedFolder.files">
+                      <span> {{file.name}} </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <mat-divider></mat-divider>
-            <div class="preview">
-              <div class="img-preview" *ngIf="selectedFile && selectedFile.ext === 'jpeg'">
-                <img [src]="selectedFile.imageUrl" alt=" Image Preview" class="img-fluid" loading="lazy">
-                <span>{{selectedFile.imageUrl}}</span>
 
+            <!-- Empty Details When !SelectedFile && !SelectedFolder -->
+            <ng-template #emptyDetails>
+              <div class="btn-container d-flex justify-content-end me-3 mt-3">
+                <button type="button" (click)="detailsActive = false" class="btn close-btn"> <i
+                    class="bi bi-x text-dark"></i> </button>
               </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="details-body">
-              <div class="details-row">
-                <h3 class="mb-0"> Name: </h3>
-                <span *ngIf="selectedFile"> {{selectedFile.name}} </span>
-                <span *ngIf="selectedFolder"> {{selectedFolder.name}} </span>
+              <div class="container text-center ps-0 p-4">
+                <img src="../../../assets/icons/search-file.webp" alt="Search Icon" class="search-img img-fluid">
+                <div class="body py-5">
+                  <h3 class="mb-0"> Select a file to view its details </h3>
+                </div>
               </div>
-              <div class="details-row">
-                <h3 class="mb-0"> Type: </h3>
-                <span *ngIf="selectedFile"> {{getFileType(selectedFile?.ext ?? '')}} </span>
-                <span *ngIf="selectedFolder"> Folder </span>
-              </div>
-              <div class="details-row">
-                <h3 class="mb-0"> Size: </h3>
-                <span *ngIf="selectedFile"> {{selectedFile.size}} </span>
-                <span *ngIf="selectedFolder"> {{selectedFolder.size}} </span>
-              </div>
-              <div class="details-row">
-                <h3 class="mb-0"> Modified: </h3>
-                <span *ngIf="selectedFile"> {{selectedFile.modifiedOn}} </span>
-              </div>
-              <div *ngIf="selectedFile && selectedFile.folderName[0] !== ''" class="details-row">
-                <h3 class="mb-0"> Location: </h3>
-                <span> {{selectedFile.folderName}} </span>
-              </div>
-              <div *ngIf="selectedFolder" class="details-row">
-                <h3 class="mb-0"> Files: </h3>
-                <span *ngIf="selectedFolder.files.length === 0"> No files </span>
-                <ul *ngIf="selectedFolder.files.length > 0" class="list-unstyled">
-                  <li class="list-item" *ngFor="let file of selectedFolder.files">
-                    <span> {{file.name}} </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            </ng-template>
           </div>
-
-          <!-- Empty Details When !SelectedFile && !SelectedFolder -->
-          <ng-template #emptyDetails>
-            <div class="btn-container d-flex justify-content-end me-3 mt-3">
-              <button type="button" (click)="detailsActive = false" class="btn close-btn"> <i
-                  class="bi bi-x text-dark"></i> </button>
-            </div>
-            <div class="container text-center ps-0 p-4">
-              <img src="../../../assets/icons/search-file.webp" alt="Search Icon" class="search-img img-fluid">
-              <div class="body py-5">
-                <h3 class="mb-0"> Select a file to view its details </h3>
-              </div>
-            </div>
-          </ng-template>
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- Confirmation Dialog -->

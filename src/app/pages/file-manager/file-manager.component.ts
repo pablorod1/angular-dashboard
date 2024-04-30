@@ -92,14 +92,13 @@ export class FileManagerComponent implements OnInit {
   selectedFolders!: string[];
 
   searchQuery: string = '';
-  url: any = '';
 
-  totalSizeMeter = [{ label: 'Space used', value: this.totalSize, color: '#4b4bdf' }];
+  totalSizeMeter = [{ label: 'Space used', value: 0, color: '#4b4bdf' }];
 
   constructor(
     private fileManagerDataService: FileManagerDataService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) {}
 
   ngOnInit() {
@@ -117,6 +116,7 @@ export class FileManagerComponent implements OnInit {
 
     // Total Size
     this.totalSize = this.fileManagerDataService.getTotalSize();
+    this.totalSizeMeter = [{ label: 'Space used', value: this.totalSize, color: '#4b4bdf' }];
 
     // Folders
     this.documentFolder = this.fileManagerDataService.getDocumentFolderFiles();
@@ -417,10 +417,9 @@ export class FileManagerComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'bi bi-trash3',
       accept: () => {
-        this.totalSize =
-          this.fileManagerDataService.getTotalSize() -
-          this.unformatFileSize(file.size);
+        this.totalSize -= file.size;
         localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
+        this.totalSizeMeter[0].value = this.totalSize;
 
         this.selectedFile = null;
 
@@ -517,6 +516,7 @@ export class FileManagerComponent implements OnInit {
           detail: file.name + ' deleted successfully',
           life: 3000,
         });
+        location.reload();
       },
     });
   }
@@ -550,7 +550,7 @@ export class FileManagerComponent implements OnInit {
     const file: File = fileEvent.target.files[0];
 
     if (file) {
-      let allFiles = JSON.parse(localStorage.getItem('files') || '') || [];
+      let allFiles = JSON.parse(localStorage.getItem('files') || '[]');
       if (
         allFiles.some(
           (existingFile: FileManagerItem) => existingFile.name === file.name
@@ -564,7 +564,7 @@ export class FileManagerComponent implements OnInit {
         });
       } else {
         // Tamaño máximo del archivo
-        const maxFileSize = 10485760000000; // 10MB
+        const maxFileSize = 1073741824; // 1 GB
         if (file.size > maxFileSize) {
           this.messageService.add({
             severity: 'error',
@@ -573,7 +573,9 @@ export class FileManagerComponent implements OnInit {
             life: 3000,
           });
         } else {
-          const newFile: FileManagerItem = {
+
+
+          let newFile: FileManagerItem = {
             id: this.files.length + 1,
             name: file.name,
             type: this.getFileType(file.name.split('.').pop() || ''),
@@ -581,15 +583,24 @@ export class FileManagerComponent implements OnInit {
             modifiedOn: this.formatDate(
               new Date(file.lastModified).toISOString()
             ),
-            size: this.formatFileSize(file.size),
+            size: file.size,
             folderName: [''],
-            imageUrl: this.url,
+            imageUrl: '',
             file: file,
           };
           this.files.push(newFile);
           localStorage.setItem('files', JSON.stringify(this.files));
           this.selectedFile = newFile;
           this.selectedFolder = null;
+          this.totalSize += file.size;
+          localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
+          this.totalSizeMeter[0].value = this.totalSize;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'File Uploaded',
+            detail: file.name + ' uploaded successfully',
+            life: 3000,
+          });
 
           switch (newFile.ext) {
             case 'psd':
@@ -622,6 +633,8 @@ export class FileManagerComponent implements OnInit {
             case 'png':
             case 'svg':
             case 'webp':
+              const imageUrl = URL.createObjectURL(file);
+              newFile.imageUrl = imageUrl;
               this.imageFolder.push(newFile);
               localStorage.setItem(
                 'imagesFolderFiles',
@@ -636,27 +649,9 @@ export class FileManagerComponent implements OnInit {
               );
               break;
           }
-          this.totalSize += file.size;
-          localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
-          this.totalSizeMeter = [{label: 'Space used', value: this.totalSize, color: '#4b4bdf'}]
-          this.messageService.add({
-            severity: 'success',
-            summary: 'File Uploaded',
-            detail: file.name + ' uploaded successfully',
-            life: 3000,
-          });
+          location.reload();
         }
       }
-    }
-  }
-
-  readUrl(event: { target: { files: Blob[] } }) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
-        if (event.target) this.url = event.target.result;
-      };
     }
   }
 
@@ -1002,7 +997,7 @@ export class FileManagerComponent implements OnInit {
         id: this.folders.length + 1,
         name: this.newFolderName,
         files: [],
-        size: '0',
+        size: 0,
         icon: '',
       };
       this.folders.push(newFolder);

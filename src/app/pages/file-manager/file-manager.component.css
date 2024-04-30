@@ -26,11 +26,17 @@
 }
 .sidebar {
   padding: 0.5rem 2rem 0.5rem 0.5rem;
+  position: relative;
+  height: 100%;
 }
 .sidebar .title {
   color: #023047;
   font-size: 1.8rem;
   font-weight: 600;
+}
+.sidebar .footer{
+  position: relative;
+  bottom: 0;
 }
 .logo {
   max-width: 50px;
@@ -282,6 +288,10 @@
 .multiselect-item span{
   font-weight: 500;
 }
+
+::ng-deep .p-metergroup-labels{
+  display: none;
+}
 @media (max-width: 1024px) {
   .file-manager-container .header {
     display: flex;
@@ -297,5 +307,8 @@
     align-items: start;
     flex-direction: column;
     gap: 1rem;
+  }
+  ::ng-deep html{
+    overflow: auto !important;
   }
 }
