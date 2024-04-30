@@ -25,6 +25,7 @@ import {
         style({
           transform: 'translateX(100%)', // 'translateX(-100%)',
           display: 'none',
+          visibility: 'hidden',
           opacity: 0,
         })
       ),
@@ -33,6 +34,8 @@ import {
         style({
           transform: 'translateX(0)',
           opacity: 1,
+          visibility: 'visible',
+          display: 'block',
         })
       ),
       transition('inactive => active', animate('400ms ease-in')),
@@ -52,6 +55,7 @@ export class FileManagerComponent implements OnInit {
   filesMenu!: MenuItem[];
   folderMenu!: MenuItem[];
   createFolderMenu!: MenuItem[];
+  trashMenu!: MenuItem[];
 
   selectedFile!: FileManagerItem | null;
   renamingFile!: FileManagerItem;
@@ -67,9 +71,11 @@ export class FileManagerComponent implements OnInit {
   showDownloadsFolder: boolean = false;
   showFavoritesFolder: boolean = false;
   showSharedFolder: boolean = false;
+  showImageFolder: boolean = false;
 
   documentFolder!: FileManagerItem[];
   draftFolder!: FileManagerItem[];
+  imageFolder!: FileManagerItem[];
   trashFolder!: FileManagerItem[];
   downloadsFolder!: FileManagerItem[];
   favoritesFolder!: FileManagerItem[];
@@ -82,6 +88,13 @@ export class FileManagerComponent implements OnInit {
 
   fileTypes!: string[];
   selectedTypes: string[] = [];
+  fileFolders!: string[];
+  selectedFolders!: string[];
+
+  searchQuery: string = '';
+  url: any = '';
+
+  totalSizeMeter = [{ label: 'Space used', value: this.totalSize, color: '#4b4bdf' }];
 
   constructor(
     private fileManagerDataService: FileManagerDataService,
@@ -90,31 +103,54 @@ export class FileManagerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // localStorage.clear();
     // Folders
     this.fileManagerDataService.autoAddFilesToFolders();
     this.folders = this.fileManagerDataService.getFolders();
 
     // Files
-    this.files = this.fileManagerDataService.getFiles();
-    this.adobeFiles = this.fileManagerDataService.getAdobeFiles();
-    this.webFiles = this.fileManagerDataService.getWebFiles();
-    this.officeFiles = this.fileManagerDataService.getOfficeFiles();
-    this.otherFiles =  this.fileManagerDataService.getOtherFiles();
+    this.files = JSON.parse(localStorage.getItem('files') || '[]');
+    this.adobeFiles = JSON.parse(localStorage.getItem('adobeFiles') || '[]');
+    this.webFiles = JSON.parse(localStorage.getItem('webFiles') || '[]');
+    this.officeFiles = JSON.parse(localStorage.getItem('officeFiles') || '[]');
+    this.otherFiles = JSON.parse(localStorage.getItem('otherFiles') || '[]');
 
     // Total Size
-    this.totalSize = parseInt(localStorage.getItem('totalSize') || '') || 0;
+    this.totalSize = this.fileManagerDataService.getTotalSize();
 
     // Folders
     this.documentFolder = this.fileManagerDataService.getDocumentFolderFiles();
     this.draftFolder = this.fileManagerDataService.getDraftsFolderFiles();
+    this.imageFolder = this.fileManagerDataService.getImagesFolderFiles();
     this.trashFolder = this.fileManagerDataService.getTrashFolderFiles();
-    this.downloadsFolder = this.fileManagerDataService.getDownloadsFolderFiles();
+    this.downloadsFolder =
+      this.fileManagerDataService.getDownloadsFolderFiles();
     this.favoritesFolder =
       this.fileManagerDataService.getFavoritesFolderFiles();
     this.sharedFolder = this.fileManagerDataService.getSharedFolderFiles();
 
-    // MultiSelect File Types
-    this.fileTypes = ['psd', 'html', 'pdf', 'css', 'js', 'ai', 'txt'];
+    // MultiSelect Items
+    this.fileTypes = [
+      'psd',
+      'html',
+      'pdf',
+      'css',
+      'js',
+      'ai',
+      'txt',
+      'docx',
+      'doc',
+      'xlsx',
+      'xls',
+      'ppt',
+      'pptx',
+      'jpg',
+      'jpeg',
+      'png',
+      'svg',
+      'webp',
+    ];
+    this.fileFolders = this.folders.map((folder) => folder.name);
 
     // Context Menus
     this.filesMenu = [
@@ -162,13 +198,6 @@ export class FileManagerComponent implements OnInit {
                 this.moveFile(this.selectedFile, 'Favorites');
             },
           },
-          {
-            label: 'Trash',
-            icon: 'bi bi-trash3',
-            command: () => {
-              if (this.selectedFile) this.moveFile(this.selectedFile, 'Trash');
-            },
-          },
         ],
       },
       {
@@ -182,7 +211,7 @@ export class FileManagerComponent implements OnInit {
         label: 'Delete',
         icon: 'bi bi-trash3',
         command: () => {
-          if (this.selectedFile) this.deleteFile(this.selectedFile);
+          if (this.selectedFile) this.deleteToTrash(this.selectedFile);
         },
       },
     ];
@@ -203,29 +232,64 @@ export class FileManagerComponent implements OnInit {
         }),
       },
     ];
+    this.trashMenu = [
+      {
+        label: 'Delete Permanently',
+        icon: 'bi bi-trash3',
+        command: () => {
+          if (this.selectedFile) this.deleteFile(this.selectedFile);
+        },
+      },
+    ];
   }
 
   // Get the icon based on the file extension
   getFileIcon(ext: string) {
     switch (ext) {
+      // Adobe Icons
       case 'psd':
         return 'bi-filetype-psd text-psd';
-      case 'html':
-        return 'bi-filetype-html text-html';
+      case 'ai':
+        return 'bi-filetype-ai text-ai';
       case 'pdf':
         return 'bi-filetype-pdf text-danger';
+      // Web Icons
+      case 'html':
+        return 'bi-filetype-html text-html';
       case 'css':
         return 'bi-filetype-css text-css';
       case 'js':
         return 'bi-filetype-js text-js';
-      case 'ai':
-        return 'bi-filetype-ai text-ai';
+      case 'json':
+        return 'bi-filetype-json text-json';
+      // Txt Icon
       case 'txt':
         return 'bi-file-earmark-text';
+      // Office Icons
       case 'docx':
         return 'bi-filetype-docx text-primary';
+      case 'xlsx':
+        return 'bi-filetype-xlsx text-success';
+      case 'doc':
+        return 'bi-filetype-doc text-primary';
       case 'xls':
-        return 'bi-filetype-excel text-success';
+        return 'bi-filetype-xls text-success';
+      case 'ppt':
+        return 'bi-filetype-ppt text-html';
+      case 'pptx':
+        return 'bi-filetype-pptx text-html';
+      // Image Icons
+      case 'jpg':
+      case 'jpeg':
+        return 'bi-filetype-jpg';
+      case 'png':
+        return 'bi-filetype-png';
+      case 'bi-filtype-svg':
+        return 'bi-filetype-svg';
+      case 'gif':
+        return 'bi-filetype-gif';
+      case 'webp':
+        return 'bi-image';
       default:
         return 'bi-file-earmark';
     }
@@ -234,38 +298,128 @@ export class FileManagerComponent implements OnInit {
   // Get the type of file based on the file extension
   getFileType(ext: string) {
     switch (ext) {
+      // Adobe Types
       case 'psd':
         return 'Photoshop';
-      case 'html':
-        return 'HTML';
+      case 'ai':
+        return 'Illustrator';
       case 'pdf':
         return 'PDF';
+      // Web Types
+      case 'html':
+        return 'HTML';
       case 'css':
         return 'CSS';
       case 'js':
         return 'JavaScript';
-      case 'ai':
-        return 'Illustrator';
+      // Text Type
       case 'txt':
         return 'Text';
+      // Office Types
       case 'docx':
+      case 'doc':
         return 'Word';
       case 'xls':
+      case 'xlsx':
         return 'Excel';
+      case 'ppt':
+      case 'pptx':
+        return 'PowerPoint';
+      // Image Types
+      case 'jpg':
+      case 'jpeg':
+        return 'JPEG Image';
+      case 'png':
+        return 'PNG Image';
+      case 'svg':
+        return 'SVG Image';
+      case 'webp':
+        return 'WebP Image';
       default:
         return 'File';
     }
+  }
+
+  deleteToTrash(file: FileManagerItem) {
+    this.trashFolder.push(file);
+    localStorage.setItem('trashFolderFiles', JSON.stringify(this.trashFolder));
+    this.files = this.files.filter((f) => f.name !== file.name);
+    localStorage.setItem('files', JSON.stringify(this.files));
+
+    this.downloadsFolder = this.downloadsFolder.filter(
+      (f) => f.name !== file.name
+    );
+    localStorage.setItem(
+      'downloadsFolder',
+      JSON.stringify(this.downloadsFolder)
+    );
+
+    this.favoritesFolder = this.favoritesFolder.filter(
+      (f) => f.name !== file.name
+    );
+    localStorage.setItem(
+      'favoritesFolder',
+      JSON.stringify(this.favoritesFolder)
+    );
+
+    this.documentFolder = this.documentFolder.filter(
+      (f) => f.name !== file.name
+    );
+    localStorage.setItem('documentFolder', JSON.stringify(this.documentFolder));
+
+    this.draftFolder = this.draftFolder.filter((f) => f.name !== file.name);
+    localStorage.setItem('draftFolder', JSON.stringify(this.draftFolder));
+
+    this.sharedFolder = this.sharedFolder.filter((f) => f.name !== file.name);
+    localStorage.setItem('sharedFolder', JSON.stringify(this.sharedFolder));
+
+    this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
+    localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
+
+    this.imageFolder = this.imageFolder.filter((f) => f.name !== file.name);
+    localStorage.setItem('imagesFolderFiles', JSON.stringify(this.imageFolder));
+
+    switch (file.ext) {
+      case 'psd':
+      case 'ai':
+      case 'pdf':
+        this.adobeFiles = this.adobeFiles.filter((f) => f.name !== file.name);
+        localStorage.setItem('adobeFiles', JSON.stringify(this.adobeFiles));
+        break;
+      case 'html':
+      case 'css':
+      case 'js':
+        this.webFiles = this.webFiles.filter((f) => f.name !== file.name);
+        localStorage.setItem('webFiles', JSON.stringify(this.webFiles));
+        break;
+      case 'docx':
+      case 'xls':
+        this.officeFiles = this.officeFiles.filter((f) => f.name !== file.name);
+        localStorage.setItem('officeFiles', JSON.stringify(this.officeFiles));
+        break;
+      default:
+        this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
+        break;
+    }
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: file.name + ' moved to Trash',
+      life: 3000,
+    });
   }
 
   // Delete File from all folders
 
   deleteFile(file: FileManagerItem) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + file.name + '?',
+      message: 'Are you sure you want to delete ' + file.name + ' permanently?',
       header: 'Delete Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-trash3',
       accept: () => {
-        this.totalSize -= file.file.size;
+        this.totalSize =
+          this.fileManagerDataService.getTotalSize() -
+          this.unformatFileSize(file.size);
         localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
 
         this.selectedFile = null;
@@ -273,26 +427,58 @@ export class FileManagerComponent implements OnInit {
         this.files = this.files.filter((f) => f.name !== file.name);
         localStorage.setItem('files', JSON.stringify(this.files));
 
-        this.downloadsFolder = this.downloadsFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('downloadsFolder', JSON.stringify(this.downloadsFolder));
+        this.downloadsFolder = this.downloadsFolder.filter(
+          (f) => f.name !== file.name
+        );
+        localStorage.setItem(
+          'downloadsFolderFiles',
+          JSON.stringify(this.downloadsFolder)
+        );
 
-        this.favoritesFolder = this.favoritesFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('favoritesFolder', JSON.stringify(this.favoritesFolder));
+        this.favoritesFolder = this.favoritesFolder.filter(
+          (f) => f.name !== file.name
+        );
+        localStorage.setItem(
+          'favoritesFolderFiles',
+          JSON.stringify(this.favoritesFolder)
+        );
 
         this.trashFolder = this.trashFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('trashFolder', JSON.stringify(this.trashFolder));
+        localStorage.setItem(
+          'trashFolderFiles',
+          JSON.stringify(this.trashFolder)
+        );
 
-        this.documentFolder = this.documentFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('documentFolder', JSON.stringify(this.documentFolder));
+        this.documentFolder = this.documentFolder.filter(
+          (f) => f.name !== file.name
+        );
+        localStorage.setItem(
+          'documentFolder',
+          JSON.stringify(this.documentFolder)
+        );
 
         this.draftFolder = this.draftFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('draftFolder', JSON.stringify(this.draftFolder));
+        localStorage.setItem(
+          'draftFolderFiles',
+          JSON.stringify(this.draftFolder)
+        );
 
-        this.sharedFolder = this.sharedFolder.filter((f) => f.name !== file.name);
-        localStorage.setItem('sharedFolder', JSON.stringify(this.sharedFolder));
+        this.sharedFolder = this.sharedFolder.filter(
+          (f) => f.name !== file.name
+        );
+        localStorage.setItem(
+          'sharedFolderFiles',
+          JSON.stringify(this.sharedFolder)
+        );
 
         this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
         localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
+
+        this.imageFolder = this.imageFolder.filter((f) => f.name !== file.name);
+        localStorage.setItem(
+          'imagesFolderFiles',
+          JSON.stringify(this.imageFolder)
+        );
 
         switch (file.ext) {
           case 'psd':
@@ -364,9 +550,9 @@ export class FileManagerComponent implements OnInit {
     const file: File = fileEvent.target.files[0];
 
     if (file) {
-      let files = JSON.parse(localStorage.getItem('files') || '') || [];
+      let allFiles = JSON.parse(localStorage.getItem('files') || '') || [];
       if (
-        files.some(
+        allFiles.some(
           (existingFile: FileManagerItem) => existingFile.name === file.name
         )
       ) {
@@ -378,7 +564,7 @@ export class FileManagerComponent implements OnInit {
         });
       } else {
         // Tamaño máximo del archivo
-        const maxFileSize = 10485760; // 10 MB
+        const maxFileSize = 10485760000000; // 10MB
         if (file.size > maxFileSize) {
           this.messageService.add({
             severity: 'error',
@@ -395,13 +581,15 @@ export class FileManagerComponent implements OnInit {
             modifiedOn: this.formatDate(
               new Date(file.lastModified).toISOString()
             ),
-            size: this.formatFileSize(file.size).toString(),
+            size: this.formatFileSize(file.size),
             folderName: [''],
+            imageUrl: this.url,
             file: file,
           };
           this.files.push(newFile);
           localStorage.setItem('files', JSON.stringify(this.files));
           this.selectedFile = newFile;
+          this.selectedFolder = null;
 
           switch (newFile.ext) {
             case 'psd':
@@ -420,6 +608,8 @@ export class FileManagerComponent implements OnInit {
               localStorage.setItem('webFiles', JSON.stringify(this.webFiles));
               break;
             case 'docx':
+            case 'doc':
+            case 'xlsx':
             case 'xls':
               this.officeFiles.push(newFile);
               localStorage.setItem(
@@ -427,13 +617,28 @@ export class FileManagerComponent implements OnInit {
                 JSON.stringify(this.officeFiles)
               );
               break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'svg':
+            case 'webp':
+              this.imageFolder.push(newFile);
+              localStorage.setItem(
+                'imagesFolderFiles',
+                JSON.stringify(this.imageFolder)
+              );
+              break;
             default:
               this.otherFiles.push(newFile);
-              localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
+              localStorage.setItem(
+                'otherFiles',
+                JSON.stringify(this.otherFiles)
+              );
               break;
           }
           this.totalSize += file.size;
           localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
+          this.totalSizeMeter = [{label: 'Space used', value: this.totalSize, color: '#4b4bdf'}]
           this.messageService.add({
             severity: 'success',
             summary: 'File Uploaded',
@@ -442,6 +647,16 @@ export class FileManagerComponent implements OnInit {
           });
         }
       }
+    }
+  }
+
+  readUrl(event: { target: { files: Blob[] } }) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event) => {
+        if (event.target) this.url = event.target.result;
+      };
     }
   }
 
@@ -487,21 +702,27 @@ export class FileManagerComponent implements OnInit {
     return `${day} ${month} ${year} ${hour}:${minute}:${second}`;
   }
 
-  formatFileSize(size: number): string {
-    const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
-    if (i === 0) return size + 'B';
-    return (
-      +(size / Math.pow(1024, i)).toFixed(2) +
-      ' ' +
-      ['B', 'KB', 'MB', 'GB', 'TB'][i]
-    );
+  formatFileSize(size: number) {
+    if (size === 0 || size === null) return '0 Bytes';
+    const k = 1024;
+    const dm = 2;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(size) / Math.log(k));
+    return parseFloat((size / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+
+  unformatFileSize(size: string) {
+    return Number(size.split(' ')[0]);
   }
 
   downloadFile(fileManagerItem: FileManagerItem) {
     // Retrieve the File object from the FileManagerItem object
     const file: File = fileManagerItem.file;
     this.downloadsFolder.push(fileManagerItem);
-    localStorage.setItem('downloadsFolder', JSON.stringify(this.downloadsFolder));
+    localStorage.setItem(
+      'downloadsFolder',
+      JSON.stringify(this.downloadsFolder)
+    );
 
     // Create an object URL for the file
     const url = window.URL.createObjectURL(file);
@@ -716,6 +937,17 @@ export class FileManagerComponent implements OnInit {
           this.showFavoritesFolder = false;
           this.showSharedFolder = false;
           break;
+        case 'Images':
+          this.selectedFolder.name = 'Images';
+          this.showDocumentFolder = false;
+          this.showAllFiles = false;
+          this.showDraftFolder = false;
+          this.showTrashFolder = false;
+          this.showDownloadsFolder = false;
+          this.showFavoritesFolder = false;
+          this.showSharedFolder = false;
+          this.showImageFolder = true;
+          break;
         default:
           break;
       }
@@ -729,6 +961,7 @@ export class FileManagerComponent implements OnInit {
     this.showTrashFolder = false;
     this.showDownloadsFolder = false;
     this.showFavoritesFolder = true;
+    this.showImageFolder = false;
     this.showSharedFolder = false;
   }
   openSharedFolder() {
@@ -738,7 +971,18 @@ export class FileManagerComponent implements OnInit {
     this.showTrashFolder = false;
     this.showDownloadsFolder = false;
     this.showFavoritesFolder = false;
+    this.showImageFolder = false;
     this.showSharedFolder = true;
+  }
+  openTrashFolder() {
+    this.showDocumentFolder = false;
+    this.showAllFiles = false;
+    this.showDraftFolder = false;
+    this.showTrashFolder = true;
+    this.showDownloadsFolder = false;
+    this.showFavoritesFolder = false;
+    this.showSharedFolder = false;
+    this.showImageFolder = false;
   }
 
   cancelCreateFolder() {
@@ -758,8 +1002,8 @@ export class FileManagerComponent implements OnInit {
         id: this.folders.length + 1,
         name: this.newFolderName,
         files: [],
-        size: '0B',
-        icon: ''
+        size: '0',
+        icon: '',
       };
       this.folders.push(newFolder);
       this.messageService.add({
@@ -781,6 +1025,7 @@ export class FileManagerComponent implements OnInit {
     this.showDownloadsFolder = false;
     this.showFavoritesFolder = false;
     this.showSharedFolder = false;
+    this.showImageFolder = false;
   }
 
   onSelectedTypesChange(types: string[]) {
@@ -789,8 +1034,20 @@ export class FileManagerComponent implements OnInit {
   }
   updateFilteredFiles() {
     this.filteredFiles = this.files.filter((file) => {
-      // add this line
       return this.selectedTypes.includes(file.ext);
+    });
+    this.filteredFiles = this.filteredFiles.filter((file) => {
+      return this.selectedFolders.includes(file.folderName[0]);
+    });
+  }
+  onSelectedFoldersChange(folders: string[]) {
+    this.selectedFolders = folders;
+    this.updateFilteredFiles();
+  }
+
+  searchFile() {
+    this.filteredFiles = this.files.filter((file) => {
+      return file.name.toLowerCase().includes(this.searchQuery.toLowerCase());
     });
   }
 }

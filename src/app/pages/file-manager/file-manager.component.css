@@ -13,6 +13,10 @@
 .text-ai {
   color: #ff6d00;
 }
+.text-json{
+  color: #4caf50;
+
+}
 ::ng-deep html {
   overflow: hidden !important;
 }
@@ -41,6 +45,10 @@
   background-color: #4b4bdf1d;
   border-radius: 8px;
 }
+.list-item a{
+  text-decoration: none;
+  color: #4b4bdf;
+}
 .profile-picture {
   max-width: 20px;
   border-radius: 50%;
@@ -67,9 +75,17 @@
   align-items: center;
   gap: 1rem;
 }
+.file-manager-container .multiselect-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  padding-top: 3rem;
+}
 .file-manager-body {
   overflow: auto;
-  max-height: 80vh;
+  max-height: 70vh;
   overflow-x: visible !important;
 }
 .back-icon {
@@ -248,6 +264,7 @@
 ::ng-deep .p-inputwrapper{
   width: 100%;
   min-width: 300px;
+  max-width: 300px;
 }
 ::ng-deep .p-multiselect-close {
   display: none;

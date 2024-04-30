@@ -45,6 +45,7 @@ import { MegaMenuModule} from 'primeng/megamenu';
 import { TagModule } from 'primeng/tag';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
+import { MeterGroupModule} from 'primeng/metergroup';
 
 
 // Angular Material Modules
@@ -276,6 +277,7 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     TagModule,
     ContextMenuModule,
     DragDropModule,
+    MeterGroupModule
 
   ],
   providers: [

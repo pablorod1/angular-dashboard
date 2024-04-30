@@ -8,6 +8,7 @@ export interface FileManagerItem {
   modifiedOn: string;
   size: string;
   file: File;
+  imageUrl: string;
   folderName: string[];
 }
 export interface FileManagerFolder {
@@ -28,42 +29,49 @@ export class FileManagerDataService {
     {
       id: 1,
       name: 'Documents',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-file-earmark-text'
     },
     {
       id: 2,
       name: 'Drafts',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-pencil-square'
     },
     {
       id: 3,
       name: 'Downloads',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-download'
     },
     {
       id: 4,
+      name: 'Images',
+      size: '0',
+      files: [],
+      icon: 'bi-image'
+    },
+    {
+      id: 5,
       name: 'Trash',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-trash3'
     },
     {
-      id: 5,
+      id: 6,
       name: 'Favorites',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-star'
     },
     {
-      id: 6,
+      id: 7,
       name: 'Shared',
-      size: '0B',
+      size: '0',
       files: [],
       icon: 'bi-share'
     },
@@ -205,6 +213,16 @@ export class FileManagerDataService {
     }
     return files;
   }
+
+  getImagesFolderFiles() {
+    let files = JSON.parse(localStorage.getItem('imagesFolderFiles') as string);
+    if (!files) {
+      files = this.folders.filter((item) => item.name === 'Images')[0].files;
+      localStorage.setItem('imagesFolderFiles', JSON.stringify(files));
+    }
+    return files;
+  }
+
   getTrashFolderFiles() {
     let files = JSON.parse(localStorage.getItem('trashFolderFiles') as string);
     if (!files) {
@@ -243,12 +261,11 @@ export class FileManagerDataService {
   }
   getTotalSize() {
     let size = JSON.parse(localStorage.getItem('totalSize') as string);
-    console.log(size);
     if (!size) {
       size = 0;
     }
     this.files.forEach((file) => {
-      size += parseInt(file.size);
+      size += file.size;
     });
     localStorage.setItem('totalSize', JSON.stringify(size));
     return size;
