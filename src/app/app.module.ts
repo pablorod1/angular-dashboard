@@ -46,7 +46,7 @@ import { TagModule } from 'primeng/tag';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DragDropModule } from 'primeng/dragdrop';
 import { MeterGroupModule} from 'primeng/metergroup';
-
+import { FileUploadModule } from 'primeng/fileupload';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -277,7 +277,8 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     TagModule,
     ContextMenuModule,
     DragDropModule,
-    MeterGroupModule
+    MeterGroupModule,
+    FileUploadModule
 
   ],
   providers: [

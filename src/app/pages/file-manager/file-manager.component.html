@@ -49,7 +49,7 @@
       <!-- File Manager Container -->
       <div class="col-lg-10 col-md-8 p-0">
         <div class="row">
-          <div class="col-lg-9 col-md-7" [ngClass]="{
+          <div class="col-lg-8 col-md-7" [ngClass]="{
             'full-container' : !detailsActive,
           }">
             <div class="container-fluid file-manager-container px-0 py-3">
@@ -63,23 +63,24 @@
 
                 </div>
                 <div class="right-container">
-                  <button type="button" (click)="fileInput.click()" class="animated-button"><i class="bi bi-upload"></i>
-                    Upload File </button>
-                  <input type="file" [dragEffect]="'copy'" [multiple]="true" (change)="uploadFile($event)"
-                    style="display: none" pDraggable #fileInput>
-                  <!-- Search -->
-                  <div class="input-container">
-                    <label for="searchInput" class="search-icon">
-                      <i class="bi bi-search"></i>
-                    </label>
-                    <input pInputText (change)="searchFile()" [(ngModel)]="searchQuery" type="text" id="searchInput"
-                      class="filter-input" placeholder="Search keyword" />
+                  <div *ngIf="showAllFiles">
+                    <input type="file" (change)="uploadFile($event)" #fileInput
+                      style="display: none;">
+                    <button type="button" (click)="fileInput.click()" class="animated-button"><i
+                        class="bi bi-upload"></i>
+                      Upload File </button>
                   </div>
+
                   <button *ngIf="!detailsActive" type="button" (click)="detailsActive = !detailsActive"
                     class="btn info-btn"> <i class="bi bi-info-circle text-dark"></i></button>
                 </div>
               </div>
-              <div *ngIf="showAllFiles" class="multiselect-container">
+              <div *ngIf="showAllFiles" class="filters-container">
+                <!-- Search -->
+                <div class="search-container">
+                  <input (change)="searchFile()" [(ngModel)]="searchQuery" type="text" id="searchInput"
+                    class="form-control" placeholder="Search keyword" />
+                </div>
                 <p-multiSelect [showClear]="false" [options]="fileTypes" placeholder="Select File Type"
                   (onChange)="onSelectedTypesChange($event.value)" [(ngModel)]="selectedTypes">
                   <ng-template let-type pTemplate="selectedTypes">
@@ -379,7 +380,7 @@
               </div>
             </div>
           </div>
-          <div [@detailsAnimation]="detailsActive ? 'active' : 'inactive'" class="details col-lg-3 col-md-5 px-0">
+          <div [@detailsAnimation]="detailsActive ? 'active' : 'inactive'" class="details col-lg-4 col-md-5 px-0">
             <!-- File // Folder Details When SelectedFile // SelectedFolder -->
             <div *ngIf="selectedFile || selectedFolder; else emptyDetails" class="container ps-0 p-4">
               <div class="details-header">
@@ -396,8 +397,8 @@
               </div>
               <mat-divider></mat-divider>
               <div class="preview">
-                <img *ngIf="selectedFile && selectedFile.imageUrl" [src]="selectedFile.imageUrl" alt=" Image Preview" class="img-fluid"
-                  loading="lazy">
+                <img *ngIf="selectedFile && selectedFile.imageUrl" [src]="selectedFile.imageUrl" alt=" Image Preview"
+                  class="preview-img" loading="lazy">
               </div>
               <mat-divider></mat-divider>
               <div class="details-body">
@@ -422,7 +423,14 @@
                 </div>
                 <div *ngIf="selectedFile && selectedFile.folderName[0] !== ''" class="details-row">
                   <h3 class="mb-0"> Location: </h3>
-                  <span> {{selectedFile.folderName}} </span>
+                  <div class="location-btn-container d-flex flex-column gap-2">
+                    <button *ngFor="let folder of selectedFile.folderName" type="button" (dblclick)="openFolder(folder)"
+                      class="button">
+                      <span>
+                        <i class="me-2 bi bi-folder-fill"></i> {{folder}}
+                      </span>
+                    </button>
+                  </div>
                 </div>
                 <div *ngIf="selectedFolder" class="details-row">
                   <h3 class="mb-0"> Files: </h3>
@@ -478,4 +486,24 @@
       </div>
     </ng-template>
   </p-dialog>
+
+  <!-- Upload Dialog
+  <p-dialog [visible]="showUploadDialog" [modal]="true" closable="false">
+    <input type="file" (change)="previewUploadedFile($event)" multiple #fileInput style="display: none;">
+    <ng-template pTemplate="headless">
+      <div class="preview-file" *ngFor="let file of uploadedFiles">
+        <img [src]="file.imageUrl" alt="File Preview" class="img-fluid">
+        <div class="file-info">
+          <h5 class="mb-0"> {{file.name}} </h5>
+          <small> {{formatFileSize(file.size)}} </small>
+        </div>
+      </div>
+      <div class="dialog-container bg-white p-4">
+        <h4 class="mb-4"> Upload File </h4>
+        <div class="d-flex gap-2">
+          <button type="button" class="button outline-success text-success" (click)="fileInput.click()"> Upload </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog> -->
 </section>

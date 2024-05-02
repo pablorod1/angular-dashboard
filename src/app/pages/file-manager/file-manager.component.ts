@@ -13,6 +13,13 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { replace } from 'lodash';
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
+
 @Component({
   selector: 'app-file-manager',
   templateUrl: './file-manager.component.html',
@@ -23,8 +30,7 @@ import {
       state(
         'inactive',
         style({
-          transform: 'translateX(100%)', // 'translateX(-100%)',
-          display: 'none',
+          transform: 'translateX(100%)',
           visibility: 'hidden',
           opacity: 0,
         })
@@ -35,7 +41,6 @@ import {
           transform: 'translateX(0)',
           opacity: 1,
           visibility: 'visible',
-          display: 'block',
         })
       ),
       transition('inactive => active', animate('400ms ease-in')),
@@ -51,6 +56,7 @@ export class FileManagerComponent implements OnInit {
   officeFiles!: FileManagerItem[];
   otherFiles!: FileManagerItem[];
   filteredFiles: FileManagerItem[] = [];
+  uploadedFiles: any[] = [];
 
   filesMenu!: MenuItem[];
   folderMenu!: MenuItem[];
@@ -72,6 +78,7 @@ export class FileManagerComponent implements OnInit {
   showFavoritesFolder: boolean = false;
   showSharedFolder: boolean = false;
   showImageFolder: boolean = false;
+  showUploadDialog: boolean = false;
 
   documentFolder!: FileManagerItem[];
   draftFolder!: FileManagerItem[];
@@ -98,14 +105,19 @@ export class FileManagerComponent implements OnInit {
   constructor(
     private fileManagerDataService: FileManagerDataService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {}
+
+  // blob:http://localhost:4200/6d0cc565-be64-4888-9e16-e59c1f368d17
 
   ngOnInit() {
     // localStorage.clear();
     // Folders
-    this.fileManagerDataService.autoAddFilesToFolders();
-    this.folders = this.fileManagerDataService.getFolders();
+    if (!this.folders) {
+      this.folders = this.fileManagerDataService.getFolders();
+    } else {
+      this.folders = JSON.parse(localStorage.getItem('folders') || '[]');
+    }
 
     // Files
     this.files = JSON.parse(localStorage.getItem('files') || '[]');
@@ -116,17 +128,29 @@ export class FileManagerComponent implements OnInit {
 
     // Total Size
     this.totalSize = this.fileManagerDataService.getTotalSize();
-    this.totalSizeMeter = [{ label: 'Space used', value: this.totalSize, color: '#4b4bdf' }];
+    this.totalSizeMeter = [
+      { label: 'Space used', value: this.totalSize, color: '#4b4bdf' },
+    ];
 
     // Folders
-    this.documentFolder = this.fileManagerDataService.getDocumentFolderFiles();
-    this.draftFolder = this.fileManagerDataService.getDraftsFolderFiles();
-    this.imageFolder = this.fileManagerDataService.getImagesFolderFiles();
-    this.trashFolder = this.fileManagerDataService.getTrashFolderFiles();
-    this.downloadsFolder =
-      this.fileManagerDataService.getDownloadsFolderFiles();
-    this.favoritesFolder =
-      this.fileManagerDataService.getFavoritesFolderFiles();
+    this.documentFolder = JSON.parse(
+      localStorage.getItem('documentFolderFiles') || '[]'
+    );
+    this.draftFolder = JSON.parse(
+      localStorage.getItem('draftFolderFiles') || '[]'
+    );
+    this.imageFolder = JSON.parse(
+      localStorage.getItem('imagesFolderFiles') || '[]'
+    );
+    this.trashFolder = JSON.parse(
+      localStorage.getItem('trashFolderFiles') || '[]'
+    );
+    this.downloadsFolder = JSON.parse(
+      localStorage.getItem('downloadsFolderFiles') || '[]'
+    );
+    this.favoritesFolder = JSON.parse(
+      localStorage.getItem('favoritesFolderFiles') || '[]'
+    );
     this.sharedFolder = this.fileManagerDataService.getSharedFolderFiles();
 
     // MultiSelect Items
@@ -164,7 +188,7 @@ export class FileManagerComponent implements OnInit {
         },
       },
       {
-        label: 'Move to',
+        label: 'Move To',
         icon: 'bi bi-arrow-right',
         items: [
           {
@@ -208,7 +232,7 @@ export class FileManagerComponent implements OnInit {
         },
       },
       {
-        label: 'Delete',
+        label: 'Trash',
         icon: 'bi bi-trash3',
         command: () => {
           if (this.selectedFile) this.deleteToTrash(this.selectedFile);
@@ -342,63 +366,139 @@ export class FileManagerComponent implements OnInit {
 
   deleteToTrash(file: FileManagerItem) {
     this.trashFolder.push(file);
+    this.selectedFile = null;
     localStorage.setItem('trashFolderFiles', JSON.stringify(this.trashFolder));
-    this.files = this.files.filter((f) => f.name !== file.name);
+    this.files = this.files.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Trash') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
     localStorage.setItem('files', JSON.stringify(this.files));
 
-    this.downloadsFolder = this.downloadsFolder.filter(
-      (f) => f.name !== file.name
-    );
+    this.downloadsFolder = this.downloadsFolder.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Downloads') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
     localStorage.setItem(
-      'downloadsFolder',
+      'downloadsFolderFiles',
       JSON.stringify(this.downloadsFolder)
     );
 
-    this.favoritesFolder = this.favoritesFolder.filter(
-      (f) => f.name !== file.name
-    );
+    this.favoritesFolder = this.favoritesFolder.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Favorites') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
     localStorage.setItem(
-      'favoritesFolder',
+      'favoritesFolderFiles',
       JSON.stringify(this.favoritesFolder)
     );
 
-    this.documentFolder = this.documentFolder.filter(
-      (f) => f.name !== file.name
+    this.documentFolder = this.documentFolder.filter((f) => {
+      f.name != file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Documents') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
+    localStorage.setItem(
+      'documentFolderFiles',
+      JSON.stringify(this.documentFolder)
     );
-    localStorage.setItem('documentFolder', JSON.stringify(this.documentFolder));
 
-    this.draftFolder = this.draftFolder.filter((f) => f.name !== file.name);
-    localStorage.setItem('draftFolder', JSON.stringify(this.draftFolder));
+    this.draftFolder = this.draftFolder.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Drafts') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
+    localStorage.setItem('draftFolderFiles', JSON.stringify(this.draftFolder));
 
-    this.sharedFolder = this.sharedFolder.filter((f) => f.name !== file.name);
-    localStorage.setItem('sharedFolder', JSON.stringify(this.sharedFolder));
+    this.sharedFolder = this.sharedFolder.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Shared') {
 
-    this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
-    localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
+    localStorage.setItem(
+      'sharedFolderFiles',
+      JSON.stringify(this.sharedFolder)
+    );
 
-    this.imageFolder = this.imageFolder.filter((f) => f.name !== file.name);
+    this.otherFiles = this.otherFiles.filter((f) => {
+      f.name !== file.name;
+    });
+    localStorage.setItem('otherFilesFiles', JSON.stringify(this.otherFiles));
+
+    this.imageFolder = this.imageFolder.filter((f) => {
+      f.name !== file.name;
+    });
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Images') {
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
     localStorage.setItem('imagesFolderFiles', JSON.stringify(this.imageFolder));
 
     switch (file.ext) {
       case 'psd':
       case 'ai':
       case 'pdf':
-        this.adobeFiles = this.adobeFiles.filter((f) => f.name !== file.name);
+        this.adobeFiles = this.adobeFiles.filter((f) => {
+          f.name !== file.name;
+        });
         localStorage.setItem('adobeFiles', JSON.stringify(this.adobeFiles));
         break;
       case 'html':
       case 'css':
       case 'js':
-        this.webFiles = this.webFiles.filter((f) => f.name !== file.name);
+        this.webFiles = this.webFiles.filter((f) => {
+          f.name !== file.name;
+        });
         localStorage.setItem('webFiles', JSON.stringify(this.webFiles));
         break;
       case 'docx':
       case 'xls':
-        this.officeFiles = this.officeFiles.filter((f) => f.name !== file.name);
+        this.officeFiles = this.officeFiles.filter((f) => {
+          f.name !== file.name;
+        });
         localStorage.setItem('officeFiles', JSON.stringify(this.officeFiles));
         break;
       default:
-        this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
+        this.otherFiles = this.otherFiles.filter((f) => {
+          f.name !== file.name;
+        });
+        localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
         break;
     }
     this.messageService.add({
@@ -417,63 +517,81 @@ export class FileManagerComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'bi bi-trash3',
       accept: () => {
+        this.selectedFile = null;
         this.totalSize -= file.size;
         localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
-        this.totalSizeMeter[0].value = this.totalSize;
 
         this.selectedFile = null;
 
         this.files = this.files.filter((f) => f.name !== file.name);
         localStorage.setItem('files', JSON.stringify(this.files));
 
-        this.downloadsFolder = this.downloadsFolder.filter(
-          (f) => f.name !== file.name
-        );
+        this.downloadsFolder = this.downloadsFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
+
         localStorage.setItem(
           'downloadsFolderFiles',
           JSON.stringify(this.downloadsFolder)
         );
 
-        this.favoritesFolder = this.favoritesFolder.filter(
-          (f) => f.name !== file.name
-        );
+        this.favoritesFolder = this.favoritesFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem(
           'favoritesFolderFiles',
           JSON.stringify(this.favoritesFolder)
         );
 
-        this.trashFolder = this.trashFolder.filter((f) => f.name !== file.name);
+        this.trashFolder = this.trashFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem(
           'trashFolderFiles',
           JSON.stringify(this.trashFolder)
         );
 
-        this.documentFolder = this.documentFolder.filter(
-          (f) => f.name !== file.name
-        );
+        this.documentFolder = this.documentFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
+
         localStorage.setItem(
-          'documentFolder',
+          'documentFolderFiles',
           JSON.stringify(this.documentFolder)
         );
 
-        this.draftFolder = this.draftFolder.filter((f) => f.name !== file.name);
+        this.draftFolder = this.draftFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem(
           'draftFolderFiles',
           JSON.stringify(this.draftFolder)
         );
 
-        this.sharedFolder = this.sharedFolder.filter(
-          (f) => f.name !== file.name
-        );
+        this.sharedFolder = this.sharedFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem(
           'sharedFolderFiles',
           JSON.stringify(this.sharedFolder)
         );
 
-        this.otherFiles = this.otherFiles.filter((f) => f.name !== file.name);
+        this.otherFiles = this.otherFiles.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
 
-        this.imageFolder = this.imageFolder.filter((f) => f.name !== file.name);
+        this.imageFolder = this.imageFolder.filter((f) => {
+          f.name !== file.name;
+          f.size -= file.size;
+        });
         localStorage.setItem(
           'imagesFolderFiles',
           JSON.stringify(this.imageFolder)
@@ -545,9 +663,14 @@ export class FileManagerComponent implements OnInit {
     this.renamingFile = {} as FileManagerItem;
   }
 
+  previewUploadedFile(event: any) {
+    this.showUploadDialog = true;
+    this.uploadedFiles = event.files;
+  }
+
   // File Upload
-  uploadFile(fileEvent: any) {
-    const file: File = fileEvent.target.files[0];
+  uploadFile(event: any) {
+    const file: File = event.target.files[0];
 
     if (file) {
       let allFiles = JSON.parse(localStorage.getItem('files') || '[]');
@@ -573,8 +696,6 @@ export class FileManagerComponent implements OnInit {
             life: 3000,
           });
         } else {
-
-
           let newFile: FileManagerItem = {
             id: this.files.length + 1,
             name: file.name,
@@ -585,7 +706,7 @@ export class FileManagerComponent implements OnInit {
             ),
             size: file.size,
             folderName: [''],
-            imageUrl: '',
+            imageUrl: URL.createObjectURL(file),
             file: file,
           };
           this.files.push(newFile);
@@ -594,7 +715,6 @@ export class FileManagerComponent implements OnInit {
           this.selectedFolder = null;
           this.totalSize += file.size;
           localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
-          this.totalSizeMeter[0].value = this.totalSize;
           this.messageService.add({
             severity: 'success',
             summary: 'File Uploaded',
@@ -633,13 +753,19 @@ export class FileManagerComponent implements OnInit {
             case 'png':
             case 'svg':
             case 'webp':
-              const imageUrl = URL.createObjectURL(file);
-              newFile.imageUrl = imageUrl;
+              newFile.folderName = ['Images'];
               this.imageFolder.push(newFile);
               localStorage.setItem(
                 'imagesFolderFiles',
                 JSON.stringify(this.imageFolder)
               );
+              this.folders.forEach((f) => {
+                if (f.name === 'Images') {
+                  f.files.push(newFile);
+                  f.size += file.size;
+                }
+              });
+              localStorage.setItem('folders', JSON.stringify(this.folders));
               break;
             default:
               this.otherFiles.push(newFile);
@@ -652,6 +778,8 @@ export class FileManagerComponent implements OnInit {
           location.reload();
         }
       }
+    } else {
+      console.log('No file selected');
     }
   }
 
@@ -739,7 +867,83 @@ export class FileManagerComponent implements OnInit {
 
   moveFile(file: FileManagerItem, folder: string) {
     this.oldFolder = file.folderName[0];
-    file.folderName = [folder];
+    // Actualizar el folderName[] del archivo en allFiles del localstorage
+    this.files = this.files.map((f) => {
+      if (f.id === file.id) {
+        if (f.folderName[0] !== '') {
+          f.folderName.push(folder);
+        } else {
+          f.folderName = [folder];
+        }
+        localStorage.setItem('files', JSON.stringify(this.files));
+      }
+      return f;
+    });
+    switch (file.ext) {
+      case 'psd':
+      case 'ai':
+      case 'pdf':
+        this.adobeFiles = this.adobeFiles.map((f) => {
+          if (f.id === file.id) {
+            if (f.folderName[0] !== '') {
+              f.folderName.push(folder);
+            } else {
+              f.folderName = [folder];
+            }
+            localStorage.setItem('adobeFiles', JSON.stringify(this.adobeFiles));
+          }
+          return f;
+        });
+        break;
+      case 'html':
+      case 'js':
+      case 'css':
+        this.webFiles = this.webFiles.map((f) => {
+          if (f.id === file.id) {
+            if (f.folderName[0] !== '') {
+              f.folderName.push(folder);
+            } else {
+              f.folderName = [folder];
+            }
+            localStorage.setItem('webFiles', JSON.stringify(this.webFiles));
+          }
+          return f;
+        });
+        break;
+      case 'docx':
+      case 'doc':
+      case 'xlsx':
+      case 'xls':
+      case 'ppt':
+      case 'pptx':
+        this.officeFiles = this.officeFiles.map((f) => {
+          if (f.id === file.id) {
+            if (f.folderName[0] !== '') {
+              f.folderName.push(folder);
+            } else {
+              f.folderName = [folder];
+            }
+            localStorage.setItem(
+              'officeFiles',
+              JSON.stringify(this.officeFiles)
+            );
+          }
+          return f;
+        });
+        break;
+      default:
+        this.otherFiles = this.otherFiles.map((f) => {
+          if (f.id === file.id) {
+            if (f.folderName[0] !== '') {
+              f.folderName.push(folder);
+            } else {
+              f.folderName = [folder];
+            }
+            localStorage.setItem('otherFiles', JSON.stringify(this.otherFiles));
+          }
+          return f;
+        });
+    }
     switch (folder) {
       case 'Documents':
         this.draftFolder = this.draftFolder.filter((f) => f !== file);
@@ -748,6 +952,18 @@ export class FileManagerComponent implements OnInit {
         );
         if (!isFileInDocumentFolder) {
           this.documentFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Documents') {
+              f.files = this.documentFolder;
+              f.size += file.size;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'documentFolderFiles',
+            JSON.stringify(this.documentFolder)
+          );
           if (this.oldFolder !== '') {
             this.messageService.add({
               severity: 'success',
@@ -780,6 +996,17 @@ export class FileManagerComponent implements OnInit {
         );
         if (!isFileInDraftFolder) {
           this.draftFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Drafts') {
+              f.files = this.documentFolder;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'draftFolderFiles',
+            JSON.stringify(this.draftFolder)
+          );
           if (this.oldFolder !== '') {
             this.messageService.add({
               severity: 'success',
@@ -813,6 +1040,17 @@ export class FileManagerComponent implements OnInit {
         );
         if (!isFileInTrashFolder) {
           this.trashFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Trash') {
+              f.files = this.documentFolder;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'trashFolderFiles',
+            JSON.stringify(this.trashFolder)
+          );
           if (this.oldFolder !== '') {
             this.messageService.add({
               severity: 'success',
@@ -845,7 +1083,18 @@ export class FileManagerComponent implements OnInit {
           (f) => f.id === file.id
         );
         if (!isFileInDownloadsFolder) {
-          this.trashFolder.push(file);
+          this.downloadsFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Downloads') {
+              f.files = this.documentFolder;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'downloadsFolderFiles',
+            JSON.stringify(this.downloadsFolder)
+          );
           if (this.oldFolder !== '') {
             this.messageService.add({
               severity: 'success',
@@ -877,6 +1126,51 @@ export class FileManagerComponent implements OnInit {
         );
         if (!isFileInFavoritesFolder) {
           this.favoritesFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Favorites') {
+              f.files = this.documentFolder;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'favoritesFolderFiles',
+            JSON.stringify(this.favoritesFolder)
+          );
+          if (this.oldFolder !== '') {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: file.name + ' added to ' + folder,
+              life: 3000,
+            });
+          }
+        } else {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Canceled',
+            detail: 'File already in ' + folder,
+            life: 3000,
+          });
+        }
+        break;
+      case 'Images':
+        const isFileInImagesFolder = this.imageFolder.some(
+          (f) => f.id === file.id
+        );
+        if (!isFileInImagesFolder) {
+          this.imageFolder.push(file);
+          this.folders.map((f) => {
+            if (f.name === 'Images') {
+              f.files = this.documentFolder;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          localStorage.setItem(
+            'imagesFolderFiles',
+            JSON.stringify(this.imageFolder)
+          );
           if (this.oldFolder !== '') {
             this.messageService.add({
               severity: 'success',
@@ -900,52 +1194,64 @@ export class FileManagerComponent implements OnInit {
   }
 
   openFolder(folder: string) {
-    if (this.selectedFolder) {
-      switch (folder) {
-        case 'Documents':
+    switch (folder) {
+      case 'Documents':
+        this.selectedFile = null;
+        this.selectedFolder =
+          this.folders.find((f) => f.name === 'Documents') || null;
+        if (this.selectedFolder) {
           this.selectedFolder.name = 'Documents';
-          this.showDocumentFolder = true;
-          this.showAllFiles = false;
-          this.showDraftFolder = false;
-          this.showTrashFolder = false;
-          this.showDownloadsFolder = false;
-          this.showFavoritesFolder = false;
-          this.showSharedFolder = false;
-          break;
-        case 'Drafts':
-          this.selectedFolder.name = 'Drafts';
-          this.showDocumentFolder = false;
-          this.showAllFiles = false;
-          this.showDraftFolder = true;
-          this.showTrashFolder = false;
-          this.showDownloadsFolder = false;
-          this.showFavoritesFolder = false;
-          this.showSharedFolder = false;
-          break;
-        case 'Downloads':
-          this.selectedFolder.name = 'Downloads';
-          this.showDocumentFolder = false;
-          this.showAllFiles = false;
-          this.showDraftFolder = false;
-          this.showTrashFolder = false;
-          this.showDownloadsFolder = true;
-          this.showFavoritesFolder = false;
-          this.showSharedFolder = false;
-          break;
-        case 'Images':
-          this.selectedFolder.name = 'Images';
-          this.showDocumentFolder = false;
-          this.showAllFiles = false;
-          this.showDraftFolder = false;
-          this.showTrashFolder = false;
-          this.showDownloadsFolder = false;
-          this.showFavoritesFolder = false;
-          this.showSharedFolder = false;
-          this.showImageFolder = true;
-          break;
-        default:
-          break;
-      }
+        }
+        this.showDocumentFolder = true;
+        this.showAllFiles = false;
+        this.showDraftFolder = false;
+        this.showTrashFolder = false;
+        this.showDownloadsFolder = false;
+        this.showFavoritesFolder = false;
+        this.showSharedFolder = false;
+        break;
+      case 'Drafts':
+        this.selectedFile = null;
+        this.selectedFolder =
+          this.folders.find((f) => f.name === 'Drafts') || null;
+        if (this.selectedFolder) this.selectedFolder.name = 'Drafts';
+        this.showDocumentFolder = false;
+        this.showAllFiles = false;
+        this.showDraftFolder = true;
+        this.showTrashFolder = false;
+        this.showDownloadsFolder = false;
+        this.showFavoritesFolder = false;
+        this.showSharedFolder = false;
+        break;
+      case 'Downloads':
+        this.selectedFile = null;
+        this.selectedFolder =
+          this.folders.find((f) => f.name === 'Downloads') || null;
+        if (this.selectedFolder) this.selectedFolder.name = 'Downloads';
+        this.showDocumentFolder = false;
+        this.showAllFiles = false;
+        this.showDraftFolder = false;
+        this.showTrashFolder = false;
+        this.showDownloadsFolder = true;
+        this.showFavoritesFolder = false;
+        this.showSharedFolder = false;
+        break;
+      case 'Images':
+        this.selectedFile = null;
+        this.selectedFolder =
+          this.folders.find((f) => f.name === 'Images') || null;
+        if (this.selectedFolder) this.selectedFolder.name = 'Images';
+        this.showDocumentFolder = false;
+        this.showAllFiles = false;
+        this.showDraftFolder = false;
+        this.showTrashFolder = false;
+        this.showDownloadsFolder = false;
+        this.showFavoritesFolder = false;
+        this.showSharedFolder = false;
+        this.showImageFolder = true;
+        break;
+      default:
+        break;
     }
   }
 
@@ -1021,6 +1327,7 @@ export class FileManagerComponent implements OnInit {
     this.showFavoritesFolder = false;
     this.showSharedFolder = false;
     this.showImageFolder = false;
+    this.selectedFile = null;
   }
 
   onSelectedTypesChange(types: string[]) {
@@ -1031,13 +1338,6 @@ export class FileManagerComponent implements OnInit {
     this.filteredFiles = this.files.filter((file) => {
       return this.selectedTypes.includes(file.ext);
     });
-    this.filteredFiles = this.filteredFiles.filter((file) => {
-      return this.selectedFolders.includes(file.folderName[0]);
-    });
-  }
-  onSelectedFoldersChange(folders: string[]) {
-    this.selectedFolders = folders;
-    this.updateFilteredFiles();
   }
 
   searchFile() {
