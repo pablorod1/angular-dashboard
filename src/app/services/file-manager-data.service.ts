@@ -25,57 +25,7 @@ export interface FileManagerFolder {
 export class FileManagerDataService {
   private files: FileManagerItem[] = [];
 
-  private folders: FileManagerFolder[] = [
-    {
-      id: 1,
-      name: 'Documents',
-      size: 0,
-      files: [],
-      icon: 'bi-file-earmark-text'
-    },
-    {
-      id: 2,
-      name: 'Drafts',
-      size: 0,
-      files: [],
-      icon: 'bi-pencil-square'
-    },
-    {
-      id: 3,
-      name: 'Downloads',
-      size: 0,
-      files: [],
-      icon: 'bi-download'
-    },
-    {
-      id: 4,
-      name: 'Images',
-      size: 0,
-      files: [],
-      icon: 'bi-image'
-    },
-    {
-      id: 5,
-      name: 'Trash',
-      size: 0,
-      files: [],
-      icon: 'bi-trash3'
-    },
-    {
-      id: 6,
-      name: 'Favorites',
-      size: 0,
-      files: [],
-      icon: 'bi-star'
-    },
-    {
-      id: 7,
-      name: 'Shared',
-      size: 0,
-      files: [],
-      icon: 'bi-share'
-    },
-  ];
+  private folders: FileManagerFolder[] = [];
 
   formatDate(date: string): string {
     const d = new Date(date);
@@ -130,7 +80,6 @@ export class FileManagerDataService {
 
   getFolders() {
     localStorage.setItem('folders', JSON.stringify(this.folders));
-    return this.folders;
   }
 
   getAdobeFiles() {
