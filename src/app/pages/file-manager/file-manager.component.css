@@ -13,9 +13,8 @@
 .text-ai {
   color: #ff6d00;
 }
-.text-json{
+.text-json {
   color: #4caf50;
-
 }
 ::ng-deep html {
   overflow: hidden !important;
@@ -34,7 +33,7 @@
   font-size: 1.8rem;
   font-weight: 600;
 }
-.sidebar .footer{
+.sidebar .footer {
   position: relative;
   bottom: 0;
 }
@@ -51,7 +50,7 @@
   background-color: #4b4bdf1d;
   border-radius: 8px;
 }
-.list-item a{
+.list-item a {
   text-decoration: none;
   color: #4b4bdf;
 }
@@ -94,7 +93,7 @@
   align-items: center;
   gap: 1rem;
 }
-.file-manager-container .filters-container{
+.file-manager-container .filters-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -103,7 +102,7 @@
   padding-top: 1rem;
   gap: 1rem;
 }
-.file-manager-container .filters-container .search-container{
+.file-manager-container .filters-container .search-container {
   max-width: 800px;
   width: 100%;
 }
@@ -127,13 +126,13 @@
   font-size: 22px;
   color: #023047;
 }
-.preview{
+.preview {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem 0;
 }
-.preview-img{
+.preview-img {
   max-width: 200px;
   width: 100%;
   height: 100%;
@@ -159,7 +158,7 @@
   cursor: pointer;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
 }
-.folder :nth-child(2){
+.folder :nth-child(2) {
   top: 40%;
   font-size: 35px;
 }
@@ -281,7 +280,7 @@
 .dialog-container .form-group {
   margin-bottom: 1rem;
 }
-::ng-deep .p-inputwrapper{
+::ng-deep .p-inputwrapper {
   width: 100%;
   min-width: 300px;
   max-width: 300px;
@@ -290,59 +289,75 @@
 ::ng-deep .p-multiselect-close {
   display: none;
 }
-.multiselect-item{
+.multiselect-item {
   display: flex;
   align-items: center;
-  margin-left: .5rem;
-  gap: .5rem;
+  margin-left: 0.5rem;
+  gap: 0.5rem;
   text-transform: capitalize;
 }
-.multiselect-item i{
+.multiselect-item i {
   font-size: 20px;
 }
-.multiselect-item span{
+.multiselect-item span {
   font-weight: 500;
 }
-::ng-deep .p-metergroup-labels{
+::ng-deep .p-metergroup-labels {
   display: none;
 }
-.location-btn-container{
+.location-btn-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   max-width: 150px;
   width: 100%;
 }
-.view-toggler{
+.view-toggler {
   max-width: fit-content;
   width: 100%;
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
   padding: 2px;
   background-color: #4b4bdf;
   border-radius: 30px;
 }
-.view-toggler .btn{
+.view-toggler .btn {
   padding: 5px 10px;
   border-radius: 30px;
   color: #fff;
 }
-.btn-active{
+.btn-active {
   background-color: #fff;
   color: #4b4bdf !important ;
-  i{
+  i {
     color: #4b4bdf;
   }
 }
-.dropdown-toggle:before{
+.dropdown-toggle:before {
   display: none;
 }
 
-::ng-deep .p-datatable-wrapper{
-  min-height: 40vh;
+::ng-deep .p-datatable-wrapper {
+  min-height: 53vh;
   height: 100%;
 }
-.empty-container{
+th{
+  font-weight: 600;
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
+
+}
+td{
+  font-weight: 400;
+  background: #f6f6f6 !important;
+  border-bottom: 1px solid #ddd;
+
+}
+.dropstart{
+  width: fit-content;
+  z-index: 2000 !important;
+}
+.empty-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -350,26 +365,25 @@
   gap: 1rem;
   padding: 2rem;
 }
-.empty-container .search-img{
-
+.empty-container .search-img {
   max-width: 400px;
   width: 100%;
   object-fit: contain;
 }
-.dropdown-menu{
-  padding: .5rem;
+.dropdown-menu {
+  padding: 0.5rem;
   border: 1px solid #4b4bdf2d;
   box-shadow: 0 0 32px -10px rgba(0, 0, 0, 0.1);
 }
-.dropdown-item{
-  padding: 1rem .8rem;
+.dropdown-item {
+  padding: 1rem 0.8rem;
 }
-.dropdown-item:focus, .dropdown-item:active{
+.dropdown-item:focus,
+.dropdown-item:active {
   background-color: #4b4bdf1d;
   color: #4b4bdf;
-
 }
-.img-icon{
+.img-icon {
   max-width: 100px;
   width: 100%;
   object-fit: contain;
@@ -404,12 +418,12 @@
     align-items: center;
     gap: 1rem;
   }
-  ::ng-deep html{
+  ::ng-deep html {
     overflow: auto !important;
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1200px){
+@media (min-width: 1024px) and (max-width: 1200px) {
   .file-manager-container .header .title-container {
     position: relative;
     left: 0;

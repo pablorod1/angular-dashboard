@@ -271,6 +271,13 @@ export class FileManagerComponent implements OnInit {
           if (this.selectedFile) this.deleteFilePermanently(this.selectedFile);
         },
       },
+      {
+        label: 'Restore',
+        icon: 'bi bi-arrow-counterclockwise',
+        command: () => {
+          if (this.selectedFile) this.restoreFile(this.selectedFile);
+        },
+      },
     ];
   }
 
@@ -379,10 +386,41 @@ export class FileManagerComponent implements OnInit {
         f.size += file.size;
         localStorage.setItem('files', JSON.stringify(this.files));
         localStorage.setItem('folders', JSON.stringify(this.folders));
-      } else {
-        f.files = f.files.filter((f) => f.name !== file.name);
-        f.size -= file.size;
-        localStorage.setItem('folders', JSON.stringify(this.folders));
+      } else{
+        switch (file.folderName.find((folder) => folder === f.name)) {
+          case 'Documents':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          case 'Drafts':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          case 'Downloads':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          case 'Favorites':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          case 'Images':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          case 'Shared':
+            f.files = f.files.filter((f) => f.name !== file.name);
+            f.size -= file.size;
+            localStorage.setItem('folders', JSON.stringify(this.folders));
+            break;
+          default:
+            break;
+        }
       }
       return f;
     });
@@ -600,16 +638,8 @@ export class FileManagerComponent implements OnInit {
   }
 
   downloadFile(fileManagerItem: FileManagerItem) {
-    // Retrieve the File object from the FileManagerItem object
+    // Retrieve the file from the FileManagerItem object
     const file: File = fileManagerItem.file;
-    this.folders = this.folders.map((f) => {
-      if (f.name === 'Downloads') {
-        f.files.push(fileManagerItem);
-        f.size += fileManagerItem.size;
-        localStorage.setItem('folders', JSON.stringify(this.folders));
-      }
-      return f;
-    });
 
     // Create an object URL for the file
     const url = window.URL.createObjectURL(file);
@@ -1018,7 +1048,7 @@ export class FileManagerComponent implements OnInit {
 
   showTable() {
     this.tableView = true;
-    if (!this.showSelectedFolder){
+    if (!this.showSelectedFolder) {
       this.showFolders();
     } else {
       this.showFiles();
@@ -1033,5 +1063,33 @@ export class FileManagerComponent implements OnInit {
   showFolders() {
     this.showAllFiles = false;
     this.showAllFolders = true;
+  }
+
+  restoreFile(file: FileManagerItem) {
+    this.folders = this.folders.map((f) => {
+      if (f.name === 'Trash') {
+        f.files = f.files.filter((f) => f.name !== file.name);
+        f.size -= file.size;
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+      }
+      return f;
+    });
+    this.files = this.files.map((f) => {
+      if (f.name === file.name) {
+        f.folderName = [''];
+      }
+      return f;
+    });
+    localStorage.setItem('files', JSON.stringify(this.files));
+    this.totalSize += file.size;
+    localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: file.name + ' restored successfully',
+      life: 3000,
+    });
+    this.selectedFile = null;
+    location.reload();
   }
 }

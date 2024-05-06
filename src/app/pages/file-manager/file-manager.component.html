@@ -166,11 +166,11 @@
 
                     <!-- Selected Folder Files -->
                     <div *ngIf="showSelectedFolder">
-                      <div class="empty-container" *ngIf="selectedFolder?.files?.length === 0">
+                      <div class="empty-container" *ngIf="!selectedFolder?.files">
                         <img src="../../../assets/icons/search-file.webp" alt="No files" class="search-img img-fluid">
                         <h2 class="mb-0"> No files in this folder </h2>
                       </div>
-                      <div *ngIf="files.length > 0">
+                      <div *ngIf="selectedFolder?.files !== []">
                         <p-divider align="left" type="solid"> {{selectedFolder?.name}} </p-divider>
                         <div #file class="files">
                           <div *ngFor="let file of files" pDraggable (click)="selectFile(file)" class="file">
@@ -205,7 +205,7 @@
                           <td>{{ file.folderName[0] }}</td>
                           <td>{{ formatFileSize(file.size) }}</td>
                           <td>
-                            <div  *ngIf="selectedFile" class="dropstart">
+                            <div  *ngIf="selectedFile && selectedFile.folderName[0] !== 'Trash'" class="dropstart">
                               <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
                               <ul class="dropdown-menu">
@@ -231,6 +231,19 @@
                                 </li>
                               </ul>
                             </div>
+                            <div  *ngIf="selectedFile && selectedFile.folderName[0] === 'Trash'" class="dropstart">
+                              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
+                              <ul class="dropdown-menu">
+                                <li><a (click)="renameFile()" class="dropdown-item"
+                                    role="button"><i class="bi bi-pencil me-2"></i>Rename</a></li>
+                                <li>
+                                  <a (click)="restoreFile(selectedFile)" class="dropdown-item" role="button">
+                                    <i class="bi bi-arrow-counterclockwise me-2"></i> Restore
+                                  </a>
+                                </li>
+                              </ul>
+                            </div>
                           </td>
                         </tr>
                       </ng-template>
@@ -243,7 +256,7 @@
                       <h2 class="mb-0"> No files uploaded yet </h2>
                     </div>
                     <div *ngIf="files.length > 0">
-                      <p-table [value]="files" [tableStyle]="{ 'min-width': '50rem' }">
+                      <p-table styleClass="p-datatable-gridlines" [value]="files" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                           <tr>
                             <th>Name</th>
@@ -260,7 +273,7 @@
                             <td>{{ file.folderName[0] }}</td>
                             <td>{{ formatFileSize(file.size) }}</td>
                             <td>
-                              <div  *ngIf="selectedFile" class="dropstart">
+                              <div  *ngIf="selectedFile && selectedFile.folderName[0] !== 'Trash'" class="dropstart">
                                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                   aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
                                 <ul class="dropdown-menu">
@@ -286,6 +299,19 @@
                                   </li>
                                 </ul>
                               </div>
+                              <div  *ngIf="selectedFile && selectedFile.folderName[0] === 'Trash'" class="dropstart">
+                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                  aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
+                                <ul class="dropdown-menu">
+                                  <li><a (click)="renameFile()" class="dropdown-item"
+                                      role="button"><i class="bi bi-pencil me-2"></i>Rename</a></li>
+                                  <li>
+                                    <a (click)="restoreFile(selectedFile)" class="dropdown-item" role="button">
+                                      <i class="bi bi-arrow-counterclockwise me-2"></i> Restore
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </td>
                           </tr>
                         </ng-template>
@@ -294,7 +320,7 @@
                   </div>
                   <!-- Folders Table -->
                   <div *ngIf="showAllFolders && !showSelectedFolder" class="folders-table">
-                    <p-table [value]="folders" [tableStyle]="{ 'min-width': '50rem' }">
+                    <p-table styleClass="p-datatable-gridlines" [value]="folders" [tableStyle]="{ 'min-width': '50rem' }">
                       <ng-template pTemplate="header">
                         <tr>
                           <th>Name</th>
@@ -327,7 +353,7 @@
                       <h2 class="mb-0"> No files in this folder </h2>
                     </div>
                     <div *ngIf="files.length > 0">
-                      <p-table [value]="files" [tableStyle]="{ 'min-width': '50rem' }">
+                      <p-table styleClass="p-datatable-gridlines" [value]="files" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                           <tr>
                             <th>Name</th>
@@ -344,7 +370,7 @@
                             <td>{{ file.folderName[0] }}</td>
                             <td>{{ formatFileSize(file.size) }}</td>
                             <td>
-                              <div  *ngIf="selectedFile" class="dropstart">
+                              <div  *ngIf="selectedFile && selectedFile.folderName[0] !== 'Trash'" class="dropstart">
                                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                   aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
                                 <ul class="dropdown-menu">
@@ -366,6 +392,19 @@
                                   <li>
                                     <a (click)="deleteToTrash(selectedFile)" class="dropdown-item" role="button">
                                       <i class="bi bi-trash3 me-2"></i> Trash
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div  *ngIf="selectedFile && selectedFile.folderName[0] === 'Trash'" class="dropstart">
+                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                  aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical text-dark"></i></button>
+                                <ul class="dropdown-menu">
+                                  <li><a (click)="renameFile()" class="dropdown-item"
+                                      role="button"><i class="bi bi-pencil me-2"></i>Rename</a></li>
+                                  <li>
+                                    <a (click)="restoreFile(selectedFile)" class="dropdown-item" role="button">
+                                      <i class="bi bi-arrow-counterclockwise me-2"></i> Restore
                                     </a>
                                   </li>
                                 </ul>
