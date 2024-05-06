@@ -66,13 +66,19 @@
 .full-container {
   transition: width 0.3s ease-in-out;
 }
+.small-container .header .title-container {
+  position: relative;
+  left: 0;
+  transform: none;
+  transition: all 0.3s ease-in-out;
+}
 .file-manager-container .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
 }
-.file-manager-container .header .title-container {
+.full-container .file-manager-container .header .title-container {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -98,12 +104,12 @@
   gap: 1rem;
 }
 .file-manager-container .filters-container .search-container{
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
 }
 .search-container .form-control {
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   border-radius: 30px;
   padding: 16px;
 }
@@ -112,9 +118,9 @@
   outline: none;
   box-shadow: 0 0 -1px 0 #4b4bdf1c;
 }
-.file-manager-body {
+.file-manager-container {
   overflow: auto;
-  max-height: 60vh;
+  max-height: 90vh;
   overflow-x: visible !important;
 }
 .back-icon {
@@ -183,7 +189,7 @@
   gap: 1rem;
   cursor: pointer;
   width: 100%;
-  max-width: 200px;
+  max-width: 160px;
 }
 .file-name {
   text-align: center;
@@ -247,7 +253,7 @@
 }
 .details-body {
   overflow: auto;
-  max-height: 50vh;
+  max-height: 60vh;
   padding-top: 1rem;
 }
 .details-row {
@@ -307,6 +313,67 @@
   max-width: 150px;
   width: 100%;
 }
+.view-toggler{
+  max-width: fit-content;
+  width: 100%;
+  display: flex;
+  gap: .5rem;
+  padding: 2px;
+  background-color: #4b4bdf;
+  border-radius: 30px;
+}
+.view-toggler .btn{
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: #fff;
+}
+.btn-active{
+  background-color: #fff;
+  color: #4b4bdf !important ;
+  i{
+    color: #4b4bdf;
+  }
+}
+.dropdown-toggle:before{
+  display: none;
+}
+
+::ng-deep .p-datatable-wrapper{
+  min-height: 40vh;
+  height: 100%;
+}
+.empty-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+}
+.empty-container .search-img{
+
+  max-width: 400px;
+  width: 100%;
+  object-fit: contain;
+}
+.dropdown-menu{
+  padding: .5rem;
+  border: 1px solid #4b4bdf2d;
+  box-shadow: 0 0 32px -10px rgba(0, 0, 0, 0.1);
+}
+.dropdown-item{
+  padding: 1rem .8rem;
+}
+.dropdown-item:focus, .dropdown-item:active{
+  background-color: #4b4bdf1d;
+  color: #4b4bdf;
+
+}
+.img-icon{
+  max-width: 100px;
+  width: 100%;
+  object-fit: contain;
+}
 @media (max-width: 1024px) {
   .file-manager-container .header {
     display: flex;
@@ -339,5 +406,13 @@
   }
   ::ng-deep html{
     overflow: auto !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1200px){
+  .file-manager-container .header .title-container {
+    position: relative;
+    left: 0;
+    transform: none;
   }
 }
