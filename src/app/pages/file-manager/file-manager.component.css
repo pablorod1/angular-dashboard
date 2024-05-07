@@ -46,6 +46,9 @@
   margin: 0.5rem 0;
   color: #4b4bdf;
 }
+.list-item small {
+  font-weight: 500;
+}
 .list-item.active {
   background-color: #4b4bdf1d;
   border-radius: 8px;
@@ -53,6 +56,7 @@
 .list-item a {
   text-decoration: none;
   color: #4b4bdf;
+  font-weight: 400;
 }
 .profile-picture {
   max-width: 20px;
@@ -120,6 +124,7 @@
 .file-manager-container {
   overflow: auto;
   max-height: 90vh;
+  min-height: 90vh;
   overflow-x: visible !important;
 }
 .back-icon {
@@ -341,21 +346,18 @@
   min-height: 53vh;
   height: 100%;
 }
-th{
+th {
   font-weight: 600;
   background-color: transparent;
   border-bottom: 1px solid #ddd;
-
 }
-td{
+td {
   font-weight: 400;
   background: #f6f6f6 !important;
   border-bottom: 1px solid #ddd;
-
 }
-.dropstart{
+.dropstart {
   width: fit-content;
-  z-index: 2000 !important;
 }
 .empty-container {
   display: flex;
@@ -369,6 +371,15 @@ td{
   max-width: 400px;
   width: 100%;
   object-fit: contain;
+}
+.empty-container i {
+  font-size: 160px;
+  color: #023047;
+}
+.empty-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #023047;
 }
 .dropdown-menu {
   padding: 0.5rem;
@@ -388,6 +399,45 @@ td{
   width: 100%;
   object-fit: contain;
 }
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+::ng-deep .p-card {
+  max-width: 180px;
+  min-width: 180px;
+  width: 100%;
+}
+.percentage-value {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.item-label {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+::ng-deep .p-metergroup-meters{
+  overflow: visible;
+}
+::ng-deep .p-metergroup-meter{
+  transition: all 0.1s ease-in-out;
+}
+::ng-deep .p-metergroup-meter:hover {
+  border: 1px solid #fff;
+  scale: 1.5;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.meter-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 50%;
+}
+.meter-icon {
+  border-radius: 50%;
+  padding: 6px 8px;
+}
 @media (max-width: 1024px) {
   .file-manager-container .header {
     display: flex;
@@ -399,6 +449,7 @@ td{
     position: relative;
     left: 0;
     transform: none;
+    text-align: center;
   }
   .file-manager-container .header .right-container {
     display: flex;
@@ -417,6 +468,11 @@ td{
     justify-content: center;
     align-items: center;
     gap: 1rem;
+  }
+  .file-manager-container .header .title-container {
+    position: relative;
+    left: 0;
+    transform: none;
   }
   ::ng-deep html {
     overflow: auto !important;

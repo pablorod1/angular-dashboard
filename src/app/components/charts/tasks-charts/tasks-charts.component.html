@@ -5,8 +5,8 @@
         <div class="header">
           <h2 class="m-0">Tasks Distribution</h2>
           <div class="btn-container">
-            <button type="button" class="button" (click)="showLastWeekData()">Last Week</button>
-            <button type="button" class="button" (click)="showCurrentWeekData()">This Week</button>
+            <button type="button" class="button" [ngClass]="{'active' : lastWeekData}" (click)="showLastWeekData()">Last Week</button>
+            <button type="button" class="button" [ngClass]="{'active': currentWeekData}" (click)="showCurrentWeekData()">This Week</button>
           </div>
         </div>
         <div class="chart mt-3">

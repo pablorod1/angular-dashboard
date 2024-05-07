@@ -49,6 +49,8 @@ export class TasksChartsComponent implements OnInit {
   totalTasksCount!: number;
   completedTaskCount!: number;
   progress = [0, 0, 0, 0, 0];
+  lastWeekData = false;
+  currentWeekData = true;
 
   constructor(
     private tasksChartDataService: TaskChartDataService,
@@ -121,6 +123,8 @@ export class TasksChartsComponent implements OnInit {
     };
   }
   showCurrentWeekData(): void {
+    this.lastWeekData = false;
+    this.currentWeekData = true;
     const data = this.tasksChartDataService.getCurrentWeekData();
     const seriesData = data.map((item) => item.data);
     this.chartOptions.series = seriesData;
@@ -128,6 +132,8 @@ export class TasksChartsComponent implements OnInit {
     this.cdRef.detectChanges();
   }
   showLastWeekData(): void {
+    this.lastWeekData = true;
+    this.currentWeekData = false;
     const data = this.tasksChartDataService.getLastWeekData();
     const seriesData = data.map((item) => item.data);
     this.chartOptions.series = seriesData;

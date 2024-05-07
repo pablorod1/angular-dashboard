@@ -39,6 +39,8 @@ export class IssuesChartComponent {
   public chartOptions: Partial<ChartOptions>;
   newIssuesCount!: number;
   closedIssuesCount!: number;
+  currentWeekData = true;
+  lastWeekData = false;
 
   constructor( private issuesChartDataService: IssuesChartDataService, private cdRef: ChangeDetectorRef) {
     const currentWeekData = this.issuesChartDataService.getCurrentWeekData();
@@ -95,6 +97,8 @@ export class IssuesChartComponent {
   }
 
   showLastWeekData(): void {
+    this.currentWeekData = false;
+    this.lastWeekData = true;
     const data = this.issuesChartDataService.getLastWeekData();
     this.chartOptions.series = data;
     this.newIssuesCount = data[1].data.reduce((a: number, b: number) => a + b, 0);
@@ -103,6 +107,8 @@ export class IssuesChartComponent {
   }
 
   showCurrentWeekData(): void {
+    this.currentWeekData = true;
+    this.lastWeekData = false;
     const data = this.issuesChartDataService.getCurrentWeekData();
     this.chartOptions.series = data;
     this.newIssuesCount = data[1].data.reduce((a: number, b: number) => a + b, 0);

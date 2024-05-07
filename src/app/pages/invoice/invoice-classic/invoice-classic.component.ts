@@ -40,7 +40,7 @@ export class InvoiceClassicComponent implements OnInit {
     });
   }
 
-  toggleDetails(){
-    this.showDetails = !this.showDetails;
-  }
+  // toggleDetails(){
+  //   this.showDetails = !this.showDetails;
+  // }
 }

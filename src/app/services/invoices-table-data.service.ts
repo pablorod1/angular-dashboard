@@ -140,10 +140,10 @@ export class InvoicesTableDataService {
       this.invoices.splice(index, 1);
     }
   }
-  updateInvoice(invoice: Invoice): void {
-    const index = this.invoices.findIndex(invoice => invoice.id === invoice.id);
+  updateInvoice(invoiceToUpdate: Invoice): void {
+    const index = this.invoices.findIndex(invoice => invoice.id === invoiceToUpdate.id);
     if (index !== -1) {
-      this.invoices[index] = invoice;
+      this.invoices[index] = invoiceToUpdate;
     }
   }
 

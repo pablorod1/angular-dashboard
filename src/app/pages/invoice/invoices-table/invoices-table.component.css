@@ -1,3 +1,6 @@
+::ng-deep html{
+  overflow: hidden;
+}
 .section {
   padding-top: 0;
 }
@@ -28,6 +31,7 @@
   width: 100%;
   border-radius: 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
 }
 ::ng-deep tr td,
 ::ng-deep tr th {
@@ -35,6 +39,9 @@
 }
 ::ng-deep .p-datatable-wrapper {
   border-radius: 16px !important;
+  max-height: 600px;
+  height: 100%;
+  overflow: auto;
 }
 ::ng-deep tr th {
   background-color: #4b4bdf;

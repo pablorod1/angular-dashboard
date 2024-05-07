@@ -13,7 +13,6 @@ import {
   transition,
   animate,
 } from '@angular/animations';
-import { replace } from 'lodash';
 
 @Component({
   selector: 'app-file-manager',
@@ -54,20 +53,21 @@ export class FileManagerComponent implements OnInit {
   trashMenu!: MenuItem[];
 
   selectedFile!: FileManagerItem | null;
-  renamingFile!: FileManagerItem;
-  oldName!: string;
   detailsActive: boolean = false;
   totalSize!: number;
 
+  showMyDrive: boolean = false;
   showAllFiles: boolean = true;
-  showAllFolders: boolean = true;
+  showAllFolders: boolean = false;
   showSelectedFolder: boolean = false;
   showFavorites: boolean = false;
   showShared: boolean = false;
   showTrash: boolean = false;
+  showStorage: boolean = false;
 
   createFolderDialog: boolean = false;
   newFolderName: string = '';
+  newFolderIcon: string = '';
   selectedFolder!: FileManagerFolder | null;
   renameFileDialog: boolean = false;
   newFileName: string = '';
@@ -83,7 +83,16 @@ export class FileManagerComponent implements OnInit {
   tableView: boolean = false;
 
   totalSizeMeter = [{ label: 'Space used', value: 0, color: '#4b4bdf' }];
-
+  storageMeterGroup = [
+    { label: 'Documents', value: 0, color1: '#4b4bdf', color2: '#0000ff', icon: 'bi-file-earmark-text' },
+    { label: 'Drafts', value: 0, color1: '#ff0000', color2: '#ff6666', icon: 'bi-pencil-square' },
+    { label: 'Downloads', value: 0, color1: '#00ff00', color2: '#66ff66', icon: 'bi-download' },
+    { label: 'Images', value: 0, color1: '#ffff00', color2: '#ffff66', icon: 'bi-image' },
+    { label: 'Trash', value: 0, color1: '#ff00ff', color2: '#ff66ff', icon: 'bi-trash3' },
+    { label: 'Favorites', value: 0, color1: '#00ffff', color2: '#66ffff', icon: 'bi-star' },
+    { label: 'Shared', value: 0, color1: '#ff8000', color2: '#ffcc80', icon: 'bi-share' },
+    { label: 'Uploads', value: 0, color1: '#8000ff', color2: '#cc80ff', icon: 'bi-upload' },
+  ];;
   constructor(
     private fileManagerDataService: FileManagerDataService,
     private confirmationService: ConfirmationService,
@@ -159,12 +168,50 @@ export class FileManagerComponent implements OnInit {
     } else {
       this.folders = JSON.parse(localStorage.getItem('folders') || '[]');
     }
+    if (this.files.length > 0) {
+      this.showFiles();
+    } else {
+      this.showFolders();
+    }
 
     // Total Size
     this.totalSize = this.fileManagerDataService.getTotalSize();
     this.totalSizeMeter = [
       { label: 'Space used', value: this.totalSize, color: '#4b4bdf' },
     ];
+
+    // Update Storage Meter
+    this.storageMeterGroup = this.storageMeterGroup.map((group) => {
+      switch (group.label) {
+        case 'Documents':
+          group.value = this.folders.find((f) => f.name === 'Documents')?.size || 0;
+          break;
+        case 'Drafts':
+          group.value = this.folders.find((f) => f.name === 'Drafts')?.size || 0;
+          break;
+        case 'Downloads':
+          group.value = this.folders.find((f) => f.name === 'Downloads')?.size || 0;
+          break;
+        case 'Images':
+          group.value = this.folders.find((f) => f.name === 'Images')?.size || 0;
+          break;
+        case 'Trash':
+          group.value = this.folders.find((f) => f.name === 'Trash')?.size || 0;
+          break;
+        case 'Favorites':
+          group.value = this.folders.find((f) => f.name === 'Favorites')?.size || 0;
+          break;
+        case 'Shared':
+          group.value = this.folders.find((f) => f.name === 'Shared')?.size || 0;
+          break;
+        case 'Uploads':
+          group.value = this.folders.find((f) => f.name === 'Uploads')?.size || 0;
+          break;
+        default:
+          break;
+      }
+      return group;
+    });
 
     // MultiSelect Items
     this.fileTypes = [
@@ -204,37 +251,18 @@ export class FileManagerComponent implements OnInit {
         label: 'Move To',
         icon: 'bi bi-arrow-right',
         items: [
-          {
-            label: 'Documents',
-            icon: 'bi bi-file-earmark-text',
-            command: () => {
-              if (this.selectedFile)
-                this.moveFile(this.selectedFile, 'Documents');
-            },
-          },
-          {
-            label: 'Drafts',
-            icon: 'bi bi-pencil-square',
-            command: () => {
-              if (this.selectedFile) this.moveFile(this.selectedFile, 'Drafts');
-            },
-          },
-          {
-            label: 'Downloads',
-            icon: 'bi bi-download',
-            command: () => {
-              if (this.selectedFile)
-                this.moveFile(this.selectedFile, 'Downloads');
-            },
-          },
-          {
-            label: 'Favorites',
-            icon: 'bi bi-star',
-            command: () => {
-              if (this.selectedFile)
-                this.moveFile(this.selectedFile, 'Favorites');
-            },
-          },
+          // For each folder in the folders array, create a menu item
+          ...this.folders.map((folder) => {
+            return {
+              label: folder.name,
+              icon: 'bi bi-folder',
+              command: () => {
+                if (this.selectedFile) {
+                  this.moveFile(this.selectedFile, folder.name);
+                }
+              },
+            };
+          }),
         ],
       },
       {
@@ -386,7 +414,7 @@ export class FileManagerComponent implements OnInit {
         f.size += file.size;
         localStorage.setItem('files', JSON.stringify(this.files));
         localStorage.setItem('folders', JSON.stringify(this.folders));
-      } else{
+      } else {
         switch (file.folderName.find((folder) => folder === f.name)) {
           case 'Documents':
             f.files = f.files.filter((f) => f.name !== file.name);
@@ -526,7 +554,7 @@ export class FileManagerComponent implements OnInit {
             ),
             size: file.size,
             folderName: [''],
-            imageUrl: URL.createObjectURL(file),
+            imageUrl: window.URL.createObjectURL(file),
             file: file,
           };
 
@@ -637,6 +665,7 @@ export class FileManagerComponent implements OnInit {
     return Number(size.split(' ')[0]);
   }
 
+  // NOT WORKING
   downloadFile(fileManagerItem: FileManagerItem) {
     // Retrieve the file from the FileManagerItem object
     const file: File = fileManagerItem.file;
@@ -874,17 +903,52 @@ export class FileManagerComponent implements OnInit {
         }
         break;
       default:
+        if (isFileInFolder) {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Canceled',
+            detail: 'File already in ' + folder,
+            life: 3000,
+          });
+        } else {
+          this.files = this.files.map((f) => {
+            if (f.id === file.id) {
+              if (f.folderName[0] !== '') {
+                f.folderName.push(folder);
+              } else {
+                f.folderName = [folder];
+              }
+              localStorage.setItem('files', JSON.stringify(this.files));
+            }
+            return f;
+          });
+          this.folders = this.folders.map((f) => {
+            if (f.name === folder) {
+              f.files.push(file);
+              f.size += file.size;
+              localStorage.setItem('folders', JSON.stringify(this.folders));
+            }
+            return f;
+          });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: file.name + ' moved to ' + folder,
+          });
+        }
         break;
     }
   }
 
   openFolder(folder: string) {
     this.showSelectedFolder = true;
-    this.showAllFolders = false;
+    this.showFiles();
+    this.showStorage = false;
     switch (folder) {
       case 'Documents':
         this.showTrash = false;
         this.showFavorites = false;
+        this.showMyDrive = false;
         this.showShared = false;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -896,6 +960,7 @@ export class FileManagerComponent implements OnInit {
       case 'Drafts':
         this.showTrash = false;
         this.showFavorites = false;
+        this.showMyDrive = false;
         this.showShared = false;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -907,6 +972,7 @@ export class FileManagerComponent implements OnInit {
       case 'Downloads':
         this.showTrash = false;
         this.showFavorites = false;
+        this.showMyDrive = false;
         this.showShared = false;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -918,6 +984,7 @@ export class FileManagerComponent implements OnInit {
       case 'Images':
         this.showTrash = false;
         this.showFavorites = false;
+        this.showMyDrive = false;
         this.showShared = false;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -929,6 +996,7 @@ export class FileManagerComponent implements OnInit {
       case 'Trash':
         this.showFavorites = false;
         this.showShared = false;
+        this.showMyDrive = false;
         this.showTrash = true;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -940,6 +1008,7 @@ export class FileManagerComponent implements OnInit {
       case 'Favorites':
         this.showTrash = false;
         this.showShared = false;
+        this.showMyDrive = false;
         this.showFavorites = true;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
@@ -952,6 +1021,7 @@ export class FileManagerComponent implements OnInit {
         this.showTrash = false;
         this.showFavorites = false;
         this.showShared = true;
+        this.showMyDrive = false;
         this.selectedFile = null;
         this.files = this.files.filter((f) => {
           return f.folderName.includes('Shared');
@@ -960,6 +1030,15 @@ export class FileManagerComponent implements OnInit {
           this.folders.find((f) => f.name === 'Shared') || null;
         break;
       default:
+        this.showTrash = false;
+        this.showFavorites = false;
+        this.showShared = false;
+        this.showMyDrive = false;
+        this.selectedFile = null;
+        this.files = this.files.filter((f) => {
+          return f.folderName.includes(folder);
+        });
+        this.selectedFolder = this.folders.find((f) => f.name === folder) || null;
         break;
     }
   }
@@ -967,6 +1046,7 @@ export class FileManagerComponent implements OnInit {
   cancelCreateFolder() {
     this.createFolderDialog = false;
     this.newFolderName = '';
+    this.newFolderIcon = '';
     this.messageService.add({
       severity: 'info',
       summary: 'Canceled',
@@ -980,11 +1060,12 @@ export class FileManagerComponent implements OnInit {
       const newFolder: FileManagerFolder = {
         id: this.folders.length + 1,
         name: this.newFolderName,
-        files: [],
         size: 0,
-        icon: '',
+        files: [],
+        icon: 'bi' + this.newFolderIcon,
       };
       this.folders.push(newFolder);
+      localStorage.setItem('folders', JSON.stringify(this.folders));
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
@@ -1004,13 +1085,37 @@ export class FileManagerComponent implements OnInit {
     this.showFavorites = false;
     this.showShared = false;
     this.showTrash = false;
+    this.showStorage = false;
     this.showSelectedFolder = false;
-    if (this.tableView) {
-      this.showFolders();
+    if (this.files.length > 0) {
+      this.showFiles();
     } else {
-      this.showAllFiles = true;
-      this.showAllFolders = true;
+      this.showFolders();
     }
+    this.showMyDrive = false;
+  }
+
+  openMyDrive() {
+    this.backToAllFiles();
+    this.showFolders();
+    this.showMyDrive = true;
+    this.showFavorites = false;
+    this.showShared = false;
+    this.showTrash = false;
+    this.showStorage = false;
+  }
+
+  openStorage() {
+    this.files = JSON.parse(localStorage.getItem('files') || '[]');
+    this.showStorage = true;
+    this.tableView = true;
+    this.showAllFiles = true;
+    this.showAllFolders = false;
+    this.showSelectedFolder = false;
+    this.showMyDrive = false;
+    this.showFavorites = false;
+    this.showShared = false;
+    this.showTrash = false;
   }
 
   onSelectedTypesChange(types: string[]) {
@@ -1042,17 +1147,10 @@ export class FileManagerComponent implements OnInit {
 
   showGrid() {
     this.tableView = false;
-    this.showAllFiles = true;
-    this.showAllFolders = true;
   }
 
   showTable() {
     this.tableView = true;
-    if (!this.showSelectedFolder) {
-      this.showFolders();
-    } else {
-      this.showFiles();
-    }
   }
 
   showFiles() {
@@ -1081,8 +1179,6 @@ export class FileManagerComponent implements OnInit {
       return f;
     });
     localStorage.setItem('files', JSON.stringify(this.files));
-    this.totalSize += file.size;
-    localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
@@ -1091,5 +1187,9 @@ export class FileManagerComponent implements OnInit {
     });
     this.selectedFile = null;
     location.reload();
+  }
+
+  calculatePercentageSize(size: number) {
+    return ((size * 100) / 10737418240).toFixed(2) + '%';
   }
 }

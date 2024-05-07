@@ -15,8 +15,8 @@
       </div>
       <div class="col-lg-6">
         <div class="header">
-          <button type="button" class="button" (click)="showLastWeekData()">Last Week</button>
-          <button type="button" class="button" (click)="showCurrentWeekData()">This Week</button>
+          <button type="button" class="button" [ngClass]="{'active': lastWeekData}" (click)="showLastWeekData()">Last Week</button>
+          <button type="button" class="button" [ngClass]="{'active': currentWeekData}" (click)="showCurrentWeekData()">This Week</button>
         </div>
         <div class="issues-overview">
           <span class="title">Issues Overview</span>

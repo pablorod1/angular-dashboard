@@ -19,7 +19,7 @@ export class ComingSoonComponent implements OnInit {
   }
 
   startCountdown(){
-    const countDownDate = new Date('Apr 28, 2024 13:00:00').getTime();
+    const countDownDate = new Date('Jun 28, 2024 13:00:00').getTime();
 
     setInterval(() => {
       const now = new Date().getTime();
