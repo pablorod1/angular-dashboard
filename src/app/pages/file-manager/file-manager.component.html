@@ -68,8 +68,8 @@
                 </div>
                 <div class="right-container">
                   <div *ngIf="!showSelectedFolder && !showStorage">
-                    <input type="file" (change)="uploadFile($event)" #fileInput style="display: none;">
-                    <button type="button" (click)="fileInput.click()" class="animated-button"><i
+                    <!-- <input type="file" (change)="uploadFile($event)" #fileInput style="display: none;"> -->
+                    <button type="button" (click)="showUploadDialog = true" class="animated-button"><i
                         class="bi bi-upload"></i>
                       Upload File </button>
                   </div>
@@ -111,6 +111,10 @@
                     'btn-active': showAllFiles,
                   }"> <i class="bi bi-file-earmark-text-fill"></i> Files </button>
                 </div>
+                <div *ngIf="showSelectedFolder && selectedFolder?.name === 'Trash'" class="view-toggler me-3">
+                  <button type="button" (click)="clearTrash()" class="btn"> <i class="bi bi-trash2"></i> Empty Trash
+                  </button>
+                </div>
               </div>
               <!-- Files Containers -->
               <div class="body py-4">
@@ -119,9 +123,23 @@
                   class="file-manager-body">
 
                   <!-- Filtered Type Files Container -->
-                  <div *ngIf="selectedTypes.length > 0" class="files-container">
+                  <div *ngIf="selectedTypes.length > 0 && searchQuery === ''" class="files-container">
                     <p-divider align="left" type="solid"> Filtered Files </p-divider>
-                    <div class="files">
+                    <div class=" files">
+                      <div *ngFor="let filteredFile of filteredFiles" (click)="selectFile(filteredFile)" #file
+                        class="file">
+                        <i class="bi" [ngClass]="getFileIcon(filteredFile.ext)"></i>
+                        <span class="file-name"> {{filteredFile.name}} </span>
+                        <p-contextMenu [model]="filesMenu" [target]="file"
+                          (onShow)="selectedFile = filteredFile"></p-contextMenu>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Filtered Type Files Container -->
+                  <div *ngIf="searchQuery !== '' && selectedTypes.length === 0" class="files-container">
+                    <p-divider align="left" type="solid"> Filtered Files </p-divider>
+                    <div class=" files">
                       <div *ngFor="let filteredFile of filteredFiles" (click)="selectFile(filteredFile)" #file
                         class="file">
                         <i class="bi" [ngClass]="getFileIcon(filteredFile.ext)"></i>
@@ -153,11 +171,12 @@
                     </div>
 
                     <!-- All Files -->
-                    <div *ngIf="showAllFiles && !showSelectedFolder && files.length > 0" class="files-container">
+                    <div *ngIf="showAllFiles && !showSelectedFolder && files.length > 0 && !searchQuery"
+                      class="files-container">
                       <p-divider align="left" type="solid"> Files </p-divider>
-                      <div #file class="files">
+                      <div #file class="row files">
                         <div *ngFor="let file of files" (click)="selectFile(file)" pDraggable
-                          (onDrag)="selectFile(file)" #file class="file">
+                          (onDrag)="selectFile(file)" #file class="col-md-2 file">
                           <div class="file" *ngIf="file.folderName[0] !== 'Trash'">
                             <i *ngIf="file.folderName[0] !== 'Images'" class="bi" [ngClass]="getFileIcon(file.ext)"></i>
                             <img [src]="file.imageUrl" alt="Image Preview" *ngIf="file.folderName[0] === 'Images'"
@@ -169,7 +188,8 @@
                         <p-contextMenu [model]="filesMenu" [target]="file"></p-contextMenu>
                       </div>
                     </div>
-                    <div class="empty-container d-flex flex-column justify-content-center align-items-center" *ngIf="files.length === 0 && showAllFiles && !showSelectedFolder">
+                    <div class="empty-container d-flex flex-column justify-content-center align-items-center"
+                      *ngIf="files.length === 0 && showAllFiles && !showSelectedFolder">
                       <img src="../../../assets/icons/no_files.webp" alt="No files" class="search-img img-fluid">
                       <h2 class="mb-0"> No files uploaded </h2>
                     </div>
@@ -203,7 +223,8 @@
                 <!-- Table View -->
                 <div *ngIf="tableView" class="file-manager-body">
                   <!-- Filtered Type Files Table -->
-                  <div *ngIf="filteredFiles.length > 0" class="files-table">
+                  <div *ngIf="filteredFiles.length > 0 && (searchQuery !== '' || selectedTypes.length > 0)"
+                    class="files-table">
                     <p-table [value]="filteredFiles" [tableStyle]="{ 'min-width': '50rem' }">
                       <ng-template pTemplate="header">
                         <tr>
@@ -270,7 +291,8 @@
                   </div>
                   <!-- All Files Table -->
                   <div *ngIf="showAllFiles && !showSelectedFolder && !showStorage" class="files-table">
-                    <div class="empty-container d-flex flex-column justify-content-center align-items-center" *ngIf="files.length === 0 && showAllFiles && !showSelectedFolder">
+                    <div class="empty-container d-flex flex-column justify-content-center align-items-center"
+                      *ngIf="files.length === 0 && showAllFiles && !showSelectedFolder">
                       <img src="../../../assets/icons/no_files.webp" alt="No files" class="search-img img-fluid">
                       <h2 class="mb-0"> No files uploaded </h2>
                     </div>
@@ -374,15 +396,15 @@
                   <!-- Selected Folder Files Table -->
                   <div *ngIf="showSelectedFolder && selectedFolder" class="files-table">
                     <div class="empty-container"
-                        *ngIf="selectedFolder.files.length === 0 && selectedFolder.name !== 'Trash'">
-                        <img src="../../../assets/icons/search-file.webp" alt="No files" class="search-img img-fluid">
-                        <h2 class="mb-0"> No files in this folder </h2>
-                      </div>
-                      <div class="empty-container"
-                        *ngIf="selectedFolder.files.length === 0 && selectedFolder.name === 'Trash'">
-                        <i class="bi bi-trash2"></i>
-                        <h2 class="mb-0"> Trash Empty </h2>
-                      </div>
+                      *ngIf="selectedFolder.files.length === 0 && selectedFolder.name !== 'Trash'">
+                      <img src="../../../assets/icons/search-file.webp" alt="No files" class="search-img img-fluid">
+                      <h2 class="mb-0"> No files in this folder </h2>
+                    </div>
+                    <div class="empty-container"
+                      *ngIf="selectedFolder.files.length === 0 && selectedFolder.name === 'Trash'">
+                      <i class="bi bi-trash2"></i>
+                      <h2 class="mb-0"> Trash Empty </h2>
+                    </div>
                     <div *ngIf="files.length > 0">
                       <p-table styleClass="p-datatable-gridlines" [value]="files"
                         [tableStyle]="{ 'min-width': '50rem' }">
@@ -463,12 +485,13 @@
                                 <div class="d-flex justify-content-between gap-2">
                                   <div class="d-flex flex flex-column gap-1">
                                     <span class="item-label">{{ meterItem.label }}</span>
-                                    <span class="percentage-value" [style]="{'color': meterItem.color1}">{{calculatePercentageSize(folders[index].size)}}</span>
+                                    <span class="percentage-value"
+                                      [style]="{'color': meterItem.color1}">{{calculatePercentageSize(folders[index].size)}}</span>
                                   </div>
-                                  <span
-                                    class="meter-icon-container"
-                                    >
-                                    <i class="meter-icon" [style]="{'background-color': meterItem.color1, color: '#fff'}" [class]="meterItem.icon"></i>
+                                  <span class="meter-icon-container">
+                                    <i class="meter-icon"
+                                      [style]="{'background-color': meterItem.color1, color: '#fff'}"
+                                      [class]="meterItem.icon"></i>
                                   </span>
                                 </div>
                               </p-card>
@@ -625,6 +648,29 @@
                     </li>
                   </ul>
                 </div>
+                <div *ngIf="selectedFile" class="mobile-menu details-row">
+                  <h3> Menu </h3>
+                  <div class="btn-container">
+                    <button type="button" class="btn" (click)="downloadFile(selectedFile)"> <i
+                        class="bi bi-download text-dark"></i> Download </button>
+                    <button type="button" class="btn" (click)="renameFile()"> <i class="bi bi-pencil text-dark"></i>
+                      Rename
+                    </button>
+                    <div class="dropdown">
+                      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-arrow-right text-dark"></i> Move To
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li *ngFor="let folder of folders" (click)="moveFile(selectedFile, folder.name)">
+                          <a class="dropdown-item" role="button"> {{folder.name}} </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <button type="button" class="btn" (click)="deleteToTrash(selectedFile)"> <i
+                        class="bi bi-trash3 text-dark"></i> Trash </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -690,23 +736,35 @@
     </ng-template>
   </p-dialog>
 
-  <!-- Upload Dialog
-  <p-dialog [visible]="showUploadDialog" [modal]="true" closable="false">
-    <input type="file" (change)="previewUploadedFile($event)" multiple #fileInput style="display: none;">
-    <ng-template pTemplate="headless">
-      <div class="preview-file" *ngFor="let file of uploadedFiles">
-        <img [src]="file.imageUrl" alt="File Preview" class="img-fluid">
-        <div class="file-info">
-          <h5 class="mb-0"> {{file.name}} </h5>
-          <small> {{formatFileSize(file.size)}} </small>
-        </div>
-      </div>
-      <div class="dialog-container bg-white p-4">
-        <h4 class="mb-4"> Upload File </h4>
-        <div class="d-flex gap-2">
-          <button type="button" class="button outline-success text-success" (click)="fileInput.click()"> Upload </button>
+  <!-- Upload Dialog -->
+  <p-dialog [visible]="showUploadDialog" draggable="false" [modal]="true" closable="false" [style]="{width: '100%', 'max-width': '1300px'}">
+    <input #fileInput multiple type="file" (change)="onFileSelect($event)" style="display: none;">
+    <ng-template pTemplate="content">
+      <div class="d-flex flex-column align-items-center gap-3">
+        <i class="bi bi-cloud-upload text-primary" style="font-size: 3rem;"></i>
+        <p> Drag and drop files here to upload </p>
+        <p> or </p>
+        <button (click)="fileInput.click()" type="button" class="btn btn-primary"> Select Files </button>
+        <div *ngIf="uploadedFiles.length > 0" class="files-preview d-flex justify-content-center align-items-center gap-4">
+          <div *ngFor="let file of uploadedFiles" class="file-preview">
+            <div class="d-flex flex-wrap gap-3 mb-2">
+              <div>
+                <i class="bi" [ngClass]="getFileIcon(file.type)"></i>
+                <span> {{file.name}} </span>
+              </div>
+              <span> {{formatFileSize(file.size)}} </span>
+            </div>
+            <img *ngIf="file.type.includes('Image')" [src]="file.imageUrl" alt="Image Preview" class="img-fluid preview-img">
+          </div>
         </div>
       </div>
     </ng-template>
-  </p-dialog> -->
+
+    <ng-template pTemplate="footer">
+      <div class="d-flex justify-content-between gap-3">
+        <button type="button" class="btn btn-outline-danger" (click)="cancelUpload()"> Cancel </button>
+        <button type="button" class="btn btn-primary" (click)="uploadFile(uploadedFiles)"> Upload </button>
+      </div>
+    </ng-template>
+  </p-dialog>
 </section>
