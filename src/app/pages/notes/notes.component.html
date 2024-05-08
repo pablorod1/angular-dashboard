@@ -1,0 +1,59 @@
+<section class="section">
+  <div class="container-fluid">
+    <div class="tools-container">
+      <button type="button" class="btn active">
+        <i class="bi bi-pen-fill"></i>
+      </button>
+      <button type="button" class="btn">
+        <i class="bi bi-eraser-fill"></i>
+      </button>
+      <button type="button" class="btn">
+        <i class="bi bi-cursor-fill"></i>
+      </button>
+      <button (click)="showCreateNoteDialog = true" type="button" class="btn">
+        <i class="bi bi-sticky"></i>
+      </button>
+    </div>
+    <div class="card">
+      <div class="row p-4">
+        <div *ngFor="let note of notes" class="col-2 p-0">
+          <div class="note" [style]="{'background-color': note.color}">
+            <p [style]="{'font-size': getFontSize(note.content)}">{{note.content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Create Note Dialog -->
+<p-dialog [visible]="showCreateNoteDialog" [modal]="true" draggable="false" closable="false"
+  [style]="{width: '100%', 'max-width': '600px'}">
+  <ng-template pTemplate="header">
+    <div class="create-title">
+      <h2 class="mb-0">Create Note</h2>
+      <!-- Color picker -->
+      <div class="color-picker">
+        <div pTooltip="{{color.tooltip}}" [tooltipPosition]="'top'" *ngFor="let color of noteColors" [style]="{'background-color': color.color}" class="circle-color">
+          <input type="radio" name="color" [value]="color.color" [(ngModel)]="newNote.color" class="radio-button">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="create-note py-2 w-100">
+      <textarea #contentInput pAutoFocus [autofocus]="true" maxlength="171" rows="4" class="form-control"
+        [style]="{'background-color': newNote.color}" [(ngModel)]="newNote.content"
+        placeholder="Write your note here..." spellcheck="false">
+
+      </textarea>
+      <p-progressBar [ngClass]="{'progress-full': newNote.content.length === 171}" [ariaValueMin]="0"
+        [ariaValueMax]="171" [showValue]="false" [value]="(newNote.content.length / 171) * 100"
+        [style]="{'height': '4px', 'border-radius': 0}"></p-progressBar>
+    </div>
+    <div class="btn-container d-flex justify-content-end align-items-center w-100 mt-3 pe-3 gap-2">
+      <button type="button" class="button btn-secondary" (click)="cancelCreateNote()">Cancel</button>
+      <button type="button" class="button bg-primary text-white" (click)="createNote()">Create</button>
+    </div>
+  </ng-template>
+</p-dialog>

@@ -73,6 +73,9 @@ import { BlogPostsComponent } from './pages/blog-posts/blog-posts.component';
 // File Manager
 import { FileManagerComponent } from './pages/file-manager/file-manager.component';
 
+// Notes Page
+import { NotesComponent } from './pages/notes/notes.component';
+
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 
@@ -149,6 +152,9 @@ const routes: Routes = [
 
   // File Manager
   { path: 'file-manager', component: FileManagerComponent },
+
+  // Notes Page
+  { path: 'notes', component: NotesComponent },
 
   // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/dashboard'},

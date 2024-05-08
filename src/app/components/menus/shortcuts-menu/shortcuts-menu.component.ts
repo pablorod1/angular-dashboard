@@ -28,26 +28,29 @@ export class ShortcutsMenuComponent {
     },
     {
       id: 2,
-      title: 'Help Center',
-      description: 'FAQs, Guides, etc.',
-      icon: 'bi-question-circle',
-      url: '/help-home'
+      title: 'File Manager',
+      description: 'Manage your files',
+      icon: 'bi-folder2-open',
+      url: '/file-manager'
     },
     {
       id: 3,
-      title: 'Landing Page',
-      icon: 'bi-rocket-takeoff',
-      url: '/landing'
+      title: 'Notes',
+      description: 'Create and manage notes',
+      icon: 'bi-sticky',
+      url: '/notes'
     },
     {
       id: 4,
       title: 'Profile',
+      description: 'Update your profile',
       icon: 'bi-person-circle',
       url: '/profile'
     },
     {
       id: 5,
       title: 'Settings',
+      description: 'Update your account settings',
       icon: 'bi-gear',
       url: '/acc-settings'
     },

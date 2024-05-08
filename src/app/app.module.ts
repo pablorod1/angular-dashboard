@@ -48,6 +48,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 import { MeterGroupModule} from 'primeng/metergroup';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -146,6 +147,7 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
 import { SubscribeBtnComponent } from './components/buttons/subscribe-btn/subscribe-btn.component';
 import { GuideListComponent } from './pages/help-center/guides/guide-list/guide-list.component';
 import { FileManagerComponent } from './pages/file-manager/file-manager.component';
+import { NotesComponent } from './pages/notes/notes.component';
 
 
 
@@ -234,6 +236,7 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     SubscribeBtnComponent,
     GuideListComponent,
     FileManagerComponent,
+    NotesComponent,
   ],
   imports: [
     BrowserModule,
@@ -280,7 +283,8 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
     DragDropModule,
     MeterGroupModule,
     FileUploadModule,
-    CardModule
+    CardModule,
+    AutoFocusModule
 
   ],
   providers: [
