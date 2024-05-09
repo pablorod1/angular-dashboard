@@ -308,8 +308,8 @@
                             <th></th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-file>
-                          <tr role="button" (click)="selectFile(file)">
+                        <ng-template pTemplate="body" let-file >
+                          <tr role="button" *ngIf="file.folderName[0] !== 'Trash'" (click)="selectFile(file)">
                             <td><i class="me-2 bi" [ngClass]="getFileIcon(file.ext)"></i>{{ file.name }}</td>
                             <td>{{ file.modifiedOn }}</td>
                             <td>{{ file.folderName[0] }}</td>

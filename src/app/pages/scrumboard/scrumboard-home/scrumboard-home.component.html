@@ -1,0 +1,103 @@
+<section class="section">
+  <div class="container">
+    <div class="title-container">
+      <h2 class="title"> Scrumboard Projects </h2>
+    </div>
+    <div class="projects-container w-100">
+      <div class="row h-100 g-3 w-100">
+        <div class="col-md-3" *ngFor="let card of cardProjects">
+          <div class="card" role="button" (click)="viewScrumboard(card)">
+            <div class="card-body">
+              <div class="icon-container">
+                <i  class="bi {{card.icon.icon}}"></i>
+              </div>
+              <div class="info-container">
+                <h3 class="title"> {{card.title}} </h3>
+                <p class="description text-muted"> {{card.description}} </p>
+              </div>
+              <mat-divider style="width: 30%;"></mat-divider>
+            </div>
+            <div class="users-container">
+              <div class="img-container">
+                <img *ngFor="let user of card.users | slice:0:3" loading="lazy" [src]="user.imageUrl" [alt]="user.name"
+                  class="profile-picture">
+                <span *ngIf="card.users.length > 3" class="badge bg-warning profile-picture">+{{card.users.length - 3}}</span>
+              </div>
+              <span> Edited: <strong> Yesterday </strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div role="button" (click)="showCreateBoardDialog = true" class="card add-card">
+            <div class="card-body">
+              <div class="add-container">
+                <i class="bi bi-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Create Board Dialog -->
+<p-dialog modal="true" closable="false" [visible]="showCreateBoardDialog" [style]="{'width': '100%', 'max-width': '800px', 'heigth': '100vh'}">
+  <div class="dialog-container">
+    <div class="dialog-header">
+      <h2 class="title"> Create Board </h2>
+    </div>
+    <div class="dialog-body">
+      <form [formGroup]="createBoardForm" (ngSubmit)="onCreateBoard()">
+        <div class="py-3">
+          <label class="form-label" for="Title"> Title </label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="Title" placeholder="Board Title" formControlName="title"
+              [ngClass]="{'is-invalid' : createBoardForm.get('title')?.errors?.['required'] && submitted}"
+              [ngClass]="{'is-valid': createBoardForm.get('title')?.valid}">
+          </div>
+          <small class="text-danger" *ngIf="
+                  createBoardForm.get('title')?.errors?.['required'] &&
+                  submitted
+                ">
+            Title required.
+          </small>
+        </div>
+        <div class="py-3">
+          <label class="form-label" for="Description"> Description </label>
+          <div class="input-group">
+            <textarea rows="4" class="form-control" id="Description" placeholder="Board Description"
+              formControlName="description" style="resize: none;"></textarea>
+          </div>
+        </div>
+        <div class="py-3">
+          <label class="form-label" for="Icon"> Icon </label>
+          <p-dropdown [options]="icons" formControlName="icon" placeholder="Select Icon"
+            optionLabel="name" [style]="{'width': '100%'}">
+            <ng-template let-icon  pTemplate="item">
+              <div class="d-flex flex-row align-items-center gap-2">
+                <i class="bi {{icon.icon}}"></i>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="py-3">
+          <label class="form-label" for="Users"> Users </label>
+          <p-multiSelect [options]="users" formControlName="users" placeholder="Select Users"
+            optionLabel="name" [style]="{'width': '100%'}">
+            <ng-template let-user pTemplate="item">
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="user.imageUrl" class="img-select"/>
+                <div>{{ user.name }}</div>
+              </div>
+            </ng-template>
+          </p-multiSelect>
+        </div>
+      </form>
+      <div class="btn-container">
+        <button type="button" class="btn btn-secondary" (click)="cancelCreateBoard()"> Cancel </button>
+        <button type="submit" class="btn btn-primary" (click)="onCreateBoard()"> Create </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

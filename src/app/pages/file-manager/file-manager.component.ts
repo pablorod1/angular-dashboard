@@ -309,18 +309,21 @@ export class FileManagerComponent implements OnInit {
         label: 'Move To',
         icon: 'bi bi-arrow-right',
         items: [
-          // For each folder in the folders array, create a menu item
-          ...this.folders.map((folder) => {
-            return {
-              label: folder.name,
-              icon: 'bi bi-folder',
-              command: () => {
-                if (this.selectedFile) {
-                  this.moveFile(this.selectedFile, folder.name);
-                }
-              },
-            };
-          }),
+          // Lista de carpetas de folders menos 'Trash' y 'Uploads'
+          ...this.folders
+            .filter((f) => f.name !== 'Trash' && f.name !== 'Uploads' && f.name !== 'Downloads')
+            .map((f) => {
+              return {
+                label: f.name,
+                icon: 'bi bi-folder',
+                command: () => {
+                  if (this.selectedFile) {
+                    this.moveFile(this.selectedFile, f.name);
+                  }
+                },
+              };
+            }),
+
         ],
       },
       {
@@ -1011,6 +1014,7 @@ export class FileManagerComponent implements OnInit {
 
   openFolder(folder: string) {
     this.showSelectedFolder = true;
+    this.files = JSON.parse(localStorage.getItem('files') || '[]');
     this.showFiles();
     this.showStorage = false;
     switch (folder) {
@@ -1273,7 +1277,8 @@ export class FileManagerComponent implements OnInit {
       header: 'Delete Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.totalSize -= this.folders.find((f) => f.name === 'Trash')?.size || 0;
+        this.totalSize -=
+          this.folders.find((f) => f.name === 'Trash')?.size || 0;
         localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
         this.folders = this.folders.map((f) => {
           if (f.name === 'Trash') {

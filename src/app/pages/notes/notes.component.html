@@ -1,27 +1,18 @@
 <section class="section">
   <div class="container-fluid">
     <div class="tools-container">
-      <button type="button" class="btn active">
-        <i class="bi bi-pen-fill"></i>
-      </button>
-      <button type="button" class="btn">
-        <i class="bi bi-eraser-fill"></i>
-      </button>
-      <button type="button" class="btn">
+      <button [ngClass]="{'active': cursor}" (click)="showCursor()" type="button" class="btn">
         <i class="bi bi-cursor-fill"></i>
       </button>
-      <button (click)="showCreateNoteDialog = true" type="button" class="btn">
+      <button [ngClass]="{'active': createNotes}" (click)="showCreateDialog()" type="button" class="btn">
         <i class="bi bi-sticky"></i>
       </button>
     </div>
-    <div class="card">
-      <div class="row p-4">
-        <div *ngFor="let note of notes" class="col-2 p-0">
-          <div class="note" [style]="{'background-color': note.color}">
-            <p [style]="{'font-size': getFontSize(note.content)}">{{note.content}}</p>
-          </div>
-        </div>
-      </div>
+    <div pDroppable (onDrop)="drop($event)"
+     class="card">
+    </div>
+    <div pDraggable dragEffect="copy" (onDragStart)="dragStart(note)" (onDragEnd)="dragEnd()" *ngFor="let note of notes" class="note" [style]="{'background-color': note.color, 'top': note.posy + 'px', 'left': note.posx + 'px'}">
+      <p [style]="{'font-size': getFontSize(note.content)}">{{note.content}}</p>
     </div>
   </div>
 </section>
@@ -34,7 +25,8 @@
       <h2 class="mb-0">Create Note</h2>
       <!-- Color picker -->
       <div class="color-picker">
-        <div pTooltip="{{color.tooltip}}" [tooltipPosition]="'top'" *ngFor="let color of noteColors" [style]="{'background-color': color.color}" class="circle-color">
+        <div pTooltip="{{color.tooltip}}" [tooltipPosition]="'top'" *ngFor="let color of noteColors"
+          [style]="{'background-color': color.color}" class="circle-color">
           <input type="radio" name="color" [value]="color.color" [(ngModel)]="newNote.color" class="radio-button">
         </div>
       </div>

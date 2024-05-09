@@ -42,10 +42,10 @@ export class ShortcutsMenuComponent {
     },
     {
       id: 4,
-      title: 'Profile',
-      description: 'Update your profile',
-      icon: 'bi-person-circle',
-      url: '/profile'
+      title: 'Scrumboard',
+      description: 'Check your pending tasks',
+      icon: 'bi-kanban',
+      url: '/scrumboard-home'
     },
     {
       id: 5,

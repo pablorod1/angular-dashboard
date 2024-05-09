@@ -93,7 +93,7 @@ export class MegamenuComponent {
                   label: 'Scrumboard',
                   icon: 'bi bi-kanban',
                   reloadData: true,
-                  routerLink: '/scrumboard',
+                  routerLink: '/scrumboard-home',
                   command: () => { location.reload(); },
                 },
                 {

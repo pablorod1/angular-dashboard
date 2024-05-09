@@ -148,6 +148,8 @@ import { SubscribeBtnComponent } from './components/buttons/subscribe-btn/subscr
 import { GuideListComponent } from './pages/help-center/guides/guide-list/guide-list.component';
 import { FileManagerComponent } from './pages/file-manager/file-manager.component';
 import { NotesComponent } from './pages/notes/notes.component';
+import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scrumboard-home.component';
+import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
 
 
 
@@ -237,6 +239,8 @@ import { NotesComponent } from './pages/notes/notes.component';
     GuideListComponent,
     FileManagerComponent,
     NotesComponent,
+    ScrumboardHomeComponent,
+    ScrumboardComponent,
   ],
   imports: [
     BrowserModule,

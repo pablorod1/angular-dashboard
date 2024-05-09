@@ -75,6 +75,8 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
 
 // Notes Page
 import { NotesComponent } from './pages/notes/notes.component';
+import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scrumboard-home.component';
+import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -155,6 +157,10 @@ const routes: Routes = [
 
   // Notes Page
   { path: 'notes', component: NotesComponent },
+
+  //Scrumboard
+  {path: 'scrumboard-home', component: ScrumboardHomeComponent},
+  {path: 'scrumboard/:title', component: ScrumboardComponent},
 
   // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/dashboard'},

@@ -225,6 +225,9 @@
 }
 ::ng-deep .p-contextmenu {
   padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 ::ng-deep ul {
   padding: 0 !important;
