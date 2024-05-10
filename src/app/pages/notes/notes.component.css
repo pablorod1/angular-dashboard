@@ -115,6 +115,42 @@
   color: #474747;
   font-weight: 500;
 }
+.dragged{
+  border: 2px solid #0d6efd;
+}
+.note .btn{
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+  width: fit-content;
+  height: fit-content;
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+  transform: none;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.note .btn:hover{
+  background-color: #e7e7e7;
+}
+.note:hover .btn{
+  opacity: 1;
+}
+.note .btn i{
+  font-size: 14px;
+  color: #474747;
+}
+.dropdown{
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  z-index: 100;
+
+}
+.dropdown-toggle::after,
+.dropdown-toggle::before{
+  display: none !important;
+}
 
 ::ng-deep .p-dialog-content{
   padding-left: 0;

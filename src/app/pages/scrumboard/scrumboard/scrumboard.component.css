@@ -19,17 +19,144 @@
 .btn:hover{
   text-decoration: underline;
 }
+.users-container{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .user-img {
-  width: 40px;
-  height: 40px;
+  max-width: 34px;
+  min-height: 34px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   padding: 0;
   margin: 0;
   border: 2px solid #023047;
   object-fit: cover;
 }
+.img-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .img-container :nth-child(1),
 .img-container :nth-child(2),
 .img-container :nth-child(3) {
   margin-right: -12px;
 }
+.badge{
+  font-size: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.details-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.detail{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.detail-title{
+  margin: 0;
+  color: #212529bf;
+  font-size: 14px;
+}
+.detail-text{
+  width: fit-content;
+  height: min-content;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  --bs-bg-opacity: .1;
+  padding: 5px 10px;
+}
+.detail-text i{
+  margin-right: .4rem;
+}
+.user-badge{
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #000;
+  height: min-content;
+  padding: 1px 8px 1px 1px;
+  border: 1px solid #00000043;
+}
+.user-badge span{
+  font-weight: 500;
+}
+.user-badge .user-img{
+  border: 0;
+  max-width: 24px;
+  width: 100%;
+  min-height: 24px;
+  height: 100%;
+  object-fit: cover;
+}
+.date{
+  font-size: 14px;
+  font-weight: 500;
+}
+.toolbar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+.right-tools{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-status{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  --bs-bg-opacity: .1;
+  border-radius: 0.375rem;
+  margin-bottom: .5rem;
+}
+.task-status .btn i{
+  color: #000;
+}
+.status-title{
+
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.status-title h3{
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.status-title .badge{
+  width: 1px;
+  height: 1px;
+  padding: 8px;
+  box-shadow: 0 0 8px #0000001a;
+}
+.status-title .badge .badge{
+  width: 1px;
+  height: 1px;
+  padding: 4px;
+}
+
+.task .task-img{
+  width: 100%;
+  height: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+}
+

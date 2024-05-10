@@ -110,6 +110,12 @@
   justify-content: center;
   align-items: center;
 }
+.btn-container{
+  display: flex;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+
 ::ng-deep .p-multiselect-items
 {
   padding-left: 0;

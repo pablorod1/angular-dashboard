@@ -76,7 +76,7 @@
             optionLabel="name" [style]="{'width': '100%'}">
             <ng-template let-icon  pTemplate="item">
               <div class="d-flex flex-row align-items-center gap-2">
-                <i class="bi {{icon.icon}}"></i>
+                <i class="text-dark bi {{icon.icon}}"></i>
               </div>
             </ng-template>
           </p-dropdown>
@@ -95,8 +95,8 @@
         </div>
       </form>
       <div class="btn-container">
-        <button type="button" class="btn btn-secondary" (click)="cancelCreateBoard()"> Cancel </button>
-        <button type="submit" class="btn btn-primary" (click)="onCreateBoard()"> Create </button>
+        <button type="button" class="button" (click)="cancelCreateBoard()"> Cancel </button>
+        <button type="submit" class="button bg-primary text-white" (click)="onCreateBoard()"> Create </button>
       </div>
     </div>
   </div>

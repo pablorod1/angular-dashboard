@@ -1,5 +1,5 @@
 <section class="section">
-  <div class="container-lg">
+  <div class="container">
     <div class="title-container">
       <button class="btn" type="button" routerLink="/scrumboard-home"><i class="bi bi-arrow-left"></i> Go Back To Projects </button>
       <div class="d-flex justify-content-between align-items-center">
@@ -7,8 +7,93 @@
         <div class="users-container">
           <div class="img-container">
             <img *ngFor="let user of card.users | slice:0:3" loading="lazy" [src]="user.imageUrl" [alt]="user.name" class="user-img">
-            <span *ngIf="card.users.length > 3" class="badge">+{{card.users.length - 3}}</span>
+            <span *ngIf="card.users.length > 3" class="badge bg-primary">+{{card.users.length - 3}}</span>
           </div>
+          <button type="button" class="button"><i class="bi bi-person-plus"></i> Invite </button>
+        </div>
+      </div>
+    </div>
+    <div class="details-container">
+      <h2> Task Title </h2>
+      <div class="detail">
+        <h3 class="detail-title"><i class="bi bi-flag"></i> Priority: </h3>
+        <span class="badge bg-danger text-danger detail-text"><i class="bi bi-speedometer2"></i> High </span>
+      </div>
+      <div class="detail">
+        <h3 class="detail-title"><i class="bi bi-person-plus"></i> Assigned to: </h3>
+        <span *ngFor="let user of card.users | slice:0:2" class="badge detail-text user-badge">
+          <img  loading="lazy" [src]="user.imageUrl" [alt]="user.name" class="user-img">
+          <span>{{user.name}}</span>
+        </span>
+      </div>
+      <div class="detail gap-0">
+        <h3 class="detail-title"><i class="bi bi-calendar2-week"></i> Due Date: </h3>
+        <span class="detail-text date"> 28 June 2024</span>
+      </div>
+      <div class="detail">
+        <h3 class="detail-title"><i class="fa-solid fa-spinner"></i> Status: </h3>
+        <span class="badge bg-primary text-primary detail-text"><i class="bi bi-clock"></i> In Progress </span>
+      </div>
+      <div class="detail">
+        <h3 class="detail-title"><i class="bi bi-tag"></i> Tags: </h3>
+        <span class="badge bg-info text-info detail-text"><i class="fa-solid fa-bullhorn"></i> Marketing </span>
+        <span class="badge bg-success text-success detail-text"><i class="fa-solid fa-brush"></i> Design </span>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button type="button" class="button"><i class="bi bi-plus me-2"></i> Add Task </button>
+      <div class="right-tools">
+        <div class="search">
+          <input type="text" class="form-control" placeholder="Search Task">
+        </div>
+        <button type="button" class="btn"><i class="bi bi-funnel"></i> Filters </button>
+      </div>
+    </div>
+    <div class="tasks-container">
+      <div class="card p-2 px-3">
+        <div class="row">
+          <div class="col-lg-3 px-2" *ngFor="let status of status">
+            <div class="tasks-col">
+              <div class="task-status bg-secondary">
+                <div class="status-title ms-2">
+                  <span class="badge bg-white">
+                    <span class="badge bg-secondary"></span>
+                  </span>
+                  <h3 class="text-secondary"> To-do </h3>
+                </div>
+                <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
+              </div>
+              <div class="tasks-list">
+                <div class="task card">
+                  <div class="card-img">
+                    <img src="assets/profile-pictures/profile-picture2.webp" alt="avatar" class="task-img">
+                  </div>
+                  <div class="tags-container">
+                    <div class="tags">
+                      <span class="badge bg-info text-info task-tag"><i class="fa-solid fa-bullhorn"></i> Marketing </span>
+                      <span class="badge bg-success text-success task-tag"><i class="fa-solid fa-brush"></i> Design </span>
+                    </div>
+                    <button type="button" class="btn"><i class="bi bi-three-dots"></i></button>
+                  </div>
+                  <div class="task-content">
+                    <h3 class="task-title"> Task Title </h3>
+                    <p class="task-description"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                  </div>
+                  <div class="task-users">
+                    <div class="users-img-container">
+                      <img src="assets/images/avatars/avatar-1.jpg" alt="avatar" class="user-img">
+                      <img src="assets/images/avatars/avatar-2.jpg" alt="avatar" class="user-img">
+                    </div>
+                    <div class="btn-container">
+                      <span><i class="bi bi-paperclip"></i></span>
+                      <span><i class="bi bi-chat-left-text"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

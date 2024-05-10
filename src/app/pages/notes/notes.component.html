@@ -8,15 +8,53 @@
         <i class="bi bi-sticky"></i>
       </button>
     </div>
-    <div pDroppable (onDrop)="drop($event)"
-     class="card">
+    <div (click)="draggedNote = null" pDroppable (onDrop)="drop($event)" class="card">
     </div>
-    <div pDraggable dragEffect="copy" (onDragStart)="dragStart(note)" (onDragEnd)="dragEnd()" *ngFor="let note of notes" class="note" [style]="{'background-color': note.color, 'top': note.posy + 'px', 'left': note.posx + 'px'}">
+    <div #noteDiv (dblclick)="editNoteDialog(note)" (click)="selectNote(note)" pDraggable
+      (onDragStart)="dragStart(note)" *ngFor="let note of notes" class="note"
+      [ngClass]="{'dragged': draggedNote?.id === note.id}"
+      [style]="{'background-color': note.color, 'top': note.posy + 'px', 'left': note.posx + 'px', 'z-index': note.id}">
       <p [style]="{'font-size': getFontSize(note.content)}">{{note.content}}</p>
+      <div *ngIf="draggedNote" class="dropdown">
+        <button *ngIf="draggedNote.id === note.id" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false" data-bs-auto-close="outside"><i class="bi bi-three-dots-vertical"></i></button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" role="button" (click)="editNoteDialog(note)"><i class="bi bi-pencil me-2"></i> Edit
+            </a>
+          </li>
+          <li><a class="dropdown-item" role="button" (click)="duplicateNote(note)"><i class="bi bi-copy me-2"></i> Duplicate
+            </a>
+          </li>
+          <li><a class="dropdown-item" role="button" (click)="deleteNote(note)"><i class="bi bi-trash3 me-2"></i> Delete
+            </a>
+          </li>
+          <li class="dropend">
+            <a class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+              <i class="bi bi-arrow-right me-2"></i> Order
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <button [disabled]="note.id === notes.length" class="dropdown-item" type="button" (click)="moveFront(note)"> Move to Front </button>
+                </li>
+              <li>
+                <button [disabled]="note.id === notes.length" class="dropdown-item" type="button" (click)="moveUp(note)"> Move Up </button>
+              </li>
+              <li>
+                <button [disabled]="note.id === 1" class="dropdown-item" role="button" (click)="moveDown(note)"> Move Down </button>
+              </li>
+              <li>
+                <button [disabled]="note.id === 1" class="dropdown-item" role="button" (click)="moveBack(note)"> Move Back </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
+<p-toast position="bottom-right"></p-toast>
+<p-confirmDialog closable="false"></p-confirmDialog>
 <!-- Create Note Dialog -->
 <p-dialog [visible]="showCreateNoteDialog" [modal]="true" draggable="false" closable="false"
   [style]="{width: '100%', 'max-width': '600px'}">
@@ -44,8 +82,40 @@
         [style]="{'height': '4px', 'border-radius': 0}"></p-progressBar>
     </div>
     <div class="btn-container d-flex justify-content-end align-items-center w-100 mt-3 pe-3 gap-2">
-      <button type="button" class="button btn-secondary" (click)="cancelCreateNote()">Cancel</button>
+      <button type="button" class="button" (click)="cancelCreateNote()">Cancel</button>
       <button type="button" class="button bg-primary text-white" (click)="createNote()">Create</button>
     </div>
   </ng-template>
 </p-dialog>
+
+<!-- Edit Note Dialog -->
+<p-dialog [visible]="showEditNoteDialog" [modal]="true" draggable="false" closable="false"
+  [style]="{width: '100%', 'max-width': '600px'}">
+  <ng-template pTemplate="header">
+    <div class="create-title">
+      <h2 class="mb-0">Edit Note</h2>
+      <!-- Color picker -->
+      <div class="color-picker">
+        <div pTooltip="{{color.tooltip}}" [tooltipPosition]="'top'" *ngFor="let color of noteColors"
+          [style]="{'background-color': color.color}" class="circle-color">
+          <input type="radio" name="color" [value]="color.color" [(ngModel)]="editNote.color" class="radio-button">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="create-note py-2 w-100">
+      <textarea #contentInput pAutoFocus [autofocus]="true" maxlength="171" rows="4" class="form-control"
+        [style]="{'background-color': editNote.color}" [(ngModel)]="editNote.content"
+        placeholder="Write your note here..." spellcheck="false">
+
+      </textarea>
+      <p-progressBar [ngClass]="{'progress-full': editNote.content.length === 171}" [ariaValueMin]="0"
+        [ariaValueMax]="171" [showValue]="false" [value]="(editNote.content.length / 171) * 100"
+        [style]="{'height': '4px', 'border-radius': 0}"></p-progressBar>
+    </div>
+    <div class="btn-container d-flex justify-content-end align-items-center w-100 mt-3 pe-3 gap-2">
+      <button type="button" class="button btn-secondary" (click)="cancelEditNote()">Cancel</button>
+      <button type="button" class="button bg-primary text-white" (click)="updateNote()">Update</button>
+    </div>
+  </ng-template>
