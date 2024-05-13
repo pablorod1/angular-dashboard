@@ -22,7 +22,7 @@
 .users-container{
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 .user-img {
   max-width: 34px;
@@ -132,7 +132,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  --bs-bg-opacity: .1;
+  --bs-bg-opacity: .2;
   border-radius: 0.375rem;
   margin-bottom: .5rem;
 }
@@ -161,9 +161,20 @@
   height: 1px;
   padding: 4px;
 }
+.tasks-col,
+.tasks-list{
+  height: 100%;
+}
+.tasks-list{
+  max-height: 650px;
+  overflow: auto;
+}
+.tasks-list::-webkit-scrollbar{
+  width: 0;
+}
 .task-card{
   margin-bottom: 1rem;
-  border: 2px solid #cccccc88;
+  border: 1px solid #cccccc88;
   box-shadow: 0 0 2px #cccccc34;
 }
 .task-card .task-img{
@@ -172,6 +183,21 @@
   max-height: 180px;
   object-fit: cover;
   border-radius: 0.375rem;
+  position: relative;
+}
+.card-img{
+  position: relative;
+  overflow: hidden;
+}
+.task-card .card-img::after{
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: -8px;
+  width: 120%;
+  height: 32px;
+  background: #fff;
+  filter: blur(4px);
 }
 .tags-container{
   display: flex;
@@ -182,12 +208,13 @@
   display: flex;
   align-items: center;
   gap: .5rem;
+  flex-wrap: wrap;
 }
 .tags .badge{
   width: fit-content;
   height: min-content;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   --bs-bg-opacity: .1;
   padding: 5px 10px;
@@ -241,4 +268,64 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+::ng-deep .p-dialog-header{
+  padding-bottom: 0!important;
+}
+.dialog-body .form-group{
+  margin: 2rem .5rem;
+}
+.form-label{
+  font-weight: 500;
+}
+#task-description{
+  resize: none;
+}
+.radio-group{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1.5rem;
+}
+.radio-group-status,
+.checkbox-group{
+  display: grid;
+  grid-template-columns: repeat(2, .5fr);
+  grid-gap: 10px;
+}
+.form-group .badge{
+  width: fit-content;
+  height: min-content;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  --bs-bg-opacity: .1;
+  padding: 5px 10px;
+}
+.form-group .badge i{
+  margin-right: .4rem;
+}
+::ng-deep .p-multiselect-items{
+  padding-left: 0;
+}
+::ng-deep .p-multiselect{
+  width: 100%;
+}
+
+.form-tags{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+.filter .radio-group{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+.filter .user-img{
+  border:0;
+}
+.filters-container{
+  border: 0;
 }

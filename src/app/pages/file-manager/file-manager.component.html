@@ -111,7 +111,7 @@
                     'btn-active': showAllFiles,
                   }"> <i class="bi bi-file-earmark-text-fill"></i> Files </button>
                 </div>
-                <div *ngIf="showSelectedFolder && selectedFolder?.name === 'Trash'" class="view-toggler me-3">
+                <div *ngIf="showSelectedFolder && selectedFolder?.name === 'Trash' && files.length > 0" class="view-toggler me-3">
                   <button type="button" (click)="clearTrash()" class="btn"> <i class="bi bi-trash2"></i> Empty Trash
                   </button>
                 </div>
@@ -216,6 +216,7 @@
                         </div>
                         <p-contextMenu *ngIf="selectedFolder?.name === 'Trash'" [model]="trashMenu"
                           [target]="file"></p-contextMenu>
+                        <p-contextMenu *ngIf="selectedFolder?.name !== 'Trash'" [model]="filesMenu" [target]="file"></p-contextMenu>
                       </div>
                     </div>
                   </div>
