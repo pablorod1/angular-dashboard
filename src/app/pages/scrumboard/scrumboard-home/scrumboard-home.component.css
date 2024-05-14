@@ -66,6 +66,7 @@
   font-weight: 500;
   color: #4b4bdf;
   margin-bottom: .5rem;
+  text-transform: capitalize;
 }
 .users-container{
   display: flex;

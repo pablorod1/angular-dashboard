@@ -23,6 +23,7 @@
   color: #023047;
   font-weight: 600;
   padding: 10px 0 10px;
+  text-transform: capitalize;
 }
 .guide-title{
   font-weight: 500;

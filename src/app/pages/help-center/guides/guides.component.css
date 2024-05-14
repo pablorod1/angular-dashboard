@@ -27,6 +27,7 @@
 .guide-title{
   font-weight: 500;
   color: #023047;
+  text-transform: capitalize;
 }
 .guide-item{
   padding: 8px 0;

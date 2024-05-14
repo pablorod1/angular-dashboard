@@ -18,11 +18,15 @@ export class GuidesComponent implements OnInit{
   }
 
   viewGuideList(guide: Guide) {
+    //format title
+    guide.title = guide.title.toLowerCase().replace(/\s+/g, '-');
     this.router.navigate(['/guides', guide.title]);
     console.log(guide);
   }
 
   viewGuide(subtitle: string) {
+    //format title
+    subtitle = subtitle.toLowerCase().replace(/\s+/g, '-');
     this.router.navigate(['/guide', subtitle]);
   }
 }

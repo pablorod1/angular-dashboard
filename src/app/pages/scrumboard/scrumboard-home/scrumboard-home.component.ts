@@ -4,6 +4,7 @@ import {
   User,
   CardProject,
   Icon,
+  Task,
 } from '../../../services/scrumboard.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -37,12 +38,14 @@ export class ScrumboardHomeComponent implements OnInit {
       title: ['', [Validators.required]],
       description: [''],
       icon: [''],
-      users: [''],
+      users: [[]],
     });
   }
 
   // Redirect to Invoice Details
   viewScrumboard(scrumboard: CardProject) {
+    // format title
+    scrumboard.title = scrumboard.title.toLowerCase().replace(/\s+/g, '-');
     this.router.navigate(['/scrumboard', scrumboard.title]);
   }
 
@@ -50,6 +53,8 @@ export class ScrumboardHomeComponent implements OnInit {
     this.submitted = true;
     if (this.createBoardForm.valid) {
       this.showCreateBoardDialog = false;
+      // Add Task[]
+      this.createBoardForm.value.tasks = [];
       this.scrumboardService.addCardProject(this.createBoardForm.value);
       this.createBoardForm.reset();
     }
@@ -59,4 +64,10 @@ export class ScrumboardHomeComponent implements OnInit {
     this.showCreateBoardDialog = false;
     this.createBoardForm.reset();
   }
+
+  formatTitle(title: string): string{
+    return title.toLowerCase().replace(/-/g, ' ');
+  }
+
+
 }

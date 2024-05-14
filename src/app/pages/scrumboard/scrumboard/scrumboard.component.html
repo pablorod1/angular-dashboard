@@ -1,21 +1,25 @@
 <section class="section">
-  <div class="container-fluid px-5">
+  <div class="container-fluid px-3">
     <div class="title-container">
       <button class="btn" type="button" routerLink="/scrumboard-home"><i class="bi bi-arrow-left"></i> Go Back To
         Projects </button>
       <div class="d-flex justify-content-between align-items-center">
-        <h2 class="title">{{card.title}}</h2>
+        <div class="d-flex align-items-center gap-2">
+          <h2 class="title">{{formatTitle(card.title)}}</h2>
+          <button *ngIf="card.tasks && card.tasks.length === 0" type="button" class="button" (click)="createTask()"> Add Task </button>
+        </div>
         <div class="users-container">
           <div class="img-container">
             <img *ngFor="let user of card.users | slice:0:3" loading="lazy" [src]="user.imageUrl" [alt]="user.name"
               class="user-img">
-            <span *ngIf="card.users.length > 3" class="badge bg-primary">+{{card.users.length - 3}}</span>
+            <span *ngIf="card.users && card.users.length > 3" class="badge bg-primary">+{{card.users.length - 3}}</span>
           </div>
           <button type="button" class="button"><i class="bi bi-person-plus"></i> Invite </button>
         </div>
       </div>
     </div>
     <div *ngIf="selectedTask" class="details-container">
+      <div class="magic-pattern"></div>
       <h2 class="title"> {{selectedTask.title}} </h2>
       <div class="detail">
         <h3 class="detail-title"><i class="bi bi-flag"></i> Priority: </h3>
@@ -31,11 +35,12 @@
       </div>
       <div class="detail gap-0">
         <h3 class="detail-title"><i class="bi bi-calendar2-week"></i> Due Date: </h3>
-        <span class="detail-text date"> {{selectedTask.dueDate}} </span>
+        <span class="detail-text date"> {{formatDate(selectedTask.dueDate)}} </span>
       </div>
       <div class="detail">
         <h3 class="detail-title"><i class="fa-solid fa-spinner"></i> Status: </h3>
-        <span class="badge detail-text" [ngClass]="getStatusSeverity(selectedTask.status)"><i class="bi bi-clock"></i>
+        <span class="badge detail-text" [ngClass]="getStatusSeverity(selectedTask.status)"><i class="bi "
+            [ngClass]="getStatusIcon(selectedTask.status)"></i>
           {{selectedTask.status}} </span>
       </div>
       <div class="detail">
@@ -43,28 +48,33 @@
         <span *ngFor="let tag of selectedTask.tags" class="badge detail-text" [ngClass]="getTagColor(tag)"><i
             class="fa-solid" [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
       </div>
-    </div>
-    <div class="toolbar">
-      <button type="button" class="button" (click)="createTask()"><i class="bi bi-plus me-2"></i> Add Task </button>
-      <div class="right-tools">
-        <div class="search">
-          <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search Task">
+      <div class="toolbar">
+        <button type="button" class="button" (click)="createTask()"><i class="bi bi-plus me-2"></i> Add Task </button>
+        <div class="right-tools">
+          <div class="search">
+            <input type="text" id="searchInput" class="form-control" [(ngModel)]="searchQuery"
+              placeholder="Search Task">
+          </div>
+          <button (click)="showFilters = !showFilters" type="button" class="btn"><i class="bi bi-funnel"></i> Filters
+          </button>
+          <button *ngIf="selectedPriorities.length > 0 || selectedTags.length > 0 || selectedUsers.length > 0"
+            class="btn" (click)="clearFilters()"> Clear Filters</button>
         </div>
-        <button (click)="showFilters = !showFilters" type="button" class="btn"><i class="bi bi-funnel"></i> Filters </button>
       </div>
     </div>
-    <div [@filtersAnimation]="showFilters ? 'active' : 'inactive'" class="filters-container card mb-3 p-2">
+
+    <div [@filtersAnimation]="showFilters ? 'active' : 'inactive'" class="filters-container card p-2">
       <div class="row g-3 w-100">
         <div class="col-md-6">
           <div class="filter">
-            <h3 class="filter-title"> <i class="bi bi-flag-fill me-1"></i> Priority  </h3>
+            <h3 class="filter-title"> <i class="bi bi-flag-fill me-1"></i> Priority </h3>
             <div class="form-group">
               <div class="radio-group">
-                <div *ngFor="let priority of priority" class="form-check">
-                  <input class="form-check-input" value="{{priority}}" type="radio"
-                    name="priorityRadioGroup" id="radio{{priority}}">
-                  <label class="form-check-label" for="radio{{priority}}">
-                    {{priority}}
+                <div *ngFor="let value of priority" class="form-check">
+                  <input class="form-check-input" [(ngModel)]="selectedPriorities" value="{{value}}" type="radio"
+                    name="priorityRadioGroup" id="radioPriority{{value}}">
+                  <label class="form-check-label" for="radioPriority{{value}}">
+                    {{value}}
                   </label>
                 </div>
               </div>
@@ -73,23 +83,26 @@
         </div>
         <div class="col-md-6">
           <div class="filter">
-            <h3 class="filter-title"> <i class="bi bi-tag-fill me-1"></i> Tags  </h3>
+            <h3 class="filter-title"> <i class="bi bi-tag-fill me-1"></i> Tags </h3>
             <div class="form-group form-tags">
               <div *ngFor="let tag of tags" class="form-check">
-                <input class="form-check-input" type="checkbox" [value]="tag" id="check{{tag}}">
+                <input class="form-check-input" type="checkbox" [value]="tag" id="check{{tag}}"
+                  (change)="onTagChange($event, tag)">
                 <label class="form-check-label" for="check{{tag}}">
                   <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
-                    [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
+                      [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
                 </label>
               </div>
             </div>
           </div>
-          <div class="filter mt-3">
-            <h3 class="filter-title"> <i class="bi bi-person-fill me-1"></i> Users  </h3>
+          <div class="filter mt-4">
+            <h3 class="filter-title"> <i class="bi bi-person-fill me-1"></i> Users </h3>
             <div class="form-group form-tags">
-              <div *ngFor="let user of card.users" class="form-check d-flex align-items-center gap-3">
-                <input class="form-check-input" type="checkbox" [value]="user" id="check{{user}}">
-                <label class="form-check-label d-flex align-items-center gap-2" for="check{{user}}">
+              <div *ngFor="let user of card.users; let index = index"
+                class="form-check d-flex align-items-center gap-3">
+                <input class="form-check-input" (change)="onUserChange($event, user.name)" type="checkbox"
+                  [value]="user" id="checkUser{{index}}">
+                <label class="form-check-label d-flex align-items-center gap-2" for="checkUser{{index}}">
                   <img [src]="user.imageUrl" [alt]="user.name" class="user-img">
                   <span>{{user.name}}</span>
                 </label>
@@ -102,20 +115,20 @@
     <div class="tasks-container">
       <div class="card tasks-card p-2 px-3">
         <div class="row mb-3">
-          <div class="col-lg-3 px-2" *ngFor="let status of status">
+          <div class="col-lg-3 px-2" *ngFor="let value of status">
             <div class="tasks-col">
-              <div class="task-status" [ngClass]="getStatusBackground(status)">
+              <div class="task-status" [ngClass]="getStatusBackground(value)">
                 <div class="status-title ms-2">
                   <span class="badge bg-white">
-                    <span class="badge" [ngClass]="getStatusBackground(status)"></span>
+                    <span class="badge" [ngClass]="getStatusBackground(value)"></span>
                   </span>
-                  <h3 [ngClass]="getStatusColor(status)"> {{status}} </h3>
+                  <h3 [ngClass]="getStatusColor(value)"> {{value}} </h3>
                 </div>
                 <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
               </div>
-              <div pDroppable (onDrop)="drop(status)" class="tasks-list">
+              <div pDroppable (onDrop)="drop(value)" class="tasks-list">
                 <div role="button" pDraggable (onDrag)="dragStart(task)" (onDragEnd)="dragEnd()"
-                  (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of getTasksByStatus(status)">
+                  (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of getTasksByStatus(value)">
                   <div *ngIf="task.taskImage" class="card-img">
                     <img [src]="task.taskImage" [alt]="task.title" class="task-img">
                   </div>
@@ -127,7 +140,14 @@
                         <span class="badge task-tag" [ngClass]="getPrioritySeverity(task.priority)"><i
                             class="bi bi-speedometer2"></i> {{task.priority}} </span>
                       </div>
-                      <button type="button" class="btn"><i class="bi bi-three-dots"></i></button>
+                      <div class="dropdown">
+                        <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                          type="button"><i class="bi bi-three-dots"></i></button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" role="button" (click)="editTask(task)"><i class="bi bi-pencil"></i> Edit </a></li>
+                          <li><a class="dropdown-item" role="button" (click)="deleteTask(task)"><i class="bi bi-trash3"></i> Delete </a></li>
+                        </ul>
+                      </div>
                     </div>
                     <div class="task-content">
                       <h3 class="task-title"> {{task.title}} </h3>
@@ -154,8 +174,8 @@
   </div>
 </section>
 
-<p-dialog [visible]="showAddTaskDialog" modal="false" closable="false" draggable="false" resizable="false"
-  [style]="{width: '100%', 'max-width': '800px'}">
+<p-dialog [visible]="showAddTaskDialog" position="top" modal="true" closable="false" draggable="false" resizable="false"
+  [style]="{width: '100%', 'max-width': '800px', height: '100%', overflow: 'auto'}">
   <ng-template pTemplate="header">
     <div class="dialog-header">
       <h2 class="title"> Add Task </h2>
@@ -200,14 +220,22 @@
       <label class="form-label" for="task-due-date"> Due Date </label>
       <input type="date" class="form-control" id="task-due-date" [(ngModel)]="newTask.dueDate">
     </div>
-    <div class="form-group">
+    <div class="form-group d-flex flex-column">
       <label class="form-label"> Tags </label>
-      <p-multiSelect class="custom-multiselect" [options]="tags" placeholder="Select Tags" optionLabel="name">
+      <p-multiSelect class="custom-multiselect" [options]="tags" [(ngModel)]="newTask.tags" placeholder="Select Tags"
+        optionLabel="name">
+        <ng-template let-tag pTemplate="selectedItems">
+          <div class="d-flex align-items-center gap-2 my-2" *ngFor="let option of tag">
+            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="fa-solid"
+                [ngClass]="getTagIcon(option)"></i> {{option}} </span>
+          </div>
+        </ng-template>
         <ng-template let-tag pTemplate="item">
           <div class="d-flex align-items-center gap-2">
             <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
                 [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
           </div>
+          <div *ngIf="!tag || tag.length === 0">Select Users</div>
         </ng-template>
       </p-multiSelect>
     </div>
@@ -216,17 +244,117 @@
       <label class="form-label"> Assign Users </label>
       <p-multiSelect class="custom-multiselect" [options]="card.users" [(ngModel)]="newTask.users"
         placeholder="Select Users" optionLabel="name">
+        <ng-template let-user pTemplate="selectedItems">
+          <div class="d-flex align-items-center gap-2 my-1" *ngFor="let option of user">
+            <img [src]="option.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
+            <div>{{ option.name }}</div>
+          </div>
+        </ng-template>
         <ng-template let-user pTemplate="item">
           <div class="d-flex align-items-center gap-2">
             <img [src]="user.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
             <div>{{ user.name }}</div>
           </div>
+          <div *ngIf="!user || user.length === 0">Select Users</div>
         </ng-template>
       </p-multiSelect>
     </div>
     <div class="btn-container">
       <button type="button" class="button" (click)="cancelCreateTask()"> Cancel </button>
       <button type="button" class="button bg-primary text-white" (click)="addTask()"> Add Task </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Edit Task Dialog -->
+<p-dialog [visible]="showEditTaskDialog" position="top" modal="true" closable="false" draggable="false" resizable="false"
+  [style]="{width: '100%', 'max-width': '800px', height: '100%'}">
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <h2 class="title"> Edit {{editingTask.title}} </h2>
+    </div>
+  </ng-template>
+  <div class="dialog-body">
+    <div class="form-group">
+      <label class="form-label" for="task-title"> Task Title </label>
+      <input type="text" class="form-control" id="task-title" placeholder="Enter Task Title"
+        [(ngModel)]="editingTask.title">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="task-description"> Task Description </label>
+      <textarea rows="4" class="form-control" id="task-description" placeholder="Enter Task Description"
+        [(ngModel)]="editingTask.description"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="task-priority"> Priority </label>
+      <div class="radio-group">
+        <div *ngFor="let priority of priority" class="form-check">
+          <input class="form-check-input" [(ngModel)]="editingTask.priority" value="{{priority}}" type="radio"
+            name="priorityRadioGroup" id="radio{{priority}}">
+          <label class="form-check-label" for="radio{{priority}}">
+            {{priority}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label"> Status </label>
+      <div class="radio-group-status">
+        <div *ngFor="let status of status" class="form-check">
+          <input class="form-check-input" [(ngModel)]="editingTask.status" value="{{status}}" type="radio"
+            name="statusRadioGroup" id="radio{{status}}">
+          <label class="form-check-label" for="radio{{status}}">
+            {{status}}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="task-due-date"> Due Date </label>
+      <input type="date" class="form-control" id="task-due-date" [(ngModel)]="editingTask.dueDate">
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Tags </label>
+      <p-multiSelect class="custom-multiselect" [options]="tags" [(ngModel)]="editingTask.tags" placeholder="Select Tags"
+        optionLabel="name">
+        <ng-template let-tag pTemplate="selectedItems">
+          <div class="d-flex align-items-center gap-2 my-2" *ngFor="let option of tag">
+            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="fa-solid"
+                [ngClass]="getTagIcon(option)"></i> {{option}} </span>
+          </div>
+        </ng-template>
+        <ng-template let-tag pTemplate="item">
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
+                [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
+          </div>
+          <div *ngIf="!tag || tag.length === 0">Select Users</div>
+        </ng-template>
+      </p-multiSelect>
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Assign Users </label>
+      <p-multiSelect class="custom-multiselect" [options]="card.users" [(ngModel)]="editingTask.users"
+        placeholder="Select Users" optionLabel="name">
+        <ng-template let-user pTemplate="selectedItems">
+          <div class="d-flex align-items-center gap-2 my-1" *ngFor="let option of user">
+            <img [src]="option.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
+            <div>{{ option.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-user pTemplate="item">
+          <div class="d-flex align-items-center gap-2">
+            <img [src]="user.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
+            <div>{{ user.name }}</div>
+          </div>
+          <div *ngIf="!user || user.length === 0">Select Users</div>
+        </ng-template>
+      </p-multiSelect>
+    </div>
+    <div class="btn-container">
+      <button type="button" class="button" (click)="cancelEditTask()"> Cancel </button>
+      <button type="button" class="button bg-primary text-white" (click)="updateTask()"> Save Changes </button>
     </div>
   </div>
 </p-dialog>

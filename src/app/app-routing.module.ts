@@ -163,7 +163,7 @@ const routes: Routes = [
   {path: 'scrumboard/:title', component: ScrumboardComponent},
 
   // incorrect url redirect to dashboard
-  {path: '**', redirectTo: '/dashboard'},
+  {path: '**', redirectTo: '/error-404'},
 ];
 
 @NgModule({

@@ -150,6 +150,8 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
 import { NotesComponent } from './pages/notes/notes.component';
 import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scrumboard-home.component';
 import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomReuseStrategy } from './custom-reuse-strategy';
 
 
 
@@ -294,6 +296,7 @@ import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.co
   providers: [
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: ReloadInterceptorService, multi: true},
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     AppComponent,
   ],
   bootstrap: [AppComponent]

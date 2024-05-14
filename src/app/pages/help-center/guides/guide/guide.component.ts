@@ -20,4 +20,7 @@ export class GuideComponent implements OnInit {
       this.guide = this.guides.find(guidesList => guidesList.title === this.guideTitle) || {} as Guide;
     });
   }
+  formatTitle(title:string):string {
+    return title.toLowerCase().replace(/-/g, ' ');
+  }
 }

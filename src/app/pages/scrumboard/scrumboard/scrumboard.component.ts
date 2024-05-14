@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ScrumboardService,
   CardProject,
@@ -24,37 +24,49 @@ import {
       state(
         'inactive',
         style({
-          transform: 'height: 0%',
-          visibility: 'hidden',
+          height: 0,
           opacity: 0,
         })
       ),
       state(
         'active',
         style({
-          transform: 'height: 100%',
+          transform: 'scaleY(100%)',
           opacity: 1,
-          visibility: 'visible',
         })
       ),
-      transition('inactive => active', animate('400ms ease-in')),
-      transition('active => inactive', animate('1000ms ease-out')),
+      transition('inactive => active', animate('800ms ease-in-out')),
+      transition('active => inactive', animate('800ms ease-in-out')),
     ]),
+
   ],
 })
-
 export class ScrumboardComponent implements OnInit {
+  // Current Project Data
   cards!: CardProject[];
   card!: CardProject;
   cardTitle!: string;
+
+  showDetails: boolean = false;
+
+  // Task Data
   selectedTask!: Task;
   tasks!: Task[];
-  showAddTaskDialog: boolean = false;
   newTask!: Task;
+  editingTask!: Task;
   filteredTasks!: Task[];
-  searchQuery: string = '';
-  showFilters: boolean = false;
 
+  showEditTaskDialog: boolean = false;
+  showAddTaskDialog: boolean = false;
+
+  // Filters Queries
+  showFilters: boolean = false;
+  searchQuery: string = '';
+  selectedPriorities: string = '';
+  selectedTags: string[] = [];
+  selectedUsers: string[] = [];
+
+  // Filters Data
   status: string[] = ['To Do', 'In Progress', 'In Review', 'Done'];
   priority: string[] = ['Low', 'Medium', 'High'];
   tags: string[] = ['Design', 'Marketing', 'Development', 'Concept'];
@@ -63,7 +75,8 @@ export class ScrumboardComponent implements OnInit {
     private route: ActivatedRoute,
     private scrumboardService: ScrumboardService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -74,9 +87,25 @@ export class ScrumboardComponent implements OnInit {
         this.cards.find((card) => card.title === this.cardTitle) ||
         ({} as CardProject);
     });
+
+    if (this.card.title !== this.cardTitle){
+      this.router.navigate(['/scrumboard-home']);
+    }
+
     // Inicializar tasks
     this.tasks = this.card.tasks;
     this.newTask = {
+      id: 0,
+      title: '',
+      taskImage: '',
+      description: '',
+      status: '',
+      priority: '',
+      dueDate: '',
+      tags: [],
+      users: [],
+    };
+    this.editingTask = {
       id: 0,
       title: '',
       taskImage: '',
@@ -91,6 +120,7 @@ export class ScrumboardComponent implements OnInit {
 
   selectTask(task: Task) {
     this.selectedTask = task;
+    this.showDetails = true;
   }
 
   // Drag and Drop
@@ -109,22 +139,10 @@ export class ScrumboardComponent implements OnInit {
 
   createTask() {
     this.showAddTaskDialog = true;
-    this.newTask = {
-      id: 0,
-      title: '',
-      taskImage: '',
-      description: '',
-      status: '',
-      priority: '',
-      dueDate: '',
-      tags: [],
-      users: [],
-    };
   }
 
   addTask() {
     this.newTask.id = this.tasks.length + 1;
-    this.newTask.dueDate = this.formatDate(this.newTask.dueDate);
     console.log(this.newTask);
     this.confirmationService.confirm({
       message: 'Are you sure you want to add this task?',
@@ -159,24 +177,96 @@ export class ScrumboardComponent implements OnInit {
     };
   }
 
-  // Filter Tasks by Status
+  // Filter Tasks
   getTasksByStatus(status: string): Task[] {
-    if (this.searchQuery === ''){
+    if (this.searchQuery !== '') {
+      return this.getFilteredTasks(this.searchQuery).filter(
+        (task) => task.status === status
+      );
+    } else if (this.selectedPriorities !== '') {
+      // Devuelve las tareas que tengan las prioridades seleccionadas
+      return this.getFilteredTasksByPriority(this.selectedPriorities).filter(
+        (task) => task.status === status
+      );
+    } else if (this.selectedTags.length > 0) {
+      // Devuelve las tareas que tengan las etiquetas seleccionadas
+      return this.getFilteredTasksByTags(this.selectedTags).filter(
+        (task) => task.status === status
+      );
+    } else if (this.selectedUsers.length > 0) {
+      return this.getFilteredTasksByUsers(this.selectedUsers).filter(
+        (task) => task.status === status
+      );
+    } else if(this.tasks) {
       return this.tasks.filter((task) => task.status === status);
+    }
+    return [];
+  }
+
+  // Devuelve las tasks que contienen searchQuery en el titulo
+  getFilteredTasks(searchQuery: string): Task[] {
+    return this.tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  // Devuelve las tasks que contienen las prioridades de selectedPriorities
+  getFilteredTasksByPriority(selectedPriorities: string): Task[] {
+    return this.tasks.filter((task) =>
+      selectedPriorities.includes(task.priority)
+    );
+  }
+
+  // Devuelve las tasks que contienen las etiquetas de selectedTags
+  getFilteredTasksByTags(selectedTags: string[]): Task[] {
+    return this.tasks.filter((task) =>
+      selectedTags.some((tag) => task.tags.includes(tag))
+    );
+  }
+  // Devuelve las tasks que contienen los usuarios de selectedUsers
+  getFilteredTasksByUsers(selectedUsers: string[]): Task[] {
+    return this.tasks.filter((task) =>
+      task.users.some((user) => selectedUsers.includes(user.name))
+    );
+  }
+
+  // Guarda las tags en selectedTags
+  onTagChange(event: Event, tag: string) {
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedTags.push(tag);
     } else {
-      return this.getFilteredTasks(this.searchQuery).filter((task) => task.status === status);
+      const index = this.selectedTags.indexOf(tag);
+      if (index > -1) {
+        this.selectedTags.splice(index, 1);
+      }
+    }
+  }
+  // Guarda los usuarios en selectedusers
+  onUserChange(event: Event, userName: string) {
+    if ((event.target as HTMLInputElement).checked) {
+      this.selectedUsers.push(userName);
+      console.log(this.selectedUsers);
+    } else {
+      const index = this.selectedUsers.indexOf(userName);
+      if (index > -1) {
+        this.selectedUsers.splice(index, 1);
+      }
     }
   }
 
-  getFilteredTasks(searchQuery: string): Task[]{
-    return this.tasks.filter((task) => task.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  // Clear Filters
+  clearFilters() {
+    this.searchQuery = '';
+    this.selectedPriorities = '';
+    this.selectedTags = [];
+    this.selectedUsers = [];
   }
 
   // Fondo y Color del texto para etiquetas
   getStatusBackground(status: string): string {
     switch (status) {
       case 'To Do':
-        return 'bg-secondary';
+        return 'bg-dark';
       case 'In Progress':
         return 'bg-primary ';
       case 'In Review':
@@ -191,7 +281,7 @@ export class ScrumboardComponent implements OnInit {
   getStatusColor(status: string): string {
     switch (status) {
       case 'To Do':
-        return 'text-secondary';
+        return 'text-dark';
       case 'In Progress':
         return 'text-primary';
       case 'In Review':
@@ -206,13 +296,28 @@ export class ScrumboardComponent implements OnInit {
   getStatusSeverity(status: string): string {
     switch (status) {
       case 'To Do':
-        return 'bg-secondary text-secondary';
+        return 'bg-dark text-dark';
       case 'In Progress':
         return 'bg-primary text-primary';
       case 'In Review':
         return 'bg-danger text-danger';
       case 'Done':
         return 'bg-success text-success';
+      default:
+        return '';
+    }
+  }
+
+  getStatusIcon(status: string): string{
+    switch (status) {
+      case 'To Do':
+        return 'bi-clipboard';
+      case 'In Progress':
+        return 'bi-arrow-clockwise';
+      case 'In Review':
+        return 'bi-clock';
+      case 'Done':
+        return 'bi-check2';
       default:
         return '';
     }
@@ -280,5 +385,68 @@ export class ScrumboardComponent implements OnInit {
     const day = d.getDate();
 
     return `${day} ${month} ${year}`;
+  }
+
+  deleteTask(task:Task){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete' + task.title +' ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const index = this.tasks.indexOf(task);
+        this.tasks.splice(index, 1);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Task Deleted',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  editTask(task: Task){
+    this.editingTask = {...task};
+    this.showEditTaskDialog = true;
+  }
+
+  updateTask(){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to update this task?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const index = this.tasks.indexOf(this.selectedTask);
+        this.tasks[index] = this.editingTask;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Task Updated',
+          life: 3000,
+        });
+        this.showEditTaskDialog = false;
+      },
+    });
+  }
+
+  cancelEditTask(){
+    this.showEditTaskDialog = false;
+    this.editingTask = {
+      id: 0,
+      title: '',
+      taskImage: '',
+      description: '',
+      status: '',
+      priority: '',
+      dueDate: '',
+      tags: [],
+      users: [],
+    };
+  }
+
+  formatTitle(title: string): string{
+    if (title)
+    return title.toLowerCase().replace(/-/g, ' ');
+    return ''
   }
 }
