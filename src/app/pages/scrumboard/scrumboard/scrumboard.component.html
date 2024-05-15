@@ -14,51 +14,53 @@
               class="user-img">
             <span *ngIf="card.users && card.users.length > 3" class="badge bg-primary">+{{card.users.length - 3}}</span>
           </div>
-          <button type="button" class="button"><i class="bi bi-person-plus"></i> Invite </button>
+          <button type="button" class="button" (click)="toggleInviteUsers()"><i class="bi bi-person-plus"></i> Invite </button>
         </div>
       </div>
     </div>
-    <div *ngIf="selectedTask" class="details-container">
-      <div class="magic-pattern"></div>
-      <h2 class="title"> {{selectedTask.title}} </h2>
-      <div class="detail">
-        <h3 class="detail-title"><i class="bi bi-flag"></i> Priority: </h3>
-        <span class="badge detail-text" [ngClass]="getPrioritySeverity(selectedTask.priority)"><i
-            class="bi bi-speedometer2"></i> {{selectedTask.priority}} </span>
-      </div>
-      <div class="detail">
-        <h3 class="detail-title"><i class="bi bi-person-plus"></i> Assigned to: </h3>
-        <span *ngFor="let user of selectedTask.users | slice:0:2" class="badge detail-text user-badge">
-          <img loading="lazy" [src]="user.imageUrl" [alt]="user.name" class="user-img">
-          <span>{{user.name}}</span>
-        </span>
-      </div>
-      <div class="detail gap-0">
-        <h3 class="detail-title"><i class="bi bi-calendar2-week"></i> Due Date: </h3>
-        <span class="detail-text date"> {{formatDate(selectedTask.dueDate)}} </span>
-      </div>
-      <div class="detail">
-        <h3 class="detail-title"><i class="fa-solid fa-spinner"></i> Status: </h3>
-        <span class="badge detail-text" [ngClass]="getStatusSeverity(selectedTask.status)"><i class="bi "
-            [ngClass]="getStatusIcon(selectedTask.status)"></i>
-          {{selectedTask.status}} </span>
-      </div>
-      <div class="detail">
-        <h3 class="detail-title"><i class="bi bi-tag"></i> Tags: </h3>
-        <span *ngFor="let tag of selectedTask.tags" class="badge detail-text" [ngClass]="getTagColor(tag)"><i
-            class="fa-solid" [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
-      </div>
-      <div class="toolbar">
-        <button type="button" class="button" (click)="createTask()"><i class="bi bi-plus me-2"></i> Add Task </button>
-        <div class="right-tools">
-          <div class="search">
-            <input type="text" id="searchInput" class="form-control" [(ngModel)]="searchQuery"
-              placeholder="Search Task">
+    <div>
+      <div  [@detailsAnimation]="showDetails ? 'active' : 'inactive'" class="details-container">
+        <div class="magic-pattern"></div>
+        <h2 *ngIf="selectedTask" class="title"> {{selectedTask.title}} </h2>
+        <div *ngIf="selectedTask" class="detail">
+          <h3 class="detail-title"><i class="bi bi-flag"></i> Priority: </h3>
+          <span class="badge detail-text" [ngClass]="getPrioritySeverity(selectedTask.priority)"><i
+              class="bi bi-speedometer2"></i> {{selectedTask.priority}} </span>
+        </div>
+        <div *ngIf="selectedTask" class="detail">
+          <h3 class="detail-title"><i class="bi bi-person-plus"></i> Assigned to: </h3>
+          <span *ngFor="let user of selectedTask.users | slice:0:2" class="badge detail-text user-badge">
+            <img loading="lazy" [src]="user.imageUrl" [alt]="user.name" class="user-img">
+            <span>{{user.name}}</span>
+          </span>
+        </div>
+        <div *ngIf="selectedTask" class="detail gap-0">
+          <h3 class="detail-title"><i class="bi bi-calendar2-week"></i> Due Date: </h3>
+          <span class="detail-text date"> {{formatDate(selectedTask.dueDate)}} </span>
+        </div>
+        <div *ngIf="selectedTask" class="detail">
+          <h3 class="detail-title"><i class="fa-solid fa-spinner"></i> Status: </h3>
+          <span class="badge detail-text" [ngClass]="getStatusSeverity(selectedTask.status)"><i class="bi "
+              [ngClass]="getStatusIcon(selectedTask.status)"></i>
+            {{selectedTask.status}} </span>
+        </div>
+        <div *ngIf="selectedTask" class="detail">
+          <h3 class="detail-title"><i class="bi bi-tag"></i> Tags: </h3>
+          <span *ngFor="let tag of selectedTask.tags" class="badge detail-text" [ngClass]="getTagColor(tag)"><i
+              class="fa-solid" [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
+        </div>
+        <div class="toolbar">
+          <button type="button" class="button" (click)="createTask()"><i class="bi bi-plus me-2"></i> Add Task </button>
+          <div class="right-tools">
+            <div class="search">
+              <input type="text" id="searchInput" class="form-control" [(ngModel)]="searchQuery"
+                placeholder="Search Task">
+            </div>
+            <button (click)="showFilters = !showFilters" type="button" class="btn"><i class="bi bi-funnel"></i> Filters
+            </button>
+            <button *ngIf="selectedPriorities.length > 0 || selectedTags.length > 0 || selectedUsers.length > 0"
+              class="btn" (click)="clearFilters()"> Clear Filters</button>
           </div>
-          <button (click)="showFilters = !showFilters" type="button" class="btn"><i class="bi bi-funnel"></i> Filters
-          </button>
-          <button *ngIf="selectedPriorities.length > 0 || selectedTags.length > 0 || selectedUsers.length > 0"
-            class="btn" (click)="clearFilters()"> Clear Filters</button>
         </div>
       </div>
     </div>
@@ -175,14 +177,14 @@
 </section>
 
 <p-dialog [visible]="showAddTaskDialog" position="top" modal="true" closable="false" draggable="false" resizable="false"
-  [style]="{width: '100%', 'max-width': '800px', height: '100%', overflow: 'auto'}">
+  [style]="{width: '100%', 'max-width': '800px', height: '100%'}">
   <ng-template pTemplate="header">
     <div class="dialog-header">
       <h2 class="title"> Add Task </h2>
     </div>
   </ng-template>
   <div class="dialog-body">
-    <div class="form-group">
+    <div class="form-group mt-0">
       <label class="form-label" for="task-title"> Task Title </label>
       <input type="text" class="form-control" id="task-title" placeholder="Enter Task Title"
         [(ngModel)]="newTask.title">
@@ -192,7 +194,7 @@
       <textarea rows="4" class="form-control" id="task-description" placeholder="Enter Task Description"
         [(ngModel)]="newTask.description"></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-1">
       <label class="form-label" for="task-priority"> Priority </label>
       <div class="radio-group">
         <div *ngFor="let priority of priority" class="form-check">
@@ -204,7 +206,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-1">
       <label class="form-label"> Status </label>
       <div class="radio-group-status">
         <div *ngFor="let status of status" class="form-check">
@@ -275,7 +277,7 @@
     </div>
   </ng-template>
   <div class="dialog-body">
-    <div class="form-group">
+    <div class="form-group mt-0">
       <label class="form-label" for="task-title"> Task Title </label>
       <input type="text" class="form-control" id="task-title" placeholder="Enter Task Title"
         [(ngModel)]="editingTask.title">
@@ -285,7 +287,7 @@
       <textarea rows="4" class="form-control" id="task-description" placeholder="Enter Task Description"
         [(ngModel)]="editingTask.description"></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-1">
       <label class="form-label" for="task-priority"> Priority </label>
       <div class="radio-group">
         <div *ngFor="let priority of priority" class="form-check">
@@ -297,8 +299,8 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label"> Status </label>
+    <div class="form-group mt-1">
+      <label class="form-label "> Status </label>
       <div class="radio-group-status">
         <div *ngFor="let status of status" class="form-check">
           <input class="form-check-input" [(ngModel)]="editingTask.status" value="{{status}}" type="radio"
@@ -355,6 +357,41 @@
     <div class="btn-container">
       <button type="button" class="button" (click)="cancelEditTask()"> Cancel </button>
       <button type="button" class="button bg-primary text-white" (click)="updateTask()"> Save Changes </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Invite Users Dialog -->
+<p-dialog [visible]="showInviteUsersDialog" position="top" modal="true" closable="false" draggable="false" resizable="false"
+  [style]="{width: '100%', 'max-width': '800px', 'max-height': '200px', height: '100%'}">
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <h2 class="title"> Invite Users </h2>
+    </div>
+  </ng-template>
+  <div class="dialog-body">
+    <div class="form-group">
+      <label class="form-label"></label>
+      <p-multiSelect class="custom-multiselect" [options]="filterExistingUsers(card.users)" [(ngModel)]="invitedUsers" placeholder="Select Users"
+        optionLabel="name">
+        <ng-template let-user pTemplate="selectedItems">
+          <div class="d-flex align-items-center gap-2 my-1" *ngFor="let option of user">
+            <img [src]="option.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
+            <div>{{ option.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-user pTemplate="item">
+          <div class="d-flex align-items-center gap-2">
+            <img [src]="user.imageUrl" style="width: 24px; border-radius: 50%; object-fit:cover;min-height: 24px;" />
+            <div>{{ user.name }}</div>
+          </div>
+          <div *ngIf="!user || user.length === 0">Select Users</div>
+        </ng-template>
+      </p-multiSelect>
+    </div>
+    <div class="btn-container d-flex align-items-center gap-2">
+      <button type="button" class="button" (click)="cancelInvite()"> Cancel </button>
+      <button type="button" class="button bg-primary text-white" (click)="inviteUsers()"> Invite Users </button>
     </div>
   </div>
 </p-dialog>

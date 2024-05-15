@@ -39,7 +39,7 @@ body {
   color: #fff;
 }
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
   font-weight: 300;
   font-style: normal;
 }
@@ -259,4 +259,13 @@ body {
 }
 .dropdown-toggle::after{
   display: none;
+}
+
+.rounded-button{
+  border-radius: 20px;
+  padding: 6px 16px;
+  border: 0;
+  background-color: #fff;
+  color: #4b4bdf;
+  font-weight: 400;
 }

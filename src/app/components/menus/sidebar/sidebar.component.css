@@ -140,12 +140,13 @@
   max-height: 1000px; /* adjust as needed */
 }
 ::ng-deep .p-sidebar{
-  color: #ded7cf;
+  color: #fff;
 }
 .sidebar-btn {
   background-color: transparent;
   border: none;
 }
 .sidebar-btn i{
-  color: #ded7cf;
+  color: #fff !important;
+  font-size: 20px;
 }

@@ -1,0 +1,144 @@
+<section class="section">
+  <div class="container-fluid">
+    <div class="title-container row g-5">
+      <div class="col-md-8">
+        <h2 class="section-title"> Store. <span class="text-muted">Find your essentials.</span></h2>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex flex-column gap-3">
+          <div class="help-container">
+            <i class="help-icon bi bi-patch-question"></i>
+            <a href="/help-home" class="help-text">Need help with your purchase?</a>
+          </div>
+          <div class="help-container">
+            <i class="help-icon bi bi-geo-alt"></i>
+            <a href="/poi" class="help-text"> Find your nearest shop.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container carousel-products">
+    <div class="title-container">
+      <h3 class="carousel-title"> Latest Products. <span class="text-muted"> Check our latests news. </span></h3>
+    </div>
+    <div class="carousel mt-4">
+      <p-carousel  [value]="products" [numVisible]="3" [numScroll]="1" [circular]="false"
+        [responsiveOptions]="responsiveOptions" showIndicators="false">
+        <ng-template  let-product pTemplate="item">
+          <div role="button" (click)="selectProduct(product)" class="m-2">
+            <div class="mb-3">
+              <div class="card-img">
+                <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+              </div>
+            </div>
+            <div class="mb-4 d-flex flex-column">
+              <h4 class="product-title">{{ product.name }}</h4>
+              <small class="text-muted">{{ product.details }}</small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-column">
+                {{ product.price + '€' }}
+                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+              </div>
+              <div class="card-btns">
+                <button type="button" class="btn"> <i class="bi bi-heart"></i> </button>
+                <button type="button" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+  <div class="container gallery-container">
+    <div class="title-container">
+      <h3 class="carousel-title mb-4"> All our products.</h3>
+    </div>
+    <div class="toolbar">
+      <button (click)="showAllProducts()" type="button" class="rounded-button active"
+        [ngClass]="{'active': activeFilter === 'all'}"> All </button>
+      <button (click)="filterProductsByCategory('bedroom')" type="button" class="rounded-button"
+        [ngClass]="{'active': activeFilter === 'bedroom'}"> Bedroom </button>
+      <button (click)="filterProductsByCategory('living-room')" type="button" class="rounded-button"
+        [ngClass]="{'active': activeFilter === 'living-room'}"> Living Room </button>
+      <button (click)="filterProductsByCategory('kitchen')" type="button" class="rounded-button"
+        [ngClass]="{'active': activeFilter === 'kitchen'}"> Kitchen </button>
+      <button (click)="filterProductsByCategory('workspace')" type="button" class="rounded-button"
+        [ngClass]="{'active': activeFilter === 'workspace'}"> Workspace </button>
+    </div>
+    <div class="gallery">
+      <div class="row g-5 w-100">
+        <div class="col-lg-3 col-md-4" *ngFor="let product of products">
+          <div role="button" class="card" (click)="selectProduct(product)">
+            <div class="card-img">
+              <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+            </div>
+            <div class="card-info">
+              <div class="card-title">
+                <h4 class="product-title">{{product.name}}</h4>
+                <h4 class="product-description text-muted">{{product.details}} </h4>
+              </div>
+              <div class="footer">
+                <div class="card-price">
+                  <h4 class="product-price">{{product.price + '€'}}</h4>
+                  <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                </div>
+                <div class="card-btns">
+                  <button type="button" class="btn"> <i class="bi bi-heart"></i> </button>
+                  <button type="button" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Product Details Dialog -->
+<p-dialog header="Product Details" [(visible)]="showDetailsDialog" draggable="false" resizable="false" [modal]="true" [style]="{width: '100%', 'max-width': '1200px'}">
+  <ng-template pTemplate="headless">
+    <div class="row">
+      <div class="col-md-6 img-col">
+        <img [src]="selectedProduct.imageUrl" [alt]="selectedProduct.name" class="details-img">
+      </div>
+      <div class="col-md-6">
+        <div class="details-toolbar">
+          <button type="button" class="btn" (click)="hideDetailsDialog()"><i class="bi bi-chevron-left"></i></button>
+          <div class="right-btns d-flex align-items-center gap-2">
+            <button type="button" class="btn"><i class="bi bi-upload"></i></button>
+            <button type="button" class="btn"><i class="bi bi-heart"></i></button>
+          </div>
+        </div>
+        <div class="details-content h-100">
+          <div class="details">
+            <div class="details-title">
+              <h2 class="product-title"> {{selectedProduct.name}} </h2>
+              <small class="product-details">{{selectedProduct.details}}</small>
+            </div>
+            <div class="details-rating">
+              <small> 12 reviews · </small>
+              <i class="bi bi-star-fill me-1"></i><small>{{selectedProduct.rating}}</small>
+            </div>
+          </div>
+          <div class="details-description">
+            <p>{{selectedProduct.description}}</p>
+          </div>
+          <div class="details-footer">
+            <div class="quantity-container">
+              <button [disabled]="quantity === 1" type="button" class="btn" (click)="reduceQuantity()"> - </button>
+              <span>{{quantity}}</span>
+              <button type="button" class="btn" (click)="addQuantity()"> + </button>
+            </div>
+            <div class="add-container">
+              <button type="button" class="add-button"> <span>Add to cart</span> <span>({{selectedProduct.price * quantity + '€'}})</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</p-dialog>

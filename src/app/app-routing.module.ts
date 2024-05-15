@@ -77,6 +77,7 @@ import { FileManagerComponent } from './pages/file-manager/file-manager.componen
 import { NotesComponent } from './pages/notes/notes.component';
 import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scrumboard-home.component';
 import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
+import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -161,6 +162,9 @@ const routes: Routes = [
   //Scrumboard
   {path: 'scrumboard-home', component: ScrumboardHomeComponent},
   {path: 'scrumboard/:title', component: ScrumboardComponent},
+
+  // Ecommerce
+  {path: 'ecommerce', component: EcommerceComponent},
 
   // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/error-404'},

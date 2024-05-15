@@ -4,6 +4,7 @@ import {
   ScrumboardService,
   CardProject,
   Task,
+  User,
 } from '../../../services/scrumboard.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import {
@@ -38,7 +39,24 @@ import {
       transition('inactive => active', animate('800ms ease-in-out')),
       transition('active => inactive', animate('800ms ease-in-out')),
     ]),
-
+    trigger('detailsAnimation', [
+      state(
+        'inactive',
+        style({
+          height: 0,
+          opacity: 0,
+        })
+      ),
+      state(
+        'active',
+        style({
+          transform: 'scaleY(100%)',
+          opacity: 1,
+        })
+      ),
+      transition('inactive => active', animate('800ms ease-in-out')),
+      transition('active => inactive', animate('800ms ease-in-out')),
+    ])
   ],
 })
 export class ScrumboardComponent implements OnInit {
@@ -46,6 +64,9 @@ export class ScrumboardComponent implements OnInit {
   cards!: CardProject[];
   card!: CardProject;
   cardTitle!: string;
+
+  users!: User[];
+  invitedUsers!: [];
 
   showDetails: boolean = false;
 
@@ -58,6 +79,7 @@ export class ScrumboardComponent implements OnInit {
 
   showEditTaskDialog: boolean = false;
   showAddTaskDialog: boolean = false;
+  showInviteUsersDialog: boolean = false;
 
   // Filters Queries
   showFilters: boolean = false;
@@ -80,6 +102,7 @@ export class ScrumboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.users = this.scrumboardService.getUsers();
     this.cards = this.scrumboardService.getCardProjects();
     this.route.params.subscribe((params) => {
       this.cardTitle = params['title'];
@@ -143,7 +166,6 @@ export class ScrumboardComponent implements OnInit {
 
   addTask() {
     this.newTask.id = this.tasks.length + 1;
-    console.log(this.newTask);
     this.confirmationService.confirm({
       message: 'Are you sure you want to add this task?',
       header: 'Confirmation',
@@ -157,7 +179,6 @@ export class ScrumboardComponent implements OnInit {
           life: 3000,
         });
         this.cancelCreateTask();
-        console.log(this.tasks);
       },
     });
   }
@@ -245,7 +266,6 @@ export class ScrumboardComponent implements OnInit {
   onUserChange(event: Event, userName: string) {
     if ((event.target as HTMLInputElement).checked) {
       this.selectedUsers.push(userName);
-      console.log(this.selectedUsers);
     } else {
       const index = this.selectedUsers.indexOf(userName);
       if (index > -1) {
@@ -442,6 +462,30 @@ export class ScrumboardComponent implements OnInit {
       tags: [],
       users: [],
     };
+  }
+
+  toggleInviteUsers(){
+    this.showInviteUsersDialog = true;
+    this.invitedUsers = [];
+  }
+  cancelInvite(){
+    this.showInviteUsersDialog = false;
+    this.invitedUsers = [];
+  }
+  inviteUsers(){
+    this.showInviteUsersDialog = false;
+    // Añadir invitedUsers a card.users
+    this.card.users = this.card.users.concat(this.invitedUsers);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: 'Users Invited',
+      life: 3000,
+    });
+  }
+  filterExistingUsers(existingUsers: User[]): User[] {
+    let existingUserNames = existingUsers.map(user => user.name);
+    return this.users.filter(user => !existingUserNames.includes(user.name));
   }
 
   formatTitle(title: string): string{

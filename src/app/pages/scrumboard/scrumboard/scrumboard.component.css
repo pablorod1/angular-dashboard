@@ -333,7 +333,11 @@
 ::ng-deep .p-multiselect {
   width: 100%;
 }
-
+::ng-deep .p-multiselect-label{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
 .form-tags {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

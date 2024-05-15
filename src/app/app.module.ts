@@ -152,6 +152,7 @@ import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scru
 import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
+import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
 
 
 
@@ -243,6 +244,7 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
     NotesComponent,
     ScrumboardHomeComponent,
     ScrumboardComponent,
+    EcommerceComponent,
   ],
   imports: [
     BrowserModule,
