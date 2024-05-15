@@ -92,8 +92,8 @@ export class FeaturesSection3Component implements OnInit {
     ]
     this.responsiveOptions = [
         {
-            breakpoint: '1600px',
-            numVisible: 3,
+            breakpoint: '1024px',
+            numVisible: 2,
             numScroll: 1
         },
         {
