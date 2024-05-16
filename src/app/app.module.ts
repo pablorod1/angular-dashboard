@@ -49,6 +49,8 @@ import { MeterGroupModule} from 'primeng/metergroup';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { ToolbarModule } from 'primeng/toolbar';
+import { SliderModule } from 'primeng/slider';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -153,6 +155,7 @@ import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.co
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
+import { InventoryComponent } from './pages/ecommerce/inventory/inventory.component';
 
 
 
@@ -245,6 +248,7 @@ import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
     ScrumboardHomeComponent,
     ScrumboardComponent,
     EcommerceComponent,
+    InventoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -292,7 +296,9 @@ import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
     MeterGroupModule,
     FileUploadModule,
     CardModule,
-    AutoFocusModule
+    AutoFocusModule,
+    ToolbarModule,
+    SliderModule
 
   ],
   providers: [

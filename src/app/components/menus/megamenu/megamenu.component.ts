@@ -65,13 +65,7 @@ export class MegamenuComponent {
             {
               label: 'App Examples',
               items: [
-                {
-                  label: 'Ecommerce',
-                  icon: 'bi bi-cart',
-                  reloadData: true,
-                  routerLink: '/ecommerce',
-                  command: () => { location.reload(); },
-                },
+
                 {
                   label: 'File Manager',
                   icon: 'bi bi-folder',
@@ -104,6 +98,27 @@ export class MegamenuComponent {
                   command: () => { location.reload(); },
                 },
               ],
+            },
+            {
+              label: 'Ecommerce',
+              items: [
+                {
+
+                    label: 'Store',
+                    icon: 'bi bi-bag',
+                    reloadData: true,
+                    routerLink: '/ecommerce',
+                    command: () => { location.reload(); },
+
+                },
+                {
+                  label: 'Inventory',
+                  icon: 'bi bi-box-seam',
+                  reloadData: true,
+                  routerLink: '/inventory',
+                  command: () => {location.reload();},
+                }
+              ]
             },
           ],
           [

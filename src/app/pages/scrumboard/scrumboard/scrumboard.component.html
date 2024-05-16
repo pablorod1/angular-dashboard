@@ -39,7 +39,7 @@
           <span class="detail-text date"> {{formatDate(selectedTask.dueDate)}} </span>
         </div>
         <div *ngIf="selectedTask" class="detail">
-          <h3 class="detail-title"><i class="fa-solid fa-spinner"></i> Status: </h3>
+          <h3 class="detail-title"><i class="bi bi-clock-history"></i> Status: </h3>
           <span class="badge detail-text" [ngClass]="getStatusSeverity(selectedTask.status)"><i class="bi "
               [ngClass]="getStatusIcon(selectedTask.status)"></i>
             {{selectedTask.status}} </span>
@@ -47,7 +47,7 @@
         <div *ngIf="selectedTask" class="detail">
           <h3 class="detail-title"><i class="bi bi-tag"></i> Tags: </h3>
           <span *ngFor="let tag of selectedTask.tags" class="badge detail-text" [ngClass]="getTagColor(tag)"><i
-              class="fa-solid" [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
+              class="bi" [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
         </div>
         <div class="toolbar">
           <button type="button" class="button" (click)="createTask()"><i class="bi bi-plus me-2"></i> Add Task </button>
@@ -91,7 +91,7 @@
                 <input class="form-check-input" type="checkbox" [value]="tag" id="check{{tag}}"
                   (change)="onTagChange($event, tag)">
                 <label class="form-check-label" for="check{{tag}}">
-                  <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
+                  <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="bi"
                       [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
                 </label>
               </div>
@@ -117,7 +117,7 @@
     <div class="tasks-container">
       <div class="card tasks-card p-2 px-3">
         <div class="row mb-3">
-          <div class="col-lg-3 px-2" *ngFor="let value of status">
+          <div class="col-lg-3 col-md-6 px-2" *ngFor="let value of status">
             <div class="tasks-col">
               <div class="task-status" [ngClass]="getStatusBackground(value)">
                 <div class="status-title ms-2">
@@ -137,7 +137,7 @@
                   <div class="p-1">
                     <div class="tags-container">
                       <div class="tags">
-                        <span class="badge task-tag" [ngClass]="getTagColor(task.tags[0])"><i class="fa-solid"
+                        <span class="badge task-tag" [ngClass]="getTagColor(task.tags[0])"><i class="bi"
                             [ngClass]="getTagIcon(task.tags[0])"></i> {{task.tags[0]}} </span>
                         <span class="badge task-tag" [ngClass]="getPrioritySeverity(task.priority)"><i
                             class="bi bi-speedometer2"></i> {{task.priority}} </span>
@@ -228,13 +228,13 @@
         optionLabel="name">
         <ng-template let-tag pTemplate="selectedItems">
           <div class="d-flex align-items-center gap-2 my-2" *ngFor="let option of tag">
-            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="fa-solid"
+            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="bi"
                 [ngClass]="getTagIcon(option)"></i> {{option}} </span>
           </div>
         </ng-template>
         <ng-template let-tag pTemplate="item">
           <div class="d-flex align-items-center gap-2">
-            <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
+            <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="bi"
                 [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
           </div>
           <div *ngIf="!tag || tag.length === 0">Select Users</div>
@@ -321,13 +321,13 @@
         optionLabel="name">
         <ng-template let-tag pTemplate="selectedItems">
           <div class="d-flex align-items-center gap-2 my-2" *ngFor="let option of tag">
-            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="fa-solid"
+            <span class="badge task-tag" [ngClass]="getTagColor(option)"><i class="bi"
                 [ngClass]="getTagIcon(option)"></i> {{option}} </span>
           </div>
         </ng-template>
         <ng-template let-tag pTemplate="item">
           <div class="d-flex align-items-center gap-2">
-            <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="fa-solid"
+            <span class="badge task-tag" [ngClass]="getTagColor(tag)"><i class="bi"
                 [ngClass]="getTagIcon(tag)"></i> {{tag}} </span>
           </div>
           <div *ngIf="!tag || tag.length === 0">Select Users</div>
@@ -372,7 +372,7 @@
   <div class="dialog-body">
     <div class="form-group">
       <label class="form-label"></label>
-      <p-multiSelect class="custom-multiselect" [options]="filterExistingUsers(card.users)" [(ngModel)]="invitedUsers" placeholder="Select Users"
+      <p-multiSelect class="custom-multiselect" [options]="filterExistingUsers()" [(ngModel)]="invitedUsers" placeholder="Select Users"
         optionLabel="name">
         <ng-template let-user pTemplate="selectedItems">
           <div class="d-flex align-items-center gap-2 my-1" *ngFor="let option of user">

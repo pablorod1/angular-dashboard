@@ -1,0 +1,207 @@
+<section class="section">
+  <div class="container title-container">
+    <h2> Inventory </h2>
+  </div>
+  <div class="container-fluid">
+    <p-toast />
+    <p-table #dt [value]="showProducts()" [rows]="5" [paginator]="true" [tableStyle]="{ 'min-width': '75rem' }"
+      [rowHover]="true" dataKey="id" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-3">
+            <h3 class="m-0">Manage Products</h3>
+            <button type="button" class="button" (click)="createNewProduct()"><i class="bi bi-plus"></i> New Product
+            </button>
+          </div>
+          <div class="right-tools">
+            <span class="p-input-icon-left">
+              <i class="bi bi-search"></i>
+              <input pInputText type="text" placeholder="Search Product" (change)="searchProduct(searchQuery)" [(ngModel)]="searchQuery"/>
+            </span>
+            <button (click)="showFilters = !showFilters" class="btn" type="button"><i class="bi bi-funnel"></i></button>
+          </div>
+        </div>
+        <div [@filtersAnimation]="showFilters ? 'active' : 'inactive'" class="filters-container card mt-3">
+          <div class="row g-3 w-100">
+            <div class="col-md-6">
+              <div class="filter">
+                <h3 class="filter-title"> <i class="bi bi-flag-fill me-1"></i> Status </h3>
+                <div class="form-group">
+                  <div class="status-group">
+                    <div class="form-check" *ngFor="let status of statuses">
+                      <input class="form-check-input" (change)="onStatusChange($event, status)" type="checkbox" name="checkStatus" [value]="status" id="check{{status}}">
+                      <label class="form-check-label" for="check{{status}}">
+                        <span class="badge" [ngClass]="getSeverity(status)"> {{status}} </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="filter">
+                <h3 class="filter-title"> <i class="bi bi-tag me-1"></i> Category </h3>
+                <div class="form-group">
+                  <div class="category-group">
+                    <div class="form-check" *ngFor="let category of categories">
+                      <input class="form-check-input" (change)="onCategoryChange($event, category)" type="checkbox" [value]="category" id="check{{category}}">
+                      <label class="form-check-label" for="check{{category}}">
+                        {{category}}
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="filter">
+                <!-- Rating Selector -->
+                <h3 class="filter-title mb-2"> <i class="bi bi-tag-fill me-1"></i> Rating </h3>
+                <p-rating [(ngModel)]="selectedRating"></p-rating>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="filter">
+                <!-- Price Slider -->
+                <h3 class="filter-title mb-2"> <i class="bi bi-tag-fill me-1"></i> Price </h3>
+                <div class="d-flex align-items-center w-100 slider-container">
+                  <span> {{selectedPrices[0] + '€'}} </span>
+                  <p-slider [(ngModel)]="selectedPrices" [range]="true" max="2000"/>
+                  <span> {{selectedPrices[1] + '€'}} </span>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="name" style="min-width:15rem">
+            Name <p-sortIcon field="name" />
+          </th>
+          <th>
+            Image
+          </th>
+          <th pSortableColumn="price">
+            Price <p-sortIcon field="price" />
+          </th>
+          <th pSortableColumn="category" style="min-width:10rem">
+            Category <p-sortIcon field="category" />
+          </th>
+          <th pSortableColumn="rating">
+            Reviews <p-sortIcon field="rating" />
+          </th>
+          <th pSortableColumn="inventoryStatus" style="min-width:10rem">
+            Status <p-sortIcon field="inventoryStatus" />
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="product" />
+          </td>
+          <td>
+            {{ product.name }}
+          </td>
+          <td>
+            <img [src]="product.imageUrl" [alt]="product.name" width="50" class="shadow-4" />
+          </td>
+          <td>
+            {{ product.price + '€' }}
+          </td>
+          <td>
+            <span class="product-category">{{ formatCategory(product.category) }}</span>
+          </td>
+          <td>
+            <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+          </td>
+          <td>
+            <span class="badge" [ngClass]="getSeverity(product.status)"> {{product.status}} </span>
+          </td>
+          <td>
+            <button type="button" (click)="showProductDetails(product)" class="btn"> <i
+                class="bi bi-chevron-down text-dark"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          In total there are {{ products ? products.length : 0 }} products.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</section>
+
+<!-- New Product Dialog -->
+<p-dialog [visible]="showNewProductDialog" [modal]="true" closable="false" resizable="false" draggable="false" [style]="{width: '100%', 'max-width': '800px', height: '100%'}">
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <h2 class="title"> New Product </h2>
+    </div>
+  </ng-template>
+  <div class="dialog-body">
+    <div class="form-group img-group">
+      <label class="form-label" for="product-image"> Product Image </label>
+      <input type="file" class="form-control" id="product-image" (change)="onFileChange($event)" />
+      <div *ngIf="newProduct.imageUrl" class="img-preview">
+        <img [src]="newProduct.imageUrl" class="product-image" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-title"> Product Name </label>
+      <input type="text" class="form-control" id="product-title" placeholder="Enter Product Name"
+        [(ngModel)]="newProduct.name">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-details"> Product Details (Color, Size, Material...) </label>
+      <input class="form-control" id="product-details" placeholder="Enter Product Details"
+        [(ngModel)]="newProduct.details">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-description"> Product Description </label>
+      <textarea rows="4" class="form-control" id="product-description" placeholder="Enter Product Description"
+        [(ngModel)]="newProduct.description"></textarea>
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label mb-3" for="task-priority"> Price </label>
+      <input type="number" [(ngModel)]="newProduct.price" class="form-control mb-4" />
+      <p-slider [(ngModel)]="newProduct.price" class="w-full" max="2000" />
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Rating </label>
+      <p-rating [(ngModel)]="newProduct.rating" />
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Category </label>
+      <select class="form-control" [(ngModel)]="newProduct.category" aria-placeholder="Select Category">
+        <option *ngFor="let category of categories" [value]="category"> {{category}} </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label"> Status </label>
+      <div class="d-flex align-items-center gap-3">
+        <div class="form-check" *ngFor="let status of statuses">
+          <input [(ngModel)]="newProduct.status" [value]="status" class="form-check-input" type="radio" name="radioStatus"
+            id="radio{{status}}">
+          <label class="form-check-label" for="radio{{status}}">
+            <span class="badge" [ngClass]="getSeverity(status)"> {{status}} </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="btn-container">
+      <button type="button" class="button" (click)="cancelNewProduct()"> Cancel </button>
+      <button type="button" class="button bg-primary text-white" (click)="saveNewProduct()"> Add Product </button>
+    </div>
+  </div>
+</p-dialog>

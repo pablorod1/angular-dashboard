@@ -9,6 +9,8 @@ export interface Product{
   imageUrl: string;
   rating: number;
   category: string;
+  favorite: boolean;
+  status: string;
 }
 
 @Injectable({
@@ -26,7 +28,9 @@ export class EcommerceService {
       price: 200,
       imageUrl: 'assets/ecommerce/furniture/chair.webp',
       rating: 5,
-      category: 'living-room'
+      category: 'living-room',
+      favorite: false,
+      status: 'INSTOCK'
     },
     {
       id: 2,
@@ -36,7 +40,9 @@ export class EcommerceService {
       price: 15,
       imageUrl: 'assets/ecommerce/furniture/flowerpot.webp',
       rating: 3,
-      category: 'living-room'
+      category: 'living-room',
+      favorite: false,
+      status: 'LOWSTOCK'
     },
     {
       id: 3,
@@ -46,7 +52,9 @@ export class EcommerceService {
       price: 300,
       imageUrl: 'assets/ecommerce/furniture/table.webp',
       rating: 4,
-      category: 'living-room'
+      category: 'living-room',
+      favorite: false,
+      status: 'INSTOCK'
     },
     {
       id: 4,
@@ -56,7 +64,9 @@ export class EcommerceService {
       price: 150,
       imageUrl: 'assets/ecommerce/furniture/nightstand.webp',
       rating: 4,
-      category: 'bedroom'
+      category: 'bedroom',
+      favorite: false,
+      status: 'LOWSTOCK'
     },
     {
       id: 5,
@@ -66,7 +76,9 @@ export class EcommerceService {
       price: 500,
       imageUrl: 'assets/ecommerce/furniture/sofa.webp',
       rating: 5,
-      category: 'living-room'
+      category: 'living-room',
+      favorite: false,
+      status: 'OUTOFSTOCK'
     },
     {
       id: 5,
@@ -76,7 +88,9 @@ export class EcommerceService {
       price: 80,
       imageUrl: 'assets/ecommerce/furniture/easel.webp',
       rating: 4,
-      category: 'workspace'
+      category: 'workspace',
+      favorite: false,
+      status: 'INSTOCK'
     },
     {
       id: 6,
@@ -86,7 +100,9 @@ export class EcommerceService {
       price: 200,
       imageUrl: 'assets/ecommerce/furniture/kitchen_table.webp',
       rating: 5,
-      category: 'kitchen'
+      category: 'kitchen',
+      favorite: false,
+      status: 'OUTOFSTOCK'
     },
     {
       id: 7,
@@ -96,7 +112,9 @@ export class EcommerceService {
       price: 100,
       imageUrl: 'assets/ecommerce/furniture/desk.webp',
       rating: 4,
-      category: 'workspace'
+      category: 'workspace',
+      favorite: false,
+      status: 'LOWSTOCK'
     }
   ];
 
@@ -104,4 +122,7 @@ export class EcommerceService {
     return this.furnitureProducts;
   }
 
+  addProduct(product: Product){
+    this.furnitureProducts.push(product);
+  }
 }

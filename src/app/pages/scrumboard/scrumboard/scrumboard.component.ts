@@ -372,13 +372,13 @@ export class ScrumboardComponent implements OnInit {
   getTagIcon(tag: string): string {
     switch (tag) {
       case 'Design':
-        return 'fa-brush';
+        return 'bi-brush';
       case 'Marketing':
-        return 'fa-bullhorn';
+        return 'bi-lightning-charge';
       case 'Development':
-        return 'fa-code';
+        return 'bi-code-slash';
       case 'Concept':
-        return 'fa-lightbulb';
+        return 'bi-lightbulb';
       default:
         return '';
     }
@@ -483,8 +483,8 @@ export class ScrumboardComponent implements OnInit {
       life: 3000,
     });
   }
-  filterExistingUsers(existingUsers: User[]): User[] {
-    let existingUserNames = existingUsers.map(user => user.name);
+  filterExistingUsers(): User[] {
+    let existingUserNames = this.card.users.map(user => user.name);
     return this.users.filter(user => !existingUserNames.includes(user.name));
   }
 

@@ -23,18 +23,20 @@
       <h3 class="carousel-title"> Latest Products. <span class="text-muted"> Check our latests news. </span></h3>
     </div>
     <div class="carousel mt-4">
-      <p-carousel  [value]="products" [numVisible]="3" [numScroll]="1" [circular]="false"
+      <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="false"
         [responsiveOptions]="responsiveOptions" showIndicators="false">
-        <ng-template  let-product pTemplate="item">
-          <div role="button" (click)="selectProduct(product)" class="m-2">
-            <div class="mb-3">
-              <div class="card-img">
-                <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+        <ng-template let-product pTemplate="item">
+          <div role="button"  class="m-2" >
+            <div (click)="selectProduct(product)">
+              <div class="mb-3">
+                <div class="card-img">
+                  <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+                </div>
               </div>
-            </div>
-            <div class="mb-4 d-flex flex-column">
-              <h4 class="product-title">{{ product.name }}</h4>
-              <small class="text-muted">{{ product.details }}</small>
+              <div class="mb-4 d-flex flex-column">
+                <h4 class="product-title">{{ product.name }}</h4>
+                <small class="text-muted">{{ product.details }}</small>
+              </div>
             </div>
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex flex-column">
@@ -42,8 +44,43 @@
                 <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
               </div>
               <div class="card-btns">
-                <button type="button" class="btn"> <i class="bi bi-heart"></i> </button>
-                <button type="button" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+                <button type="button" class="btn"> <i class="bi " [ngClass]="{'bi-heart': !product.favorite, 'bi-heart-fill': product.favorite}" (click)="markProductAsFavorite(product)"></i> </button>
+                <button type="button" (click)="addToCart()" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+  <div [@favoritesAnimation]="favoriteProducts.length > 0 ? 'active' : 'inactive'" class="container carousel-products">
+    <div class="title-container">
+      <h3 class="carousel-title mb-4"> Your Favorites </h3>
+    </div>
+    <div  class="carousel">
+      <p-carousel [value]="favoriteProducts" [numVisible]="3" [numScroll]="1" [circular]="false"
+        [responsiveOptions]="responsiveOptions" showIndicators="false">
+        <ng-template let-product pTemplate="item">
+          <div role="button"  class="m-2" style="max-width: 400px;">
+            <div (click)="selectProduct(product)">
+              <div class="mb-3">
+                <div class="card-img">
+                  <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+                </div>
+              </div>
+              <div class="mb-4 d-flex flex-column">
+                <h4 class="product-title">{{ product.name }}</h4>
+                <small class="text-muted">{{ product.details }}</small>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-column">
+                {{ product.price + '€' }}
+                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+              </div>
+              <div class="card-btns">
+                <button type="button" class="btn" (click)="markProductAsFavorite(product)"> <i class="bi" [ngClass]="{'bi-heart': !product.favorite, 'bi-heart-fill': product.favorite}"></i> </button>
+                <button type="button" (click)="addToCart()" class="btn"> <i class="bi bi-bag-plus"></i> </button>
               </div>
             </div>
           </div>
@@ -53,7 +90,7 @@
   </div>
   <div class="container gallery-container">
     <div class="title-container">
-      <h3 class="carousel-title mb-4"> All our products.</h3>
+      <h3 class="carousel-title mb-4"> All our products. </h3>
     </div>
     <div class="toolbar">
       <button (click)="showAllProducts()" type="button" class="rounded-button active"
@@ -85,8 +122,8 @@
                   <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                 </div>
                 <div class="card-btns">
-                  <button type="button" class="btn"> <i class="bi bi-heart"></i> </button>
-                  <button type="button" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+                  <button type="button" class="btn"> <i class="bi " [ngClass]="{'bi-heart': !product.favorite, 'bi-heart-fill': product.favorite}" (click)="markProductAsFavorite(product)"></i> </button>
+                  <button type="button" (click)="addToCart()" class="btn"> <i class="bi bi-bag-plus"></i> </button>
                 </div>
               </div>
             </div>
@@ -98,13 +135,14 @@
 </section>
 
 <!-- Product Details Dialog -->
-<p-dialog header="Product Details" [(visible)]="showDetailsDialog" draggable="false" resizable="false" [modal]="true" [style]="{width: '100%', 'max-width': '1200px'}">
+<p-dialog header="Product Details" [(visible)]="showDetailsDialog" draggable="false" resizable="false" [modal]="true"
+  [style]="{width: '100%', 'max-width': '1200px', height: 'fit-content'}">
   <ng-template pTemplate="headless">
     <div class="row">
-      <div class="col-md-6 img-col">
+      <div class="col-lg-6  img-col">
         <img [src]="selectedProduct.imageUrl" [alt]="selectedProduct.name" class="details-img">
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <div class="details-toolbar">
           <button type="button" class="btn" (click)="hideDetailsDialog()"><i class="bi bi-chevron-left"></i></button>
           <div class="right-btns d-flex align-items-center gap-2">
@@ -133,12 +171,13 @@
               <button type="button" class="btn" (click)="addQuantity()"> + </button>
             </div>
             <div class="add-container">
-              <button type="button" class="add-button"> <span>Add to cart</span> <span>({{selectedProduct.price * quantity + '€'}})</span></button>
+              <button type="button" class="add-button"> <span>Add to cart</span> <span>({{selectedProduct.price *
+                  quantity + '€'}})</span></button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </ng-template>
-
 </p-dialog>
+<p-toast position="bottom-right"></p-toast>

@@ -41,7 +41,14 @@
             <small> Application Designs </small>
           </div>
           <ul class="list-unstyled mt-4">
-            <li class="nav-item"><a role="button" href="/ecommerce"><i class="me-3 bi bi-cart3"></i> ECommerce </a></li>
+            <li class="nav-item" (click)="toggleEcommerce($event)"
+              [attr.aria-expanded]="isEcommerceVisible ? 'true' : 'false'"><a role="button"><i
+                  class="me-3 bi bi-info-circle"></i> Ecommerce <i class="bi bi-caret-right-fill arrow"></i> </a>
+              <ul class="list-unstyled submenu" [class.open]="isEcommerceVisible">
+                <li class="nav-item"><a role="button" href="/ecommerce"> Store </a></li>
+                <li class="nav-item"><a role="button" href="/inventory"> Inventory </a></li>
+              </ul>
+            </li>
             <li class="nav-item"><a role="button" href="/file-manager"><i class="me-3 bi bi-folder"></i> File Manager </a></li>
             <li class="nav-item" (click)="toggleHelpCenter()"
               [attr.aria-expanded]="isHelpCenterVisible ? 'true' : 'false'"><a role="button"><i

@@ -78,6 +78,7 @@ import { NotesComponent } from './pages/notes/notes.component';
 import { ScrumboardHomeComponent } from './pages/scrumboard/scrumboard-home/scrumboard-home.component';
 import { ScrumboardComponent } from './pages/scrumboard/scrumboard/scrumboard.component';
 import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
+import { InventoryComponent } from './pages/ecommerce/inventory/inventory.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -165,6 +166,7 @@ const routes: Routes = [
 
   // Ecommerce
   {path: 'ecommerce', component: EcommerceComponent},
+  { path: 'inventory', component: InventoryComponent},
 
   // incorrect url redirect to dashboard
   {path: '**', redirectTo: '/error-404'},

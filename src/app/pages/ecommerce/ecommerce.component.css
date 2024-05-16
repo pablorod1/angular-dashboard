@@ -270,4 +270,38 @@
   .section-title{
     line-height: 2.8rem;
   }
+  .img-col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .details-img{
+    max-width: 200px;
+    width: 100%;
+  }
+  .details{
+    margin-bottom: .5rem;
+  }
+  .details-description p{
+    font-size: .9rem;
+  }
+  ::ng-deep .p-dialog{
+    padding-bottom: 3rem;
+  }
+  ::ng-deep .p-carousel-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gallery .col-lg-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .details-img{
+    max-width: 400px;
+    width: 100%;
+  }
 }

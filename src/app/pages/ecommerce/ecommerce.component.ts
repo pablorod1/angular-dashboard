@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EcommerceService, Product } from '../../ecommerce.service';
+import { EcommerceService, Product } from '../../services/ecommerce.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-ecommerce',
   templateUrl: './ecommerce.component.html',
-  styleUrl: './ecommerce.component.css'
+  styleUrl: './ecommerce.component.css',
+  providers: [ConfirmationService, MessageService],
 })
 export class EcommerceComponent implements OnInit {
   products!: Product[];
@@ -18,51 +20,96 @@ export class EcommerceComponent implements OnInit {
   selectedProduct!: Product;
   quantity: number = 1;
 
+  favoriteProducts!: Product[];
 
   constructor(
-    private ecommerceService: EcommerceService
-  ){ }
+    private ecommerceService: EcommerceService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
+    // localStorage.clear();
     this.products = this.ecommerceService.getProducts();
+    this.favoriteProducts = JSON.parse(
+      localStorage.getItem('favoriteProducts') || '[]'
+    );
     this.responsiveOptions = [
       {
-          breakpoint: '1024px',
-          numVisible: 2,
-          numScroll: 1
+        breakpoint: '1024px',
+        numVisible: 2,
+        numScroll: 1,
       },
       {
-          breakpoint: '768px',
-          numVisible: 1,
-          numScroll: 1
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 1,
       },
-  ];
+      {
+        breakpoint: '425px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 
-  showAllProducts(){
+  showAllProducts() {
     this.products = this.ecommerceService.getProducts();
   }
-  filterProductsByCategory(category: string){
-    this.products = this.ecommerceService.getProducts().filter(product => product.category === category);
+  filterProductsByCategory(category: string) {
+    this.products = this.ecommerceService
+      .getProducts()
+      .filter((product) => product.category === category);
     this.activeFilter = category;
   }
 
-  selectProduct(product: Product){
+  selectProduct(product: Product) {
     this.selectedProduct = product;
     this.showDetailsDialog = true;
   }
 
-  hideDetailsDialog(){
+  hideDetailsDialog() {
     this.showDetailsDialog = false;
     this.selectedProduct = {} as Product;
     this.quantity = 1;
   }
-  addQuantity(){
+  addQuantity() {
     this.quantity += 1;
   }
-  reduceQuantity(){
+  reduceQuantity() {
     this.quantity -= 1;
   }
 
+  markProductAsFavorite(product: Product) {
+    if (!product.favorite) {
+      product.favorite = true;
+      this.favoriteProducts.push(product);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Product added to favorites',
+      });
+    } else {
+      product.favorite = false;
+      this.favoriteProducts = this.favoriteProducts.filter(
+        (favoriteProduct) => favoriteProduct.id !== product.id
+      );
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Success',
+        detail: 'Product removed from favorites',
+      });
+    }
+    localStorage.setItem(
+      'favoriteProducts',
+      JSON.stringify(this.favoriteProducts)
+    );
+  }
 
+  addToCart(){
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Product added to cart',
+    })
+  }
 }
