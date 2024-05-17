@@ -71,3 +71,11 @@
 .slider-container{
   gap: 1rem;
 }
+::ng-deep tr th{
+  font-weight: 500;
+}
+.toast-image{
+  width: 70px;
+  height: 70px;
+  margin-right: 1rem;
+}

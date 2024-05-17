@@ -7,6 +7,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   templateUrl: './ecommerce.component.html',
   styleUrl: './ecommerce.component.css',
   providers: [ConfirmationService, MessageService],
+
 })
 export class EcommerceComponent implements OnInit {
   products!: Product[];
@@ -28,7 +29,7 @@ export class EcommerceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // localStorage.clear();
+    //localStorage.clear();
     this.products = this.ecommerceService.getProducts();
     this.favoriteProducts = JSON.parse(
       localStorage.getItem('favoriteProducts') || '[]'
@@ -50,6 +51,7 @@ export class EcommerceComponent implements OnInit {
         numScroll: 1,
       },
     ];
+    console.log(this.favoriteProducts)
   }
 
   showAllProducts() {
@@ -84,9 +86,11 @@ export class EcommerceComponent implements OnInit {
       product.favorite = true;
       this.favoriteProducts.push(product);
       this.messageService.add({
+        key: 'favorite',
         severity: 'success',
-        summary: 'Success',
-        detail: 'Product added to favorites',
+        summary: 'Favorite',
+        detail: product.name + ' added to favorites',
+        icon: 'bi bi-heart-fill',
       });
     } else {
       product.favorite = false;
@@ -94,9 +98,11 @@ export class EcommerceComponent implements OnInit {
         (favoriteProduct) => favoriteProduct.id !== product.id
       );
       this.messageService.add({
+        key: 'favorite',
         severity: 'warn',
-        summary: 'Success',
+        summary: 'Favorite',
         detail: 'Product removed from favorites',
+        icon: 'bi bi-heartbreak-fill'
       });
     }
     localStorage.setItem(
@@ -107,9 +113,11 @@ export class EcommerceComponent implements OnInit {
 
   addToCart(){
     this.messageService.add({
+      key: 'cart',
       severity: 'success',
-      summary: 'Success',
-      detail: 'Product added to cart',
+      summary: 'Cart',
+      detail: 'Product added succesfully to cart',
+      icon: 'bi bi-bag-plus',
     })
   }
 }

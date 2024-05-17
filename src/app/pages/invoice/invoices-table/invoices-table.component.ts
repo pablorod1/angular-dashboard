@@ -148,7 +148,7 @@ export class InvoicesTableComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to cancel this new invoice?',
       header: 'Cancel New Invoice',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.createInvoiceDialog = false;
         this.newInvoice = {
@@ -194,7 +194,7 @@ export class InvoicesTableComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to add this new invoice?',
       header: 'Add New Invoice',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.invoicesTableDataService.addInvoice(this.newInvoice);
         this.createInvoiceDialog = false;
@@ -242,7 +242,7 @@ export class InvoicesTableComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this invoice?',
       header: 'Delete Invoice',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.invoicesTableDataService.deleteInvoice(id);
         this.invoices = this.invoicesTableDataService.getInvoices();
@@ -278,7 +278,7 @@ export class InvoicesTableComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to update this invoice?',
       header: 'Update Invoice',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.invoicesTableDataService.updateInvoice(this.editingInvoice);
         this.editingInvoiceDialog = false;
@@ -300,7 +300,7 @@ export class InvoicesTableComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to cancel this edit?',
       header: 'Cancel Edit',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.editingInvoiceDialog = false;
         this.messageService.add({

@@ -532,9 +532,11 @@ export class FileManagerComponent implements OnInit {
       return f;
     });
     this.messageService.add({
-      severity: 'success',
-      summary: 'Successful',
+      key: 'trash',
+      severity: 'danger',
+      summary: 'Deleted',
       detail: file.name + ' moved to Trash',
+      icon: 'bi bi-trash3',
       life: 3000,
     });
     this.selectedFile = null;
@@ -547,7 +549,7 @@ export class FileManagerComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + file.name + '?',
       header: 'Delete Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.files = this.files.filter((f) => f.name !== file.name);
         localStorage.setItem('files', JSON.stringify(this.files));
@@ -563,9 +565,11 @@ export class FileManagerComponent implements OnInit {
         });
         localStorage.setItem('files', JSON.stringify(this.files));
         this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: file.name + ' deleted successfully',
+          key: 'trash',
+          severity: 'danger',
+          summary: 'Deleted Permanently',
+          detail: file.name + ' deleted succesfully',
+          icon: 'bi bi-trash3',
           life: 3000,
         });
         this.selectedFile = null;
@@ -1275,7 +1279,7 @@ export class FileManagerComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete all files in the Trash?',
       header: 'Delete Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.totalSize -=
           this.folders.find((f) => f.name === 'Trash')?.size || 0;

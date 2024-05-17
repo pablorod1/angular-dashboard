@@ -125,4 +125,10 @@ export class EcommerceService {
   addProduct(product: Product){
     this.furnitureProducts.push(product);
   }
+
+  deleteProduct(product: Product){
+    const index = this.furnitureProducts.indexOf(product);
+    this.furnitureProducts.splice(index, 1);
+  }
+
 }

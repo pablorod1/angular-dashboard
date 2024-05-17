@@ -22,7 +22,7 @@ export class PaymentMethodsService {
       accountNumber: '1234 5678 9012 3456',
       routingNumber: '123456789',
       balance: 123456.78,
-      icon: 'fa-brands fa-cc-visa visa',
+      icon: 'assets/icons/visa.svg',
     },
     {
       id: 2,
@@ -31,7 +31,7 @@ export class PaymentMethodsService {
       accountNumber: '0987 6543 2109 8765',
       routingNumber: '987654321',
       balance: 987654.32,
-      icon: 'fa-brands fa-cc-mastercard',
+      icon: 'assets/icons/mastercard.svg',
     },
   ];
 

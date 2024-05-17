@@ -53,41 +53,7 @@
       </p-carousel>
     </div>
   </div>
-  <div [@favoritesAnimation]="favoriteProducts.length > 0 ? 'active' : 'inactive'" class="container carousel-products">
-    <div class="title-container">
-      <h3 class="carousel-title mb-4"> Your Favorites </h3>
-    </div>
-    <div  class="carousel">
-      <p-carousel [value]="favoriteProducts" [numVisible]="3" [numScroll]="1" [circular]="false"
-        [responsiveOptions]="responsiveOptions" showIndicators="false">
-        <ng-template let-product pTemplate="item">
-          <div role="button"  class="m-2" style="max-width: 400px;">
-            <div (click)="selectProduct(product)">
-              <div class="mb-3">
-                <div class="card-img">
-                  <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
-                </div>
-              </div>
-              <div class="mb-4 d-flex flex-column">
-                <h4 class="product-title">{{ product.name }}</h4>
-                <small class="text-muted">{{ product.details }}</small>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex flex-column">
-                {{ product.price + '€' }}
-                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
-              </div>
-              <div class="card-btns">
-                <button type="button" class="btn" (click)="markProductAsFavorite(product)"> <i class="bi" [ngClass]="{'bi-heart': !product.favorite, 'bi-heart-fill': product.favorite}"></i> </button>
-                <button type="button" (click)="addToCart()" class="btn"> <i class="bi bi-bag-plus"></i> </button>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </p-carousel>
-    </div>
-  </div>
+
   <div class="container gallery-container">
     <div class="title-container">
       <h3 class="carousel-title mb-4"> All our products. </h3>
@@ -132,6 +98,41 @@
       </div>
     </div>
   </div>
+  <div *ngIf="favoriteProducts.length > 0" class="container carousel-products">
+    <div class="title-container">
+      <h3 class="carousel-title mb-4"> Your Favorites </h3>
+    </div>
+    <div  class="carousel">
+      <p-carousel [value]="favoriteProducts" [numVisible]="3" [numScroll]="1" [circular]="false"
+        [responsiveOptions]="responsiveOptions" showIndicators="false">
+        <ng-template let-product pTemplate="item">
+          <div role="button"  class="m-2" style="max-width: 400px;">
+            <div (click)="selectProduct(product)">
+              <div class="mb-3">
+                <div class="card-img">
+                  <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+                </div>
+              </div>
+              <div class="mb-4 d-flex flex-column">
+                <h4 class="product-title">{{ product.name }}</h4>
+                <small class="text-muted">{{ product.details }}</small>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-column">
+                {{ product.price + '€' }}
+                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+              </div>
+              <div class="card-btns">
+                <button type="button" class="btn" (click)="markProductAsFavorite(product)"> <i class="bi" [ngClass]="{'bi-heart': !product.favorite, 'bi-heart-fill': product.favorite}"></i> </button>
+                <button type="button" (click)="addToCart()" class="btn"> <i class="bi bi-bag-plus"></i> </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
 </section>
 
 <!-- Product Details Dialog -->
@@ -171,7 +172,7 @@
               <button type="button" class="btn" (click)="addQuantity()"> + </button>
             </div>
             <div class="add-container">
-              <button type="button" class="add-button"> <span>Add to cart</span> <span>({{selectedProduct.price *
+              <button type="button" class="add-button" (click)="addToCart()"> <span>Add to cart</span> <span>({{selectedProduct.price *
                   quantity + '€'}})</span></button>
             </div>
           </div>
@@ -180,4 +181,29 @@
     </div>
   </ng-template>
 </p-dialog>
-<p-toast position="bottom-right"></p-toast>
+<p-toast key="cart" position="bottom-right">
+  <ng-template let-message pTemplate="headless">
+    <div class="p-toast-message-content d-flex align-items-center">
+      <div class="p-toast-message-icon">
+        <i [ngClass]="message.icon"></i>
+      </div>
+      <div class="p-toast-message-text d-flex flex-column">
+        <span class="p-toast-summary" style="font-weight: 600;"> {{message.summary}}</span>
+        <small class="p-toast-detail"> {{message.detail}} </small>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<p-toast key="favorite" position="bottom-right">
+  <ng-template let-message pTemplate="headless">
+    <div class="p-toast-message-content d-flex align-items-center">
+      <div class="p-toast-message-icon">
+        <i [ngClass]="message.icon" style="color: #D22809;"></i>
+      </div>
+      <div class="p-toast-message-text d-flex flex-column">
+        <span class="p-toast-summary" style="font-weight: 600;"> {{message.summary}}</span>
+        <small class="p-toast-detail"> {{message.detail}} </small>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

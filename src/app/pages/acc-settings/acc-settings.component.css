@@ -330,6 +330,8 @@
 ::ng-deep .p-dialog-content{
   overflow: hidden;
 }
+
+
 @media (min-width: 764px) and (max-width: 1040px) {
   .card-body {
     padding: 1rem 3rem;

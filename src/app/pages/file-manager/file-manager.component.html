@@ -111,7 +111,8 @@
                     'btn-active': showAllFiles,
                   }"> <i class="bi bi-file-earmark-text-fill"></i> Files </button>
                 </div>
-                <div *ngIf="showSelectedFolder && selectedFolder?.name === 'Trash' && files.length > 0" class="view-toggler me-3">
+                <div *ngIf="showSelectedFolder && selectedFolder?.name === 'Trash' && files.length > 0"
+                  class="view-toggler me-3">
                   <button type="button" (click)="clearTrash()" class="btn"> <i class="bi bi-trash2"></i> Empty Trash
                   </button>
                 </div>
@@ -216,7 +217,8 @@
                         </div>
                         <p-contextMenu *ngIf="selectedFolder?.name === 'Trash'" [model]="trashMenu"
                           [target]="file"></p-contextMenu>
-                        <p-contextMenu *ngIf="selectedFolder?.name !== 'Trash'" [model]="filesMenu" [target]="file"></p-contextMenu>
+                        <p-contextMenu *ngIf="selectedFolder?.name !== 'Trash'" [model]="filesMenu"
+                          [target]="file"></p-contextMenu>
                       </div>
                     </div>
                   </div>
@@ -309,7 +311,7 @@
                             <th></th>
                           </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let-file >
+                        <ng-template pTemplate="body" let-file>
                           <tr role="button" *ngIf="file.folderName[0] !== 'Trash'" (click)="selectFile(file)">
                             <td><i class="me-2 bi" [ngClass]="getFileIcon(file.ext)"></i>{{ file.name }}</td>
                             <td>{{ file.modifiedOn }}</td>
@@ -694,78 +696,97 @@
     </div>
   </div>
 
-  <!-- Confirmation Dialog -->
-  <p-confirmDialog></p-confirmDialog>
 
-  <!-- Toast Notification -->
-  <p-toast [position]="'bottom-right'"></p-toast>
 
-  <!-- Create Folder Dialog -->
-  <p-dialog [visible]="createFolderDialog" [modal]="true" closable="false">
-    <ng-template pTemplate="headless">
-      <div class="dialog-container bg-white p-4">
-        <h4 class="mb-4"> Create Folder </h4>
-        <div class="form-group">
-          <label for="folderName"> Folder Name: </label>
-          <input type="text" id="folderName" class="form-control" [(ngModel)]="newFolderName">
-        </div>
-        <div class="form-group">
-          <label for="folderName"> Icon: </label>
-          <input type="text" id="folderIcon" class="form-control" [(ngModel)]="newFolderIcon">
-        </div>
-        <div class="d-flex gap-2">
-          <button type="button" class="button outline-danger text-danger" (click)="cancelCreateFolder()"> Cancel
-          </button>
-          <button type="button" class="button outline-success text-success" (click)="createFolder()"> Create </button>
-        </div>
-      </div>
-    </ng-template>
-  </p-dialog>
-
-  <!-- Rename Dialog -->
-  <p-dialog [visible]="renameFileDialog" [modal]="true" closable="false">
-    <ng-template pTemplate="headless">
-      <div class="dialog-container bg-white p-4">
-        <h4 class="mb-4"> Rename File </h4>
-        <div *ngIf="selectedFile" class="form-group d-flex">
-          <input class="form-control" [(ngModel)]="newFileName">
-          <button (click)="saveRenameFile(selectedFile)" class="btn"> <i
-              class="bi bi-check-lg text-success input-icon"></i> </button>
-          <button class="btn" (click)="cancelRenameFile()"> <i class="bi bi-x-lg text-danger input-icon"></i> </button>
-        </div>
-      </div>
-    </ng-template>
-  </p-dialog>
-
-  <!-- Upload Dialog -->
-  <p-dialog [visible]="showUploadDialog" draggable="false" [modal]="true" closable="false" [style]="{width: '100%', 'max-width': '1300px'}">
-    <input #fileInput multiple type="file" (change)="onFileSelect($event)" style="display: none;">
-    <ng-template pTemplate="content">
-      <div class="d-flex flex-column align-items-center gap-3">
-        <i class="bi bi-cloud-upload text-primary" style="font-size: 3rem;"></i>
-        <p> Drag and drop files here to upload </p>
-        <p> or </p>
-        <button (click)="fileInput.click()" type="button" class="btn btn-primary"> Select Files </button>
-        <div *ngIf="uploadedFiles.length > 0" class="files-preview d-flex justify-content-center align-items-center gap-4">
-          <div *ngFor="let file of uploadedFiles" class="file-preview">
-            <div class="d-flex flex-wrap gap-3 mb-2">
-              <div>
-                <i class="bi" [ngClass]="getFileIcon(file.type)"></i>
-                <span> {{file.name}} </span>
-              </div>
-              <span> {{formatFileSize(file.size)}} </span>
-            </div>
-            <img *ngIf="file.type.includes('Image')" [src]="file.imageUrl" alt="Image Preview" class="img-fluid preview-img">
-          </div>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-      <div class="d-flex justify-content-between gap-3">
-        <button type="button" class="btn btn-outline-danger" (click)="cancelUpload()"> Cancel </button>
-        <button type="button" class="btn btn-primary" (click)="uploadFile(uploadedFiles)"> Upload </button>
-      </div>
-    </ng-template>
-  </p-dialog>
 </section>
+<!-- Create Folder Dialog -->
+<p-dialog [visible]="createFolderDialog" [modal]="true" closable="false">
+  <ng-template pTemplate="headless">
+    <div class="dialog-container bg-white p-4">
+      <h4 class="mb-4"> Create Folder </h4>
+      <div class="form-group">
+        <label for="folderName"> Folder Name: </label>
+        <input type="text" id="folderName" class="form-control" [(ngModel)]="newFolderName">
+      </div>
+      <div class="form-group">
+        <label for="folderName"> Icon: </label>
+        <input type="text" id="folderIcon" class="form-control" [(ngModel)]="newFolderIcon">
+      </div>
+      <div class="d-flex gap-2">
+        <button type="button" class="button outline-danger text-danger" (click)="cancelCreateFolder()"> Cancel
+        </button>
+        <button type="button" class="button outline-success text-success" (click)="createFolder()"> Create </button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Rename Dialog -->
+<p-dialog [visible]="renameFileDialog" [modal]="true" closable="false">
+  <ng-template pTemplate="headless">
+    <div class="dialog-container bg-white p-4">
+      <h4 class="mb-4"> Rename File </h4>
+      <div *ngIf="selectedFile" class="form-group d-flex">
+        <input class="form-control" [(ngModel)]="newFileName">
+        <button (click)="saveRenameFile(selectedFile)" class="btn"> <i
+            class="bi bi-check-lg text-success input-icon"></i> </button>
+        <button class="btn" (click)="cancelRenameFile()"> <i class="bi bi-x-lg text-danger input-icon"></i> </button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Upload Dialog -->
+<p-dialog [visible]="showUploadDialog" draggable="false" [modal]="true" closable="false"
+  [style]="{width: '100%', 'max-width': '1300px'}">
+  <input #fileInput multiple type="file" (change)="onFileSelect($event)" style="display: none;">
+  <ng-template pTemplate="content">
+    <div class="d-flex flex-column align-items-center gap-3">
+      <i class="bi bi-cloud-upload text-primary" style="font-size: 3rem;"></i>
+      <p> Drag and drop files here to upload </p>
+      <p> or </p>
+      <button (click)="fileInput.click()" type="button" class="btn btn-primary"> Select Files </button>
+      <div *ngIf="uploadedFiles.length > 0"
+        class="files-preview d-flex justify-content-center align-items-center gap-4">
+        <div *ngFor="let file of uploadedFiles" class="file-preview">
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <div>
+              <i class="bi" [ngClass]="getFileIcon(file.type)"></i>
+              <span> {{file.name}} </span>
+            </div>
+            <span> {{formatFileSize(file.size)}} </span>
+          </div>
+          <img *ngIf="file.type.includes('Image')" [src]="file.imageUrl" alt="Image Preview"
+            class="img-fluid preview-img">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="d-flex justify-content-between gap-3">
+      <button type="button" class="btn btn-outline-danger" (click)="cancelUpload()"> Cancel </button>
+      <button type="button" class="btn btn-primary" (click)="uploadFile(uploadedFiles)"> Upload </button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Confirmation Dialog -->
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Toast Notification -->
+<p-toast key="trash" [position]="'bottom-right'">
+  <ng-template let-message pTemplate="headless">
+    <div class="p-toast-message-content d-flex align-items-center">
+      <div class="p-toast-message-icon">
+        <img [src]="message.icon" [alt]="message.key">
+      </div>
+      <div class="p-toast-message-text d-flex flex-column">
+        <span class="p-toast-summary" style="font-weight: 600;"> {{message.summary}}</span>
+        <small class="p-toast-detail"> {{message.detail}} </small>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+
+<p-toast position="bottom-right"></p-toast>

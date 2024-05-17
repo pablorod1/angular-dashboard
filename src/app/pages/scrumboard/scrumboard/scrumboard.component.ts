@@ -169,13 +169,15 @@ export class ScrumboardComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to add this task?',
       header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.tasks.push(this.newTask);
         this.messageService.add({
-          severity: 'success',
+          key: 'add-task',
+          severity: this.getMessageSeverity(this.newTask.status),
           summary: 'Successful',
-          detail: 'Task Created',
+          detail: 'Task ' + this.newTask.title + ' Created',
+          icon: this.getTagIcon(this.newTask.tags[0]),
           life: 3000,
         });
         this.cancelCreateTask();
@@ -288,7 +290,7 @@ export class ScrumboardComponent implements OnInit {
       case 'To Do':
         return 'bg-dark';
       case 'In Progress':
-        return 'bg-primary ';
+        return 'bg-primary';
       case 'In Review':
         return 'bg-danger';
       case 'Done':
@@ -308,6 +310,21 @@ export class ScrumboardComponent implements OnInit {
         return 'text-danger';
       case 'Done':
         return 'text-success';
+      default:
+        return '';
+    }
+  }
+
+  getMessageSeverity(status: string): string{
+    switch (status) {
+      case 'To Do':
+        return 'secondary';
+      case 'In Progress':
+        return 'info';
+      case 'In Review':
+        return 'danger';
+      case 'Done':
+        return 'success';
       default:
         return '';
     }
@@ -411,7 +428,7 @@ export class ScrumboardComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete' + task.title +' ?',
       header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         const index = this.tasks.indexOf(task);
         this.tasks.splice(index, 1);
@@ -434,7 +451,7 @@ export class ScrumboardComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Are you sure you want to update this task?',
       header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         const index = this.tasks.indexOf(this.selectedTask);
         this.tasks[index] = this.editingTask;

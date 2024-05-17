@@ -58,16 +58,18 @@ export class AccSettingsComponent implements OnInit {
     this.googleConnected = !this.googleConnected;
     if (!this.googleConnected) {
       this.messageService.add({
+        key: 'connections',
         severity: 'warn',
-        icon: 'bi bi-exclamation-circle',
+        icon: 'assets/icons/google-icon.svg',
         summary: 'Google Account Unlinked',
         detail: 'Press the button to link it again.',
         life: 3000,
       });
     } else {
       this.messageService.add({
+        key: 'connections',
         severity: 'success',
-        icon: 'bi bi-check',
+        icon: 'assets/icons/google-icon.svg',
         summary: 'Google Account Linked',
         detail: 'You have successfully linked your Google account.',
         life: 3000,
@@ -78,16 +80,18 @@ export class AccSettingsComponent implements OnInit {
     this.githubConnected = !this.githubConnected;
     if (!this.githubConnected) {
       this.messageService.add({
+        key: 'connections',
         severity: 'warn',
-        icon: 'bi bi-exclamation-circle',
+        icon: 'assets/icons/github.svg',
         summary: 'GitHub Account Unlinked',
         detail: 'Press the button to link it again.',
         life: 3000,
       });
     } else {
       this.messageService.add({
+        key: 'connections',
         severity: 'success',
-        icon: 'bi bi-check',
+        icon: 'assets/icons/github.svg',
         summary: 'GitHub Account Linked',
         detail: 'You have successfully linked your GitHub account.',
         life: 3000,
@@ -102,16 +106,18 @@ export class AccSettingsComponent implements OnInit {
     }
     return parts.join(' ');
   }
+
   deletePaymentMethod(event: Event, id: number): void {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this payment method?',
       header: 'Delete Payment Method',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.paymentMethodsService.deletePaymentMethod(id);
         this.paymentMethods = this.paymentMethodsService.getAllPaymentMethods();
         this.messageService.add({
+          key: 'payment',
           severity: 'success',
           icon: 'bi bi-check',
           summary: 'Payment Method Deleted',
@@ -121,6 +127,7 @@ export class AccSettingsComponent implements OnInit {
       },
       reject: () => {
         this.messageService.add({
+          key: 'payment',
           severity: 'info',
           icon: 'bi bi-info-circle',
           summary: 'Operation Cancelled',
@@ -135,10 +142,11 @@ export class AccSettingsComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to cancel this new payment method?',
       header: 'Cancel New Payment Method',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.showNewDialog = false;
         this.messageService.add({
+          key: 'payment',
           severity: 'info',
           icon: 'bi bi-info-circle',
           summary: 'Operation Cancelled',
@@ -153,11 +161,12 @@ export class AccSettingsComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to add this new payment method?',
       header: 'Add New Payment Method',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.paymentMethodsService.addPaymentMethod(this.newPaymentMethod);
         this.showNewDialog = false;
         this.messageService.add({
+          key: 'payment',
           severity: 'success',
           icon: 'bi bi-check',
           summary: 'Payment Method Added',
@@ -177,13 +186,14 @@ export class AccSettingsComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to update this payment method?',
       header: 'Update Payment Method',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.paymentMethodsService.updatePaymentMethod(
           this.editingPaymentMethod
         );
         this.showEditDialog = false;
         this.messageService.add({
+          key: 'payment',
           severity: 'success',
           icon: 'bi bi-check',
           summary: 'Payment Method Updated',
@@ -199,10 +209,11 @@ export class AccSettingsComponent implements OnInit {
       target: event.target as EventTarget,
       message: 'Are you sure you want to cancel this edit?',
       header: 'Cancel Edit',
-      icon: 'pi pi-exclamation-triangle',
+      icon: 'bi bi-exclamation-triangle',
       accept: () => {
         this.showEditDialog = false;
         this.messageService.add({
+          key: 'payment',
           severity: 'info',
           icon: 'bi bi-info-circle',
           summary: 'Operation Cancelled',

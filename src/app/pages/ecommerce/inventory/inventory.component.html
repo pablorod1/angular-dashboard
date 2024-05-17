@@ -125,10 +125,9 @@
           <td>
             <span class="badge" [ngClass]="getSeverity(product.status)"> {{product.status}} </span>
           </td>
-          <td>
-            <button type="button" (click)="showProductDetails(product)" class="btn"> <i
-                class="bi bi-chevron-down text-dark"></i>
-            </button>
+          <td >
+            <button (click)="editProduct(product)" class="btn "><i class="bi bi-pencil text-dark"></i></button>
+            <button (click)="deleteProduct(product)" class="btn " type="button"><i class="bi bi-trash3 text-danger"></i></button>
           </td>
         </tr>
       </ng-template>
@@ -199,9 +198,89 @@
         </div>
       </div>
     </div>
-    <div class="btn-container">
+    <div class="btn-container d-flex align-items-center gap-2">
       <button type="button" class="button" (click)="cancelNewProduct()"> Cancel </button>
       <button type="button" class="button bg-primary text-white" (click)="saveNewProduct()"> Add Product </button>
     </div>
   </div>
 </p-dialog>
+
+<!-- Edit Product Dialog -->
+<p-dialog [visible]="showEditProductDialog" [modal]="true" closable="false" resizable="false" draggable="false" [style]="{width: '100%', 'max-width': '800px', height: '100%'}">
+  <ng-template pTemplate="header">
+    <div class="dialog-header">
+      <h2 class="title"> Edit Product </h2>
+    </div>
+  </ng-template>
+  <div class="dialog-body">
+    <div class="form-group img-group">
+      <label class="form-label" for="product-image"> Product Image </label>
+      <input type="file" class="form-control" id="product-image" (change)="onFileChange($event)" />
+      <div *ngIf="editingProduct.imageUrl" class="img-preview">
+        <img [src]="editingProduct.imageUrl" class="product-image" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-title"> Product Name </label>
+      <input type="text" class="form-control" id="product-title" placeholder="Enter Product Name"
+        [(ngModel)]="editingProduct.name">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-details"> Product Details (Color, Size, Material...) </label>
+      <input class="form-control" id="product-details" placeholder="Enter Product Details"
+        [(ngModel)]="editingProduct.details">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="product-description"> Product Description </label>
+      <textarea rows="4" class="form-control" id="product-description" placeholder="Enter Product Description"
+        [(ngModel)]="editingProduct.description"></textarea>
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label mb-3" for="task-priority"> Price </label>
+      <input type="number" [(ngModel)]="editingProduct.price" class="form-control mb-4" />
+      <p-slider [(ngModel)]="editingProduct.price" class="w-full" max="2000" />
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Rating </label>
+      <p-rating [(ngModel)]="editingProduct.rating" />
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label class="form-label"> Category </label>
+      <select class="form-control" [(ngModel)]="editingProduct.category" aria-placeholder="Select Category">
+        <option *ngFor="let category of categories" [value]="category"> {{category}} </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label"> Status </label>
+      <div class="d-flex align-items-center gap-3">
+        <div class="form-check" *ngFor="let status of statuses">
+          <input [(ngModel)]="editingProduct.status" [value]="status" class="form-check-input" type="radio" name="radioStatus"
+            id="radio{{status}}">
+          <label class="form-check-label" for="radio{{status}}">
+            <span class="badge" [ngClass]="getSeverity(status)"> {{status}} </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="btn-container d-flex align-items-center gap-2">
+      <button type="button" class="button" (click)="cancelEditProduct()"> Cancel </button>
+      <button type="button" class="button bg-primary text-white" (click)="updateProduct()"> Add Product </button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast key="product" position="bottom-right">
+  <ng-template let-message pTemplate="headless">
+    <div class="p-toast-message-content d-flex align-items-center">
+      <div class="p-toast-message-icon">
+        <img [src]="message.icon" [alt]="message.key" class="toast-image">
+      </div>
+      <div class="p-toast-message-text d-flex flex-column">
+        <span class="p-toast-summary" style="font-weight: 600;"> {{message.summary}}</span>
+        <small class="p-toast-detail"> {{message.detail}} </small>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>

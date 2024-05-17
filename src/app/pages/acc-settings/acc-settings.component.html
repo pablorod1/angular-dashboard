@@ -175,7 +175,7 @@
                     <ng-template pTemplate="header">
                       <div class="row w-100 g-3 method-header">
                         <div class="col-md-1">
-                          <i class="mx-3 icon" [class]="method.icon"></i>
+                          <img [src]="method.icon" [alt]="method.bankName" />
                         </div>
                         <div class="col-md-2 title-bank">
                           <small> {{method.bankName}} </small>
@@ -475,5 +475,21 @@
   <p-confirmDialog></p-confirmDialog>
 
   <!-- Toast -->
-  <p-toast [position]="'bottom-right'"></p-toast>
 </section>
+
+<p-toast key="connections" [position]="'bottom-right'">
+  <ng-template let-message pTemplate="headless">
+    <div class="p-toast-message-content d-flex align-items-center">
+      <div class="p-toast-message-icon">
+        <img [src]="message.icon" [alt]="message.key">
+      </div>
+      <div class="p-toast-message-text d-flex flex-column">
+        <span class="p-toast-summary" style="font-weight: 600;"> {{message.summary}}</span>
+        <small class="p-toast-detail"> {{message.detail}} </small>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<p-toast key="payment" [position]="'bottom-right'">
+
+</p-toast>
