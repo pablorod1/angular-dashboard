@@ -13,7 +13,7 @@
   </div>
   <div class="container table-container">
     <div class="card">
-      <p-table #invoicesTable [value]="invoices" [rowHover]="true" [tableStyle]="{'min-width': '50rem'}">
+      <p-table #invoicesTable [value]="invoices" [rows]="4" [paginator]="true" [rowHover]="true" [tableStyle]="{'min-width': '50rem'}">
         <ng-template class="header" pTemplate="header">
           <tr>
             <!-- <th class="first-col" style="width: 4rem">

@@ -3,12 +3,11 @@
     <h2> Inventory </h2>
   </div>
   <div class="container-fluid">
-    <p-toast />
     <p-table #dt [value]="showProducts()" [rows]="5" [paginator]="true" [tableStyle]="{ 'min-width': '75rem' }"
       [rowHover]="true" dataKey="id" [showCurrentPageReport]="true">
       <ng-template pTemplate="caption">
-        <div class="d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center justify-content-between toolbar-container">
+          <div class="d-flex align-items-center gap-3 new-product-container">
             <h3 class="m-0">Manage Products</h3>
             <button type="button" class="button" (click)="createNewProduct()"><i class="bi bi-plus"></i> New Product
             </button>

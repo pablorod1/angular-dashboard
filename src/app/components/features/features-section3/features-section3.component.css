@@ -24,8 +24,11 @@
   position: relative;
 }
 .feature{
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  border: 1px solid #4b4bdf;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
   padding: 1rem;
   box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.1);
   min-height: 202px;
@@ -61,25 +64,33 @@
 
 ::ng-deep .p-carousel-next {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -25%;
+  right: 2%;
   transform: translateY(350%);
   border-radius: 50% !important;
   z-index: 2;
   opacity: 0;
   transition: opacity 0.5s ease;
   background-color: #cccccc4b;
+  max-width: 50px;
+  max-height: 50px;
+  width: 100%;
+  height: 100%;
 }
 ::ng-deep .p-carousel-prev {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -25%;
+  left: 2%;
   transform: translateY(350%);
   border-radius: 50% !important;
   z-index: 2;
   opacity: 0;
   transition: opacity 0.5s ease;
   background-color: #cccccc4b;
+  max-width: 50px;
+  max-height: 50px;
+  width: 100%;
+  height: 100%;
 }
 
 ::ng-deep .p-carousel-prev:disabled,
@@ -90,4 +101,12 @@
 .carousel-container:hover ::ng-deep .p-carousel-next,
 .carousel-container:hover ::ng-deep .p-carousel-prev {
   opacity: 1;
+}
+::ng-deep .p-carousel-indicator button{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+::ng-deep .p-carousel-indicator.p-highlight button{
+  background-color: #4b4bdf;
 }

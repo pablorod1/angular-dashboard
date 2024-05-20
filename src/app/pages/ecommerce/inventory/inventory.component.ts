@@ -20,6 +20,7 @@ import {
         style({
           height: 0,
           opacity: 0,
+          display: 'none'
         })
       ),
       state(
@@ -27,6 +28,7 @@ import {
         style({
           transform: 'scaleY(100%)',
           opacity: 1,
+          display: 'block'
         })
       ),
       transition('inactive => active', animate('800ms ease-in-out')),

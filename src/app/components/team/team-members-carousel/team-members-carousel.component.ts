@@ -19,17 +19,12 @@ export class TeamMembersCarouselComponent implements OnInit {
     this.teamMembers = this.allTeamMembers.slice(1);
     this.responsiveOptions = [
       {
-        breakpoint: '1440px',
+        breakpoint: '1024px',
         numVisible: 2,
         numScroll: 1,
       },
       {
-        breakpoint: '1220px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '1100px',
+        breakpoint: '425px',
         numVisible: 1,
         numScroll: 1,
       },

@@ -7,7 +7,7 @@
     </div>
     <div class="container carousel-container">
       <p-carousel [value]="features" [numVisible]="3" [numScroll]="1" [circular]="false"
-        [responsiveOptions]="responsiveOptions" showIndicators="false">
+        [responsiveOptions]="responsiveOptions" showIndicators="true">
         <ng-template let-feature pTemplate="item">
           <div class="feature m-3">
               <h2 class="mb-0"> {{feature.title}} </h2>

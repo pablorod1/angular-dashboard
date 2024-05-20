@@ -100,7 +100,15 @@
   color: #fff;
   margin-bottom: 0;
 }
-
+.item-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .8rem 0;
+}
+.item-container h3{
+  text-wrap: wrap;
+}
 ::ng-deep .p-icon.p-rating-icon {
   width: 15px;
   color: #ff9f31 !important;

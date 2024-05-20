@@ -195,7 +195,7 @@
         [(ngModel)]="newTask.description"></textarea>
     </div>
     <div class="form-group mb-1">
-      <label class="form-label" for="task-priority"> Priority </label>
+      <label class="form-label"> Priority </label>
       <div class="radio-group">
         <div *ngFor="let priority of priority" class="form-check">
           <input class="form-check-input" [(ngModel)]="newTask.priority" value="{{priority}}" type="radio"
@@ -270,7 +270,7 @@
 
 <!-- Edit Task Dialog -->
 <p-dialog [visible]="showEditTaskDialog" position="top" modal="true" closable="false" draggable="false" resizable="false"
-  [style]="{width: '100%', 'max-width': '800px', height: '100%'}">
+  [style]="{width: '100%', 'max-width': '800px', height: '100%', overflow: 'auto'}">
   <ng-template pTemplate="header">
     <div class="dialog-header">
       <h2 class="title"> Edit {{editingTask.title}} </h2>
@@ -288,7 +288,7 @@
         [(ngModel)]="editingTask.description"></textarea>
     </div>
     <div class="form-group mb-1">
-      <label class="form-label" for="task-priority"> Priority </label>
+      <label class="form-label"> Priority </label>
       <div class="radio-group">
         <div *ngFor="let priority of priority" class="form-check">
           <input class="form-check-input" [(ngModel)]="editingTask.priority" value="{{priority}}" type="radio"
