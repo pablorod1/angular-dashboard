@@ -9,11 +9,15 @@
   background-color: #f6f6f6 !important;
 }
 
-
+.profile-image{
+  position: relative;
+}
 .profile-picture{
   width: 100px;
   border-radius: 50%;
+  z-index: 2;
 }
+
 .profile-details{
   h2{
     font-size: 35px;

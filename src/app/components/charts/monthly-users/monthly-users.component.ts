@@ -29,6 +29,7 @@ export class MonthlyUsersComponent {
   stroke!: ApexStroke;
   tooltip!: ApexTooltip;
   responsive!: ApexResponsive[];
+  colors!: string[];
   balance!: number;
 
   constructor(private monthlyUsersChartDataService: MonthlyUsersChartDataService) {}
@@ -45,6 +46,7 @@ export class MonthlyUsersComponent {
       this.stroke = data.stroke;
       this.tooltip = data.tooltip;
       this.responsive = data.responsive;
+      this.colors = data.colors;
       this.balance = data.balance;
     });
   }

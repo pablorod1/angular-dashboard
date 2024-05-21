@@ -51,6 +51,7 @@ import { CardModule } from 'primeng/card';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ToolbarModule } from 'primeng/toolbar';
 import { SliderModule } from 'primeng/slider';
+import { ListboxModule } from 'primeng/listbox';
 
 // Angular Material Modules
 import { MatDividerModule } from '@angular/material/divider';
@@ -298,7 +299,8 @@ import { InventoryComponent } from './pages/ecommerce/inventory/inventory.compon
     CardModule,
     AutoFocusModule,
     ToolbarModule,
-    SliderModule
+    SliderModule,
+    ListboxModule,
 
   ],
   providers: [

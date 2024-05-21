@@ -45,7 +45,7 @@ export class RealtimeChartComponent implements OnDestroy {
   public activeOptionButton = 'all';
   public updateInterval = 3000; // Intervalo de actualización en milisegundos
   private dataSubscription: Subscription | undefined;
-  paused = false;
+  paused: boolean = false;
 
   constructor() {
     this.initChart();
@@ -87,14 +87,14 @@ export class RealtimeChartComponent implements OnDestroy {
             return val.toFixed(2);
           },
           style: {
-            colors: '#fff',
+            colors: '#333',
           },
         },
       },
       xaxis: {
         labels: {
           style: {
-            colors: '#fff', // remove to hide the axis line
+            colors: '#333', // remove to hide the axis line
           },
         },
         type: 'datetime',
@@ -107,22 +107,26 @@ export class RealtimeChartComponent implements OnDestroy {
       },
       fill: {
         type: 'gradient',
+        colors: ['#ff9f31'],
+
         gradient: {
           shadeIntensity: 1,
           opacityFrom: 0.7,
           opacityTo: 0.9,
         },
       },
+      colors: ['#ff9f31']
+
     };
   }
   startRealtimeUpdates(): void {
     this.paused = false;
     this.dataSubscription = timer(0, this.updateInterval).subscribe(() => {
       const newDataPoint = this.generateRandomDataPoint(); // Generar datos aleatorios (timestamp, valor)
-      if (this.chartOptions && this.chartOptions.series) { // Comprobar si la serie está definida
-        const updatedSeriesData = [...this.chartOptions.series[0].data, newDataPoint]; // Añadir el nuevo punto de datos a la serie
+      if (this.chartOptions && this.chartOptions.series) { // Comprobar si la serie está definida para evitar errores undefined o null
+        const updatedSeriesData = [...this.chartOptions.series[0].data, newDataPoint]; // Almacena el array de datos con el nuevo valor al final del array
         // console.log(updatedSeriesData[updatedSeriesData.length - 1]);
-        const updatedSeries = [{ data: updatedSeriesData }]; // Actualizar la serie con los nuevos datos
+        const updatedSeries = [{ data: updatedSeriesData }]; // Almacena el nuevo array
 
         // Calculate the visible range
         const visibleRange = 100; // Número de datos visibles en la gráfica
@@ -139,7 +143,7 @@ export class RealtimeChartComponent implements OnDestroy {
           },
           chart: {
             animations: {
-              enabled: true,
+              enabled: false,
               easing: 'linear',
               speed: 300,
               animateGradually: {

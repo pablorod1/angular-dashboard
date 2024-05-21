@@ -60,7 +60,39 @@ export class ShortcutsMenuComponent {
       icon: 'bi-box-arrow-right',
       url: '/signout-fullscreen'
     }
-  ]
+  ];
+  icons = [
+    'bi-envelope',
+    'bi-folder2-open',
+    'bi-sticky',
+    'bi-kanban',
+    'bi-gear',
+    'bi-box-arrow-right',
+    'bi-calendar',
+    'bi-people',
+    'bi-telephone',
+    'bi-chat-left-text',
+    'bi-file-earmark-text',
+    'bi-house',
+    'bi-bell',
+    'bi-globe',
+    'bi-briefcase',
+    'bi-cash',
+    'bi-credit-card',
+    'bi-book',
+    'bi-camera',
+    'bi-alarm',
+    'bi-asterisk',
+    'bi-award',
+    'bi-backspace',
+    'bi-bag',
+    'bi-bar-chart',
+    'bi-bell',
+    'bi-book',
+    'bi-bookmark',
+    'bi-box',
+    'bi-brightness-high',
+  ];
   toggleEditMode() {
     this.editMode = !this.editMode;
   }

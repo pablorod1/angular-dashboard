@@ -1,6 +1,10 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import * as L from 'leaflet';
 
 @Component({
   selector: 'app-poi',
@@ -18,7 +22,7 @@ export class PoiComponent implements AfterViewInit {
   markerHotelsOptions!: google.maps.MarkerOptions;
   markerSupermarketsOptions!: google.maps.MarkerOptions;
 
-  constructor( private cdr: ChangeDetectorRef){}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   // Google Map
   center = { title: '', lat: 38.385255975420314, lng: -0.4311613386245738 };
@@ -38,171 +42,6 @@ export class PoiComponent implements AfterViewInit {
       draggable: false,
       icon: '../../../assets/icons/supermarket-icon.svg',
     };
-
-    var map = L.map('map').setView(
-      [38.36346527843936, -0.46404871164035866],
-      12
-    );
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-
-    // Hospitales
-    var hospitalIcon = L.icon({
-      iconUrl: 'assets/icons/hospital-icon.svg',
-      iconSize: [50, 50],
-      iconAnchor: [50, 50],
-      popupAnchor: [-25, -45],
-    });
-    var hospitalMarkers = [
-      [
-        38.36357571911017,
-        -0.4860734317350155,
-        'Hospital General Universitario de Alicante',
-        '../../../assets/maps-images/hospital-general.webp',
-      ],
-      [
-        38.38930615927992,
-        -0.43543038940606305,
-        'Hospital Universitario San Juan de Alicante',
-        '../../../assets/maps-images/hospital-sanjuan.webp',
-      ],
-      [
-        38.36346527843936,
-        -0.46404871164035866,
-        'HLA Clínica Vistahermosa',
-        '../../../assets/maps-images/hla-vistahermosa.webp',
-      ],
-      [
-        38.404153850859686,
-        -0.530838588314908,
-        'Hospital San Vicente del Raspeig',
-        '../../../assets/maps-images/hospital-sanvicente.webp',
-      ],
-      [
-        38.35270593168595,
-        -0.4761340998879885,
-        'Hospital Perpetuo Socorro',
-        '../../../assets/maps-images/perpetuosocorro.webp',
-      ],
-    ];
-    for (var i = 0; i < hospitalMarkers.length; i++) {
-      var marker = L.marker(
-        [Number(hospitalMarkers[i][0]), Number(hospitalMarkers[i][1])],
-        { icon: hospitalIcon }
-      ).addTo(map);
-      marker.bindPopup(
-        String(hospitalMarkers[i][2]) +
-          "<img src='" +
-          hospitalMarkers[i][3] +
-          "' alt='Image description' class='popup-img'>"
-      );
-    }
-    // Hoteles
-    var hotelIcon = L.icon({
-      iconUrl: 'assets/icons/hotel-icon.svg',
-      iconSize: [50, 50],
-      iconAnchor: [50, 50],
-      popupAnchor: [-3, -76],
-    });
-    var hotelMarkers = [
-      [
-        38.343056796313874,
-        -0.4786619894076725,
-        'Hotel Melia Alicante',
-        '../../../assets/maps-images/hotelmelia.webp',
-      ],
-      [
-        38.36504015231851,
-        -0.4174405875551504,
-        'Hotel Port Alicante City & Beach',
-        '../../../assets/maps-images/hotel-port-alicante.webp',
-      ],
-      [
-        38.352203959236554,
-        -0.4744611028994664,
-        'Hotel Maya Alicante',
-        '../../../assets/maps-images/hotelmaya.webp',
-      ],
-      [
-        38.33656328188465,
-        -0.5072287317359496,
-        'Hotel NH Alicante',
-        '../../../assets/maps-images/hotelnh.webp',
-      ],
-      [
-        38.358306683351024,
-        -0.430664670019697,
-        'Hotel Boutique Calas de Alicante',
-        '../../../assets/maps-images/hotelboutique.webp',
-      ],
-    ];
-    for (var i = 0; i < hotelMarkers.length; i++) {
-      var marker = L.marker(
-        [Number(hotelMarkers[i][0]), Number(hotelMarkers[i][1])],
-        { icon: hotelIcon }
-      ).addTo(map);
-      marker.bindPopup(
-        String(hotelMarkers[i][2])  +
-        "<img src='" +
-        hotelMarkers[i][3] +
-        "' alt='Image description' class='popup-img'>"
-      );
-    }
-
-    // Supermercados
-    var supermarketIcon = L.icon({
-      iconUrl: 'assets/icons/supermarket-icon.svg',
-      iconSize: [50, 50],
-      iconAnchor: [50, 50],
-      popupAnchor: [-3, -76],
-    });
-    var supermarketMarkers = [
-      [
-        38.3641946189421,
-        -0.43173755543963804,
-        'Mercadona',
-        '../../../assets/maps-images/mercadona-condomina.webp',
-      ],
-      [
-        38.36742486292377,
-        -0.4189487829703931,
-        'Mercadona',
-        '../../../assets/maps-images/mercadona-naciones.webp',
-      ],
-      [
-        38.40745045825882,
-        -0.4229098724725555,
-        'Carrefour',
-        '../../../assets/maps-images/carrefour.webp',
-      ],
-      [
-        38.39908399434634,
-        -0.4345144755662955,
-        'Consum',
-        '../../../assets/maps-images/consum.webp',
-      ],
-      [
-        38.36752584533809,
-        -0.4316820702638525,
-        'Aldi',
-        '../../../assets/maps-images/aldi.webp',
-      ],
-    ];
-    for (var i = 0; i < supermarketMarkers.length; i++) {
-      let marker = L.marker(
-        [Number(supermarketMarkers[i][0]), Number(supermarketMarkers[i][1])],
-        { icon: supermarketIcon}
-      ).addTo(map);
-      marker.bindPopup(
-        String(supermarketMarkers[i][2])  +
-        "<img src='" +
-        supermarketMarkers[i][3] +
-        "' alt='Image description' class='popup-img'>"
-      );
-    }
   }
 
   markerHospitalPositions = [

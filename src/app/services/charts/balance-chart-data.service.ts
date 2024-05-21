@@ -29,6 +29,7 @@ export class BalanceChartDataService {
   public stroke!: ApexStroke;
   public tooltip!: ApexTooltip;
   public responsive!: ApexResponsive[];
+  public colors!: string[];
 
   getBalanceChartData(): Observable<any>{
     this.series = [
@@ -95,6 +96,7 @@ export class BalanceChartDataService {
         },
       },
     ];
+    this.colors = ['#4b4bdf'];
     let balance = this.series[0].data[this.series[0].data.length - 1];
     const chartOptions = {
       series: this.series,
@@ -107,6 +109,7 @@ export class BalanceChartDataService {
       stroke: this.stroke,
       tooltip: this.tooltip,
       responsive: this.responsive,
+      colors: this.colors,
       balance: balance?.toLocaleString('en-US')
     };
     return of(chartOptions);

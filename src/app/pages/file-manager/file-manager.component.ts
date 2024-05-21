@@ -350,6 +350,9 @@ export class FileManagerComponent implements OnInit {
       {
         label: 'Delete',
         icon: 'bi bi-trash3',
+        command: () => {
+          if (this.selectedFolder) this.deleteFolder(this.selectedFolder);
+        },
       },
     ];
     this.trashMenu = [
@@ -694,13 +697,13 @@ export class FileManagerComponent implements OnInit {
 
   selectFile(file: FileManagerItem) {
     this.selectedFile = file;
-    // this.selectedFolder = null;
+    this.selectedFolder = null;
     this.detailsActive = true;
   }
   selectFolder(folder: FileManagerFolder) {
     this.selectedFolder = folder;
     this.detailsActive = true;
-    // this.selectedFile = null;
+     this.selectedFile = null;
   }
   formatDate(date: string): string {
     const d = new Date(date);
@@ -1304,6 +1307,32 @@ export class FileManagerComponent implements OnInit {
           life: 3000,
         });
         this.selectedFile = null;
+        location.reload();
+      },
+    });
+  }
+
+  deleteFolder(folder: FileManagerFolder){
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + folder.name + ' and all its content?',
+      header: 'Delete Confirmation',
+      icon: 'bi bi-exclamation-triangle',
+      accept: () => {
+        this.folders = this.folders.filter((f) => f.name !== folder.name);
+        localStorage.setItem('folders', JSON.stringify(this.folders));
+        this.files = this.files.filter((f) => {
+          return !f.folderName.includes(folder.name);
+        });
+        localStorage.setItem('files', JSON.stringify(this.files));
+        this.totalSize -= folder.size;
+        localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: folder.name + ' and all its content deleted successfully',
+          life: 3000,
+        });
+        this.selectedFolder = null;
         location.reload();
       },
     });

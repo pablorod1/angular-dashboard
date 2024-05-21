@@ -10,7 +10,7 @@
 }
 .title-container .title{
   font-size: 40px;
-  color: #023047;
+  color: #4b4bdf;
   font-weight: 600;
   text-align: center;
 }
@@ -48,7 +48,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px;
+  padding: 18px 20px;
   border-radius: 50%;
   background-color: #4b4bdf31;
   width: fit-content;

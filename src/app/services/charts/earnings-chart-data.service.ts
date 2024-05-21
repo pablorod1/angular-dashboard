@@ -31,6 +31,7 @@ export class EarningsChartDataService {
   public tooltip!: ApexTooltip;
   public plotOptions!: ApexPlotOptions;
   public responsive!: ApexResponsive[];
+  public colors!: string[];
 
   getBalanceChartData(): Observable<any> {
     this.series = [
@@ -108,6 +109,7 @@ export class EarningsChartDataService {
         },
       },
     ];
+    this.colors = ['#4b4bdf'];
     const total = this.series[0].data.reduce((a, b) => {
       if (typeof a === 'number' && typeof b === 'number') {
         return a + b;
@@ -127,6 +129,7 @@ export class EarningsChartDataService {
       tooltip: this.tooltip,
       responsive: this.responsive,
       plotOptions: this.plotOptions,
+      colors: this.colors,
       total: total?.toLocaleString('es-ES', {
         style: 'currency',
         currency: 'EUR',

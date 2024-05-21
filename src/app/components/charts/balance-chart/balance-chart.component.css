@@ -1,5 +1,5 @@
 .card{
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 10px -3px;
   border: 0;
   border-radius: 15px;
   transition: transform 0.3s ease;
@@ -7,7 +7,13 @@
 .card:hover{
   transform: translateY(-4px);
 }
+.info h3{
+  font-weight: 500;
+}
 .balance{
   font-size: 25px;
-  font-weight: 500;
+  font-weight: 600;
+}
+.info{
+  color: #4b4bdf;
 }

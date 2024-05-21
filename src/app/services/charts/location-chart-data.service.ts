@@ -29,10 +29,10 @@ export class LocationChartDataService {
   getLocationChartData(): Observable<any> {
     const groupedData = groupBy(locationData, 'parent');
 
-    this.series = Object.entries(groupedData).map(([parent, data]) => {
+    this.series = Object.entries(groupedData).map(([community, data]) => {
       const color = data[0].color;
       return {
-        name: parent,
+        name: community,
         data: data.map((item) => ({ x: item.x, y: item.y})),
         color: color,
       }

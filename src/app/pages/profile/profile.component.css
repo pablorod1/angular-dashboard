@@ -5,10 +5,19 @@
   min-height: 280px;
   max-height: 400px;
   height: 100%;
-  background-image: url("../../../assets/background_mountain.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
+}
+.header-container .button{
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  transition: transform .5s ease;
+}
+.header-container:hover .button{
+  transform: translateY(4rem);
 }
 .profile-container {
   display: flex;
@@ -23,7 +32,6 @@
   align-items: center;
   gap: 1rem;
   margin-left: 20rem;
-
   margin-top: 2rem;
 }
 .img-container {
@@ -38,11 +46,33 @@
   border: 5px solid #fff;
   overflow: hidden;
   box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background-color: #fff;
 }
 .profile-picture {
   width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  transition: filter .3s ease;
 }
-
+.profile-icon{
+  font-size: 4rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #3333331f;
+  border-radius: 50%;
+  padding: 4rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.img-container:hover .profile-icon{
+  opacity: 1;
+}
+.img-container:hover .profile-picture{
+  filter: blur(4px);
+}
 .user-info {
   position: relative;
   display: flex;
@@ -68,13 +98,14 @@
   color: #333333;
   transition: transform 0.3s ease;
 }
-.social-link:hover {
-  transform: scale(1.05);
+.right-container{
+  max-width: 400px;
 }
 .skills-container {
   display: flex;
   justify-content: end;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .overview .badge {
   height: fit-content;
@@ -136,4 +167,51 @@
   margin-bottom: 0;
   color: #4b4bdf;
   margin-bottom: 2rem;
+}
+.tasks-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 769px) and (max-width: 1024px){
+  .profile-container{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .img-container{
+    position: relative;
+    top: 0;
+    left: 45%;
+  }
+  .profile-info {
+    margin-left: 0;
+    margin-top: 0;
+  }
+  .skills-container{
+    justify-content: start;
+  }
+  .right-container{
+    position: relative;
+    left: 55%;
+    align-items: center;
+  }
+}
+@media (max-width: 768px){
+  .profile-container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .img-container{
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  .profile-info {
+    margin-left: 0;
+    margin-top: 0;
+  }
 }

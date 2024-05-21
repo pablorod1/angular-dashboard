@@ -124,3 +124,13 @@
 .save-btn:focus{
   transform: scale(1.05);
 }
+::ng-deep .p-listbox-list{
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+::ng-deep .p-listbox-item{
+  width: fit-content;
+}

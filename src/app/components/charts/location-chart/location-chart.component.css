@@ -1,9 +1,10 @@
 .card{
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), 0 3px 6px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
+  border: 0;
   border-radius: 15px;
 }
 .title{
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 600;
+  color:#023047;
 }

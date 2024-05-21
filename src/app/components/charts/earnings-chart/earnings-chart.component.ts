@@ -31,6 +31,7 @@ export class EarningsChartComponent {
   tooltip!: ApexTooltip;
   plotOptions!: ApexPlotOptions;
   responsive!: ApexResponsive[];
+  colors!: string[];
   total!: number;
 
   constructor(private earningsChartDataService: EarningsChartDataService) {}
@@ -48,6 +49,7 @@ export class EarningsChartComponent {
       this.tooltip = data.tooltip;
       this.plotOptions = data.plotOptions;
       this.responsive = data.responsive;
+      this.colors = data.colors;
       this.total = data.total;
     });
   }

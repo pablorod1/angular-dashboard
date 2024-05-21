@@ -1,5 +1,9 @@
 <section class="section">
-   <!-- <div class="container-fluid">
+  <div class="container-fluid">
+    <div class="title-container">
+      <h2 class="title"> Points Of Interest </h2>
+      <span>  </span>
+    </div>
     <div class="btn-container d-flex justify-content-center align-items-center gap-3 mb-3">
       <button type="button" class="button" [ngClass]="{
         'border-red text-danger': showHospitalMarkers,
@@ -11,46 +15,31 @@
         'border-green text-success': showSupermarketsMarkers,
       }" (click)="toggleSupermarketsMarkers()"> Supermarkets </button>
     </div>
-    <google-map (mapRightclick)="removeActiveMarker()" height="600px" width="100%" [zoom]="zoom" [center]="center">
-
-       Hospital Markers
-      <ng-container *ngFor="let position of markerHospitalPositions; trackBy: trackPosition">
-        <map-marker
-          *ngIf="(showHospitalMarkers && !activeMarker) || (showHospitalMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
-          [position]="position" [options]="markerHospitalOptions" (mapClick)="onMarkerClick(position)"
-          [clickable]="true"></map-marker>
-      </ng-container>
-
-       Hotel Markers
-      <ng-container *ngFor="let position of markerHotelsPositions; trackBy: trackPosition">
-        <map-marker
-          *ngIf="(showHotelsMarkers && !activeMarker) || (showHotelsMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
-          [position]="position" [options]="markerHotelsOptions" (mapClick)="onMarkerClick(position)"
-          [clickable]="true"></map-marker>
-      </ng-container>
-
-       Supermarkets Markers
-      <ng-container *ngFor="let position of markerSupermarketsPositions; trackBy: trackPosition">
-        <map-marker
-          *ngIf="(showSupermarketsMarkers && !activeMarker) || (showSupermarketsMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
-          [position]="position" [options]="markerSupermarketsOptions" (mapClick)="onMarkerClick(position)"
-          [clickable]="true"></map-marker>
-      </ng-container>
-
-      <map-info-window></map-info-window>
-
-    </google-map>
-  </div> -->
-  <div class="btn-container">
-    <button type="button" class="button" [ngClass]="{
-      'border-red text-danger': showHospitalMarkers,
-    }" (click)="showHospitalMarkers = !showHospitalMarkers"> Hospitals </button>
-    <button type="button" class="button" [ngClass]="{
-      'border-blue text-primary': showHotelsMarkers,
-    }" (click)="toggleHotelsMarkers()"> Hotels </button>
-    <button type="button" class="button" [ngClass]="{
-      'border-green text-success': showSupermarketsMarkers,
-    }" (click)="showSupermarketsMarkers = !showSupermarketsMarkers"> Supermarkets </button>
+    <div class="card">
+      <google-map (mapRightclick)="removeActiveMarker()" height="700px" width="100%" [zoom]="zoom" [center]="center">
+        <!-- Hospital Markers -->
+        <ng-container *ngFor="let position of markerHospitalPositions; trackBy: trackPosition">
+          <map-marker
+            *ngIf="(showHospitalMarkers && !activeMarker) || (showHospitalMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
+            [position]="position" [options]="markerHospitalOptions" (mapClick)="onMarkerClick(position)"
+            [clickable]="true"></map-marker>
+        </ng-container>
+        <!-- Hotel Markers -->
+        <ng-container *ngFor="let position of markerHotelsPositions; trackBy: trackPosition">
+          <map-marker
+            *ngIf="(showHotelsMarkers && !activeMarker) || (showHotelsMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
+            [position]="position" [options]="markerHotelsOptions" (mapClick)="onMarkerClick(position)"
+            [clickable]="true"></map-marker>
+        </ng-container>
+        <!-- Supermarkets Markers -->
+        <ng-container *ngFor="let position of markerSupermarketsPositions; trackBy: trackPosition">
+          <map-marker
+            *ngIf="(showSupermarketsMarkers && !activeMarker) || (showSupermarketsMarkers && (activeMarker.lat === position.lat && activeMarker.lng === position.lng))"
+            [position]="position" [options]="markerSupermarketsOptions" (mapClick)="onMarkerClick(position)"
+            [clickable]="true"></map-marker>
+        </ng-container>
+        <map-info-window></map-info-window>
+      </google-map>
+    </div>
   </div>
-  <div id="map"></div>
 </section>

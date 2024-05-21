@@ -29,6 +29,7 @@ export class MonthlyUsersChartDataService {
   public grid!: ApexGrid;
   public stroke!: ApexStroke;
   public tooltip!: ApexTooltip;
+  public colors!: string[];
   public responsive!: ApexResponsive[];
 
   getMonthlyUsersChartData(): Observable<any>{
@@ -97,6 +98,7 @@ export class MonthlyUsersChartDataService {
         },
       },
     ];
+    this.colors = ['#4b4bdf'];
     let balance = this.series[0].data[this.series[0].data.length - 1];
     const chartOptions = {
       series: this.series,
@@ -109,6 +111,7 @@ export class MonthlyUsersChartDataService {
       stroke: this.stroke,
       tooltip: this.tooltip,
       responsive: this.responsive,
+      colors: this.colors,
       balance: balance?.toLocaleString('en-US')
     };
     return of(chartOptions);

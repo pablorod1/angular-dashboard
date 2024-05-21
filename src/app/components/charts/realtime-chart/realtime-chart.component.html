@@ -1,5 +1,5 @@
-<div class="card bg-dark text-white">
-  <div class="header d-flex justify-content-between align-items-center p-3">
+<div class="card ">
+  <div class="header d-flex justify-content-between align-items-center px-3 pt-3">
     <h1 class="title mb-0">Realtime Users</h1>
     <div class="btn-container">
       <button *ngIf="!paused" type="button" class="btn" (click)="stopRealtimeUpdates()"> <i class="me-1 bi bi-stop-fill"></i> Stop Updating </button>
@@ -11,7 +11,7 @@
       <apx-chart #chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [colors]="chartOptions.colors"
         [yaxis]="chartOptions.yaxis!" [grid]="chartOptions.grid!" [dataLabels]="chartOptions.dataLabels!" [markers]="chartOptions.markers!"
         [stroke]="chartOptions.stroke!" [xaxis]="chartOptions.xaxis!"
-        [tooltip]="chartOptions.tooltip!"></apx-chart>
+        [tooltip]="chartOptions.tooltip!" [fill]="chartOptions.fill!"></apx-chart>
 
     </div>
   </div>

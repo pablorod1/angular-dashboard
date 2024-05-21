@@ -26,13 +26,13 @@
   background-color: #e0e0e0;
 }
 .tools-container .active:hover {
-  background-color: #5c5c5c;
+  background-color: #4b4bdf;
 }
 .tools-container .btn i {
   color: #474747;
 }
 .tools-container .active {
-  background-color: #474747;
+  background-color: #4b4bdf;
   i {
     color: #fff;
   }

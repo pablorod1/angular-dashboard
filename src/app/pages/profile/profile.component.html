@@ -1,10 +1,13 @@
 <section class="section">
-  <div class="container-fluid header-container">
+  <div class="container-fluid header-container" style="background-image: url({{backgroundImage}})">
+    <input #backgroundInput type="file" class="form-control" (change)="onBackgroundChange($event)" style="display: none;"/>
+    <button type="button" class="button" (click)="backgroundInput.click()"> <i class="bi bi-pencil me-1"></i> Change Background </button>
   </div>
   <div class="container-fluid profile-container">
-    <div class="img-container">
-      <img loading="lazy" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Picture"
-        class="profile-picture">
+    <div class="img-container" (click)="profileInput.click()">
+      <img loading="lazy" [src]="profileImage" alt="Profile Picture"  class="profile-picture">
+      <input #profileInput type="file" class="form-control" (change)="onProfileChange($event)" style="display: none;"/>
+      <i class="bi bi-pencil profile-icon"></i>
     </div>
     <div class="profile-info">
       <div class="user-info">
@@ -20,7 +23,6 @@
     </div>
     <div class="right-container d-flex flex-column gap-4">
       <div class="d-flex align-items-center gap-3">
-        <h2 class=" me-1 mb-0"> Skills </h2>
         <div class="btn-container d-flex align-items-center gap-2">
           <button *ngIf="!editSkills" (click)="editSkills = true" class="button" type="button"><i
               class="me-1 bi bi-pencil"></i> Edit Skills </button>
@@ -35,11 +37,11 @@
       <input *ngIf="editSkills" [(ngModel)]="newSkill" (keyup.enter)="addSkill()" type="text" class="form-control"
         placeholder="Add a new skill">
       <div class="skills-container mt-2">
-        <p-chip [removable]="editSkills" *ngFor="let skill of skills" [label]="skill.label"></p-chip>
+        <p-chip [removable]="editSkills" *ngFor="let skill of skills | slice:0:9" [label]="skill.label"></p-chip>
       </div>
     </div>
   </div>
-  <div class="container mt-5">
+  <div class="container tasks-container mt-5">
     <div class="row align-items-start w-100">
       <div class="col-lg-4">
         <div class="title">
@@ -94,7 +96,7 @@
       <div class="col-md-8 overview">
         <div class="card mt-3">
           <div class="card-body">
-            <div class="row ">
+            <div class="row g-2">
               <div class="col-md-3" *ngFor="let task of overviewTasks">
                 <div class="card">
                   <div class="card-body text-center d-flex justify-content-center align-items-center">
@@ -108,7 +110,7 @@
               </div>
             </div>
             <div class="progressbars-container mt-4">
-              <div class="progress-container py-2" *ngFor="let task of overviewTasks">
+              <div class="progress-container py-3" *ngFor="let task of overviewTasks">
                 <h4 class="mb-1"> {{task.label}} </h4>
                 <div class="progress" role="progressbar">
                   <div class="progress-bar bg-{{task.color}} text-white" pTooltip="{{task.value}}" tooltipPosition="top"

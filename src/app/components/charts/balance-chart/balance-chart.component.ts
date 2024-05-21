@@ -29,6 +29,7 @@ export class BalanceChartComponent implements OnInit{
   stroke!: ApexStroke;
   tooltip!: ApexTooltip;
   responsive!: ApexResponsive[];
+  colors!: string[];
   balance!: number;
 
   constructor(private balanceChartDataService: BalanceChartDataService) {}
@@ -45,6 +46,7 @@ export class BalanceChartComponent implements OnInit{
       this.stroke = data.stroke;
       this.tooltip = data.tooltip;
       this.responsive = data.responsive;
+      this.colors = data.colors;
       this.balance = data.balance;
     });
   }

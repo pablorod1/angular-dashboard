@@ -460,6 +460,12 @@ td {
   display: none;
   visibility: hidden;
 }
+.file-preview{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 @media (max-width: 1024px) {
   .mobile-menu {
     display: block;
