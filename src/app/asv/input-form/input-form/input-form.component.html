@@ -1,0 +1,33 @@
+<section class="section">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="mb-0"> Subir Cuadrante </h2>
+      </div>
+      <div class="card-body">
+        <div class="input-container d-flex align-items center gap-5 py-3">
+          <input #fileInput (change)="uploadFile($event)" type="file" style="display: none;">
+          <button (click)="fileInput.click()" type="button" class="animated-button"><i class="bi bi-upload"></i>
+            Seleccionar archivo </button>
+          <div *ngIf="uploadedFile" class="file-preview">
+            <div class="file-title d-flex justify-content-center align-items-center">
+              <i class="bi bi-filetype-csv"></i>
+              <span>{{uploadedFile.name}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="month-selector-container py-3">
+          <label class="form-label"> Selecciona mes y año </label>
+          <!-- <select class="form-select" aria-label="Default select example" aria-placeholder="Select Month">
+            <option *ngFor="let option of months" [value]="option">{{option}}</option>
+          </select> -->
+          <p-calendar [inline]="true" [(ngModel)]="date" view="month" dateFormat="mm/yy" [readonlyInput]="true" />
+        </div>
+        <div class="btn-container pt-3">
+          <button type="button" class="button bg-primary text-white"> Calcular Cuadrante </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<p-toast position="bottom-right"></p-toast>
