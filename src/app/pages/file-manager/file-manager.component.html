@@ -387,7 +387,8 @@
                               <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false"><i class="bi bi-three-dots-vertical text-dark"></i></button>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" role="button" (click)="deleteFolder(folder)"><i class="bi bi-trash3"></i> Delete </a></li>
+                                <li><a class="dropdown-item" role="button" (click)="deleteFolder(folder)"><i
+                                      class="bi bi-trash3"></i> Delete </a></li>
                               </ul>
                             </div>
                           </td>
@@ -605,10 +606,8 @@
                 <button type="button" (click)="detailsActive = false" class="btn close-btn"> <i
                     class="bi bi-x text-dark"></i> </button>
               </div>
-              <mat-divider></mat-divider>
-              <div class="preview">
-                <img *ngIf="selectedFile && selectedFile.imageUrl" [src]="selectedFile.imageUrl" alt=" Image Preview"
-                  class="preview-img" loading="lazy">
+              <div *ngIf="selectedFile && selectedFile.folderName[0] === 'Images'" class="preview">
+                <img [src]="selectedFile.imageUrl" alt=" Image Preview" class="preview-img" loading="lazy">
               </div>
               <mat-divider></mat-divider>
               <div class="details-body">

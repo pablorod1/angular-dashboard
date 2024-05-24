@@ -42,57 +42,67 @@ export class ScrumboardService {
   constructor() { }
 
   icons: Icon[] = [
-    {
-      id: 1,
-      name: 'Calendar',
-      icon: 'bi-calendar'
-    },
-    {
-      id: 2,
-      name: 'Person',
-      icon: 'bi-person'
-    },
-    {
-      id: 3,
-      name: 'File',
-      icon: 'bi-file'
-    },
-    {
-      id: 4,
-      name: 'Envelope',
-      icon: 'bi-envelope'
-    },
-    {
-      id: 5,
-      name: 'Image',
-      icon: 'bi-image'
-    },
-    {
-      id: 6,
-      name: 'Clipboard',
-      icon: 'bi-clipboard'
-    },
-    {
-      id: 7,
-      name: 'List',
-      icon: 'bi-list'
-    },
-    {
-      id: 8,
-      name: 'Card',
-      icon: 'bi-card'
-    },
-    {
-      id: 9,
-      name: 'To Do',
-      icon: 'bi-kanban'
-    },
-    {
-      id: 10,
-      name: 'Check',
-      icon: 'bi-check'
-    }
-  ]
+    { id: 1, name: 'Alarm', icon: 'bi-alarm' },
+    { id: 2, name: 'Basket', icon: 'bi-basket' },
+    { id: 3, name: 'Bell', icon: 'bi-bell' },
+    { id: 4, name: 'Book', icon: 'bi-book' },
+    { id: 5, name: 'Briefcase', icon: 'bi-briefcase' },
+    { id: 6, name: 'Building', icon: 'bi-building' },
+    { id: 7, name: 'Calendar', icon: 'bi-calendar' },
+    { id: 8, name: 'Camera', icon: 'bi-camera' },
+    { id: 9, name: 'Chat', icon: 'bi-chat' },
+    { id: 10, name: 'Check Circle', icon: 'bi-check-circle' },
+    { id: 11, name: 'Cloud', icon: 'bi-cloud' },
+    { id: 12, name: 'Code Slash', icon: 'bi-code-slash' },
+    { id: 13, name: 'Collection', icon: 'bi-collection' },
+    { id: 14, name: 'Compass', icon: 'bi-compass' },
+    { id: 15, name: 'CPU', icon: 'bi-cpu' },
+    { id: 16, name: 'Cup', icon: 'bi-cup' },
+    { id: 17, name: 'Diagram', icon: 'bi-diagram-3' },
+    { id: 18, name: 'Envelope', icon: 'bi-envelope' },
+    { id: 19, name: 'Flag', icon: 'bi-flag' },
+    { id: 20, name: 'Folder', icon: 'bi-folder' },
+    { id: 21, name: 'Gear', icon: 'bi-gear' },
+    { id: 22, name: 'Globe', icon: 'bi-globe' },
+    { id: 23, name: 'Graph Up', icon: 'bi-graph-up' },
+    { id: 24, name: 'Heart', icon: 'bi-heart' },
+    { id: 25, name: 'House', icon: 'bi-house' },
+    { id: 26, name: 'Image', icon: 'bi-image' },
+    { id: 27, name: 'Inbox', icon: 'bi-inbox' },
+    { id: 28, name: 'Key', icon: 'bi-key' },
+    { id: 29, name: 'Laptop', icon: 'bi-laptop' },
+    { id: 30, name: 'Lightbulb', icon: 'bi-lightbulb' },
+    { id: 31, name: 'List Task', icon: 'bi-list-task' },
+    { id: 32, name: 'Lock', icon: 'bi-lock' },
+    { id: 33, name: 'Map', icon: 'bi-map' },
+    { id: 34, name: 'Music Note', icon: 'bi-music-note' },
+    { id: 35, name: 'Palette', icon: 'bi-palette' },
+    { id: 36, name: 'Pencil', icon: 'bi-pencil' },
+    { id: 37, name: 'Phone', icon: 'bi-phone' },
+    { id: 38, name: 'Pin', icon: 'bi-pin' },
+    { id: 39, name: 'Printer', icon: 'bi-printer' },
+    { id: 40, name: 'Receipt', icon: 'bi-receipt' },
+    { id: 41, name: 'Save', icon: 'bi-save' },
+    { id: 42, name: 'Scissors', icon: 'bi-scissors' },
+    { id: 43, name: 'Search', icon: 'bi-search' },
+    { id: 44, name: 'Shield', icon: 'bi-shield' },
+    { id: 45, name: 'Shop', icon: 'bi-shop' },
+    { id: 46, name: 'Star', icon: 'bi-star' },
+    { id: 47, name: 'Stickies', icon: 'bi-stickies' },
+    { id: 48, name: 'Sun', icon: 'bi-sun' },
+    { id: 49, name: 'Table', icon: 'bi-table' },
+    { id: 50, name: 'Tags', icon: 'bi-tags' },
+    { id: 51, name: 'Terminal', icon: 'bi-terminal' },
+    { id: 52, name: 'Tools', icon: 'bi-tools' },
+    { id: 53, name: 'Trash', icon: 'bi-trash' },
+    { id: 54, name: 'Trophy', icon: 'bi-trophy' },
+    { id: 55, name: 'Truck', icon: 'bi-truck' },
+    { id: 56, name: 'Upload', icon: 'bi-upload' },
+    { id: 57, name: 'Wallet', icon: 'bi-wallet' },
+    { id: 58, name: 'Watch', icon: 'bi-watch' },
+    { id: 59, name: 'WiFi', icon: 'bi-wifi' },
+    { id: 60, name: 'Wrench', icon: 'bi-wrench' }
+  ];
 
   users: User[] = [
     {

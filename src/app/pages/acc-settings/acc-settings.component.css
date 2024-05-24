@@ -59,7 +59,9 @@
 .profile-picture {
   width: 70px;
   height: auto;
+  min-height: 70px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .user-info .btn-container {
   display: flex;

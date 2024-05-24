@@ -10,15 +10,22 @@
 }
 .btn i{
   font-size: 20px;
-  color: #fff;
+  color: #023047;
+  transition: color .3s ease;
 }
 .btn{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
-  transition: transform .3s ease;
+  color: #023047;
+  border-radius: .375rem;
+  transition: background-color .3s ease, color .3s ease;
 }
 .btn:hover{
-  transform: scale(1.03);
+  background-color: #023047;
+  color: #fff;
+  transform: none;
+}
+.btn:hover i{
+  color: #fff;
 }

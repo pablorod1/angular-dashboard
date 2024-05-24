@@ -41,6 +41,7 @@
     "lodash": "^4.17.21",
     "ng-apexcharts": "^1.9.0",
     "ngx-filter-pipe": "^2.1.2",
+    "ngx-permissions": "^17.1.0",
     "popper.js": "^1.16.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.16.0",

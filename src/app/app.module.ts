@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
+import { NgxPermissionsModule } from 'ngx-permissions';
+
 // Pipes
 
 // Recargar la página después de cada navegación
@@ -301,6 +303,7 @@ import { InventoryComponent } from './pages/ecommerce/inventory/inventory.compon
     ToolbarModule,
     SliderModule,
     ListboxModule,
+    NgxPermissionsModule.forRoot(),
 
   ],
   providers: [

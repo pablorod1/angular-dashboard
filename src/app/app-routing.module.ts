@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ngxPermissionsGuard } from 'ngx-permissions';
 
 // Authentication Components
 import { ConfirmationClassicComponent } from './pages/authentication/confirmation/confirmation-classic/confirmation-classic.component';
@@ -31,7 +32,6 @@ import { ComingSoonComponent } from './pages/coming-soon/coming-soon.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { PoiComponent } from './pages/poi/poi.component';
-
 
 //MailBox
 import { MailboxComponent } from './pages/mailbox/mailbox.component';
@@ -81,78 +81,115 @@ import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
 import { InventoryComponent } from './pages/ecommerce/inventory/inventory.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
   // Dashboard Paths
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'analytics', component: AnalyticsComponent},
-  {path: 'poi', component: PoiComponent},
+  { path: 'dashboard', component: DashboardComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: 'ADMIN',
+        redirectTo: '/error-500',
+      },
+    }
+   },
+  { path: 'analytics', component: AnalyticsComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: 'ADMIN',
+        redirectTo: '/error-500',
+      },
+    }
+   },
+  { path: 'poi', component: PoiComponent },
   // Authentication Paths
   // Confirmation Paths
-  {path: 'confirmation-classic', component: ConfirmationClassicComponent},
-  {path: 'confirmation-modern', component: ConfirmationModernComponent},
-  {path: 'confirmation-fullscreen', component: ConfirmationFullscreenComponent},
+  { path: 'confirmation-classic', component: ConfirmationClassicComponent },
+  { path: 'confirmation-modern', component: ConfirmationModernComponent },
+  {
+    path: 'confirmation-fullscreen',
+    component: ConfirmationFullscreenComponent,
+  },
   // Forgot Password Paths
-  {path: 'forgot-classic', component: ForgotPassClassicComponent},
-  {path: 'forgot-modern', component: ForgotPassModernComponent},
-  {path: 'forgot-fullscreen', component: ForgotPassFullscreenComponent},
+  { path: 'forgot-classic', component: ForgotPassClassicComponent },
+  { path: 'forgot-modern', component: ForgotPassModernComponent },
+  { path: 'forgot-fullscreen', component: ForgotPassFullscreenComponent },
   // Reset Password Paths
-  {path: 'reset-classic', component: ResetPassClassicComponent},
-  {path: 'reset-modern', component: ResetPassModernComponent},
-  {path: 'reset-fullscreen', component: ResetPassFullscreenComponent},
+  { path: 'reset-classic', component: ResetPassClassicComponent },
+  { path: 'reset-modern', component: ResetPassModernComponent },
+  { path: 'reset-fullscreen', component: ResetPassFullscreenComponent },
   // Signin Paths
-  {path: 'signin-classic', component: SigninClassicComponent},
-  {path: 'signin-modern', component: SigninModernComponent},
-  {path: 'signin-fullscreen', component: SigninFullscreenComponent},
+  { path: 'signin-classic', component: SigninClassicComponent },
+  { path: 'signin-modern', component: SigninModernComponent },
+  { path: 'signin-fullscreen', component: SigninFullscreenComponent },
   // Signup Paths
-  {path: 'signup-classic', component: SignupClassicComponent},
-  {path: 'signup-modern', component: SignupModernComponent},
-  {path: 'signup-fullscreen', component: SignupFullscreenComponent},
+  { path: 'signup-classic', component: SignupClassicComponent },
+  { path: 'signup-modern', component: SignupModernComponent },
+  { path: 'signup-fullscreen', component: SignupFullscreenComponent },
   // Signout Paths
-  {path: 'signout-classic', component: SignoutClassicComponent},
-  {path: 'signout-modern', component: SignoutModernComponent},
-  {path: 'signout-fullscreen', component: SignoutFullscreenComponent},
+  { path: 'signout-classic', component: SignoutClassicComponent },
+  { path: 'signout-modern', component: SignoutModernComponent },
+  { path: 'signout-fullscreen', component: SignoutFullscreenComponent },
   // Unlock Session Paths
-  {path: 'unlock-classic', component: UnlockClassicComponent},
-  {path: 'unlock-modern', component: UnlockModernComponent},
-  {path: 'unlock-fullscreen', component: UnlockFullscreenComponent},
+  { path: 'unlock-classic', component: UnlockClassicComponent },
+  { path: 'unlock-modern', component: UnlockModernComponent },
+  { path: 'unlock-fullscreen', component: UnlockFullscreenComponent },
   // Comming Soon Paths
-  {path: 'coming-soon', component: ComingSoonComponent},
+  { path: 'coming-soon', component: ComingSoonComponent },
 
   // MailBox Path
-  {path: 'mailbox', component: MailboxComponent},
+  { path: 'mailbox', component: MailboxComponent },
   // Account Settings Path
-  {path: 'acc-settings', component: AccSettingsComponent},
+  { path: 'acc-settings', component: AccSettingsComponent },
   // Invoice Page
-  {path: 'invoice-classic/:id', component: InvoiceClassicComponent},
-  {path: 'invoice-table', component: InvoicesTableComponent},
+  {
+    path: 'invoice-classic/:id',
+    component: InvoiceClassicComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: 'SELLER',
+        redirectTo: '/error-500',
+      },
+    },
+  },
+  { path: 'invoice-table', component: InvoicesTableComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: 'SELLER',
+        redirectTo: '/error-500',
+      },
+    },
+   },
   // User Profile
-  {path: 'profile', component: ProfileComponent},
+  { path: 'profile', component: ProfileComponent },
   // Pricing Paths
-  {path: 'pricing-classic', component: PricingClassicComponent},
-  {path: 'pricing-table', component: PricingTableComponent},
+  { path: 'pricing-classic', component: PricingClassicComponent },
+  { path: 'pricing-table', component: PricingTableComponent },
   // Errors
   // 404
-  {path: 'error-404', component: Error404Component},
+  { path: 'error-404', component: Error404Component },
   // 500
-  {path: 'error-500', component: Error500Component},
+  { path: 'error-500', component: Error500Component },
   // Maintenance
-  {path: 'maintenance', component: MaintenanceComponent},
+  { path: 'maintenance', component: MaintenanceComponent },
 
   // Help Center
-  {path: 'help-home', component: HelpHomeComponent},
-  {path: 'faqs', component: FaqsComponent},
-  {path: 'support', component: SupportComponent},
-  {path: 'guides', component: GuidesComponent},
-  { path: 'guides/:title', component: GuideListComponent},
-  {path: 'guide/:title', component: GuideComponent},
+  { path: 'help-home', component: HelpHomeComponent },
+  { path: 'faqs', component: FaqsComponent },
+  { path: 'support', component: SupportComponent },
+  { path: 'guides', component: GuidesComponent },
+  { path: 'guides/:title', component: GuideListComponent },
+  { path: 'guide/:title', component: GuideComponent },
 
   // About Us Page
-  {path: 'about', component: AboutComponent},
+  { path: 'about', component: AboutComponent },
   // Landing Page
-  {path: 'landing', component: LandingComponent},
+  { path: 'landing', component: LandingComponent },
   // Blog Posts Page
-  {path: 'blog', component: BlogPostsComponent},
+  { path: 'blog', component: BlogPostsComponent },
 
   // File Manager
   { path: 'file-manager', component: FileManagerComponent },
@@ -161,19 +198,35 @@ const routes: Routes = [
   { path: 'notes', component: NotesComponent },
 
   //Scrumboard
-  {path: 'scrumboard-home', component: ScrumboardHomeComponent},
-  {path: 'scrumboard/:title', component: ScrumboardComponent},
+  { path: 'scrumboard-home', component: ScrumboardHomeComponent },
+  { path: 'scrumboard/:title', component: ScrumboardComponent },
 
   // Ecommerce
-  {path: 'ecommerce', component: EcommerceComponent},
-  { path: 'inventory', component: InventoryComponent},
+  { path: 'ecommerce', component: EcommerceComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ['CLIENT', 'SELLER'],
+        redirectTo: '/error-500',
+      },
+    }
+   },
+  { path: 'inventory', component: InventoryComponent,
+    canActivate: [ngxPermissionsGuard],
+    data: {
+      permissions: {
+        only: 'SELLER',
+        redirectTo: '/error-500',
+      },
+    }
+   },
 
   // incorrect url redirect to dashboard
-  {path: '**', redirectTo: '/error-404'},
+  { path: '**', redirectTo: '/error-404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

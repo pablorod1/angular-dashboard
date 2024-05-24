@@ -135,13 +135,6 @@ export class FileManagerComponent implements OnInit {
       color2: '#ffcc80',
       icon: 'bi-share',
     },
-    {
-      label: 'Uploads',
-      value: 0,
-      color1: '#8000ff',
-      color2: '#cc80ff',
-      icon: 'bi-upload',
-    },
   ];
   constructor(
     private fileManagerDataService: FileManagerDataService,
@@ -158,64 +151,8 @@ export class FileManagerComponent implements OnInit {
     // All Folders
     const totalSize = JSON.parse(localStorage.getItem('totalSize') || '0');
     if (totalSize === 0) {
-      this.folders = [
-        {
-          id: 1,
-          name: 'Documents',
-          size: 0,
-          files: [],
-          icon: 'bi-file-earmark-text',
-        },
-        {
-          id: 2,
-          name: 'Drafts',
-          size: 0,
-          files: [],
-          icon: 'bi-pencil-square',
-        },
-        {
-          id: 3,
-          name: 'Downloads',
-          size: 0,
-          files: [],
-          icon: 'bi-download',
-        },
-        {
-          id: 4,
-          name: 'Images',
-          size: 0,
-          files: [],
-          icon: 'bi-image',
-        },
-        {
-          id: 5,
-          name: 'Trash',
-          size: 0,
-          files: [],
-          icon: 'bi-trash3',
-        },
-        {
-          id: 6,
-          name: 'Favorites',
-          size: 0,
-          files: [],
-          icon: 'bi-star',
-        },
-        {
-          id: 7,
-          name: 'Shared',
-          size: 0,
-          files: [],
-          icon: 'bi-share',
-        },
-        {
-          id: 8,
-          name: 'Uploads',
-          size: 0,
-          files: [],
-          icon: 'bi-upload',
-        },
-      ];
+      this.fileManagerDataService.getFolders();
+      this.folders = JSON.parse(localStorage.getItem('folders') || '[]');
     } else {
       this.folders = JSON.parse(localStorage.getItem('folders') || '[]');
     }
@@ -260,10 +197,6 @@ export class FileManagerComponent implements OnInit {
         case 'Shared':
           group.value =
             this.folders.find((f) => f.name === 'Shared')?.size || 0;
-          break;
-        case 'Uploads':
-          group.value =
-            this.folders.find((f) => f.name === 'Uploads')?.size || 0;
           break;
         default:
           break;
@@ -585,13 +518,15 @@ export class FileManagerComponent implements OnInit {
     this.renameFileDialog = true;
   }
   saveRenameFile(file: FileManagerItem) {
+
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
-      detail: 'File renamed to ' + file.name + ' successfully.',
+      detail: 'File '+ file.name +' to ' + this.newFileName + ' successfully.',
       life: 3000,
     });
     file.name = this.newFileName;
+    localStorage.setItem('files', JSON.stringify(this.files));
     this.newFileName = '';
     this.renameFileDialog = false;
   }
@@ -622,7 +557,6 @@ export class FileManagerComponent implements OnInit {
             file.folderName = ['Images'];
             f.files.push(file);
             f.size += file.size;
-
             localStorage.setItem('folders', JSON.stringify(this.folders));
           }
           return f;
@@ -630,15 +564,6 @@ export class FileManagerComponent implements OnInit {
       }
       this.files.push(file);
       localStorage.setItem('files', JSON.stringify(this.files));
-      this.folders = this.folders.map((f) => {
-        if (f.name === 'Uploads') {
-          file.folderName = ['Uploads'];
-          f.files.push(file);
-          f.size += file.size;
-          localStorage.setItem('folders', JSON.stringify(this.folders));
-        }
-        return f;
-      });
       this.selectedFolder = null;
       this.totalSize += file.size;
       localStorage.setItem('totalSize', JSON.stringify(this.totalSize));
@@ -697,13 +622,13 @@ export class FileManagerComponent implements OnInit {
 
   selectFile(file: FileManagerItem) {
     this.selectedFile = file;
-    this.selectedFolder = null;
+    // this.selectedFolder = null;
     this.detailsActive = true;
   }
   selectFolder(folder: FileManagerFolder) {
     this.selectedFolder = folder;
     this.detailsActive = true;
-     this.selectedFile = null;
+    // this.selectedFile = null;
   }
   formatDate(date: string): string {
     const d = new Date(date);
@@ -1251,25 +1176,21 @@ export class FileManagerComponent implements OnInit {
   restoreFile(file: FileManagerItem) {
     this.folders = this.folders.map((f) => {
       if (f.name === 'Trash') {
-        f.files = f.files.filter((f) => f.name !== file.name);
+        f.files = f.files.filter((f) => f.id !== file.id);
         f.size -= file.size;
         localStorage.setItem('folders', JSON.stringify(this.folders));
       }
       return f;
     });
-    this.files = this.files.map((f) => {
-      if (f.name === file.name) {
-        f.folderName = [''];
-      }
-      return f;
-    });
-    localStorage.setItem('files', JSON.stringify(this.files));
+    let fileToRestore = this.files.find((f) => f.id === file.id);
+    if (fileToRestore) fileToRestore.folderName = [''];
     this.messageService.add({
       severity: 'success',
       summary: 'Successful',
       detail: file.name + ' restored successfully',
       life: 3000,
     });
+    localStorage.setItem('files', JSON.stringify(this.files));
     this.selectedFile = null;
     location.reload();
   }

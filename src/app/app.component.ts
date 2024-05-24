@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,14 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'Angular Template';
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig,
+    private permissionsService: NgxPermissionsService
+  ) {}
 
   ngOnInit() {
+    const permissions = ['CLIENT', 'ADMIN'];
+    this.permissionsService.loadPermissions(permissions);
+
     this.primengConfig.ripple = true; //optional animation
     this.primengConfig.zIndex = {
       modal: 100, // dialog, sidebar

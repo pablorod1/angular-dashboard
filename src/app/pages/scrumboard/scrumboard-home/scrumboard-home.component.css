@@ -125,6 +125,7 @@
   padding-left: 0;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 ::ng-deep .p-dropdown-item{
   width: fit-content;

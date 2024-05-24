@@ -17,15 +17,16 @@
               <div class="user-info">
                 <div class="img-container">
                   <div class="profile-picture-container">
-                    <img class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp"
-                      alt="Profile Picture" loading="lazy">
+                    <img class="profile-picture" [src]="profilePicture"
+                      [alt]="firstName" loading="lazy">
                     <div>
                       <h4 class="mb-1"> Profile Picture </h4>
                       <small> PNG, JPEG under 15MB </small>
                     </div>
                   </div>
                   <div class="btn-container">
-                    <button type="button" class="button"> Upload Image </button>
+                    <button (click)="fileInput.click()" type="button" class="button"> Upload Image </button>
+                    <input #fileInput type="file" (change)="onProfileChange($event)" style="display: none;"/>
                     <button disabled type="button" class="button"> Delete </button>
                   </div>
                 </div>

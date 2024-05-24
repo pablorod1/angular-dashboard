@@ -25,7 +25,57 @@ export interface FileManagerFolder {
 export class FileManagerDataService {
   private files: FileManagerItem[] = [];
 
-  private folders: FileManagerFolder[] = [];
+  private folders: FileManagerFolder[] = [
+    {
+      id: 1,
+      name: 'Documents',
+      files: [],
+      size: 0,
+      icon: 'bi-file-earmark',
+    },
+    {
+      id: 2,
+      name: 'Drafts',
+      files: [],
+      size: 0,
+      icon: 'bi-eraser',
+    },
+    {
+      id: 3,
+      name: 'Images',
+      files: [],
+      size: 0,
+      icon: 'bi-image',
+    },
+    {
+      id: 4,
+      name: 'Trash',
+      files: [],
+      size: 0,
+      icon: 'bi-trash3',
+    },
+    {
+      id: 5,
+      name: 'Downloads',
+      files: [],
+      size: 0,
+      icon: 'bi-download',
+    },
+    {
+      id: 6,
+      name: 'Favorites',
+      files: [],
+      size: 0,
+      icon: 'bi-star-fill',
+    },
+    {
+      id: 7,
+      name: 'Shared',
+      files: [],
+      size: 0,
+      icon: 'bi-share-fill',
+    },
+  ];
 
   formatDate(date: string): string {
     const d = new Date(date);

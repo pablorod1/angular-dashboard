@@ -14,6 +14,7 @@ export class AccSettingsComponent implements OnInit {
   firstName = 'Javier';
   lastName = 'Martínez';
   email = 'javiermartinez@lucentialab.es';
+  profilePicture = '../../../assets/profile-pictures/profile-picture.webp';
   currentPassword = '123456';
   newPassword = '';
   googleConnected = true;
@@ -222,5 +223,14 @@ export class AccSettingsComponent implements OnInit {
         });
       },
     });
+  }
+
+  onProfileChange(event: Event) {
+    const file = (event.target as HTMLInputElement).files![0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.profilePicture = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }

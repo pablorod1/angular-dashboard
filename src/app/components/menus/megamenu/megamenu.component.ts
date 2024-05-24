@@ -90,13 +90,6 @@ export class MegamenuComponent {
                   routerLink: '/scrumboard-home',
                   command: () => { location.reload(); },
                 },
-                {
-                  label: 'Tasks',
-                  icon: 'bi bi-check2-all',
-                  reloadData: true,
-                  routerLink: '/tasks',
-                  command: () => { location.reload(); },
-                },
               ],
             },
             {
