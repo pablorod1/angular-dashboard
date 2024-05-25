@@ -280,6 +280,13 @@ body {
   justify-content: end !important;
   align-items: center !important;
   gap: 1rem !important;
+  padding: 1rem;
+}
+.p-dialog.p-confirm-dialog .p-confirm-dialog-message {
+   margin-left: 0;
+}
+.p-confirm-dialog .p-dialog-content{
+  padding: 1rem;
 }
 .p-confirm-dialog-reject{
   background-color: #fafbfc;

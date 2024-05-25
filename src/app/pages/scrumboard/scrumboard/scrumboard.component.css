@@ -135,8 +135,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem 0;
+  margin: 2rem 0 0;
   z-index: 2;
+}
+.toolbar .btn,
+.toolbar .button{
+  z-index: 100;
 }
 .right-tools {
   display: flex;
@@ -376,6 +380,21 @@
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
 }
+.dropdown-menu{
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+.dropdown-item{
+  padding: .8rem;
+}
 .dropdown-toggle::after {
   display: none;
+}
+.search{
+  z-index: 100;
+}
+@media (max-height: 800px){
+  ::ng-deep .p-dialog{
+    overflow: auto;
+  }
 }

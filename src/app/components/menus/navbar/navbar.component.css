@@ -7,6 +7,9 @@
   display: flex;
   align-items: center;
 }
+::ng-deep app-notifications-menu .button{
+  margin-top: 2px;
+}
 @media (max-width: 1024px) {
   .sidebar {
     visibility: visible;
@@ -14,6 +17,9 @@
   .megamenu {
     display: none;
     visibility: hidden;
+  }
+  app-notifications-menu{
+    display: none;
   }
 }
 @media (min-width: 1024px) {
@@ -24,5 +30,8 @@
   .megamenu {
     display: block;
     visibility: visible;
+  }
+  app-notifications-menu{
+    display: block;
   }
 }

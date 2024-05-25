@@ -102,7 +102,9 @@
 }
 
 
-
+.remove-btn i{
+  color: #ccc;
+}
 .remove-btn, .readed{
   opacity: 0;
 }
