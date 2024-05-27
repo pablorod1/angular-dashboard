@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
+
 interface Note {
   id: number;
   content: string;
@@ -17,7 +18,7 @@ interface NoteColor {
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.css',
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService]
 })
 export class NotesComponent implements OnInit {
   createNotes: boolean = false;
@@ -25,8 +26,8 @@ export class NotesComponent implements OnInit {
 
   showCreateNoteDialog: boolean = false;
   showEditNoteDialog: boolean = false;
-  firstPosx = 180;
-  firstPosy = 160;
+  firstPosx = 0;
+  firstPosy = 0;
 
   noteColors: NoteColor[] = [
     { color: '#ffeb3b', tooltip: 'Yellow' },
@@ -61,7 +62,7 @@ export class NotesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // localStorage.clear();
+    //localStorage.clear();
     this.notes = JSON.parse(localStorage.getItem('notes') || '[]');
   }
 
@@ -86,15 +87,16 @@ export class NotesComponent implements OnInit {
     this.newNote.posy = this.firstPosy;
     this.notes.push(this.newNote);
     localStorage.setItem('notes', JSON.stringify(this.notes));
+    this.firstPosx += 20;
+    this.firstPosy += 20;
     this.newNote = {
       id: 0,
       content: '',
       color: '#ffffff',
-      posx: 0,
-      posy: 0,
+      posx: this.firstPosx,
+      posy: this.firstPosy,
     };
-    this.firstPosx += 20;
-    this.firstPosy += 20;
+
   }
 
   cancelCreateNote() {
@@ -213,22 +215,7 @@ export class NotesComponent implements OnInit {
     }
   }
 
-  // Drag and Drop
-  dragStart(note: Note) {
-    this.draggedNote = note;
-  }
-  drop(event: MouseEvent) {
-    if (this.draggedNote) {
-      // Actualizar posx y posy a la posicion del cursor - noteSize/2
-      this.draggedNote.posx = event.clientX - 90;
-      this.draggedNote.posy = event.clientY - 90;
-    }
-    // Guardar en localStorage
-    localStorage.setItem('notes', JSON.stringify(this.notes));
-  }
-  dragEnd() {
-    this.draggedNote = null;
-  }
+
 
   // Seleccionar Nota
   selectNote(note: Note){

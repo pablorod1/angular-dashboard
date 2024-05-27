@@ -140,8 +140,9 @@
 }
 .toolbar .btn,
 .toolbar .button{
-  z-index: 100;
+  z-index: 10;
 }
+
 .right-tools {
   display: flex;
   align-items: center;
@@ -347,6 +348,11 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
 }
+::ng-deep .p-dialog .btn-container{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .filter .radio-group {
   display: flex;
   justify-content: start;
@@ -364,7 +370,7 @@
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   border: 0;
 }
 .filter-title {
@@ -391,10 +397,22 @@
   display: none;
 }
 .search{
-  z-index: 100;
+  z-index: 10;
+}
+.projects-container{
+  display: flex;
+  justify-content: center;
 }
 @media (max-height: 800px){
   ::ng-deep .p-dialog{
     overflow: auto;
+  }
+}
+@media (max-width: 768px){
+  .toolbar .btn span{
+    display: none;
+  }
+  .toolbar{
+    gap: .5rem;
   }
 }

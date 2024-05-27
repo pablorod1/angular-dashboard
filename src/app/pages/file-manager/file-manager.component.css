@@ -229,11 +229,16 @@
   top: 0;
   left: 0;
 }
-::ng-deep ul {
+/* ::ng-deep ul {
   padding: 0 !important;
   margin: 0 !important;
+} */
+::ng-deep .p-contextmenu-root-list {
+  padding-left: 0 !important;
+  margin: 0;
+  gap: 1rem;
 }
-::ng-deep .p-menuitem-link {
+::ng-deep .p-contextmenu-root-list .p-menuitem-link {
   text-decoration: none !important;
   padding: 0.5rem 1.2rem !important;
 }
@@ -456,22 +461,25 @@ td {
   border-radius: 50%;
   padding: 6px 8px;
 }
-.mobile-menu{
+.mobile-menu {
   display: none;
   visibility: hidden;
 }
-.file-preview{
+.file-preview {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-@media (max-width: 1024px) {
+::-webkit-scrollbar{
+  height: 6px;
+}
+@media (min-width: 768px) and (max-width: 1025px) {
   .mobile-menu {
     display: block;
     visibility: visible;
   }
-  .mobile-menu .btn-container{
+  .mobile-menu .btn-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -482,9 +490,9 @@ td {
     align-items: center;
   }
   .mobile-menu .btn-container .btn i {
-    margin-right: .8rem;
+    margin-right: 0.8rem;
   }
-  .dropdown::after{
+  .dropdown::after {
     display: none;
   }
   ::ng-deep .p-contextmenu {
@@ -504,7 +512,6 @@ td {
   .details .container {
     padding-left: 1rem !important;
     padding-right: 0 !important;
-
   }
   .details-body {
     min-height: 100vh;
@@ -516,11 +523,10 @@ td {
     flex-direction: column;
     gap: 1rem;
   }
-  .file-manager-container .header .title-container {
+  .full-container .file-manager-container .header .title-container {
     position: relative;
     left: 0;
     transform: none;
-    text-align: center;
   }
   .file-manager-container .header .right-container {
     display: flex;
@@ -546,7 +552,7 @@ td {
     align-items: center;
     gap: 1rem;
   }
-  .file-manager-container .header .title-container {
+  .full-container .file-manager-container .header .title-container {
     position: relative;
     left: 0;
     transform: none;
@@ -554,13 +560,5 @@ td {
   ::ng-deep html {
     overflow: auto !important;
     max-height: 90vh;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1200px) {
-  .file-manager-container .header .title-container {
-    position: relative;
-    left: 0;
-    transform: none;
   }
 }

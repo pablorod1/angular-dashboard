@@ -37,7 +37,7 @@
   padding: 1.5rem;
 }
 ::ng-deep .p-datatable-wrapper {
-  border-radius: 16px !important;
+   border-radius: 16px !important;
   max-height: 600px;
   height: 100%;
   overflow: auto;
@@ -45,6 +45,7 @@
 ::ng-deep .p-paginator{
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  padding: 1rem .5rem;
 }
 ::ng-deep .p-paginator-page{
   border-radius: 50%;

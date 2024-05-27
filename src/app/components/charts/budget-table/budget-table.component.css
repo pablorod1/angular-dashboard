@@ -12,8 +12,17 @@
 .table-data{
   font-weight: 400;
   font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .progress-bar-container {
   width: 50%;
 
+}
+.rounded-circle{
+  height: 5px;
+}
+::ng-deep .p-table ::-webkit-scrollbar {
+  width: 6px;
 }

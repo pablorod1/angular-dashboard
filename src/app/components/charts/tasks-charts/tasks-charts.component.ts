@@ -119,6 +119,18 @@ export class TasksChartsComponent implements OnInit {
             },
           },
         },
+        {
+          breakpoint: 350,
+          options: {
+            chart: {
+              width: 200,
+              height: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
+        }
       ],
     };
   }

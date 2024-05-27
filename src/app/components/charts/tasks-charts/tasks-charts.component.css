@@ -58,3 +58,12 @@
   font-weight: 300;
 }
 
+@media (max-width: 768px){
+  .task-type{
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .count{
+    font-size: 18px;
+  }
+}

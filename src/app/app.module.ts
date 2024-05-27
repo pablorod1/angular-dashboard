@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
@@ -29,25 +32,24 @@ import { MenuModule } from 'primeng/menu';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
-import {ProgressBarModule} from 'primeng/progressbar';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {ToastModule} from 'primeng/toast';
+import { ToastModule } from 'primeng/toast';
 import { PrimeNGConfig } from 'primeng/api';
-import {ChipModule} from 'primeng/chip';
-import {ChipsModule} from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
+import { ChipsModule } from 'primeng/chips';
 import { InputOtpModule } from 'primeng/inputotp';
-import {AccordionModule} from 'primeng/accordion';
+import { AccordionModule } from 'primeng/accordion';
 import { InputMaskModule } from 'primeng/inputmask';
-import {DividerModule} from 'primeng/divider';
-import {CarouselModule} from 'primeng/carousel';
-import {RatingModule} from 'primeng/rating';
-import { MegaMenuModule} from 'primeng/megamenu';
+import { DividerModule } from 'primeng/divider';
+import { CarouselModule } from 'primeng/carousel';
+import { RatingModule } from 'primeng/rating';
+import { MegaMenuModule } from 'primeng/megamenu';
 import { TagModule } from 'primeng/tag';
 import { ContextMenuModule } from 'primeng/contextmenu';
-import { DragDropModule } from 'primeng/dragdrop';
-import { MeterGroupModule} from 'primeng/metergroup';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -59,9 +61,15 @@ import { ListboxModule } from 'primeng/listbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+} from '@angular/cdk/drag-drop';
 
 // ApexCharts Module
-import {NgApexchartsModule} from 'ng-apexcharts';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 // Angular Editor
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -159,9 +167,6 @@ import { RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { EcommerceComponent } from './pages/ecommerce/ecommerce.component';
 import { InventoryComponent } from './pages/ecommerce/inventory/inventory.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -304,14 +309,20 @@ import { InventoryComponent } from './pages/ecommerce/inventory/inventory.compon
     SliderModule,
     ListboxModule,
     NgxPermissionsModule.forRoot(),
-
+    CdkDrag,
+    CdkDropList,
+    CdkDropListGroup,
   ],
   providers: [
     provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: ReloadInterceptorService, multi: true},
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ReloadInterceptorService,
+      multi: true,
+    },
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     AppComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

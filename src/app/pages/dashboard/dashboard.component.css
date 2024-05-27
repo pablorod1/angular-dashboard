@@ -235,6 +235,9 @@
   .profile-details{
     margin-bottom: 20px;
   }
+  ::ng-deep .mat-mdc-tab-labels{
+    margin-left: 0;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px){

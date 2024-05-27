@@ -20,7 +20,7 @@ import {
         style({
           height: 0,
           opacity: 0,
-          display: 'none'
+          display: 'none',
         })
       ),
       state(
@@ -28,7 +28,7 @@ import {
         style({
           transform: 'scaleY(100%)',
           opacity: 1,
-          display: 'block'
+          display: 'block',
         })
       ),
       transition('inactive => active', animate('800ms ease-in-out')),
@@ -88,6 +88,7 @@ export class InventoryComponent implements OnInit {
       favorite: false,
       status: '',
     };
+
   }
 
   getSeverity(status: string) {
@@ -114,8 +115,10 @@ export class InventoryComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files![0];
     const reader = new FileReader();
     reader.onload = () => {
-      if(this.showNewProductDialog) this.newProduct.imageUrl = reader.result as string;
-      else if (this.showEditProductDialog) this.editingProduct.imageUrl = reader.result as string;
+      if (this.showNewProductDialog)
+        this.newProduct.imageUrl = reader.result as string;
+      else if (this.showEditProductDialog)
+        this.editingProduct.imageUrl = reader.result as string;
     };
     reader.readAsDataURL(file);
   }
@@ -139,15 +142,18 @@ export class InventoryComponent implements OnInit {
 
   showProducts(): Product[] {
     if (this.searchQuery !== '') return this.searchProduct(this.searchQuery);
-    else if (this.selectedStatuses.length > 0)
+    else if (this.selectedStatuses.length > 0){
       return this.searchProductByStatus(this.selectedStatuses);
-    else if (this.selectedCategories.length > 0)
+    }
+    else if (this.selectedCategories.length > 0) {
       return this.searchProductsByCategory(this.selectedCategories);
-    else if (this.selectedRating > 0)
+    } else if (this.selectedRating > 0) {
       return this.searchProductsByRating(this.selectedRating);
-    else if (this.selectedPrices[0] >= 0 && this.selectedPrices[1] <= 2000)
+    } else if (this.selectedPrices[0] >= 0 && this.selectedPrices[1] <= 2000){
       return this.searchProductsByPriceRange(this.selectedPrices);
-    return this.products;
+    } else {
+      return this.products;
+    }
   }
 
   searchProduct(searchQuery: string): Product[] {
@@ -204,12 +210,12 @@ export class InventoryComponent implements OnInit {
       accept: () => {
         this.messageService.add({
           key: 'product',
-          severity: 'success',
+          severity: 'error',
           summary: 'Operation completed',
           detail: product.name + ' Deleted',
           icon: product.imageUrl,
           life: 3000,
-        })
+        });
         this.ecommerceService.deleteProduct(product);
         this.products = this.ecommerceService.getProducts();
       },
@@ -226,7 +232,7 @@ export class InventoryComponent implements OnInit {
     this.editingProduct = {} as Product;
   }
 
-  updateProduct(){
+  updateProduct() {
     // Save product on products array with its new changes
     this.products = this.products.map((product) =>
       product.id === this.editingProduct.id ? this.editingProduct : product

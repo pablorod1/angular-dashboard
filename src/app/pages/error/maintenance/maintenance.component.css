@@ -26,6 +26,7 @@ a{
   font-size: 72px;
   color: #4b4bdf;
   margin-bottom: 50px;
+  line-height: 4rem;
 }
 
 .error-text {

@@ -228,7 +228,10 @@
   font-size: 20px;
   color: #fff !important;
 }
+::ng-deep .navbar .button i{
+  color: #023047;
 
+}
 @media (max-width: 767px) {
   .section {
     overflow: auto !important;

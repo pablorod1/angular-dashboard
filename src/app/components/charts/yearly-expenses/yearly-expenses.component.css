@@ -4,7 +4,6 @@
   border: 0;
   border-radius: 15px;
   height: 100%;
-  max-height: 210px;
 }
 .info h2{
   font-size: clamp(1.5rem, 2vw, 2.2rem);
@@ -39,4 +38,18 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   animation: growDown 0.3s ease-in-out forwards;
   transform-origin: top center;
+}
+.chart{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 376px){
+  .chart{
+    flex-wrap: wrap;
+  }
+  .info{
+    width: 100%;
+    margin-top: .8rem;
+  }
 }

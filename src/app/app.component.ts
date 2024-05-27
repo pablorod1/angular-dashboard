@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const permissions = ['CLIENT', 'ADMIN'];
+    const permissions = ['CLIENT', 'ADMIN', 'SELLER'];
     this.permissionsService.loadPermissions(permissions);
 
     this.primengConfig.ripple = true; //optional animation

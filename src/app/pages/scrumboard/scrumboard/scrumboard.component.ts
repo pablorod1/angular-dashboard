@@ -14,6 +14,11 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-scrumboard',
@@ -89,7 +94,7 @@ export class ScrumboardComponent implements OnInit {
   selectedUsers: string[] = [];
 
   // Filters Data
-  status: string[] = ['To Do', 'In Progress', 'In Review', 'Done'];
+  statuses: any[] = [];
   priority: string[] = ['Low', 'Medium', 'High'];
   tags: string[] = ['Design', 'Marketing', 'Development', 'Concept'];
 
@@ -107,8 +112,8 @@ export class ScrumboardComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.cardTitle = params['title'];
       this.card =
-        this.cards.find((card) => card.title === this.cardTitle) ||
-        ({} as CardProject);
+      this.cards.find((card) => card.title === this.cardTitle) ||
+      ({} as CardProject);
     });
 
     if (this.card.title !== this.cardTitle){
@@ -117,6 +122,13 @@ export class ScrumboardComponent implements OnInit {
 
     // Inicializar tasks
     this.tasks = this.card.tasks;
+    this.statuses = [
+      { status: 'To Do', tasks: this.getTasksByStatus('To Do')},
+      { status: 'In Progress', tasks: this.getTasksByStatus('In Progress')},
+      { status: 'In Review', tasks: this.getTasksByStatus('In Review')},
+      { status: 'Done', tasks: this.getTasksByStatus('Done')},
+    ];
+    console.log(this.statuses[0]);
     this.newTask = {
       id: 0,
       title: '',
@@ -150,13 +162,25 @@ export class ScrumboardComponent implements OnInit {
   dragStart(task: Task) {
     this.selectedTask = task;
   }
-  drop(status: string) {
-    if (this.selectedTask) {
-      // Actualizar Status
+  drop(event: CdkDragDrop<Task[]>, status: string) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+    if (this.selectedTask){
       this.selectedTask.status = status;
     }
+    console.log(this.selectedTask);
+    console.log(status);
   }
-  dragEnd() {
+  dragEnd(status: string) {
+    this.selectedTask.status = status;
     this.selectedTask = {} as Task;
   }
 
@@ -223,6 +247,7 @@ export class ScrumboardComponent implements OnInit {
     } else if(this.tasks) {
       return this.tasks.filter((task) => task.status === status);
     }
+
     return [];
   }
 

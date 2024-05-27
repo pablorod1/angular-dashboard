@@ -77,20 +77,20 @@
 }
 .arrow-container :first-child{
   position: absolute;
-  bottom: 50px;
+  bottom: 5px;
   z-index: 1;
   animation: bounce 2s infinite;
 }
 .arrow-container :nth-child(2){
   position: absolute;
-  bottom: 70px;
+  bottom: 25px;
   z-index: 1;
   animation: bounce 2s infinite;
   animation-delay: .2s;
 }
 .arrow-container :nth-child(3){
   position: absolute;
-  bottom: 90px;
+  bottom: 45px;
   z-index: 1;
   animation: bounce 2s infinite;
   animation-delay: .4s;
