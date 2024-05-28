@@ -1,8 +1,8 @@
 <section class="section">
-  <div class="container d-flex justify-content-center align-items-center">
+  <div class="container d-flex justify-content-center align-items-center" [@titleAnimation]="animateTitle">
     <div class="row w-100">
       <div class="col-md-4">
-        <div class="title" *ngIf="animateTitle" @titleAnimation>
+        <div class="title" >
           <h1> Our Team </h1>
           <p class="text-muted"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias pariatur
             perspiciatis sapiente ratione deserunt voluptatum dolores necessitatibus ullam, delectus.</p>
@@ -11,7 +11,7 @@
             deserunt voluptatum dolores necessitatibus ullam, delectus.</p>
         </div>
       </div>
-      <div class="col-md-8 cards-container" *ngIf="animateCards" @cardsAnimation>
+      <div class="col-md-8 cards-container">
         <div class="row g-2">
           <div class="col-lg-4 col-md-6" *ngFor="let member of members | slice:1:7">
             <div class="card">

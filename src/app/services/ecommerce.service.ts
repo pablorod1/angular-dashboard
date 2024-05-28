@@ -122,6 +122,10 @@ export class EcommerceService {
     return this.furnitureProducts;
   }
 
+  getLatestsProducts(){
+    return this.furnitureProducts.slice(0, 4);
+  }
+
   addProduct(product: Product){
     this.furnitureProducts.push(product);
   }

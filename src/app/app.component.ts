@@ -6,18 +6,20 @@ import { NgxPermissionsService } from 'ngx-permissions';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-
 })
 export class AppComponent implements OnInit {
   title = 'Angular Template';
 
-  constructor(private primengConfig: PrimeNGConfig,
+  constructor(
+    private primengConfig: PrimeNGConfig,
     private permissionsService: NgxPermissionsService
   ) {}
 
   ngOnInit() {
-    const permissions = ['CLIENT', 'ADMIN', 'SELLER'];
-    this.permissionsService.loadPermissions(permissions);
+    //Localstorage perms
+    const role = localStorage.getItem('role') || '';
+    this.permissionsService.loadPermissions([role]);
+    console.log(role);
 
     this.primengConfig.ripple = true; //optional animation
     this.primengConfig.zIndex = {

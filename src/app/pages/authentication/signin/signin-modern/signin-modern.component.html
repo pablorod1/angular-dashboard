@@ -69,6 +69,10 @@
                   Password required.
                 </small>
               </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" formControlName="role">
+                <label class="form-check-label" for="flexSwitchCheckDefault"> Are you a seller? </label>
+              </div>
               <div class="btn-container py-3">
                 <button type="submit" class="btn submit-btn">Log In</button>
               </div>
@@ -96,3 +100,4 @@
     </div>
   </div>
 </section>
+<p-toast [position]="'bottom-right'"></p-toast>

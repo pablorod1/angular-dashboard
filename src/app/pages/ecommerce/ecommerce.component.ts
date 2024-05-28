@@ -11,6 +11,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class EcommerceComponent implements OnInit {
   products!: Product[];
+  latestsProducts!: Product[];
 
   // Active Filter
   activeFilter = 'all';
@@ -31,6 +32,7 @@ export class EcommerceComponent implements OnInit {
   ngOnInit() {
     //localStorage.clear();
     this.products = this.ecommerceService.getProducts();
+    this.latestsProducts = this.ecommerceService.getLatestsProducts();
     this.favoriteProducts = JSON.parse(
       localStorage.getItem('favoriteProducts') || '[]'
     );
@@ -56,6 +58,7 @@ export class EcommerceComponent implements OnInit {
 
   showAllProducts() {
     this.products = this.ecommerceService.getProducts();
+    this.activeFilter = 'all';
   }
   filterProductsByCategory(category: string) {
     this.products = this.ecommerceService

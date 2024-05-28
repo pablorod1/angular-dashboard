@@ -84,24 +84,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
   // Dashboard Paths
-  { path: 'dashboard', component: DashboardComponent,
-    canActivate: [ngxPermissionsGuard],
-    data: {
-      permissions: {
-        only: 'ADMIN',
-        redirectTo: '/error-500',
-      },
-    }
-   },
-  { path: 'analytics', component: AnalyticsComponent,
-    canActivate: [ngxPermissionsGuard],
-    data: {
-      permissions: {
-        only: 'ADMIN',
-        redirectTo: '/error-500',
-      },
-    }
-   },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'analytics', component: AnalyticsComponent },
   { path: 'poi', component: PoiComponent },
   // Authentication Paths
   // Confirmation Paths
@@ -154,7 +138,9 @@ const routes: Routes = [
       },
     },
   },
-  { path: 'invoice-table', component: InvoicesTableComponent,
+  {
+    path: 'invoice-table',
+    component: InvoicesTableComponent,
     canActivate: [ngxPermissionsGuard],
     data: {
       permissions: {
@@ -162,7 +148,7 @@ const routes: Routes = [
         redirectTo: '/error-500',
       },
     },
-   },
+  },
   // User Profile
   { path: 'profile', component: ProfileComponent },
   // Pricing Paths
@@ -202,24 +188,28 @@ const routes: Routes = [
   { path: 'scrumboard/:title', component: ScrumboardComponent },
 
   // Ecommerce
-  { path: 'ecommerce', component: EcommerceComponent,
+  {
+    path: 'ecommerce',
+    component: EcommerceComponent,
     canActivate: [ngxPermissionsGuard],
     data: {
       permissions: {
         only: ['CLIENT', 'SELLER'],
         redirectTo: '/error-500',
       },
-    }
-   },
-  { path: 'inventory', component: InventoryComponent,
+    },
+  },
+  {
+    path: 'inventory',
+    component: InventoryComponent,
     canActivate: [ngxPermissionsGuard],
     data: {
       permissions: {
         only: 'SELLER',
         redirectTo: '/error-500',
       },
-    }
-   },
+    },
+  },
 
   // incorrect url redirect to dashboard
   { path: '**', redirectTo: '/error-404' },

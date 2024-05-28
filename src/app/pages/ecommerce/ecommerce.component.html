@@ -23,7 +23,7 @@
       <h3 class="carousel-title"> Latest Products. <span class="text-muted"> Check our latests news. </span></h3>
     </div>
     <div class="carousel mt-4">
-      <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="false"
+      <p-carousel [value]="latestsProducts" [numVisible]="3" [numScroll]="1" [circular]="false"
         [responsiveOptions]="responsiveOptions" showIndicators="false">
         <ng-template let-product pTemplate="item">
           <div role="button"  class="m-2" >
@@ -70,7 +70,7 @@
       <button (click)="filterProductsByCategory('workspace')" type="button" class="rounded-button"
         [ngClass]="{'active': activeFilter === 'workspace'}"> Workspace </button>
     </div>
-    <div class="gallery">
+    <div class="gallery w-100">
       <div class="row g-5 w-100">
         <div class="col-lg-3 col-md-4" *ngFor="let product of products">
           <div role="button" class="card" (click)="selectProduct(product)">

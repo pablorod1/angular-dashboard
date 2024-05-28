@@ -19,14 +19,8 @@ import {
   animations: [
     trigger('titleAnimation', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-1000px)' }),
+        style({ opacity: 0, transform: 'translateY(-100px)' }),
         animate('800ms ease-out', style({ opacity: 1, transform: 'none' })),
-      ]),
-    ]),
-    trigger('cardsAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, scale: 0 }),
-        animate('1000ms ease-out', style({ opacity: 1, scale: 1 })),
       ]),
     ]),
   ]
@@ -42,7 +36,6 @@ export class TeamSection2Component implements OnInit {
 
       if (scrollOffset > 820) { // Adjust this value as needed
         this.animateTitle = true;
-        this.animateCards = true;
       }
     });
   }

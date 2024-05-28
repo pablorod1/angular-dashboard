@@ -116,22 +116,23 @@
     </div>
     <div class="tasks-container">
       <div class="card tasks-card p-2 px-3">
-        <div class="row mb-3">
-          <div class="col-lg-3 col-md-6 px-2" *ngFor="let value of statuses">
+        <div class="row mb-3" cdkDropListGroup>
+          <!-- To Do  -->
+          <div class="col-lg-3 col-md-6 px-2" >
             <div class="tasks-col">
-              <div class="task-status" [ngClass]="getStatusBackground(value.status)">
+              <div class="task-status" [ngClass]="getStatusBackground('To Do')">
                 <div class="status-title ms-2">
                   <span class="badge bg-white">
-                    <span class="badge" [ngClass]="getStatusBackground(value.status)"></span>
+                    <span class="badge" [ngClass]="getStatusBackground('To Do')"></span>
                   </span>
-                  <h3 [ngClass]="getStatusColor(value.status)"> {{value.status}} </h3>
+                  <h3 [ngClass]="getStatusColor('To Do')"> To Do </h3>
                 </div>
                 <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
               </div>
-              <div cdkDropListGroup>
-                <div  class="tasks-list" cdkDropList [cdkDropListData]="value.tasks" (cdkDropListDropped)="drop($event, value.status)">
+
+                <div  class="tasks-list" cdkDropList [cdkDropListData]="todoTasks" (cdkDropListDropped)="drop($event, 'To Do')">
                   <div role="button" cdkDrag (cdkDragStarted)="dragStart(task)"
-                    (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of getTasksByStatus(value.status)">
+                    (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of todoTasks">
                     <div *ngIf="task.taskImage" class="card-img">
                       <img [src]="task.taskImage" [alt]="task.title" class="task-img">
                     </div>
@@ -168,10 +169,174 @@
                     </div>
                   </div>
                 </div>
-              </div>
+
             </div>
           </div>
+          <!-- In Progress  -->
+          <div class="col-lg-3 col-md-6 px-2" >
+            <div class="tasks-col">
+              <div class="task-status" [ngClass]="getStatusBackground('In Progress')">
+                <div class="status-title ms-2">
+                  <span class="badge bg-white">
+                    <span class="badge" [ngClass]="getStatusBackground('In Progress')"></span>
+                  </span>
+                  <h3 [ngClass]="getStatusColor('In Progress')"> In Progress </h3>
+                </div>
+                <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
+              </div>
 
+                <div  class="tasks-list" cdkDropList [cdkDropListData]="inProgressTasks" (cdkDropListDropped)="drop($event, 'In Progress')">
+                  <div role="button" cdkDrag (cdkDragStarted)="dragStart(task)"
+                    (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of inProgressTasks">
+                    <div *ngIf="task.taskImage" class="card-img">
+                      <img [src]="task.taskImage" [alt]="task.title" class="task-img">
+                    </div>
+                    <div class="p-1">
+                      <div class="tags-container">
+                        <div class="tags">
+                          <span class="badge task-tag" [ngClass]="getTagColor(task.tags[0])"><i class="bi"
+                              [ngClass]="getTagIcon(task.tags[0])"></i> {{task.tags[0]}} </span>
+                          <span class="badge task-tag" [ngClass]="getPrioritySeverity(task.priority)"><i
+                              class="bi bi-speedometer2"></i> {{task.priority}} </span>
+                        </div>
+                        <div class="dropdown">
+                          <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                            type="button"><i class="bi bi-three-dots"></i></button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" role="button" (click)="editTask(task)"><i class="bi bi-pencil me-2"></i> Edit </a></li>
+                            <li><a class="dropdown-item" role="button" (click)="deleteTask(task)"><i class="bi bi-trash3 me-2"></i> Delete </a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="task-content">
+                        <h3 class="task-title"> {{task.title}} </h3>
+                        <p class="task-description"> {{task.description}} </p>
+                      </div>
+                      <div class="task-users">
+                        <div class="img-container">
+                          <img *ngFor="let user of task.users" [src]="user.imageUrl" [alt]="user.name" class="user-img">
+                        </div>
+                        <div class="btn-container">
+                          <span><i class="bi bi-paperclip"></i> 8 </span>
+                          <span><i class="bi bi-chat"></i> 20 </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          <!-- In Review  -->
+          <div class="col-lg-3 col-md-6 px-2" >
+            <div class="tasks-col">
+              <div class="task-status" [ngClass]="getStatusBackground('In Review')">
+                <div class="status-title ms-2">
+                  <span class="badge bg-white">
+                    <span class="badge" [ngClass]="getStatusBackground('In Review')"></span>
+                  </span>
+                  <h3 [ngClass]="getStatusColor('In Review')"> In Review </h3>
+                </div>
+                <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
+              </div>
+
+                <div  class="tasks-list" cdkDropList [cdkDropListData]="inReviewTasks" (cdkDropListDropped)="drop($event, 'In Review')">
+                  <div role="button" cdkDrag (cdkDragStarted)="dragStart(task)"
+                    (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of inReviewTasks">
+                    <div *ngIf="task.taskImage" class="card-img">
+                      <img [src]="task.taskImage" [alt]="task.title" class="task-img">
+                    </div>
+                    <div class="p-1">
+                      <div class="tags-container">
+                        <div class="tags">
+                          <span class="badge task-tag" [ngClass]="getTagColor(task.tags[0])"><i class="bi"
+                              [ngClass]="getTagIcon(task.tags[0])"></i> {{task.tags[0]}} </span>
+                          <span class="badge task-tag" [ngClass]="getPrioritySeverity(task.priority)"><i
+                              class="bi bi-speedometer2"></i> {{task.priority}} </span>
+                        </div>
+                        <div class="dropdown">
+                          <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                            type="button"><i class="bi bi-three-dots"></i></button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" role="button" (click)="editTask(task)"><i class="bi bi-pencil me-2"></i> Edit </a></li>
+                            <li><a class="dropdown-item" role="button" (click)="deleteTask(task)"><i class="bi bi-trash3 me-2"></i> Delete </a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="task-content">
+                        <h3 class="task-title"> {{task.title}} </h3>
+                        <p class="task-description"> {{task.description}} </p>
+                      </div>
+                      <div class="task-users">
+                        <div class="img-container">
+                          <img *ngFor="let user of task.users" [src]="user.imageUrl" [alt]="user.name" class="user-img">
+                        </div>
+                        <div class="btn-container">
+                          <span><i class="bi bi-paperclip"></i> 8 </span>
+                          <span><i class="bi bi-chat"></i> 20 </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          <!-- Done  -->
+          <div class="col-lg-3 col-md-6 px-2" >
+            <div class="tasks-col">
+              <div class="task-status" [ngClass]="getStatusBackground('Done')">
+                <div class="status-title ms-2">
+                  <span class="badge bg-white">
+                    <span class="badge" [ngClass]="getStatusBackground('Done')"></span>
+                  </span>
+                  <h3 [ngClass]="getStatusColor('Done')"> Done </h3>
+                </div>
+                <button class="btn" type="button"><i class="bi bi-three-dots"></i></button>
+              </div>
+
+                <div  class="tasks-list" cdkDropList [cdkDropListData]="doneTasks" (cdkDropListDropped)="drop($event, 'Done')">
+                  <div role="button" cdkDrag (cdkDragStarted)="dragStart(task)"
+                    (click)="selectTask(task)" class="task-card card p-1" *ngFor="let task of doneTasks">
+                    <div *ngIf="task.taskImage" class="card-img">
+                      <img [src]="task.taskImage" [alt]="task.title" class="task-img">
+                    </div>
+                    <div class="p-1">
+                      <div class="tags-container">
+                        <div class="tags">
+                          <span class="badge task-tag" [ngClass]="getTagColor(task.tags[0])"><i class="bi"
+                              [ngClass]="getTagIcon(task.tags[0])"></i> {{task.tags[0]}} </span>
+                          <span class="badge task-tag" [ngClass]="getPrioritySeverity(task.priority)"><i
+                              class="bi bi-speedometer2"></i> {{task.priority}} </span>
+                        </div>
+                        <div class="dropdown">
+                          <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                            type="button"><i class="bi bi-three-dots"></i></button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" role="button" (click)="editTask(task)"><i class="bi bi-pencil me-2"></i> Edit </a></li>
+                            <li><a class="dropdown-item" role="button" (click)="deleteTask(task)"><i class="bi bi-trash3 me-2"></i> Delete </a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="task-content">
+                        <h3 class="task-title"> {{task.title}} </h3>
+                        <p class="task-description"> {{task.description}} </p>
+                      </div>
+                      <div class="task-users">
+                        <div class="img-container">
+                          <img *ngFor="let user of task.users" [src]="user.imageUrl" [alt]="user.name" class="user-img">
+                        </div>
+                        <div class="btn-container">
+                          <span><i class="bi bi-paperclip"></i> 8 </span>
+                          <span><i class="bi bi-chat"></i> 20 </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -212,10 +377,10 @@
       <label class="form-label"> Status </label>
       <div class="radio-group-status">
         <div *ngFor="let status of statuses" class="form-check">
-          <input class="form-check-input" [(ngModel)]="newTask.status" value="{{status.status}}" type="radio"
-            name="statusRadioGroup" id="radio{{status.status}}">
-          <label class="form-check-label" for="radio{{status.status}}">
-            {{status.status}}
+          <input class="form-check-input" [(ngModel)]="newTask.status" value="{{status}}" type="radio"
+            name="statusRadioGroup" id="radio{{status}}">
+          <label class="form-check-label" for="radio{{status}}">
+            {{status}}
           </label>
         </div>
       </div>
@@ -305,10 +470,10 @@
       <label class="form-label "> Status </label>
       <div class="radio-group-status">
         <div *ngFor="let status of statuses" class="form-check">
-          <input class="form-check-input" [(ngModel)]="editingTask.status" value="{{status.status}}" type="radio"
-            name="statusRadioGroup" id="radio{{status.status}}">
-          <label class="form-check-label" for="radio{{status.status}}">
-            {{status.status}}
+          <input class="form-check-input" [(ngModel)]="editingTask.status" value="{{status}}" type="radio"
+            name="statusRadioGroup" id="radio{{status}}">
+          <label class="form-check-label" for="radio{{status}}">
+            {{status}}
           </label>
         </div>
       </div>

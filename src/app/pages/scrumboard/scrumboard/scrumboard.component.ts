@@ -61,7 +61,7 @@ import {
       ),
       transition('inactive => active', animate('800ms ease-in-out')),
       transition('active => inactive', animate('800ms ease-in-out')),
-    ])
+    ]),
   ],
 })
 export class ScrumboardComponent implements OnInit {
@@ -81,6 +81,11 @@ export class ScrumboardComponent implements OnInit {
   newTask!: Task;
   editingTask!: Task;
   filteredTasks!: Task[];
+
+  todoTasks: Task[] = [];
+  inProgressTasks: Task[] = [];
+  inReviewTasks: Task[] = [];
+  doneTasks: Task[] = [];
 
   showEditTaskDialog: boolean = false;
   showAddTaskDialog: boolean = false;
@@ -112,23 +117,22 @@ export class ScrumboardComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.cardTitle = params['title'];
       this.card =
-      this.cards.find((card) => card.title === this.cardTitle) ||
-      ({} as CardProject);
+        this.cards.find((card) => card.title === this.cardTitle) ||
+        ({} as CardProject);
     });
 
-    if (this.card.title !== this.cardTitle){
+    if (this.card.title !== this.cardTitle) {
       this.router.navigate(['/scrumboard-home']);
     }
 
     // Inicializar tasks
     this.tasks = this.card.tasks;
-    this.statuses = [
-      { status: 'To Do', tasks: this.getTasksByStatus('To Do')},
-      { status: 'In Progress', tasks: this.getTasksByStatus('In Progress')},
-      { status: 'In Review', tasks: this.getTasksByStatus('In Review')},
-      { status: 'Done', tasks: this.getTasksByStatus('Done')},
-    ];
-    console.log(this.statuses[0]);
+    this.todoTasks = this.getTasksByStatus('To Do');
+    this.inProgressTasks = this.getTasksByStatus('In Progress');
+    this.inReviewTasks = this.getTasksByStatus('In Review');
+    this.doneTasks = this.getTasksByStatus('Done');
+
+    this.statuses = ['To Do', 'In Progress', 'In Review', 'Done']
     this.newTask = {
       id: 0,
       title: '',
@@ -164,20 +168,20 @@ export class ScrumboardComponent implements OnInit {
   }
   drop(event: CdkDragDrop<Task[]>, status: string) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
-    if (this.selectedTask){
-      this.selectedTask.status = status;
-    }
-    console.log(this.selectedTask);
-    console.log(status);
+    this.selectedTask.status = status;
   }
   dragEnd(status: string) {
     this.selectedTask.status = status;
@@ -244,7 +248,7 @@ export class ScrumboardComponent implements OnInit {
       return this.getFilteredTasksByUsers(this.selectedUsers).filter(
         (task) => task.status === status
       );
-    } else if(this.tasks) {
+    } else if (this.tasks) {
       return this.tasks.filter((task) => task.status === status);
     }
 
@@ -340,7 +344,7 @@ export class ScrumboardComponent implements OnInit {
     }
   }
 
-  getMessageSeverity(status: string): string{
+  getMessageSeverity(status: string): string {
     switch (status) {
       case 'To Do':
         return 'secondary';
@@ -370,7 +374,7 @@ export class ScrumboardComponent implements OnInit {
     }
   }
 
-  getStatusIcon(status: string): string{
+  getStatusIcon(status: string): string {
     switch (status) {
       case 'To Do':
         return 'bi-clipboard';
@@ -449,9 +453,13 @@ export class ScrumboardComponent implements OnInit {
     return `${day} ${month} ${year}`;
   }
 
-  deleteTask(task:Task){
+  unformatDate(date: string): Date{
+    return new Date(date);
+  }
+
+  deleteTask(task: Task) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete' + task.title +' ?',
+      message: 'Are you sure you want to delete' + task.title + ' ?',
       header: 'Confirmation',
       icon: 'bi bi-exclamation-triangle',
       accept: () => {
@@ -467,12 +475,12 @@ export class ScrumboardComponent implements OnInit {
     });
   }
 
-  editTask(task: Task){
-    this.editingTask = {...task};
+  editTask(task: Task) {
+    this.editingTask = { ...task };
     this.showEditTaskDialog = true;
   }
 
-  updateTask(){
+  updateTask() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to update this task?',
       header: 'Confirmation',
@@ -491,7 +499,7 @@ export class ScrumboardComponent implements OnInit {
     });
   }
 
-  cancelEditTask(){
+  cancelEditTask() {
     this.showEditTaskDialog = false;
     this.editingTask = {
       id: 0,
@@ -506,15 +514,15 @@ export class ScrumboardComponent implements OnInit {
     };
   }
 
-  toggleInviteUsers(){
+  toggleInviteUsers() {
     this.showInviteUsersDialog = true;
     this.invitedUsers = [];
   }
-  cancelInvite(){
+  cancelInvite() {
     this.showInviteUsersDialog = false;
     this.invitedUsers = [];
   }
-  inviteUsers(){
+  inviteUsers() {
     this.showInviteUsersDialog = false;
     // Añadir invitedUsers a card.users
     this.card.users = this.card.users.concat(this.invitedUsers);
@@ -526,13 +534,16 @@ export class ScrumboardComponent implements OnInit {
     });
   }
   filterExistingUsers(): User[] {
-    let existingUserNames = this.card.users.map(user => user.name);
-    return this.users.filter(user => !existingUserNames.includes(user.name));
+    if (this.card && this.card.users) {
+      let existingUserNames = this.card.users.map((user) => user.name);
+      return this.users.filter((user) => !existingUserNames.includes(user.name));
+    } else {
+      return this.users;
+    }
   }
 
-  formatTitle(title: string): string{
-    if (title)
-    return title.toLowerCase().replace(/-/g, ' ');
-    return ''
+  formatTitle(title: string): string {
+    if (title) return title.toLowerCase().replace(/-/g, ' ');
+    return '';
   }
 }
