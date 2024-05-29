@@ -37,7 +37,7 @@
   padding: 1.5rem;
 }
 ::ng-deep .p-datatable-wrapper {
-   border-radius: 16px !important;
+   border-radius: 16px;
   max-height: 600px;
   height: 100%;
   overflow: auto;

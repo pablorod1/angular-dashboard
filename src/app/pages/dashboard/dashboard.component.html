@@ -1,5 +1,5 @@
 <section class="section">
-  <div class="container profile-container d-flex justify-content-between align-items-center mb-5">
+  <div class="container profile-container d-flex justify-content-between align-items-center">
     <div class="row profile w-100 d-flex justify-content-center align-items-center" @titleAnimation>
       <div class="col-md-3 d-flex justify-content-end  profile-image">
         <img pTooltip="Go to your profile" tooltipPosition="top" role="button" routerLink="/profile" loading="lazy" class="profile-picture" src="../../../assets/profile-pictures/profile-picture.webp" alt="Profile Image">
@@ -11,8 +11,8 @@
     </div>
     <div class="btn-container d-flex align-items-center gap-3" @buttonsAnimation
       (@buttonsAnimation.done)="buttonsAnimationFinished = true">
-      <button class="btn messages-btn"><i class="bi bi-envelope-fill px-1"></i> Messages </button>
-      <button class="btn settings-btn" routerLink="/acc-settings"><i class="bi bi-gear px-1"></i> Settings </button>
+      <button routerLink="/file-manager" class="btn messages-btn"><i class="bi bi-hdd me-2"></i> My Unit </button>
+      <button class="btn settings-btn" routerLink="/acc-settings"><i class="bi bi-gear me-2"></i> Settings </button>
     </div>
   </div>
   <button class="dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
