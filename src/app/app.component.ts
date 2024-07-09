@@ -17,9 +17,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     //Localstorage perms
-    const role = localStorage.getItem('role') || '';
-    this.permissionsService.loadPermissions([role]);
-    console.log(role);
+    // const role = localStorage.getItem('role') || '';
+    // Load Perms CLIENT SELLER
+
+    this.permissionsService.loadPermissions(['CLIENT', 'SELLER']);
 
     this.primengConfig.ripple = true; //optional animation
     this.primengConfig.zIndex = {
