@@ -36,8 +36,8 @@ export class InvoicesTableDataService {
       {
         id: 1,
         invoice: '#INV-001001',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'John Doe', email: 'johndoe@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture2.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'John Doe', email: 'johndoe@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture2.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1000, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},
@@ -51,8 +51,8 @@ export class InvoicesTableDataService {
       {
         id: 2,
         invoice: '#INV-001002',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'Jessica Stones', email: 'jessicastones@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture3.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'Jessica Stones', email: 'jessicastones@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture3.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1000, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},
@@ -66,8 +66,8 @@ export class InvoicesTableDataService {
       {
         id: 3,
         invoice: '#INV-001003',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'Pedro López', email: 'pedrolopez@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture4.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'Pedro López', email: 'pedrolopez@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture4.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1500, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},
@@ -81,8 +81,8 @@ export class InvoicesTableDataService {
       {
         id: 4,
         invoice: '#INV-001004',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'Juan Pérez', email: 'juanperez@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture7.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'Juan Pérez', email: 'juanperez@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture7.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1000, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},
@@ -96,8 +96,8 @@ export class InvoicesTableDataService {
       {
         id: 5,
         invoice: '#INV-001005',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'María Elena', email: 'mariaelena@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture5.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'María Elena', email: 'mariaelena@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture5.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1000, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},
@@ -111,8 +111,8 @@ export class InvoicesTableDataService {
       {
         id: 6,
         invoice: '#INV-001006',
-        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@lucentialab.es', address: 'Calle de la Princesa, 1, 28008 Madrid'},
-        billTo: {name: 'Carlos Rodríguez', email: 'carlosrodriguez@lucentialab.es', imageUrl: '/assets/profile-pictures/profile-picture6.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billFrom: {name: 'Javier Martínez', email: 'javiermartinez@gmail.com', address: 'Calle de la Princesa, 1, 28008 Madrid'},
+        billTo: {name: 'Carlos Rodríguez', email: 'carlosrodriguez@gmail.com', imageUrl: '/assets/profile-pictures/profile-picture6.webp', address: 'Calle de la Princesa, 1, 28008 Madrid'},
         products: [
           {name: 'Product 1', price: 1000, quantity: 1},
           {name: 'Product 2', price: 2000, quantity: 2},

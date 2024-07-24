@@ -4,7 +4,7 @@
       <h1>Coming Soon</h1>
       <h3>Our website is under construction. We'll be here soon with our new awesome site,<br> subscribe to be notified.
       </h3>
-      <div class="countdown-timer">
+      <div *ngIf="days !== 0 && hours !== 0 && minutes !== 0 && seconds !== 0" class="countdown-timer">
         <div class="row pt-2 text-white d-flex justify-content-center align-items-center">
           <div class="col-2">
             <span class="countdown-timer-number">{{days}}</span>
@@ -33,6 +33,35 @@
           </div>
         </div>
       </div>
+      <div *ngIf="days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0" class="countdown-timer">
+        <div class="row pt-2 text-white d-flex justify-content-center align-items-center">
+          <div class="col-2">
+            <span class="countdown-timer-number">0</span>
+            <span class="countdown-timer-text">Days</span>
+          </div>
+          <div class="col-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-2">
+            <span class="countdown-timer-number">0</span>
+            <span class="countdown-timer-text">Hours</span>
+          </div>
+          <div class="col-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-2">
+            <span class="countdown-timer-number">0</span>
+            <span class="countdown-timer-text">Minutes</span>
+          </div>
+          <div class="col-1">
+            <span class="separator">:</span>
+          </div>
+          <div class="col-2">
+            <span class="countdown-timer-number">0</span>
+            <span class="countdown-timer-text">Seconds</span>
+          </div>
+        </div>
+      </div>
       <div class="btn-container">
         <button (click)="toggleDialog()" type="button" class="notified-btn"> Get Notified </button>
         <p-dialog [modal]="true" [closable]="false" [dismissableMask]="true" [visible]="showDialog" [draggable]="false"
@@ -44,7 +73,7 @@
               </button>
             </div>
             <div class="image-container mb-5">
-              <img loading="lazy" src="../../../assets/bell-icon.png">
+              <img loading="lazy" src="../../../assets/icons/bell-icon.webp">
             </div>
             <div class="newsletter-title">
               <h1> Subscribe to our Newsletter </h1>

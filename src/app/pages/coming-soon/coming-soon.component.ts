@@ -19,31 +19,34 @@ export class ComingSoonComponent implements OnInit {
   }
 
   startCountdown(){
-    const countDownDate = new Date('Jun 28, 2024 13:00:00').getTime();
+    const countDownDate = new Date('Jul 30, 2024 12:31:20').getTime();
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-
-      // Calculo de tiempo
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      this.countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      this.days = days;
-      this.hours = hours;
-      this.minutes = minutes;
-      this.seconds = seconds;
-
-
-      if (distance < 0) {
-        clearInterval(this.countdown);
-        this.countdown = "COUNTDOWN FINISHED!";
-      }
-    }, 1000);
-
+    if (this.days === 0 && this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
+      this.days = 0;
+      this.hours = 0;
+      this.minutes = 0;
+      this.seconds = 0;
+      this.countdown = 'The time is up!';
+    } else {
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = countDownDate - now;
+  
+        // Calculo de tiempo
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+        this.countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        this.days = days;
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+  
+  
+      }, 1000);
+    }
   }
   toggleDialog(){
     this.showDialog = !this.showDialog;

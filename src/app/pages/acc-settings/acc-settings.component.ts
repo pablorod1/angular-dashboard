@@ -13,7 +13,7 @@ export class AccSettingsComponent implements OnInit {
   // Profile default data
   firstName = 'Javier';
   lastName = 'Martínez';
-  email = 'javiermartinez@lucentialab.es';
+  email = 'javiermartinez@gmail.com';
   profilePicture = '../../../assets/profile-pictures/profile-picture.webp';
   currentPassword = '123456';
   newPassword = '';

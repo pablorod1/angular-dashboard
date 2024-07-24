@@ -14,7 +14,7 @@ export class ProfileMenuComponent implements OnInit {
     this.items = [
       {
         label: 'Signed in as',
-        description: 'javiermartinez@lucentialab.es',
+        description: 'javiermartinez@gmail.com',
       },
       {
         separator: true,
